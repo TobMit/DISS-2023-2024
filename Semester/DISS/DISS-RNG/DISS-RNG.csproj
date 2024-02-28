@@ -3,13 +3,9 @@
     <PropertyGroup>
         <OutputType>Exe</OutputType>
         <TargetFramework>net7.0</TargetFramework>
-        <RootNamespace>Cviko_T2</RootNamespace>
         <ImplicitUsings>enable</ImplicitUsings>
         <Nullable>enable</Nullable>
+        <RootNamespace>DISS</RootNamespace>
     </PropertyGroup>
-
-    <ItemGroup>
-      <PackageReference Include="UNIZA.FRI.RandomNumberGenerators" Version="1.0.1" />
-    </ItemGroup>
 
 </Project>

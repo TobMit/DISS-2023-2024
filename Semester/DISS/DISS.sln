@@ -1,0 +1,22 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DISS-RNG", "DISS-RNG\DISS-RNG.csproj", "{33470D53-E54E-49A8-B9D2-B9FAA9B24B16}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DISS-RNG-Tests", "DISS-RNG-Tests\DISS-RNG-Tests.csproj", "{D1C1EB4E-97B3-43BA-8355-0C19362BEBDD}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{33470D53-E54E-49A8-B9D2-B9FAA9B24B16}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{33470D53-E54E-49A8-B9D2-B9FAA9B24B16}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{33470D53-E54E-49A8-B9D2-B9FAA9B24B16}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{33470D53-E54E-49A8-B9D2-B9FAA9B24B16}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D1C1EB4E-97B3-43BA-8355-0C19362BEBDD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D1C1EB4E-97B3-43BA-8355-0C19362BEBDD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D1C1EB4E-97B3-43BA-8355-0C19362BEBDD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D1C1EB4E-97B3-43BA-8355-0C19362BEBDD}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal
