@@ -1,17 +1,11 @@
-using DISS.Random.Discrete;
+using DISS.Random.Continous;
 
 namespace DISS_RNG_Tests;
 
-public class DiscreteUniformTests
+public class ContinuousUniformTests
 {
-    
-    [SetUp]
-    public void Setup()
-    {
-    }
-
     [Test]
-    public void TestDiscreteUniform()
+    public void TestContinuousUniform()
     {
         var rng = new Uniform(0, 100, 0);
         var rng2 = new Uniform(0, 100, 0);
@@ -20,14 +14,14 @@ public class DiscreteUniformTests
             Assert.That(rng2.Next(), Is.EqualTo(rng.Next()));
         }
     }
-
+    
     [Test]
     public void TestRange()
     {
-        int min = -5;
-        int max = 15;
+        const double min = -5.3;
+        const double max = 15.6;
         var rng = new Uniform(min, max, 0);
-        for (int i = 0; i < 1000; i++)
+        for (int i = 0; i < 1000000; i++)
         {
             var tmp = rng.Next();
             Assert.That(tmp, Is.GreaterThanOrEqualTo(min));
