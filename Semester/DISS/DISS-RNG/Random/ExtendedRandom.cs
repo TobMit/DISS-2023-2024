@@ -8,7 +8,7 @@ public abstract class ExtendedRandom<T>
 { 
     protected int Seed { get; set; }
 
-    public System.Random generator { get; set; }
+    protected System.Random generator { get; set; }
     
     public ExtendedRandom()
     {

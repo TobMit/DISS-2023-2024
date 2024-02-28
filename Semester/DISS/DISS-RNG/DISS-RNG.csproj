@@ -8,4 +8,8 @@
         <RootNamespace>DISS</RootNamespace>
     </PropertyGroup>
 
+    <ItemGroup>
+      <ProjectReference Include="..\DISS-HelperClasses\DISS-HelperClasses.csproj" />
+    </ItemGroup>
+
 </Project>

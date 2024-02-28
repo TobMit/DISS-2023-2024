@@ -25,7 +25,7 @@ public class ContinuousUniformTests
         {
             var tmp = rng.Next();
             Assert.That(tmp, Is.GreaterThanOrEqualTo(min));
-            Assert.That(tmp, Is.LessThanOrEqualTo(max));
+            Assert.That(tmp, Is.LessThan(max));
         }
     }
 }

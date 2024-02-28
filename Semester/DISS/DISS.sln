@@ -4,6 +4,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DISS-RNG", "DISS-RNG\DISS-R
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DISS-RNG-Tests", "DISS-RNG-Tests\DISS-RNG-Tests.csproj", "{D1C1EB4E-97B3-43BA-8355-0C19362BEBDD}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DISS-HelperClasses", "DISS-HelperClasses\DISS-HelperClasses.csproj", "{23ECD654-AEB7-4E6C-A511-82909C76C680}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -18,5 +20,9 @@ Global
 		{D1C1EB4E-97B3-43BA-8355-0C19362BEBDD}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D1C1EB4E-97B3-43BA-8355-0C19362BEBDD}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D1C1EB4E-97B3-43BA-8355-0C19362BEBDD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{23ECD654-AEB7-4E6C-A511-82909C76C680}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{23ECD654-AEB7-4E6C-A511-82909C76C680}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{23ECD654-AEB7-4E6C-A511-82909C76C680}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{23ECD654-AEB7-4E6C-A511-82909C76C680}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
