@@ -2,6 +2,7 @@
 
 using DISS_HelperClasses;
 using DISS_MonteCarloCore.Core;
+using DISS.Random;
 using DISS.Random.Continous;
 
 class TestMonteCarlo : MonteCarloCore<double>
@@ -75,38 +76,63 @@ class Program
 {
     static void Main(string[] args)
     {
-        TestMonteCarlo test = new TestMonteCarlo(10000000, 0);
-        test.Run();
-        bool continueRunning = true;
+        List<EmpiricBase<double>.EmpiricData<double>> list = new();
+        // U = <0.1, 0.3); p = 0.1
+        // U = <0.3, 0.8); p = 0.35
+        // U = <0.8, 1.2); p = 0.2
+        // U = <1.2, 2.5); p = 0.15
+        // U = <2.5, 3.8); p = 0.15
+        // U = <3.8, 4.8); p = 0.05
+        list.Add(new(0.1, 0.3, 0.1));
+        list.Add(new(0.3, 0.8, 0.35));
+        list.Add(new(0.8, 1.2, 0.2));
+        list.Add(new(1.2, 2.5, 0.15));
+        list.Add(new(2.5, 3.8, 0.15));
+        list.Add(new(3.8, 4.8, 0.05));
+        Empiric test = new(list);
         
-        while (test.IsRunning)
+        // save 1000 000 values to file
+        using (StreamWriter sw = new("empiric.txt"))
         {
-            // Console.WriteLine("Program: before read Event Wait");
-            test.ReadEvent.Wait();
-
-            if (!test.IsRunning)
+            for (int i = 0; i < 1000000; i++)
             {
-                test.ReadEvent.Reset();
-                break;
+                sw.WriteLine(test.Next());
             }
-            
-        
-            lock (test.Vysledky)
-            {
-                Console.WriteLine($"Aktualny vysledok je: {test.Vysledky[^1].First} cislo rep: {test.Vysledky[^1].Second}");
-                Console.WriteLine($"Aktualnz pocet zaznamenannych replikacii je: {test.Vysledky.Count}");
+        } 
 
-                if (test.Vysledky.Last().Second > 1000)
-                {
-                    Console.WriteLine("---------------- Stopping simulation -----------------");
-                    test.Stop();
-                }
-            }
-            continueRunning = test.IsRunning;
-            test.ReadEvent.Reset();
-            // Console.WriteLine("Program: after read Event Reset");
-        }
-        test.End();
-        Console.WriteLine($"Fynaliny vysledok je: {test.Vysledky[^1].First} cislo rep: {test.Vysledky[^1].Second}");
+
+        // TestMonteCarlo test = new TestMonteCarlo(1000000000, 0);
+        // test.Run();
+        // bool continueRunning = true;
+        //
+        // while (test.IsRunning)
+        // {
+        //     // Console.WriteLine("Program: before read Event Wait");
+        //     test.ReadEvent.Wait();
+        //
+        //     if (!test.IsRunning)
+        //     {
+        //         test.ReadEvent.Reset();
+        //         break;
+        //     }
+        //     
+        //
+        //     lock (test.Vysledky)
+        //     {
+        //         Console.WriteLine($"Aktualny vysledok je: {test.Vysledky[^1].First} cislo rep: {test.Vysledky[^1].Second}");
+        //         Console.WriteLine($"Aktualnz pocet zaznamenannych replikacii je: {test.Vysledky.Count}");
+        //
+        //         // if (test.Vysledky.Last().Second > 1000000)
+        //         // {
+        //         //     Console.WriteLine("---------------- Stopping simulation -----------------");
+        //         //     test.Stop();
+        //         // }
+        //     }
+        //     continueRunning = test.IsRunning;
+        //     test.ReadEvent.Reset();
+        //     // Console.WriteLine("Program: after read Event Reset");
+        // }
+        // test.End();
+        // Console.WriteLine($"Fynaliny vysledok je: {test.Vysledky[^1].First} cislo rep: {test.Vysledky[^1].Second}");
     }
 }

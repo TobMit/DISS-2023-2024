@@ -41,6 +41,8 @@
     // spojity emyprický
     // ...
     // !!!!!! overiť si to v imput analyzesri
+    // keď máme pravdepodobnosť že sa mi delí <0,1) a chcem pravdepodobnosť 60% tak používam podmienku x < 0,6
+    // ak by sme tam dali <= 0.6 tak by nám to mohlo robiť problémy
 
 
 // treba to poslať do 10
