@@ -46,7 +46,7 @@ public abstract class MonteCarloCore
         _stop = true;
     }
 
-    void SimulationThread()
+    private void SimulationThread()
     {
         //Console.WriteLine("Simulation thread started.");
         BeforeAllReplications();
