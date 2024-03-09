@@ -14,39 +14,79 @@ using LiveCharts.Wpf;
 public class MainViewModel : ObservableObjects
 {
 	private List<double> listLiveCharts;
-    private TestMonteCarlo testMonteCarlo;
-
-	public List<double> ListLiveCharts
-	{
-		get { return listLiveCharts; }
-        set
-        {
-            listLiveCharts = value;
-            OnPropertyChanged();
-        }
-	}
+    private ModelFirstVariant modelFirstVariant;
+    private ModelSecondVariant modelSecondVariant;
+    private ModelThirdVariant modelThirdVariant;
 
 
-    private SeriesCollection myVar;
+    private SeriesCollection seriesCollectionVariantA;
 
-    public SeriesCollection MyProperty
+    public SeriesCollection SeriesCollectionVariantA
     {
-        get { return myVar; }
+        get { return seriesCollectionVariantA; }
         set
         {
-            myVar = value; 
+            seriesCollectionVariantA = value;
             OnPropertyChanged();
         }
     }
 
-    private List<string> labels;
+    private List<string> labelsVariantA;
 
-    public List<string> Labels
+    public List<string> LabelsVariantA
     {
-        get { return labels; }
+        get { return labelsVariantA; }
         set
         {
-            labels = value;
+            labelsVariantA = value;
+            OnPropertyChanged();
+        }
+    }
+
+    private SeriesCollection seriesCollectionVariantB;
+
+    public SeriesCollection SeriesCollectionVariantB
+    {
+        get { return seriesCollectionVariantB; }
+        set
+        {
+            seriesCollectionVariantB = value;
+            OnPropertyChanged();
+        }
+    }
+
+    private List<string> labelsVariantB;
+
+    public List<string> LabelsVariantB
+    {
+        get { return labelsVariantB; }
+        set
+        {
+            labelsVariantB = value;
+            OnPropertyChanged();
+        }
+    }
+
+    private SeriesCollection seriesCollectionVariantC;
+
+    public SeriesCollection SeriesCollectionVariantC
+    {
+        get { return seriesCollectionVariantC; }
+        set
+        {
+            seriesCollectionVariantC = value;
+            OnPropertyChanged();
+        }
+    }
+
+    private List<string> labelsVariantC;
+
+    public List<string> LabelsVariantC
+    {
+        get { return labelsVariantC; }
+        set
+        {
+            labelsVariantC = value;
             OnPropertyChanged();
         }
     }
@@ -129,59 +169,6 @@ public class MainViewModel : ObservableObjects
         VysledokPokusuDva = $"2. pokus: {toPrintZeros}";
         VysledokPokusuTri = $"3. pokus: {toPrintZeros}";
 
-        /*
-        listLiveCharts = new();
-        List<double> temp = new(1000);
-        Uniform generator = new(0.0, 100.0);
-        for (int i = 0; i < 1000; i++)
-        {
-            temp.Add(generator.Next());
-        }
-        ListLiveCharts = new(temp);
-        */
-        /*
-        List<double> displayData = ListLiveCharts
-            .Select((value, index) => new { value, index })
-            .Where(x => x.index % 10 == 0)
-            .Select(x => x.value)
-            .ToList();
-
-        var tmp = new List<string>();
-        for (int i = 0; i < ListLiveCharts.Count; i++)
-        {
-            tmp.Add(i.ToString() + " M");
-        }
-        Labels = new(tmp);
-        */
-        /*
-        List<double> displayData = new();
-        List<string> tmpLabels = new();
-
-        int step = (int)(ListLiveCharts.Count * 0.01);
-
-        for (int i = 0; i < ListLiveCharts.Count; i += step)
-        {
-            displayData.Add(ListLiveCharts[i]);
-            tmpLabels.Add(i.ToString() + " M");
-        }
-
-        Labels = tmpLabels;
-
-        MyProperty = new SeriesCollection
-        {
-            new LineSeries
-            {
-                Title = "Seria 1",
-                Values = new ChartValues<double>(displayData),
-                Fill = Brushes.Transparent,
-                //PointGeometry = null
-            }
-        };
-        */
-
-
-        //VisibilityCharts = Visibility.Visible;
-
     }
 
     private void InicialiseButtons()
@@ -192,41 +179,46 @@ public class MainViewModel : ObservableObjects
 
     private void StartMonteCarlo()
     {
-        testMonteCarlo = new(NumberOfRelication, cutFirst);
-        testMonteCarlo.Vysledky.CollectionChanged += Vysledky_CollectionChanged;
-        testMonteCarlo.Run();
+        modelFirstVariant = new(numberOfRepplication, cutFirst);
+        modelFirstVariant.Vysledky.CollectionChanged += VariantA_CollectionChanged;
+        modelSecondVariant = new(numberOfRepplication, cutFirst);
+        modelSecondVariant.Vysledky.CollectionChanged += VariantB_CollectionChanged;
+        modelThirdVariant = new(numberOfRepplication, cutFirst);
+        modelThirdVariant.Vysledky.CollectionChanged += VariantC_CollectionChanged;
+
+        modelFirstVariant.Run();
+        modelSecondVariant.Run();
+        modelThirdVariant.Run();
+
     }
 
     private void StopMonteCarlo()
     {
-        testMonteCarlo.Stop();
+        //testMonteCarlo.Stop();
+        modelFirstVariant.Stop();
+        modelSecondVariant.Stop();
+        modelThirdVariant.Stop();
     }
 
-    private void Vysledky_CollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
+
+    private void VariantA_CollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
     {
         Application.Current.Dispatcher.Invoke(() =>
         {
             List<double> displayData = new();
             List<string> tmpLabels = new();
 
-            int step = (int)(testMonteCarlo.Vysledky.Count * 0.1);
-            if (step < 1)
+            for (int i = 0; i < modelFirstVariant.Vysledky.Count; i++)
             {
-                step = 1;
+                displayData.Add(modelFirstVariant.Vysledky[i].First);
+                tmpLabels.Add(modelFirstVariant.Vysledky[i].Second.ToString());
             }
 
-            //for (int i = 0; i < testMonteCarlo.Vysledky.Count; i += step)
-            for (int i = 0; i < testMonteCarlo.Vysledky.Count; i++)
-            {
-                displayData.Add(testMonteCarlo.Vysledky[i].First);
-                tmpLabels.Add(testMonteCarlo.Vysledky[i].Second.ToString());
-            }
+            LabelsVariantA = tmpLabels;
 
-            Labels = tmpLabels;
-
-            if (MyProperty is null)
+            if (SeriesCollectionVariantA is null)
             {
-                MyProperty = new SeriesCollection
+                SeriesCollectionVariantA = new SeriesCollection
                 {
                     new LineSeries
                     {
@@ -243,8 +235,90 @@ public class MainViewModel : ObservableObjects
             }
             else
             {
-                MyProperty[0].Values.Add(displayData.Last());
+                SeriesCollectionVariantA[0].Values.Add(displayData.Last());
                 VysledokPokusuJeden = $"1. Pokus: {displayData.Last()}";
+            }
+
+        });
+    }
+
+    private void VariantB_CollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
+    {
+        Application.Current.Dispatcher.Invoke(() =>
+        {
+            List<double> displayData = new();
+            List<string> tmpLabels = new();
+
+            for (int i = 0; i < modelSecondVariant.Vysledky.Count; i++)
+            {
+                displayData.Add(modelSecondVariant.Vysledky[i].First);
+                tmpLabels.Add(modelSecondVariant.Vysledky[i].Second.ToString());
+            }
+
+            LabelsVariantB = tmpLabels;
+
+            if (SeriesCollectionVariantB is null)
+            {
+                SeriesCollectionVariantB = new SeriesCollection
+                {
+                    new LineSeries
+                    {
+                        Title = "Seria 2",
+                        Values = new ChartValues<double>(displayData),
+                        Fill = Brushes.Transparent,
+                        //PointGeometry = null
+                    }
+                };
+                if (displayData.Count >= 1)
+                {
+                    VysledokPokusuDva = $"2. Pokus: {displayData.Last()}";
+                }
+            }
+            else
+            {
+                SeriesCollectionVariantB[0].Values.Add(displayData.Last());
+                VysledokPokusuDva = $"2. Pokus: {displayData.Last()}";
+            }
+
+        });
+    }
+
+    private void VariantC_CollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
+    {
+        Application.Current.Dispatcher.Invoke(() =>
+        {
+            List<double> displayData = new();
+            List<string> tmpLabels = new();
+
+            for (int i = 0; i < modelThirdVariant.Vysledky.Count; i++)
+            {
+                displayData.Add(modelThirdVariant.Vysledky[i].First);
+                tmpLabels.Add(modelThirdVariant.Vysledky[i].Second.ToString());
+            }
+
+            LabelsVariantC = tmpLabels;
+
+            if (SeriesCollectionVariantC is null)
+            {
+                SeriesCollectionVariantC = new SeriesCollection
+                {
+                    new LineSeries
+                    {
+                        Title = "Seria 3",
+                        Values = new ChartValues<double>(displayData),
+                        Fill = Brushes.Transparent,
+                        //PointGeometry = null
+                    }
+                };
+                if (displayData.Count >= 1)
+                {
+                    VysledokPokusuTri = $"3. Pokus: {displayData.Last()}";
+                }
+            }
+            else
+            {
+                SeriesCollectionVariantC[0].Values.Add(displayData.Last());
+                VysledokPokusuTri = $"3. Pokus: {displayData.Last()}";
             }
 
         });

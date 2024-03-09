@@ -81,10 +81,10 @@
                 Grid.Row="4"
                 Name="FisrVariant"
                 Height="300"
-                Series="{Binding MyProperty}"
+                Series="{Binding SeriesCollectionVariantA}"
             >
                     <lvc:CartesianChart.AxisX>
-                        <lvc:Axis Labels="{Binding Labels}"/>
+                        <lvc:Axis Labels="{Binding LabelsVariantA}"/>
                     </lvc:CartesianChart.AxisX>
                 </lvc:CartesianChart>
                 <StackPanel
@@ -99,10 +99,10 @@
                 Grid.Row="4"
                 Name="SecondVariant"
                 Height="300"
-                Series="{Binding MyProperty}"
+                Series="{Binding SeriesCollectionVariantB}"
             >
                     <lvc:CartesianChart.AxisX>
-                        <lvc:Axis Labels="{Binding Labels}"/>
+                        <lvc:Axis Labels="{Binding LabelsVariantB}"/>
                     </lvc:CartesianChart.AxisX>
                 </lvc:CartesianChart>
                 <StackPanel
@@ -118,10 +118,10 @@
                 Grid.Row="4"
                 Name="ThirdVarint"
                 Height="300"
-                Series="{Binding MyProperty}"
+                Series="{Binding SeriesCollectionVariantC}"
             >
                     <lvc:CartesianChart.AxisX>
-                        <lvc:Axis Labels="{Binding Labels}"/>
+                        <lvc:Axis Labels="{Binding LabelsVariantC}"/>
                     </lvc:CartesianChart.AxisX>
                 </lvc:CartesianChart>
                 <StackPanel

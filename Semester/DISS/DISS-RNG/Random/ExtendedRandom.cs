@@ -37,6 +37,6 @@ public abstract class ExtendedRandom<T>
         {
             seedGenerator = new System.Random();
         }
-        return seedGenerator.Next();
+        return seedGenerator.Next(Int32.MaxValue);
     }
 }
