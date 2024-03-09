@@ -37,7 +37,7 @@ public abstract class MonteCarloCore
         //simulationThread = new Thread(SimulationThread);
         //simulationThread.Start();
         Task.Run(() => { SimulationThread(); });
-        Console.WriteLine("Main thread started simulation thread.");
+        //Console.WriteLine("Main thread started simulation thread.");
          //simulationThread.Join();
     }
 
@@ -48,7 +48,7 @@ public abstract class MonteCarloCore
 
     void SimulationThread()
     {
-        Console.WriteLine("Simulation thread started.");
+        //Console.WriteLine("Simulation thread started.");
         BeforeAllReplications();
         for (_currentReplication = 0; _currentReplication < _numberOfReplications && !_stop; _currentReplication++)
         {
@@ -59,15 +59,9 @@ public abstract class MonteCarloCore
         }
 
         AfterAllReplications();
-        Console.WriteLine("Simulation thread exited.");
+        //Console.WriteLine("Simulation thread exited.");
         _stop = true;
         ReadEvent.Set();
-    }
-
-    public void End()
-    {
-        //simulationThread.Join();
-        Console.WriteLine("Main thread ended simulation thread.");
     }
 
 }

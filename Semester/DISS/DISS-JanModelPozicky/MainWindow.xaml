@@ -7,7 +7,7 @@
         xmlns:global="clr-namespace:"
         xmlns:lvc="clr-namespace:LiveCharts.Wpf;assembly=LiveCharts.Wpf"
         mc:Ignorable="d"
-        Title="Jan Model" Height="450" Width="800"
+        Title="Jan Model" Height="450" Width="900"
         >
 
     <Window.DataContext>
@@ -28,7 +28,7 @@
                     >
             <Label>Počet replikácií:</Label>
             <TextBox
-                Text="1000000"
+                Text="{Binding NumberOfRelication}"
                 Name="PocetReplikacii"
                 Margin="5,0,5,0"
                 TextAlignment="Right"
@@ -43,7 +43,7 @@
         >
             <Label>Pocet replikácií orezanych na zaciatku:</Label>
             <TextBox
-                Text="10000"
+                Text="{Binding CutFirst}"
                 Name="OrezZaciatok"
                 Margin="5,0,5,0"
                 TextAlignment="Right"
@@ -59,27 +59,46 @@
             <Button
                 Margin="5,0,5,0"
                 Width="50"
-                Command="{Binding Start}"
+                Command="{Binding StartCommand}"
                 >
                 Start
             </Button>
             <Button
                 Margin="5,0,5,0"
                 Width="50"
+                Command="{Binding StopCommand}"
                 >
                 Stop
             </Button>
         </StackPanel>
 
-        <lvc:CartesianChart 
-            Grid.Row="4"
-            Name="lineChart"
-            Series="{Binding MyProperty}"
+        <StackPanel 
+            Grid.Row="3">
+            <lvc:CartesianChart 
+                Grid.Row="4"
+                Name="lineChart"
+                Height="300"
+                Series="{Binding MyProperty}"
             >
-            <lvc:CartesianChart.AxisX>
-                <lvc:Axis Labels="{Binding Labels}"/>
-            </lvc:CartesianChart.AxisX>
-        </lvc:CartesianChart>
+                <lvc:CartesianChart.AxisX>
+                    <lvc:Axis Labels="{Binding Labels}"/>
+                </lvc:CartesianChart.AxisX>
+            </lvc:CartesianChart>
+            <StackPanel
+                Orientation="Horizontal"
+                HorizontalAlignment="Center"
+                >
+                <Label
+                    Content="{Binding VysledokPokusuJeden}"
+                    />
+                <Label
+                    Content="{Binding VysledokPokusuDva}"
+                />
+                <Label
+                    Content="{Binding VysledokPokusuTri}"
+                />
+            </StackPanel>
+        </StackPanel>
 
     </Grid>
 </Window>
