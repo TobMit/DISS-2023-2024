@@ -1,0 +1,26 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net7.0-windows</TargetFramework>
+    <RootNamespace>DISS_JanModelPozicky</RootNamespace>
+    <Nullable>enable</Nullable>
+    <UseWPF>true</UseWPF>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\DISS-HelperClasses\DISS-HelperClasses.csproj" />
+    <ProjectReference Include="..\DISS-MonteCarloCore\DISS-MonteCarloCore.csproj" />
+    <ProjectReference Include="..\DISS-RNG\DISS-RNG.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="MVVM\Model\" />
+    <Folder Include="MVVM\View\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="LiveCharts.Wpf" Version="0.9.7" />
+  </ItemGroup>
+
+</Project>
