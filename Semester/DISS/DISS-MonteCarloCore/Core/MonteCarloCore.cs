@@ -33,10 +33,12 @@ public abstract class MonteCarloCore
     public void Run()
     {
         _stop = false;
-        simulationThread = new Thread(SimulationThread);
-        simulationThread.Start();
+        //SimulationThread();
+        //simulationThread = new Thread(SimulationThread);
+        //simulationThread.Start();
+        Task.Run(() => { SimulationThread(); });
         Console.WriteLine("Main thread started simulation thread.");
-        // simulationThread.Join();
+         //simulationThread.Join();
     }
 
     public void Stop()
@@ -64,7 +66,7 @@ public abstract class MonteCarloCore
 
     public void End()
     {
-        simulationThread.Join();
+        //simulationThread.Join();
         Console.WriteLine("Main thread ended simulation thread.");
     }
 
