@@ -9,11 +9,12 @@ public abstract class ExtendedRandom<T>
     protected int Seed { get; set; }
 
     protected System.Random generator { get; set; }
+
+    private static System.Random seedGenerator;
     
     public ExtendedRandom()
     {
-        System.Random seedGenerator = new System.Random();
-        Seed = seedGenerator.Next();
+        Seed = NextSeed();
         generator = new System.Random(Seed);
     }
 
@@ -28,4 +29,14 @@ public abstract class ExtendedRandom<T>
     /// </summary>
     /// <returns>Vráti daľšie náhodné čislo z rozdelenia</returns>
     public abstract T Next();
+
+
+    public static int NextSeed()
+    {
+        if (seedGenerator is null)
+        {
+            seedGenerator = new System.Random();
+        }
+        return seedGenerator.Next();
+    }
 }
