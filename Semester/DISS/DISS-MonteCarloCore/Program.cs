@@ -5,7 +5,7 @@ using DISS_MonteCarloCore.Core;
 using DISS.Random;
 using DISS.Random.Continous;
 
-class TestMonteCarlo : MonteCarloCore<double>
+class TestMonteCarlo : MonteCarloCore
 {
     private int _d = 1000;
     private int _dlzkaIhly = 10;

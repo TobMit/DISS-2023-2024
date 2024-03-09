@@ -1,6 +1,6 @@
 namespace DISS_MonteCarloCore.Core;
 
-abstract class MonteCarloCore<T>
+public abstract class MonteCarloCore
 {
     protected int _numberOfReplications;
     protected int _cutFirst;
