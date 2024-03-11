@@ -18,6 +18,7 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="25"/>
             <RowDefinition Height="25"/>
+            <RowDefinition Height="25"/>
             <RowDefinition Height="30"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
@@ -56,6 +57,21 @@
                     HorizontalAlignment="Left"
                     Orientation="Horizontal"
         >
+            <Label>Pozicana suma:</Label>
+            <TextBox
+                Text="{Binding BeginSuma}"
+                Name="PozicanaSuma"
+                Margin="5,0,5,0"
+                TextAlignment="Right"
+                VerticalContentAlignment="Center"
+                Width="100"
+            />
+        </StackPanel>
+
+        <StackPanel Grid.Row="3"
+                    HorizontalAlignment="Left"
+                    Orientation="Horizontal"
+        >
             <Button
                 Margin="5,0,5,0"
                 Width="50"
@@ -72,7 +88,7 @@
             </Button>
         </StackPanel>
 
-        <ScrollViewer Grid.Row="3"
+        <ScrollViewer Grid.Row="4"
                       >
             <StackPanel
             CanVerticallyScroll="True"

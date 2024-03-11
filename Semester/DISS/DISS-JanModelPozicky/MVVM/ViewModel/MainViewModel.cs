@@ -103,6 +103,18 @@ public class MainViewModel : ObservableObjects
         }
     }
 
+    private double beginSuma;
+
+    public double BeginSuma
+    {
+        get { return beginSuma; }
+        set
+        {
+            beginSuma = value;
+            OnPropertyChanged();
+        }
+    }
+
     private int cutFirst;
 
     public int CutFirst
@@ -163,6 +175,7 @@ public class MainViewModel : ObservableObjects
     {
         InicialiseButtons();
         NumberOfRelication = 10000000;
+        BeginSuma = 100000.0;
         cutFirst = 200000;
         double toPrintZeros = 0.0;
         VysledokPokusuJeden = $"1. pokus: {toPrintZeros}";
@@ -179,11 +192,11 @@ public class MainViewModel : ObservableObjects
 
     private void StartMonteCarlo()
     {
-        modelFirstVariant = new(numberOfRepplication, cutFirst);
+        modelFirstVariant = new(numberOfRepplication, cutFirst, BeginSuma);
         modelFirstVariant.Vysledky.CollectionChanged += VariantA_CollectionChanged;
-        modelSecondVariant = new(numberOfRepplication, cutFirst);
+        modelSecondVariant = new(numberOfRepplication, cutFirst, BeginSuma);
         modelSecondVariant.Vysledky.CollectionChanged += VariantB_CollectionChanged;
-        modelThirdVariant = new(numberOfRepplication, cutFirst);
+        modelThirdVariant = new(numberOfRepplication, cutFirst, BeginSuma);
         modelThirdVariant.Vysledky.CollectionChanged += VariantC_CollectionChanged;
 
         modelFirstVariant.Run();

@@ -29,6 +29,8 @@ public class ModelThirdVariant : MonteCarloCore
     private double _zaplateneBanke;
     private double _totalZaplateneBanke;
 
+    private double _beginSuma;
+
     private double Ipm
     {
         get
@@ -64,9 +66,11 @@ public class ModelThirdVariant : MonteCarloCore
         get;
         set;
     }
-    public ModelThirdVariant(int numberOfReplications, int cutFirst) : base(numberOfReplications, cutFirst)
+    public ModelThirdVariant(int numberOfReplications, int cutFirst, double beginSuma) : base(numberOfReplications, cutFirst)
     {
         Vysledky = new();
+        _beginSuma = beginSuma;
+
     }
 
     public override void BeforeAllReplications()
@@ -97,7 +101,7 @@ public class ModelThirdVariant : MonteCarloCore
 
     public override void BeforeReplication()
     {
-        _HU = 100000.0;
+        _HU = _beginSuma;
         _nRokovSplacania = 10;
         _Ipa = 0.0;
         _mSplatenychRokov = 0;
