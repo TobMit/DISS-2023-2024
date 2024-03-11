@@ -13,6 +13,10 @@ using DISS.Random.Other;
 using UniformC = DISS.Random.Continous.Uniform;
 using UniformD = DISS.Random.Discrete.Uniform;
 
+
+/// <summary>
+/// Third variant of the model
+/// </summary>
 public class ModelThirdVariant : MonteCarloCore
 {
     private UniformD _random24_25;
@@ -66,6 +70,13 @@ public class ModelThirdVariant : MonteCarloCore
         get;
         set;
     }
+    
+    /// <summary>
+    /// Third variant of the model
+    /// </summary>
+    /// <param name="numberOfReplications">Number of replication for the model</param>
+    /// <param name="cutFirst">Cut fist records from pushing to the FE</param>
+    /// <param name="beginSuma">The suma pre nastavenie simulácie</param>
     public ModelThirdVariant(int numberOfReplications, int cutFirst, double beginSuma) : base(numberOfReplications, cutFirst)
     {
         Vysledky = new();

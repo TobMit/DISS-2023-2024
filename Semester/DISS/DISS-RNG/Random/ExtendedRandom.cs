@@ -30,7 +30,10 @@ public abstract class ExtendedRandom<T>
     /// <returns>Vráti daľšie náhodné čislo z rozdelenia</returns>
     public abstract T Next();
 
-
+    /// <summary>
+    /// Next seed for generator
+    /// </summary>
+    /// <returns>New seed</returns>
     public static int NextSeed()
     {
         if (seedGenerator is null)

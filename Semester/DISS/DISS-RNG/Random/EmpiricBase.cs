@@ -48,18 +48,39 @@ public abstract class EmpiricBase<T> : ExtendedRandom<T> where T : struct
             set;
         }
         
+        /// <summary>
+        /// Parametrický konštruktor
+        /// </summary>
+        /// <param name="pMin">min value</param>
+        /// <param name="pMax">max value</param>
+        /// <param name="pProbability">probability of the RNG</param>
+        /// <param name="pSeed">seed</param>
         public EmpiricDataWithSeed(T pMin, T pMax, double pProbability, int pSeed)
         {
             Range = new Pair<T, T>(pMin, pMax);
             ProbabilitySeed = new Pair<double, int>(pProbability, pSeed);
         }
         
+        /// <summary>
+        /// Parametrický konštruktor
+        /// </summary>
+        /// <param name="pMin">min value</param>
+        /// <param name="pMax">max value</param>
+        /// <param name="pProbability">probability of the RNG</param>
+        /// <param name="pSeed">seed</param>
         public EmpiricDataWithSeed(Pair<T, T> pRange, double pProbability, int pSeed)
         {
             Range = pRange;
             ProbabilitySeed = new Pair<double, int>(pProbability, pSeed);
         }
         
+        /// <summary>
+        /// Parametrický konštruktor
+        /// </summary>
+        /// <param name="pMin">min value</param>
+        /// <param name="pMax">max value</param>
+        /// <param name="pProbability">probability of the RNG</param>
+        /// <param name="pSeed">seed</param>
         public EmpiricDataWithSeed(Pair<T, T> pRange, Pair<double, int> pProbabilitySeed)
         {
             Range = pRange;
@@ -69,6 +90,10 @@ public abstract class EmpiricBase<T> : ExtendedRandom<T> where T : struct
 
     protected List<EmpiricData<T>> _listOfValuse;
 
+    /// <summary>
+    /// Empiric RNG
+    /// </summary>
+    /// <param name="pListOfValues">list values of probability</param>
     public EmpiricBase(List<EmpiricData<T>> pListOfValues)
     {
         double sum = 0.0;
@@ -81,6 +106,10 @@ public abstract class EmpiricBase<T> : ExtendedRandom<T> where T : struct
         }
     }
     
+    /// <summary>
+    /// Empiric RNG
+    /// </summary>
+    /// <param name="pListOfValues">list values of probability</param>
     public EmpiricBase(List<EmpiricDataWithSeed<T>> pListOfValues, int pSeed) : base(pSeed)
     {
         double sum = 0.0;
