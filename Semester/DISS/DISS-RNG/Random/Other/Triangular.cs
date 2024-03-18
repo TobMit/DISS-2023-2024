@@ -1,5 +1,8 @@
 namespace DISS.Random.Other;
 
+/// <summary>
+/// Trojuholníkové rozdelenie pravdepodobnosti
+/// </summary>
 public class Triangular : ExtendedRandom<double>
 {
     private double _min;
