@@ -49,5 +49,50 @@
 
 
 
+//--------------------------------------------------------------------------------------------------------------
+// Udalostná simulácia
+// udalosti, príchod zákazníka, začiatok OBS, koniec OBS
+    // prioritý front so C#
+// komponenta front - ľudia sa pridávali
+// príde zákazník, je možné obslúžiť, tak je obslúžená
+// ak je obsadené tak ide do frontu
+    // prichod zákzaníka pride v čase 0 a obsluha je voľná tak aj začiatok obsluhy je v čase 0, udalosť nemá žiadne časové trvanie
+    // naplánuje sa trvanie obsluhy
+    // naplánuje sa vytiahnutie daľšieho človeka z frontu, ak tam nikto nie je tak je to príchod nového človeka
+// pokračovať na jadre v sem 1, metóda symuluj bude ťahať udalosti s frontu, a udaloť má mať metódu execude
+// udalosť má prístup k jadru a vie plánovať udalosť
+// jadro má mať 2 možnosti
+// buď skončí keď dôjde čas alebo ak je nejaká interakcia s gui
+// je potrebneé to zastaviť, znova spustiť, alebo vypnúť bežanie času - budúci T
+
+// generátory
+// exponenciálne
+    // expomenciálne má lambdu a paramterer je 1/lambda
+    // hodnota hovorí ako často chodia zákazníci (100 je zhruba medzi jedným a druhým)
+    // keď máme paramter že prislo 12 z h tak to musíme preopčítať na min medzi nimi
+
+// potrebujeme si pamätať nejaké parametre
+// všetko čo sa odohráva v SJ tak sa má vyťiahnúť na gui
+//štatistiky - mali by sme to mať z mas, nedokažeme exp s realým systémom
+    // zmeníme vstupný parameter, vieme počítať int spoľahlivosti
+    // 2 typi šatatistiky
+        // vážený priemer
+        // priemer klasický - súčet / počet
+// budeme merať hlavne
+    // dĺžka frontu = vážený priemer - musíme si pamätať kedy som naposeldy niečo pridal, budeme tam mať parameter s časom, hore bude čas a počet, a dole je celkový čas, bolo by to fajn mať triedu ktorá to bude riešiť
+    // celkový čas v systéme = klasický priemer
+    // čas čakania vo fronte = klasický priemer
+// keď je čas tak do štatistiky dávam čas a keď tam nie je čas tak tam čas dávam
+// môže sa stať že do simulačného behu sa nepridá nič, treba si kontrolovať že za celý čas sa nič nepridlo tak to tam nedám
+// budeme mať štatistiku za jeden sim beh tak potom to tam dám za celý čas
+
+// Koniec Obs
+    // -> sim core
+    // -> execcute
+    // -> sumcore add uudalosť
+// príchod zákauzníka generuje daľší príchod zákazníka
+
+// zadanie, na otestovanie
+// obsluha 4 min
 
 Console.WriteLine("Hello, World!");
