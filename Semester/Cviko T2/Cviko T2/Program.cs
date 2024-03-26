@@ -92,6 +92,42 @@
     // -> sumcore add uudalosť
 // príchod zákauzníka generuje daľší príchod zákazníka
 
+// stavy jednotlivých osôb
+    // štandardne, každá osoba má tabuľku, (tabuľka so stavami, a v tých riadkoch sa menia stav, je to, prišiel, odyšiel
+    // na záver ho buď vyhodíme alebo alebo mu dávama stav že odyšiel
+    // na kontrolu stačí iba aktuálny stav, netreba dĺžky radu
+
+// dĺžka radu sa menní iba v keď z nej príde, alebo odýde, je to vážená dĺžka
+
+// graf potrebujeme iba na hodnota stráveného v pokladni
+
+// moznosti zahrievania
+    // v čase 0 si vygenerujeme kedy príde nový zákazník
+// chladenie
+    // pozeráme kedy sa systém vypne
+
+// iterval spolahlivosti - povedať s akou pravdepodobnosťou sa nachádzame v tomto výsledku
+    // treba ho zostrojiť, výberová smerodajná odchylka (ako sa líšime od strednej hodnoty) nie je nič okrem priemeru v Itej replikácií
+    // (druhý vzorec) potrebujem súčet všetkých 2 mocnín, namiesto poľa stačí si pametať 2 hodnoty
+    // potrebujeme priemer, s - odyľka, t - tabuľková hodnota studentovho rozdelenia
+    // ak je všetko správne tak priemer by mal byť presne v strede
+    // alfa by mala byť 1,96 podľa takej kalkulačky
+    // treba si to zobrať ako potomka dajakej štatistiky
+    // treba to mať implementované že ak chcem mať 99% intreval tak sa to potom prepočíta
+
+// spomalovanie a zrýchlovanie
+    // systemový event - vždy keď sa vytvorí tak sa všetko zamrzne na nejaký čas (par milisekúnt) keď budeme spomalovať tak sleep bude
+    // čas zaspatia bude stabiliný -> vo vnútri neho si to uspím, on bude plánovať sám seba stále, budeme nastavovať (slider tak podľa toho to prepočítam)
+    // parameter bude hovoriť ako často naplánujem daľší systémovy event
+    // minimálne asi ej tak ž 1s v simulácií je 1 s v realite
+
+// sú tam 2 režimi zobrazovania a je nutné vedieť medzi nimi prehadzovať aj za behu
+
+// pre každú pokladňu mám vlastný generátor
+// generátori sú iba raz nainicializované
+// pred každou ičou si iba zresetuješ model
+// event action delegat treba actions<>
+
 // zadanie, na otestovanie
 // obsluha 4 min
 
