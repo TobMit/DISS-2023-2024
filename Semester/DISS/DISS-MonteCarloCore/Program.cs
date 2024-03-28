@@ -90,16 +90,29 @@ class Program
         list.Add(new(2.5, 3.8, 0.15));
         list.Add(new(3.8, 4.8, 0.05));
         Empiric test = new(list);
-        
-        // save 1000 000 values to file
-        using (StreamWriter sw = new("empiric.txt"))
-        {
-            for (int i = 0; i < 1000000; i++)
-            {
-                sw.WriteLine(test.Next());
-            }
-        } 
 
+        // save 1000 000 values to file
+        // using (StreamWriter sw = new("empiric.txt"))
+        // {
+        //     for (int i = 0; i < 1000000; i++)
+        //     {
+        //         sw.WriteLine(test.Next());
+        //     }
+        // } 
+
+        PriorityQueue<string, int> testQueue = new();
+        
+        testQueue.Enqueue("1", 1);
+        testQueue.Enqueue("2", 2);
+        testQueue.Enqueue("3.1", 3);
+        testQueue.Enqueue("3.2", 3);
+        testQueue.Enqueue("3.3", 3);
+        testQueue.Enqueue("4", 4);
+
+        while (testQueue.Count > 0)
+        {
+            Console.WriteLine(testQueue.Dequeue());
+        }
 
         // TestMonteCarlo test = new TestMonteCarlo(1000000000, 0);
         // test.Run();
