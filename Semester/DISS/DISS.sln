@@ -13,6 +13,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DISS-MonteCarloCore", "DISS
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DISS-JanModelPozicky", "DISS-JanModelPozicky\DISS-JanModelPozicky.csproj", "{77463FA9-A5BC-4F7A-85F0-9C3AAF955899}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DISS-EventSimulationCore", "DISS-EventSimulationCore\DISS-EventSimulationCore.csproj", "{45411EAF-1F4F-4BB8-899C-0F337727EC08}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -39,6 +41,10 @@ Global
 		{77463FA9-A5BC-4F7A-85F0-9C3AAF955899}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{77463FA9-A5BC-4F7A-85F0-9C3AAF955899}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{77463FA9-A5BC-4F7A-85F0-9C3AAF955899}.Release|Any CPU.Build.0 = Release|Any CPU
+		{45411EAF-1F4F-4BB8-899C-0F337727EC08}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{45411EAF-1F4F-4BB8-899C-0F337727EC08}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{45411EAF-1F4F-4BB8-899C-0F337727EC08}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{45411EAF-1F4F-4BB8-899C-0F337727EC08}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
