@@ -15,6 +15,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DISS-JanModelPozicky", "DIS
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DISS-EventSimulationCore", "DISS-EventSimulationCore\DISS-EventSimulationCore.csproj", "{45411EAF-1F4F-4BB8-899C-0F337727EC08}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DISS-NovinovyStanok", "DISS-NovinovyStanok\DISS-NovinovyStanok.csproj", "{81ACC593-2B32-42A4-8B82-AF9AE32BDB1A}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -45,6 +47,10 @@ Global
 		{45411EAF-1F4F-4BB8-899C-0F337727EC08}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{45411EAF-1F4F-4BB8-899C-0F337727EC08}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{45411EAF-1F4F-4BB8-899C-0F337727EC08}.Release|Any CPU.Build.0 = Release|Any CPU
+		{81ACC593-2B32-42A4-8B82-AF9AE32BDB1A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{81ACC593-2B32-42A4-8B82-AF9AE32BDB1A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{81ACC593-2B32-42A4-8B82-AF9AE32BDB1A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{81ACC593-2B32-42A4-8B82-AF9AE32BDB1A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
