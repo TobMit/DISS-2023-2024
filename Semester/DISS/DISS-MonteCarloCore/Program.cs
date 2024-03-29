@@ -101,13 +101,13 @@ class Program
         // } 
 
         PriorityQueue<string, int> testQueue = new();
-        
-        testQueue.Enqueue("1", 1);
-        testQueue.Enqueue("2", 2);
-        testQueue.Enqueue("3.1", 3);
-        testQueue.Enqueue("3.2", 3);
-        testQueue.Enqueue("3.3", 3);
+
         testQueue.Enqueue("4", 4);
+        testQueue.Enqueue("3.1", 3);
+        testQueue.Enqueue("3.3", 3);
+        testQueue.Enqueue("2", 2);
+        testQueue.Enqueue("3.2", 3);
+        testQueue.Enqueue("1", 1);
 
         while (testQueue.Count > 0)
         {

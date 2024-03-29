@@ -11,7 +11,7 @@ public abstract class EventSimulationCore<T, TEvent> : MonteCarloCore where TEve
     public event EventHandler<TEvent> DataAvailable;
     public PriorityQueue<SimulationEvent<T, TEvent>, double> TimeLine { get; set; }
 
-    public double SimulationTime { get; private set; }
+    public double SimulationTime { get; protected set; }
 
     protected EventSimulationCore(int numberOfReplications, int cutFirst) : base(numberOfReplications, cutFirst)
     {

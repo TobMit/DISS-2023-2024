@@ -8,4 +8,14 @@
         <Nullable>enable</Nullable>
     </PropertyGroup>
 
+    <ItemGroup>
+      <Folder Include="Simulation\Events\" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\DISS-EventSimulationCore\DISS-EventSimulationCore.csproj" />
+      <ProjectReference Include="..\DISS-HelperClasses\DISS-HelperClasses.csproj" />
+      <ProjectReference Include="..\DISS-RNG\DISS-RNG.csproj" />
+    </ItemGroup>
+
 </Project>
