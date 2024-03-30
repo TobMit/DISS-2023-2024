@@ -33,6 +33,10 @@ public class Average
     /// <returns>Vypočítanú hodnotu</returns>
     public virtual double Calucate()
     {
+        if (Count <= 0)
+        {
+            throw new InvalidOperationException("Nemôžem počítať priemer 0 dátami");
+        }
         return SumAll / Count;
     }
 
