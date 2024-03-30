@@ -1,3 +1,5 @@
+using System.Diagnostics;
+
 namespace DISS_MonteCarloCore.Core;
 
 /// <summary>
@@ -99,12 +101,20 @@ public abstract class MonteCarloCore
     {
         //Console.WriteLine("Simulation thread started.");
         BeforeAllReplications();
+        Stopwatch stopwatch = new();
+        stopwatch.Start();
         for (_currentReplication = 0; _currentReplication < _numberOfReplications && !_stop; _currentReplication++)
         {
             BeforeReplication();
             Replication();
             AfterReplication();
             ReadEvent.Set();
+            if (_currentReplication % 100_000 == 0)
+            {
+                stopwatch.Stop();
+                Console.WriteLine($"Replication run {_currentReplication} complete in time: {stopwatch.ElapsedMilliseconds}");
+                stopwatch.Restart();
+            }
         }
 
         AfterAllReplications();
