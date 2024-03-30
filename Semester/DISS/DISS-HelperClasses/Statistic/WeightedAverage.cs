@@ -14,16 +14,16 @@ public class WeightedAverage : Average
     }
     
     // new sková metódu pred okolitým svetom
-    private new void AddValue(double pValue)
+    public override void AddValue(double pValue)
     {
-        throw new Exception("Táto funkcia nieje podporovaná pre vážený priemer");
+        throw new InvalidOperationException("Táto funkcia nieje podporovaná pre vážený priemer");
     }
 
     public void AddValue(double pValue, double pWeight)
     {
         SumOfWeightedValues += pValue * pWeight;
         SumAll += pWeight;
-        Count += 0;
+        Count++;
     }
     
     public override void Clear()
