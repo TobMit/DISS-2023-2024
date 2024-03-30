@@ -5,9 +5,9 @@ namespace DISS_EventSimulationCore;
 /// </summary>
 /// <typeparam name="T">sú triedy zákzaníkov</typeparam>
 /// <typeparam name="TEvent">Je typ eventu</typeparam>
-public abstract class SimulationEvent<T, TEvent> where TEvent : EventArgs
+public abstract class SimulationEvent<T, TEvent> where TEvent : EventArgs 
 {
-    private EventSimulationCore<T, TEvent> _core;
+    protected EventSimulationCore<T, TEvent> _core;
     public double EventTime { get; private set; }
 
     public SimulationEvent(EventSimulationCore<T, TEvent> pCore, double eventTime)

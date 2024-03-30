@@ -15,7 +15,6 @@ public abstract class EventSimulationCore<T, TEvent> : MonteCarloCore where TEve
 
     protected EventSimulationCore(int numberOfReplications, int cutFirst) : base(numberOfReplications, cutFirst)
     {
-        TimeLine = new();
     }
 
     public override void Replication()
@@ -28,7 +27,7 @@ public abstract class EventSimulationCore<T, TEvent> : MonteCarloCore where TEve
                 throw new ApplicationException(
                     "[Event Sim Core] - Čas v evente je nižší ako simulačný čas. Toto sa nemalo stať");
             }
-
+            // čas sa musí posúvať pred eventom
             SimulationTime = tmpEvent.EventTime;
 
             tmpEvent.Execuete();
