@@ -1,6 +1,8 @@
 using System.Transactions;
 using DISS_EventSimulationCore;
 using DISS_HelperClasses.Statistic;
+using DISS_NovinovyStanok.Simulation.Events;
+using DISS.Random;
 using DISS.Random.Other;
 
 namespace DISS_NovinovyStanok.Simulation;
@@ -12,7 +14,10 @@ public class Core : EventSimulationCore<Person, DataStructure>
     /// </summary>
     public Queue<Person> Queue { get; set; }
 
-    public Average AvgPocetLudi { get; set; }
+    public int CountPocetLudi {
+        get;
+        set;
+    }
     public Average AvgCasVObchode { get; set; }
     public WeightedAverage AvgDlzkaRadu { get; set; }
     
@@ -20,6 +25,8 @@ public class Core : EventSimulationCore<Person, DataStructure>
     public Average GlobAvgPocetLudi { get; set; }
     public Average GlobAvgCasVObchode { get; set; }
     public Average GlobAvgDlzkaRadu { get; set; }
+
+    public bool obsluhovanyClovek { get; set; }
     
     
     //Generátory
@@ -30,7 +37,7 @@ public class Core : EventSimulationCore<Person, DataStructure>
     {
         Queue = new();
         TimeLine = new ();
-        AvgPocetLudi = new();
+        CountPocetLudi = new();
         AvgCasVObchode = new();
         AvgDlzkaRadu = new();
 
@@ -42,7 +49,7 @@ public class Core : EventSimulationCore<Person, DataStructure>
     public override void BeforeAllReplications()
     {
         obsluha = new(4);
-        prichodLudi = new((60 / 12));
+        prichodLudi = new((60 / 12), ExtendedRandom<double>.NextSeed());
     }
 
     public override void BeforeReplication()
@@ -54,13 +61,19 @@ public class Core : EventSimulationCore<Person, DataStructure>
         
         AvgDlzkaRadu.Clear();
         AvgCasVObchode.Clear();
-        AvgPocetLudi.Clear();
+        CountPocetLudi = 0;
+
+        obsluhovanyClovek = false;
+        
+        // Naplánovanie prvého príchodu
+        var FirstArrival = prichodLudi.Next() + SimulationTime;
+        TimeLine.Enqueue(new EventPrichod(this, FirstArrival), FirstArrival);
     }
 
     public override void AfterReplication()
     {
+        GlobAvgPocetLudi.AddValue(CountPocetLudi);
         GlobAvgDlzkaRadu.AddValue(AvgDlzkaRadu.Calucate());
-        GlobAvgPocetLudi.AddValue(AvgPocetLudi.Calucate());
         GlobAvgCasVObchode.AddValue(AvgCasVObchode.Calucate());
     }
 

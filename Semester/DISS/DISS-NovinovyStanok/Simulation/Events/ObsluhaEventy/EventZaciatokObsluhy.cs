@@ -16,8 +16,11 @@ public class EventZaciatokObsluhy : SimulationEvent<Person, DataStructure>
         
         Core runCore = (Core)_core;
         runCore.AvgDlzkaRadu.AddValue(runCore.Queue.Count, _core.SimulationTime); // štatistika
+        runCore.obsluhovanyClovek = true;
+        //Console.WriteLine($"[Clovek {_person.ID}]: cas: {runCore.SimulationTime} - Je pred pokladňou");
         
         // naplánovanie obsluhy
-        
+        var koniecObsluhy = runCore.obsluha.Next() + _core.SimulationTime;
+        runCore.TimeLine.Enqueue(new EventKoniecObsluhy(runCore, koniecObsluhy, _person), koniecObsluhy);
     }
 }

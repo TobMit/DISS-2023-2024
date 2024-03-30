@@ -3,9 +3,16 @@ namespace DISS_HelperClasses.Statistic;
 public class WeightedAverage : Average
 {
     public double SumOfWeightedValues { get; private set; }
+
+    private double weightSum;
     public override double Calucate()
     {
-        if (SumOfWeightedValues == 0)
+        if (SumAll == 0)
+        {
+            return 0;
+        }
+
+        if (weightSum == 0)
         {
             throw new InvalidOperationException("Nemôžem počítať priemer s nulovou váhou");
         }
@@ -23,6 +30,7 @@ public class WeightedAverage : Average
     {
         SumOfWeightedValues += pValue * pWeight;
         SumAll += pWeight;
+        weightSum += pWeight;
         Count++;
     }
     
@@ -30,5 +38,6 @@ public class WeightedAverage : Average
     {
         base.Clear();
         SumOfWeightedValues = 0.0;
+        weightSum = 0;
     }
 }

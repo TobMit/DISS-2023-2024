@@ -21,6 +21,6 @@ public class Exponential : ExtendedRandom<double>
     public override double Next()
     {
         var rndNumber = generator.NextDouble();
-        return Math.Log(1.0 - rndNumber) * _mean;
+        return -Math.Log(1.0 - rndNumber) * _mean;
     }
 }
