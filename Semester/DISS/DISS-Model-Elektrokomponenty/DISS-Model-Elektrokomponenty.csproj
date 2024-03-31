@@ -1,0 +1,16 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>net7.0</TargetFramework>
+        <RootNamespace>DISS_Model_Elektrokomponenty</RootNamespace>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <Nullable>enable</Nullable>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\DISS-EventSimulationCore\DISS-EventSimulationCore.csproj" />
+      <ProjectReference Include="..\DISS-HelperClasses\DISS-HelperClasses.csproj" />
+      <ProjectReference Include="..\DISS-RNG\DISS-RNG.csproj" />
+    </ItemGroup>
+
+</Project>
