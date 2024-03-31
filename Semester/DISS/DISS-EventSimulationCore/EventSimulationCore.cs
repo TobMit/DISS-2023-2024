@@ -6,10 +6,11 @@ namespace DISS_EventSimulationCore;
 /// Simulačné jadro pre eventovú simuláciu
 /// </summary>
 /// <typeparam name="T">sú triedy zákzaníkov</typeparam>
-public abstract class EventSimulationCore<T, TEvent> : MonteCarloCore where TEvent : EventArgs
+/// <typeparam name="TEventDataStructure">Dátova štruktúra ktorá sa vracia v evente</typeparam>
+public abstract class EventSimulationCore<T, TEventDataStructure> : MonteCarloCore where TEventDataStructure : EventArgs
 {
-    public event EventHandler<TEvent> DataAvailable;
-    public PriorityQueue<SimulationEvent<T, TEvent>, double> TimeLine { get; set; }
+    public event EventHandler<TEventDataStructure> DataAvailable;
+    public PriorityQueue<SimulationEvent<T, TEventDataStructure>, double> TimeLine { get; set; }
 
     public double SimulationTime { get; protected set; }
 
@@ -38,7 +39,7 @@ public abstract class EventSimulationCore<T, TEvent> : MonteCarloCore where TEve
     /// Update UI z Core
     /// </summary>
     /// <param name="pEventData"></param>
-    protected virtual void OnUpdateData(TEvent pEventData)
+    protected virtual void OnUpdateData(TEventDataStructure pEventData)
     {
         // ? Skontroluje či sú dostupné dáta
         DataAvailable?.Invoke(this, pEventData);
