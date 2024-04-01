@@ -46,8 +46,12 @@ public abstract class EventSimulationCore<T, TEventDataStructure> : MonteCarloCo
             SimulationTime = tmpEvent.EventTime;
 
             tmpEvent.Execuete();
-            
-            Tick();
+
+            // uplny update po každom evente
+            if (SlowDown)
+            {
+                Tick();
+            }
             
             
             // TimeSpan timeSpan = TimeSpan.FromSeconds(SimulationTime);

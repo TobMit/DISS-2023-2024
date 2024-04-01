@@ -109,7 +109,7 @@ public abstract class MonteCarloCore
             Replication();
             AfterReplication();
             ReadEvent.Set();
-            if (_currentReplication % 100_000 == 0)
+            if (_currentReplication % 100 == 0)
             {
                 stopwatch.Stop();
                 Console.WriteLine($"Replication run {_currentReplication} complete in time: {stopwatch.ElapsedMilliseconds}");
