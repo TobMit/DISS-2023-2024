@@ -1,4 +1,5 @@
 ﻿using DISS_EventSimulationCore;
+using DISS_HelperClasses.Statistic;
 using DISS_Model_Elektrokomponenty.DataStructures;
 using DISS_Model_Elektrokomponenty.Entity;
 using DISS_Model_Elektrokomponenty.Entity.Pokladna;
@@ -19,7 +20,7 @@ public class Core : EventSimulationCore<Person, DataStructure>
     public ObsluzneMiestoManager ObsluzneMiestoManager;
     public PokladnaManager PokladnaManager;
     public Automat Automat;
-    
+
     // RNG
     public RNGPickPokladna RndPickPokladna;
     public Exponential RndPrichodZakaznika;
@@ -34,13 +35,33 @@ public class Core : EventSimulationCore<Person, DataStructure>
     public Empiric RndTrvaniePripravaHard;
     public DISS.Random.Discrete.Empiric RndTrvaniePladba;
     public UniformC RndTrvanieVyzdvyhnutieHardTovaru;
-    
+
+    // štatistiky
+    public Average StatPriemernyCasVObchode;
+    public Average StatCasStravenyPredAutomatom;
+    public WeightedAverage StatPriemednaDlzakaRadu;
+
+    // glob statistiky
+    private Average GlobPriemernyCasVObchode;
+    public Average GlobCasStravenyPredAutomatom;
+    public Average GlobPriemernaDlzkaRadu;
+    public Average GlobPremernyOdchodPoslednéhoZakaznika;
+
     public Core(int numberOfReplications, int cutFirst) : base(numberOfReplications, cutFirst)
     {
         RadaPredObsluznymMiestom = new();
         ObsluzneMiestoManager = new();
         PokladnaManager = new();
         Automat = new();
+
+        StatPriemernyCasVObchode = new();
+        StatCasStravenyPredAutomatom = new();
+        StatPriemednaDlzakaRadu = new();
+
+        GlobPriemernyCasVObchode = new();
+        GlobCasStravenyPredAutomatom = new();
+        GlobPriemernaDlzkaRadu = new();
+        GlobPremernyOdchodPoslednéhoZakaznika = new();
     }
 
     public override void BeforeAllReplications()
@@ -51,7 +72,7 @@ public class Core : EventSimulationCore<Person, DataStructure>
         // Rozdelenia pravdepodobnosti
         RndPickPokladna = new(ExtendedRandom<double>.NextSeed());
         // (60*60) / 30 lebo je to 30 zakaznikov za hodinu ale systém beží v sekunádch tak preto ten prepočet
-        RndPrichodZakaznika = new(((60.0*60.0)/30.0), ExtendedRandom<double>.NextSeed());
+        RndPrichodZakaznika = new(((60.0 * 60.0) / 30.0), ExtendedRandom<double>.NextSeed());
         RndTypZakaznika = new(0, 1, ExtendedRandom<double>.NextSeed());
         RndTypNarocnostTovaru = new(0, 1.0, ExtendedRandom<double>.NextSeed());
         RndTypVelkostiNakladu = new(0, 1.0, ExtendedRandom<double>.NextSeed());
@@ -77,21 +98,31 @@ public class Core : EventSimulationCore<Person, DataStructure>
 
     public override void BeforeReplication()
     {
+        SimulationTime = Constants.StartArrivalsSimulationTime;
+
         RadaPredObsluznymMiestom.Clear();
         ObsluzneMiestoManager.Clear();
         PokladnaManager.Clear();
         Automat.Clear();
 
-        SimulationTime = Constants.StartArrivalsSimulationTime;
+        StatPriemernyCasVObchode.Clear();
+        StatCasStravenyPredAutomatom.Clear();
+        StatPriemednaDlzakaRadu.Clear();
     }
 
     public override void AfterReplication()
     {
-        throw new NotImplementedException();
+        GlobPriemernyCasVObchode.AddValue(StatPriemernyCasVObchode.Calucate());
+        GlobCasStravenyPredAutomatom.AddValue(StatCasStravenyPredAutomatom.Calucate());
+        GlobPriemernaDlzkaRadu.AddValue(StatPriemednaDlzakaRadu.Calucate());
+        GlobPremernyOdchodPoslednéhoZakaznika.AddValue(SimulationTime);
     }
 
     public override void AfterAllReplications()
     {
-        throw new NotImplementedException();
+        Console.WriteLine($"Priemerny cas v obchode: {GlobPriemernyCasVObchode.Calucate()}");
+        Console.WriteLine($"Cas straveny pred automatom: {GlobCasStravenyPredAutomatom.Calucate()}");
+        Console.WriteLine($"Priemerna dlzka radu: {GlobPriemernaDlzkaRadu.Calucate()}");
+        Console.WriteLine($"Premerny odchod posledného zakaznika: {GlobPremernyOdchodPoslednéhoZakaznika.Calucate()}");
     }
 }
