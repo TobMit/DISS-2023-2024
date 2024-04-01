@@ -47,4 +47,32 @@ public class Constants
     public static double START_ARRIVAL_SIMULATION_TIME = 0; //9:00
     public static double END_ARRIVAL_SIMULATION_TIME = 8*60*60; // 17:00 -> 8H -> 6*60*60s
     public static double END_SIMULATION_TIME = 8*60*60 + 30*60; // 17:30 -> 8:30H -> 6*60*60s + 30*60s
+
+
+    public static string StavZakaznikaToString(StavZakaznika stavZakaznika)
+    {
+        switch (stavZakaznika)
+        {
+            case StavZakaznika.RadPredAutomatom:
+                return "Stojí v rade pred automatom";
+            case StavZakaznika.ObsluhujeAutomat:
+                return "Obsluhuje automat";
+            case StavZakaznika.CakaVObchode:
+                return "Čaka v obchode";
+            case StavZakaznika.ObsluznomMiestoZadavaObjednavku:
+                return "Obslúžne miesto: Zadáva objednávku";
+            case StavZakaznika.ObsluznomMiestoCakaNaTovar:
+                return "Obslužné miesto: Čaká na tovar";
+            case StavZakaznika.PokladnaCakaVrade:
+                return "Pokladňa: Čaká v rade";
+            case StavZakaznika.PokladnaPlati:
+                return "Pokladňa: Platí";
+            case StavZakaznika.ObsluzneMiestoVraciaSaPreVelkyTovar:
+                return "Obslužné miesto: Vracia sa pre veľký tovar";
+            case StavZakaznika.OdisielZPredajne:
+                return "Odišiel z predajne";
+            default:
+                return "Neznámy stav";
+        }
+    }
 }

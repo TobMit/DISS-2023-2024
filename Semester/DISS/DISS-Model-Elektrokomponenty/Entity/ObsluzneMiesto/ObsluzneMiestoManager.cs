@@ -73,4 +73,24 @@ public class ObsluzneMiestoManager
 
         return null;
     }
+
+    /// <summary>
+    /// Informácie na obrazovku
+    /// </summary>
+    /// <returns>Vráti informácie na obrazovku</returns>
+    public List<string> GetInfoNaUI()
+    {
+        List<string> list = new();
+        foreach (ObsluzneMiesto miesto in ListObsluznychOnlineMiest)
+        {
+            list.Add("Online " + miesto.ToString());
+        }
+        
+        foreach (ObsluzneMiesto miesto in ListObsluznychOstatnyMiest)
+        {
+            list.Add("Ostané " + miesto.ToString());
+        }
+
+        return list;
+    }
 }

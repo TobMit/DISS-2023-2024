@@ -17,7 +17,8 @@ public class EventPrichod : SimulationEvent<Person, DataStructure>
         Person tmpPerson = new Person(_core.SimulationTime, 
             runCore.RndTypZakaznika.Next(),
             runCore.RndTypNarocnostTovaru.Next(),
-            runCore.RndTypVelkostiNakladu.Next());
+            runCore.RndTypVelkostiNakladu.Next(), 
+            runCore.Automat.GetId());
         
         // skontrolujeme či je sú v rade pred automatom ľudia
         if (runCore.RadaPredAutomatom.Count >= 1)
@@ -64,10 +65,10 @@ public class EventPrichod : SimulationEvent<Person, DataStructure>
         {
             // ak je po, tak ľudia pred automatom odýdu
             //runCore.StatPriemednaDlzakaRaduAutomatu.AddValue(runCore.RadaPredAutomatom.Count, _core.SimulationTime);
-            runCore.Automat.PripocitajOdydenych(runCore.RadaPredAutomatom.Count);
             while (runCore.RadaPredAutomatom.Count >= 1)
             {
                 var leavePerson = runCore.RadaPredAutomatom.Dequeue();
+                leavePerson.StavZakaznika = Constants.StavZakaznika.OdisielZPredajne;
                 //runCore.StatPriemernyCasVObchode.AddValue(_core.SimulationTime - leavePerson.TimeOfArrival);
             }
             runCore.StatPriemednaDlzakaRaduAutomatu.AddValue(runCore.RadaPredAutomatom.Count, _core.SimulationTime);

@@ -44,4 +44,17 @@ public class Pokladna
         Person = null;
         Obsadena = false;
     }
+    
+    /// <summary>
+    /// Informacie na vypis
+    /// </summary>
+    /// <returns>Informacie na vypis</returns>
+    public override string ToString()
+    {
+        if (Person is null)
+        {
+            return $"Pokladna {ID}: \n\t- Voľná\n\t- Predavač: nečinný\n\t- Rada: {Queue.Count}";
+        }
+        return $"Pokladna {ID}: \n\t- Stojí Person: {Person?.ID} \n\t- Predavač: vybavuje pladbu\n\t- Rada: {Queue.Count}";
+    }
 }

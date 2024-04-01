@@ -23,6 +23,8 @@ public class Core : EventSimulationCore<Person, DataStructure>
     public PokladnaManager PokladnaManager;
     public Automat Automat;
 
+    private List<Person> _persons;
+
     // RNG
     public RNGPickPokladna RndPickPokladna;
     public Exponential RndPrichodZakaznika;
@@ -57,6 +59,8 @@ public class Core : EventSimulationCore<Person, DataStructure>
         ObsluzneMiestoManager = new();
         PokladnaManager = new();
         Automat = new();
+        
+        _persons = new();
 
         StatPriemernyCasVObchode = new();
         StatCasStravenyPredAutomatom = new();
@@ -114,6 +118,8 @@ public class Core : EventSimulationCore<Person, DataStructure>
         ObsluzneMiestoManager.Clear();
         PokladnaManager.Clear();
         Automat.Clear();
+        
+        _persons.Clear();
 
         StatPriemernyCasVObchode.Clear();
         StatCasStravenyPredAutomatom.Clear();
@@ -131,6 +137,8 @@ public class Core : EventSimulationCore<Person, DataStructure>
         _globPriemernaDlzkaRadu.AddValue(StatPriemednaDlzakaRaduAutomatu.Calucate());
         _globPriemernyOdchodPoslednehoZakaznika.AddValue(SimulationTime);
         _globPriemernyPocetZakaznikov.AddValue(Automat.CelkovyPocet);
+        
+        OnUpdateData(_eventData);
     }
 
     public override void AfterAllReplications()
@@ -140,5 +148,30 @@ public class Core : EventSimulationCore<Person, DataStructure>
         Console.WriteLine($"Priemerna dlzka radu: {_globPriemernaDlzkaRadu.Calucate()}");
         Console.WriteLine($"Premerny odchod posledného zakaznika: {_globPriemernyOdchodPoslednehoZakaznika.Calucate()} / {9.0 + _globPriemernyOdchodPoslednehoZakaznika.Calucate()/60/60}");
         Console.WriteLine($"Priemerny pocet zakaznikov: {_globPriemernyPocetZakaznikov.Calucate()}");
+    }
+
+    protected override void Tick()
+    {
+        _eventData = new DataStructure();
+        _eventData.ShallowUpdate = !SlowDown;
+        if (_eventData.ShallowUpdate)
+        {
+            _eventData.People = new(_persons.Count);
+            foreach (var person in _persons)
+            {
+                _eventData.People.Add(new(person));
+            }
+            _eventData.RadaPredAutomatom = $"Rada pred automatom: {RadaPredAutomatom.Count}";
+            _eventData.Automat = Automat.ToString();
+            _eventData.RadaPredObsluznimiMiestami = $"Rada pred obslúžnymi miestami: {RadaPredObsluznymMiestom.Count}/8";
+            _eventData.ObsluzneMiestos = ObsluzneMiestoManager.GetInfoNaUI();
+            _eventData.Pokladne = PokladnaManager.GetInfoNaUI();
+        }
+        
+        _eventData.PriemernyCasVObhchode = $"Priemerný čas v obchode: {StatPriemernyCasVObchode.Calucate()} / {StatPriemernyCasVObchode.Calucate()/60}";
+        _eventData.PriemernyCasPredAutomatom = $"Priemerný čas pred automatom: {StatCasStravenyPredAutomatom.Calucate()} / {StatCasStravenyPredAutomatom.Calucate()/60}";
+        _eventData.PriemernaDlzkaraduPredAutomatom = $"Priemerná dĺžka radu pred automatom: {StatPriemednaDlzakaRaduAutomatu.Calucate()}";
+        _eventData.PriemernyOdchodPoslednehoZakaznika = $"Premerný odchod posledného zakaznika: {_globPriemernyOdchodPoslednehoZakaznika.Calucate()} / {9.0 + _globPriemernyOdchodPoslednehoZakaznika.Calucate()/60/60}";
+        _eventData.PriemernyPocetZakaznikov = $"Priemerný počet zákazníkov: {_globPriemernyPocetZakaznikov.Calucate()}";
     }
 }

@@ -21,15 +21,17 @@ public class Person
     public ObsluzneMiesto? ObsluzneMiesto { get; set; }
 
     public Person(double pTimeOfArrival,
-        double prTypZakaznika, 
-        double prTypNarocnostTovaru, 
-        double prTypVelkostiNakladu)
+        double prTypZakaznika,
+        double prTypNarocnostTovaru,
+        double prTypVelkostiNakladu, 
+        int pId)
     {
         TimeOfArrival = pTimeOfArrival;
         SetTypZakanika(prTypZakaznika);
         SetTypNarocnostiTovaru(prTypNarocnostTovaru);
         SetTypVelkostiNakladu(prTypVelkostiNakladu);
         StavZakaznika = Constants.StavZakaznika.RadPredAutomatom;
+        ID = pId;
     }
     
     private void SetTypZakanika(double prTypZakaznika)
@@ -74,5 +76,19 @@ public class Person
         {
             TypVelkostiNakladu = Constants.TypVelkostiNakladu.Normalna;
         }
+    }
+
+    public Person(Person person)
+    {
+        ID = person.ID;
+        VstupDoPredajne = person.VstupDoPredajne;
+        VstupDoRadyPredAutomatom = person.VstupDoRadyPredAutomatom;
+        VstupDoRadyPredObsluhov = person.VstupDoRadyPredObsluhov;
+        VstupDoRadyPredPokladnov = person.VstupDoRadyPredPokladnov;
+        TimeOfArrival = person.TimeOfArrival;
+        TypZakaznika = person.TypZakaznika;
+        TypNarocnostiTovaru = person.TypNarocnostiTovaru;
+        TypVelkostiNakladu = person.TypVelkostiNakladu;
+        StavZakaznika = person.StavZakaznika;
     }
 }

@@ -42,4 +42,17 @@ public class ObsluzneMiesto
         Person = null;
         Obsadena = false;
     }
+    
+    /// <summary>
+    /// Informacie na vypis
+    /// </summary>
+    /// <returns>Informacie na vypis</returns>
+    public override string ToString()
+    {
+        if (Person is null)
+        {
+            return $"Obslužné miesto {ID}: \n\t- Voľné\n\t- Pracovník: nečinný";
+        }
+        return $"Obsluzne miesto {ID}: \n\t- Stojí Person: {Person?.ID} \n\t- Predavač: {(Person?.StavZakaznika == Constants.StavZakaznika.ObsluznomMiestoZadavaObjednavku ? "zadáva objednávku" : "vybavuje objednávku")}";
+    }
 }

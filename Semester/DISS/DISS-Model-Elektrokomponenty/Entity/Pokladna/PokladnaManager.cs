@@ -66,4 +66,19 @@ public class PokladnaManager
         ListPokladni.Clear();
         InitPokladne();
     }
+    
+    /// <summary>
+    /// Informacie na vypis
+    /// </summary>
+    /// <returns>Informacie na vypis</returns>
+    public List<string> GetInfoNaUI()
+    {
+        List<string> list = new();
+        foreach (Pokladna pokladna in ListPokladni)
+        {
+            list.Add(pokladna.ToString());
+        }
+
+        return list;
+    }
 }

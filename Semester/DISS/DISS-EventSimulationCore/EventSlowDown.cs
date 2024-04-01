@@ -19,6 +19,12 @@ public class EventSlowDown <T, TEvent> : SimulationEvent<T, TEvent> where TEvent
             {
                 _core.TimeLine.Enqueue(new EventSlowDown<T, TEvent>(_core, newTime),newTime);
             }
+            
+            //ak sú dáta tak ich dám dispacherovy
+            if (_core._eventData is not null)
+            {
+                _core.OnUpdateData(_core._eventData);
+            }
         }
     }
 }

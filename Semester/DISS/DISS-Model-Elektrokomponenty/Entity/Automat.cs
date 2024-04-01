@@ -16,7 +16,6 @@ public class Automat
     public void Obsluz(Person person)
     {
         Person = person;
-        Person.ID = CelkovyPocet++;
         Obsadeny = true;
         Person.StavZakaznika = Constants.StavZakaznika.ObsluhujeAutomat;
     }
@@ -33,9 +32,18 @@ public class Automat
         Person = null;
         Obsadeny = false;
     }
-    
-    public void PripocitajOdydenych(int countOdydenych)
+
+    public int GetId()
     {
-        CelkovyPocet += countOdydenych;
+        return CelkovyPocet++;
+    }
+    
+    public override string ToString()
+    {
+        if (Person is null)
+        {
+            return $"Automat: \n\t- Voľný";
+        }
+        return $"Automat: \n\t- Stojí Person: {Person?.ID}";
     }
 }

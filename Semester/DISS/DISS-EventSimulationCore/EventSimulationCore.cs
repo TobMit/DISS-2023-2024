@@ -10,14 +10,14 @@ namespace DISS_EventSimulationCore;
 public abstract class EventSimulationCore<T, TEventDataStructure> : MonteCarloCore where TEventDataStructure : EventArgs
 {
     public event EventHandler<TEventDataStructure> DataAvailable;
+    public TEventDataStructure? _eventData;
+    
     public PriorityQueue<SimulationEvent<T, TEventDataStructure>, double> TimeLine { get; set; }
-
     public double SimulationTime { get; protected set; }
+    public double END_OF_SIMULATION_TIME { get; set; }
 
     public bool SlowDown { get; set; }
     private bool generateSlowDownEvent;
-
-    public double END_OF_SIMULATION_TIME { get; set; }
     
     /// <summary>
     /// Interval spomalenia <0,1> kde 0 je maximálne spomalenie (1s) a 1 je 1H hodina
@@ -29,6 +29,7 @@ public abstract class EventSimulationCore<T, TEventDataStructure> : MonteCarloCo
         SlowDown = false;
         SlowDownSpeed = 0.01;
         generateSlowDownEvent = SlowDown;
+        _eventData = null;
     }
 
     public override void Replication()
@@ -46,10 +47,14 @@ public abstract class EventSimulationCore<T, TEventDataStructure> : MonteCarloCo
 
             tmpEvent.Execuete();
             
-            TimeSpan timeSpan = TimeSpan.FromSeconds(SimulationTime);
-            timeSpan = timeSpan.Add(TimeSpan.FromHours(9));
-            Console.WriteLine($"[Event Sim Core] - Simulačný čas: {timeSpan}");
-
+            Tick();
+            
+            
+            // TimeSpan timeSpan = TimeSpan.FromSeconds(SimulationTime);
+            // timeSpan = timeSpan.Add(TimeSpan.FromHours(9));
+            // Console.WriteLine($"[Event Sim Core] - Simulačný čas: {timeSpan}");
+            
+            // na generovanie spomalenia
             if (SlowDown && !generateSlowDownEvent)
             {
                 generateSlowDownEvent = true;
@@ -69,9 +74,16 @@ public abstract class EventSimulationCore<T, TEventDataStructure> : MonteCarloCo
     /// Update UI z Core
     /// </summary>
     /// <param name="pEventData"></param>
-    protected virtual void OnUpdateData(TEventDataStructure pEventData)
+    public virtual void OnUpdateData(TEventDataStructure pEventData)
     {
-        // ? Skontroluje či sú dostupné dáta
+        // ? Skontroluje či je listener na event
         DataAvailable?.Invoke(this, pEventData);
+    }
+
+    /// <summary>
+    /// To Update data after event execution, (for data update)
+    /// </summary>
+    protected virtual void Tick()
+    {
     }
 }
