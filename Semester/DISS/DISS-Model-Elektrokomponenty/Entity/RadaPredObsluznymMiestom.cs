@@ -7,10 +7,13 @@ public class RadaPredObsluznymMiestom
     /// </summary>
     public int Count => _basicPersons.Count + _zmluvnyPersons.Count + _onlinePersons.Count;
 
+    public int CountOnline => _onlinePersons.Count;
+    public int CountOstatne => _basicPersons.Count + _zmluvnyPersons.Count;
+
     private readonly Queue<Person> _basicPersons;
     private readonly Queue<Person> _zmluvnyPersons;
     private readonly Queue<Person> _onlinePersons;
-    
+
     public RadaPredObsluznymMiestom()
     {
         _basicPersons = new();
@@ -23,10 +26,7 @@ public class RadaPredObsluznymMiestom
     /// </summary>
     public bool OnlineZakaznikInRow
     {
-        get
-        {
-            return _onlinePersons.Count > 0;
-        }
+        get { return _onlinePersons.Count > 0; }
     }
 
     /// <summary>
@@ -51,7 +51,8 @@ public class RadaPredObsluznymMiestom
                 break;
             default:
                 // nemala by nikdy nastať
-                throw new InvalidOperationException($"[RadaPredObsluznymMiestom - Enqueue] - Nesprávny typ zákazníka: {pPerson.TypZakaznika}");
+                throw new InvalidOperationException(
+                    $"[RadaPredObsluznymMiestom - Enqueue] - Nesprávny typ zákazníka: {pPerson.TypZakaznika}");
         }
     }
 

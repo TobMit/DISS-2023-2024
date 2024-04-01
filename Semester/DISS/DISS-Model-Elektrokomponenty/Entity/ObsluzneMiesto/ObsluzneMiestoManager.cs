@@ -39,7 +39,7 @@ public class ObsluzneMiestoManager
         ListObsluznychOstatnyMiest.Clear();
         InitObsluzneMiesta();
     }
-
+//todo add rezerváciu aby sa predišlo chybe medzi eventami
     /// <summary>
     /// Vráti voľne obsluzne miesto pre online zákzaníkov
     /// </summary>
