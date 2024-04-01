@@ -54,6 +54,7 @@ public class EventPladbaKoniec : SimulationEvent<Person, DataStructure>
         }
         // ak nie je tak je koniec pladby a zákazník odzcádza
         _person.StavZakaznika = Constants.StavZakaznika.OdisielZPredajne;
+        runCore.StatPriemernyCasVObchode.AddValue(_core.SimulationTime - _person.TimeOfArrival);
     }
     
 }

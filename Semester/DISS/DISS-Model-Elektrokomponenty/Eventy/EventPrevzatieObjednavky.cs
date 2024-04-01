@@ -33,6 +33,7 @@ public class EventPrevzatieObjednavky : SimulationEvent<Person, DataStructure>
         // uvolním oblužné miesto
         _person.ObsluzneMiesto.Uvolni();
         _person.StavZakaznika = Constants.StavZakaznika.OdisielZPredajne;
+        runCore.StatPriemernyCasVObchode.AddValue(_core.SimulationTime - _person.TimeOfArrival);
         
         // planovanie začiatku obsluhy
         // ak bol zákazník online a v rade pre online sú ludia, tak naplánujem začiatok obsluhy

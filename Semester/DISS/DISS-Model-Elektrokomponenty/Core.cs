@@ -124,7 +124,7 @@ public class Core : EventSimulationCore<Person, DataStructure>
 
     public override void AfterReplication()
     {
-        //_globPriemernyCasVObchode.AddValue(StatPriemernyCasVObchode.Calucate());
+        _globPriemernyCasVObchode.AddValue(StatPriemernyCasVObchode.Calucate());
         _globCasStravenyPredAutomatom.AddValue(StatCasStravenyPredAutomatom.Calucate());
         _globPriemernaDlzkaRadu.AddValue(StatPriemednaDlzakaRaduAutomatu.Calucate());
         _globPriemernyOdchodPoslednehoZakaznika.AddValue(SimulationTime);
@@ -133,7 +133,7 @@ public class Core : EventSimulationCore<Person, DataStructure>
 
     public override void AfterAllReplications()
     {
-        //Console.WriteLine($"Priemerny cas v obchode: {_globPriemernyCasVObchode.Calucate()}");
+        Console.WriteLine($"Priemerny cas v obchode: {_globPriemernyCasVObchode.Calucate()} / {_globPriemernyCasVObchode.Calucate()/60}");
         Console.WriteLine($"Cas straveny pred automatom: {_globCasStravenyPredAutomatom.Calucate()} / {_globCasStravenyPredAutomatom.Calucate()/60}");
         Console.WriteLine($"Priemerna dlzka radu: {_globPriemernaDlzkaRadu.Calucate()}");
         Console.WriteLine($"Premerny odchod posledného zakaznika: {_globPriemernyOdchodPoslednehoZakaznika.Calucate()} / {9.0 + _globPriemernyOdchodPoslednehoZakaznika.Calucate()/60/60}");
