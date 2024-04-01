@@ -71,6 +71,8 @@ public class Core : EventSimulationCore<Person, DataStructure>
 
     public override void BeforeAllReplications()
     {
+        END_OF_SIMULATION_TIME = Constants.END_SIMULATION_TIME;
+        
         TimeLine = new();
         ObsluzneMiestoManager.InitObsluzneMiesta();
         PokladnaManager.InitPokladne();
