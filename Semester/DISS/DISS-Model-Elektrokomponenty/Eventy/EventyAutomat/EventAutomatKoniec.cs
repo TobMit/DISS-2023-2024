@@ -32,13 +32,6 @@ public class EventAutomatKoniec : SimulationEvent<Person, DataStructure>
         // uvoľníme automat
         runCore.Automat.Uvolni();
         
-        // naplánujeme evet pre začiatok automatu
-        if (runCore.RadaPredAutomatom.Count >= 1)
-        {
-            var person = runCore.RadaPredAutomatom.Dequeue();
-            _core.TimeLine.Enqueue(new EventAutomatZaciatok(runCore, _core.SimulationTime, person), _core.SimulationTime);
-        }
-        
         // naplánujeme event pre začiatok obsluhy alebo postavenie do rady
         // ak je rada pred obslužnym miestom väčšia ako 8 je to chyba hodíme error
         if (runCore.RadaPredObsluznymMiestom.Count > 8)
@@ -57,6 +50,7 @@ public class EventAutomatKoniec : SimulationEvent<Person, DataStructure>
             // ak je obsluzne miesto volne tak vytvoríme event pre obsluzne miesto
             if (obsluzneMiesto is not null)
             {
+                obsluzneMiesto.Obsluz(_person);
                 _core.TimeLine.Enqueue(new EventObsluhaZaciatok(runCore, _core.SimulationTime, _person, obsluzneMiesto), _core.SimulationTime);
             }
             // inak pridáme do radu
@@ -72,6 +66,7 @@ public class EventAutomatKoniec : SimulationEvent<Person, DataStructure>
             // ak je obsluzne miesto volne tak vytvoríme event pre obsluzne miesto
             if (obsluzneMiesto is not null)
             {
+                obsluzneMiesto.Obsluz(_person);
                 _core.TimeLine.Enqueue(new EventObsluhaZaciatok(runCore, _core.SimulationTime, _person, obsluzneMiesto), _core.SimulationTime);
             }
             // inak pridáme do radu
@@ -84,6 +79,16 @@ public class EventAutomatKoniec : SimulationEvent<Person, DataStructure>
         else
         {
             throw new InvalidOperationException($"[EventAutomatKoniec] - v čase {_core.SimulationTime} nastala neočakávaná situácia!");
+        }
+        
+        // naplánujeme evet pre začiatok automatu
+        if (runCore.RadaPredAutomatom.Count >= 1 && runCore.RadaPredObsluznymMiestom.Count < 8)
+        {
+            runCore.StatPriemednaDlzakaRaduAutomatu.AddValue(runCore.RadaPredAutomatom.Count, _core.SimulationTime);
+            var person = runCore.RadaPredAutomatom.Dequeue();
+            runCore.StatPriemednaDlzakaRaduAutomatu.AddValue(runCore.RadaPredAutomatom.Count, _core.SimulationTime);
+            runCore.Automat.Obsluz(person);
+            _core.TimeLine.Enqueue(new EventAutomatZaciatok(runCore, _core.SimulationTime, person), _core.SimulationTime);
         }
     }
 }

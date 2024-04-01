@@ -16,14 +16,14 @@ public class EventAutomatZaciatok : SimulationEvent<Person, DataStructure>
     {
         Core runCore = (Core)_core;
         
-        // ak niekoho obsluhuje tak vyhodíme error to sa nemôže stať
-        if (runCore.Automat.Obsadeny)
+        // Automat musí byť obsadený
+        if (!runCore.Automat.Obsadeny)
         {
-            throw new InvalidOperationException($"[EventAutomatZaciatok] - v čase {_core.SimulationTime} automat je obsadený človekom {runCore.Automat.Person?.ID}!");
+            throw new InvalidOperationException($"[EventAutomatZaciatok] - v čase {_core.SimulationTime} automat nie je obsadený človekom!");
         }
         
         // obslúžime zákazníka
-        runCore.Automat.Obsluz(_person);
+        runCore.StatCasStravenyPredAutomatom.AddValue(_core.SimulationTime - _person.TimeOfArrival);
         
         // naplánujeme event pre koniec obsluhy
         var newKoniecAutomat = runCore.RndTrvanieAutomatu.Next() + _core.SimulationTime;

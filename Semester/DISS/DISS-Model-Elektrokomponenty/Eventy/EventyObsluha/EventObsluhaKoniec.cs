@@ -45,6 +45,7 @@ public class EventObsluhaKoniec : SimulationEvent<Person, DataStructure>
                 runCore.RadaPredObsluznymMiestom.CountOnline >= 1)
             {
                 var person = runCore.RadaPredObsluznymMiestom.Dequeue(true);
+                _obsluzneMiesto.Obsluz(person);
                 _core.TimeLine.Enqueue(new EventObsluhaZaciatok(runCore, _core.SimulationTime, person, _obsluzneMiesto),
                     _core.SimulationTime);
             }
@@ -54,6 +55,7 @@ public class EventObsluhaKoniec : SimulationEvent<Person, DataStructure>
                      runCore.RadaPredObsluznymMiestom.CountOstatne >= 1)
             {
                 var person = runCore.RadaPredObsluznymMiestom.Dequeue(false);
+                _obsluzneMiesto.Obsluz(person);
                 _core.TimeLine.Enqueue(new EventObsluhaZaciatok(runCore, _core.SimulationTime, person, _obsluzneMiesto),
                     _core.SimulationTime);
             }
@@ -71,6 +73,7 @@ public class EventObsluhaKoniec : SimulationEvent<Person, DataStructure>
         if (pokladna is not null)
         {
             // je pokladňa voľná naplánujem event začiatok pladby
+            pokladna.ObsadPokladnu(_person);
             _core.TimeLine.Enqueue(new EventPladbaZaciatok(runCore, _core.SimulationTime, _person, pokladna),
                 _core.SimulationTime);
         }

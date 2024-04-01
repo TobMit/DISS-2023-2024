@@ -41,13 +41,14 @@ public class Core : EventSimulationCore<Person, DataStructure>
     // štatistiky
     public Average StatPriemernyCasVObchode;
     public Average StatCasStravenyPredAutomatom;
-    public WeightedAverage StatPriemednaDlzakaRadu;
+    public WeightedAverage StatPriemednaDlzakaRaduAutomatu;
 
     // glob statistiky
-    private Average GlobPriemernyCasVObchode;
-    public Average GlobCasStravenyPredAutomatom;
-    public Average GlobPriemernaDlzkaRadu;
-    public Average GlobPremernyOdchodPoslednéhoZakaznika;
+    private Average _globPriemernyCasVObchode;
+    private Average _globCasStravenyPredAutomatom;
+    private Average _globPriemernaDlzkaRadu;
+    private Average _globPriemernyOdchodPoslednehoZakaznika;
+    private Average _globPriemernyPocetZakaznikov;
 
     public Core(int numberOfReplications, int cutFirst) : base(numberOfReplications, cutFirst)
     {
@@ -59,16 +60,18 @@ public class Core : EventSimulationCore<Person, DataStructure>
 
         StatPriemernyCasVObchode = new();
         StatCasStravenyPredAutomatom = new();
-        StatPriemednaDlzakaRadu = new();
+        StatPriemednaDlzakaRaduAutomatu = new();
 
-        GlobPriemernyCasVObchode = new();
-        GlobCasStravenyPredAutomatom = new();
-        GlobPriemernaDlzkaRadu = new();
-        GlobPremernyOdchodPoslednéhoZakaznika = new();
+        _globPriemernyCasVObchode = new();
+        _globCasStravenyPredAutomatom = new();
+        _globPriemernaDlzkaRadu = new();
+        _globPriemernyOdchodPoslednehoZakaznika = new();
+        _globPriemernyPocetZakaznikov = new();
     }
 
     public override void BeforeAllReplications()
     {
+        TimeLine = new();
         ObsluzneMiestoManager.InitObsluzneMiesta();
         PokladnaManager.InitPokladne();
 
@@ -102,6 +105,7 @@ public class Core : EventSimulationCore<Person, DataStructure>
     public override void BeforeReplication()
     {
         SimulationTime = Constants.START_ARRIVAL_SIMULATION_TIME;
+        TimeLine.Clear();
 
         RadaPredAutomatom.Clear();
         RadaPredObsluznymMiestom.Clear();
@@ -111,7 +115,7 @@ public class Core : EventSimulationCore<Person, DataStructure>
 
         StatPriemernyCasVObchode.Clear();
         StatCasStravenyPredAutomatom.Clear();
-        StatPriemednaDlzakaRadu.Clear();
+        StatPriemednaDlzakaRaduAutomatu.Clear();
         
         // rozbehnutie modelu
         var newArrival = RndPrichodZakaznika.Next() + SimulationTime;
@@ -120,17 +124,19 @@ public class Core : EventSimulationCore<Person, DataStructure>
 
     public override void AfterReplication()
     {
-        GlobPriemernyCasVObchode.AddValue(StatPriemernyCasVObchode.Calucate());
-        GlobCasStravenyPredAutomatom.AddValue(StatCasStravenyPredAutomatom.Calucate());
-        GlobPriemernaDlzkaRadu.AddValue(StatPriemednaDlzakaRadu.Calucate());
-        GlobPremernyOdchodPoslednéhoZakaznika.AddValue(SimulationTime);
+        //_globPriemernyCasVObchode.AddValue(StatPriemernyCasVObchode.Calucate());
+        _globCasStravenyPredAutomatom.AddValue(StatCasStravenyPredAutomatom.Calucate());
+        _globPriemernaDlzkaRadu.AddValue(StatPriemednaDlzakaRaduAutomatu.Calucate());
+        _globPriemernyOdchodPoslednehoZakaznika.AddValue(SimulationTime);
+        _globPriemernyPocetZakaznikov.AddValue(Automat.CelkovyPocet);
     }
 
     public override void AfterAllReplications()
     {
-        Console.WriteLine($"Priemerny cas v obchode: {GlobPriemernyCasVObchode.Calucate()}");
-        Console.WriteLine($"Cas straveny pred automatom: {GlobCasStravenyPredAutomatom.Calucate()}");
-        Console.WriteLine($"Priemerna dlzka radu: {GlobPriemernaDlzkaRadu.Calucate()}");
-        Console.WriteLine($"Premerny odchod posledného zakaznika: {GlobPremernyOdchodPoslednéhoZakaznika.Calucate()}");
+        //Console.WriteLine($"Priemerny cas v obchode: {_globPriemernyCasVObchode.Calucate()}");
+        Console.WriteLine($"Cas straveny pred automatom: {_globCasStravenyPredAutomatom.Calucate()} / {_globCasStravenyPredAutomatom.Calucate()/60}");
+        Console.WriteLine($"Priemerna dlzka radu: {_globPriemernaDlzkaRadu.Calucate()}");
+        Console.WriteLine($"Premerny odchod posledného zakaznika: {_globPriemernyOdchodPoslednehoZakaznika.Calucate()} / {9.0 + _globPriemernyOdchodPoslednehoZakaznika.Calucate()/60/60}");
+        Console.WriteLine($"Priemerny pocet zakaznikov: {_globPriemernyPocetZakaznikov.Calucate()}");
     }
 }

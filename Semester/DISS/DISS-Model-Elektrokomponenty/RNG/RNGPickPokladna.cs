@@ -40,6 +40,6 @@ public class RNGPickPokladna : ExtendedRandom<double>
     /// <returns></returns>
     public int Next(int pocetPokladni)
     {
-        return _listOfRNGs[pocetPokladni].Next();
+        return _listOfRNGs[pocetPokladni - 1].Next();
     }
 }

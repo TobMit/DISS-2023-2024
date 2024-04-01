@@ -21,10 +21,10 @@ public class EventObsluhaZaciatok : SimulationEvent<Person, DataStructure>
     public override void Execuete()
     {
         Core runCore = (Core)_core;
-        // ak je obsluzne miesto obsadené tak hodíme error
-        if (_obsluzneMiesto.Obsadena)
+        // ak nie je obsluzne miesto obsadené tak hodíme error
+        if (!_obsluzneMiesto.Obsadena)
         {
-            throw new InvalidOperationException($"[EventObsluhaZaciatok] - v čase {_core.SimulationTime} obsluzne miesto {_obsluzneMiesto.ID} je obsadené človekom ({_obsluzneMiesto.Person.ID})!");
+            throw new InvalidOperationException($"[EventObsluhaZaciatok] - v čase {_core.SimulationTime} obsluzne miesto {_obsluzneMiesto.ID} nie je obsadené!");
         }
         
         // Event začiatok automatu
@@ -32,12 +32,11 @@ public class EventObsluhaZaciatok : SimulationEvent<Person, DataStructure>
         if (runCore.RadaPredAutomatom.Count >= 1 && !runCore.Automat.Obsadeny)
         {
             var person = runCore.RadaPredAutomatom.Dequeue();
+            runCore.Automat.Obsluz(person);
             _core.TimeLine.Enqueue(new EventAutomatZaciatok(_core, _core.SimulationTime, person), _core.SimulationTime);
         }
         
         // Obsluha
-        // nastavíme obslužné miesto ako obsadené
-        _obsluzneMiesto.Obsluz(_person);
         
         // Ak je online Tak naplánujeme eventKoniecObsluhy
         if (_person.TypZakaznika == Constants.TypZakaznika.Online)

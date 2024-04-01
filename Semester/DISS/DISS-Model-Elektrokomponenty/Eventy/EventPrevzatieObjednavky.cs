@@ -40,6 +40,7 @@ public class EventPrevzatieObjednavky : SimulationEvent<Person, DataStructure>
             runCore.RadaPredObsluznymMiestom.CountOnline >= 1)
         {
             var person = runCore.RadaPredObsluznymMiestom.Dequeue(true);
+            _person.ObsluzneMiesto.Obsluz(person);
             _core.TimeLine.Enqueue(new EventObsluhaZaciatok(runCore, _core.SimulationTime, person, _person.ObsluzneMiesto),
                 _core.SimulationTime);
         }
@@ -49,6 +50,7 @@ public class EventPrevzatieObjednavky : SimulationEvent<Person, DataStructure>
                  runCore.RadaPredObsluznymMiestom.CountOstatne >= 1)
         {
             var person = runCore.RadaPredObsluznymMiestom.Dequeue(false);
+            _person.ObsluzneMiesto.Obsluz(person);
             _core.TimeLine.Enqueue(new EventObsluhaZaciatok(runCore, _core.SimulationTime, person, _person.ObsluzneMiesto),
                 _core.SimulationTime);
         }

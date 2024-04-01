@@ -22,14 +22,11 @@ public class EventPladbaZaciatok : SimulationEvent<Person, DataStructure>
     public override void Execuete()
     {
         Core runCore = (Core)_core;
-        // ak je pokladňa obsadená hodim error
-        if (_pokladna.Obsadena)
+        // ak nie je pokladňa obsadená hodim error
+        if (!_pokladna.Obsadena)
         {
-            throw new InvalidOperationException($"[EventPladbaKoniec] - v čase {_core.SimulationTime} pokladňa {_pokladna.ID} je obsadená človekom ({_pokladna.Person?.ID})!");
+            throw new InvalidOperationException($"[EventPladbaKoniec] - v čase {_core.SimulationTime} pokladňa {_pokladna.ID} nie je obsadená!");
         }
-        
-        // obsadim pokladňu
-        _pokladna.ObsadPokladnu(_person);
         
         // naplánujem koniec pladby
         var newKoniecPladby = runCore.RndTrvaniePladba.Next() + _core.SimulationTime;

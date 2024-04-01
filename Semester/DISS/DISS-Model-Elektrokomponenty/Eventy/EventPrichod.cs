@@ -22,22 +22,29 @@ public class EventPrichod : SimulationEvent<Person, DataStructure>
         // skontrolujeme či je sú v rade pred automatom ľudia
         if (runCore.RadaPredAutomatom.Count >= 1)
         {
+            runCore.StatPriemednaDlzakaRaduAutomatu.AddValue(runCore.RadaPredAutomatom.Count, _core.SimulationTime);
             runCore.RadaPredAutomatom.Enqueue(tmpPerson);
+            runCore.StatPriemednaDlzakaRaduAutomatu.AddValue(runCore.RadaPredAutomatom.Count, _core.SimulationTime);
         }
         // ak je vpredajni viac ako 8 ľudí tak musíme čakať pred predajňou
-        else if (runCore.RadaPredObsluznymMiestom.Count > 8)
+        else if (runCore.RadaPredObsluznymMiestom.Count >= 8)
         {
+            runCore.StatPriemednaDlzakaRaduAutomatu.AddValue(runCore.RadaPredAutomatom.Count, _core.SimulationTime);
             runCore.RadaPredAutomatom.Enqueue(tmpPerson);
+            runCore.StatPriemednaDlzakaRaduAutomatu.AddValue(runCore.RadaPredAutomatom.Count, _core.SimulationTime);
         }
         // ak je automat obsadený a v rade nie je nikto tak pridáme do rady pred automatom
         else if (runCore.Automat.Obsadeny && runCore.RadaPredAutomatom.Count < 1)
         {
+            runCore.StatPriemednaDlzakaRaduAutomatu.AddValue(runCore.RadaPredAutomatom.Count, _core.SimulationTime);
             runCore.RadaPredAutomatom.Enqueue(tmpPerson);
+            runCore.StatPriemednaDlzakaRaduAutomatu.AddValue(runCore.RadaPredAutomatom.Count, _core.SimulationTime);
         }
         // mali by sme mať pokryté všetky prípady, nikto nie je v rade pred automatom a automat nie je obsadený
         else if (!runCore.Automat.Obsadeny)
         {
             // vytvoríme event pre začiatok obsluhy automatu
+            runCore.Automat.Obsluz(tmpPerson);
             runCore.TimeLine.Enqueue(new EventAutomatZaciatok(runCore, _core.SimulationTime, tmpPerson), _core.SimulationTime);
         }
         // ak by nastala neplánována situácia - zistenie chyby
