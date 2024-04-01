@@ -12,8 +12,4 @@
     <ProjectReference Include="..\DISS-Model-Elektrokomponenty\DISS-Model-Elektrokomponenty.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Core\" />
-  </ItemGroup>
-
 </Project>

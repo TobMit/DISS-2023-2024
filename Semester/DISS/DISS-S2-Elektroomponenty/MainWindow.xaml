@@ -4,9 +4,43 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:DISS_S2_Elektroomponenty"
+        xmlns:viewModel="clr-namespace:DISS_S2_Elektroomponenty.MVVM.ViewModel"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
+    <Window.DataContext>
+        <viewModel:MainViewModel/>
+    </Window.DataContext>
+    
     <Grid>
-
+        <Grid.RowDefinitions>
+            <RowDefinition Height="30"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <StackPanel Grid.Row="0"
+                    HorizontalAlignment="Left"
+                    Orientation="Horizontal"
+        >
+            <Button
+                Margin="5,0,5,0"
+                Width="50"
+                Command="{Binding StartCommand}"
+            >
+                Start
+            </Button>
+            <Button
+                Margin="5,0,5,0"
+                Width="50"
+                Command="{Binding StopCommand}"
+            >
+                Stop
+            </Button>
+            <Button
+                Margin="5,0,5,0"
+                Width="60"
+                Command="{Binding RychlostCommand}"
+            >
+                Rychlosť
+            </Button>
+        </StackPanel>
     </Grid>
 </Window>
