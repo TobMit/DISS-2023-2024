@@ -20,6 +20,39 @@ public class EventKoniecDiktovania : SimulationEvent<Person, DataStructure>
 
     public override void Execuete()
     {
-        throw new NotImplementedException();
+        Core runCore = (Core)_core;
+        // ak obslužné miesto nie je obsadené tak hodíme error
+        if (!_obsluzneMiesto.Obsadena)
+        {
+            throw new InvalidOperationException($"[EventKoniecDiktovania] - v čase {_core.SimulationTime} obslužné miesto {_obsluzneMiesto.ID} nie je obsadené!");
+        }
+        
+        // ak je obslužne miesto obsadené iným človekom
+        if (_obsluzneMiesto.Person.ID != _person.ID)
+        {
+            throw new InvalidOperationException($"[EventKoniecDiktovania] - v čase {_core.SimulationTime} obslužuje sa iný človek ({_obsluzneMiesto.Person.ID}) ako mal byť obsluhovaný ({_person.ID})!");
+        }
+
+        _person.StavZakaznika = Constants.StavZakaznika.ObsluznomMiestoCakaNaTovar;
+        // naplánovanie objednávky podľa zložitosti objednávky
+        if (_person.TypNarocnostiTovaru == Constants.TypNarocnostiTovaru.Simple)
+        {
+            var newKoniecObjednavky = runCore.RndTrvaniePripravaSimple.Next() + _core.SimulationTime;
+            _core.TimeLine.Enqueue(new EventObsluhaKoniec(runCore, newKoniecObjednavky, _person, _obsluzneMiesto), newKoniecObjednavky);
+        }
+        else if (_person.TypNarocnostiTovaru == Constants.TypNarocnostiTovaru.Normal)
+        {
+            var newKoniecObjednavky = runCore.RndTrvaniePripravaNormal.Next() + _core.SimulationTime;
+            _core.TimeLine.Enqueue(new EventObsluhaKoniec(runCore, newKoniecObjednavky, _person, _obsluzneMiesto), newKoniecObjednavky);
+        }
+        else if (_person.TypNarocnostiTovaru == Constants.TypNarocnostiTovaru.Hard)
+        {
+            var newKoniecObjednavky = runCore.RndTrvaniePripravaHard.Next() + _core.SimulationTime;
+            _core.TimeLine.Enqueue(new EventObsluhaKoniec(runCore, newKoniecObjednavky, _person, _obsluzneMiesto), newKoniecObjednavky);
+        }
+        else
+        {
+            throw new InvalidOperationException($"[EventKoniecDiktovania] - v čase {_core.SimulationTime} nastala neznáma situácia!");
+        }
     }
 }
