@@ -31,7 +31,9 @@ public class EventObsluhaZaciatok : SimulationEvent<Person, DataStructure>
         // skontrolujeme či sa nachádza niekto v rade pred automatom a či je automat prázdny ak áno vytvárame event začiatku automatu
         if (runCore.RadaPredAutomatom.Count >= 1 && !runCore.Automat.Obsadeny)
         {
+            //runCore.StatPriemednaDlzakaRaduAutomatu.AddValue(runCore.RadaPredAutomatom.Count, _core.SimulationTime);
             var person = runCore.RadaPredAutomatom.Dequeue();
+            runCore.StatPriemednaDlzakaRaduAutomatu.AddValue(runCore.RadaPredAutomatom.Count, _core.SimulationTime);
             runCore.Automat.Obsluz(person);
             _core.TimeLine.Enqueue(new EventAutomatZaciatok(_core, _core.SimulationTime, person), _core.SimulationTime);
         }

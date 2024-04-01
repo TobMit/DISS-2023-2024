@@ -84,7 +84,7 @@ public class EventAutomatKoniec : SimulationEvent<Person, DataStructure>
         // naplánujeme evet pre začiatok automatu
         if (runCore.RadaPredAutomatom.Count >= 1 && runCore.RadaPredObsluznymMiestom.Count < 8)
         {
-            runCore.StatPriemednaDlzakaRaduAutomatu.AddValue(runCore.RadaPredAutomatom.Count, _core.SimulationTime);
+            //runCore.StatPriemednaDlzakaRaduAutomatu.AddValue(runCore.RadaPredAutomatom.Count, _core.SimulationTime);
             var person = runCore.RadaPredAutomatom.Dequeue();
             runCore.StatPriemednaDlzakaRaduAutomatu.AddValue(runCore.RadaPredAutomatom.Count, _core.SimulationTime);
             runCore.Automat.Obsluz(person);

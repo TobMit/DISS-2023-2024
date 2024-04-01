@@ -28,6 +28,7 @@ public class WeightedAverage : Average
 
     public void AddValue(double pValue, double pWeight)
     {
+        //Console.WriteLine("Adding value: " + pValue + " with weight: " + pWeight);
         SumOfWeightedValues += pValue * pWeight;
         SumAll += pWeight;
         weightSum += pWeight;
@@ -38,6 +39,6 @@ public class WeightedAverage : Average
     {
         base.Clear();
         SumOfWeightedValues = 0.0;
-        weightSum = 0;
+        weightSum = 0.0;
     }
 }

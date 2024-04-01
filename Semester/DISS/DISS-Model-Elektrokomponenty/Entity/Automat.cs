@@ -33,4 +33,9 @@ public class Automat
         Person = null;
         Obsadeny = false;
     }
+    
+    public void PripocitajOdydenych(int countOdydenych)
+    {
+        CelkovyPocet += countOdydenych;
+    }
 }

@@ -22,21 +22,21 @@ public class EventPrichod : SimulationEvent<Person, DataStructure>
         // skontrolujeme či je sú v rade pred automatom ľudia
         if (runCore.RadaPredAutomatom.Count >= 1)
         {
-            runCore.StatPriemednaDlzakaRaduAutomatu.AddValue(runCore.RadaPredAutomatom.Count, _core.SimulationTime);
+            //runCore.StatPriemednaDlzakaRaduAutomatu.AddValue(runCore.RadaPredAutomatom.Count, _core.SimulationTime);
             runCore.RadaPredAutomatom.Enqueue(tmpPerson);
             runCore.StatPriemednaDlzakaRaduAutomatu.AddValue(runCore.RadaPredAutomatom.Count, _core.SimulationTime);
         }
         // ak je vpredajni viac ako 8 ľudí tak musíme čakať pred predajňou
         else if (runCore.RadaPredObsluznymMiestom.Count >= 8)
         {
-            runCore.StatPriemednaDlzakaRaduAutomatu.AddValue(runCore.RadaPredAutomatom.Count, _core.SimulationTime);
+            //runCore.StatPriemednaDlzakaRaduAutomatu.AddValue(runCore.RadaPredAutomatom.Count, _core.SimulationTime);
             runCore.RadaPredAutomatom.Enqueue(tmpPerson);
             runCore.StatPriemednaDlzakaRaduAutomatu.AddValue(runCore.RadaPredAutomatom.Count, _core.SimulationTime);
         }
         // ak je automat obsadený a v rade nie je nikto tak pridáme do rady pred automatom
         else if (runCore.Automat.Obsadeny && runCore.RadaPredAutomatom.Count < 1)
         {
-            runCore.StatPriemednaDlzakaRaduAutomatu.AddValue(runCore.RadaPredAutomatom.Count, _core.SimulationTime);
+            //runCore.StatPriemednaDlzakaRaduAutomatu.AddValue(runCore.RadaPredAutomatom.Count, _core.SimulationTime);
             runCore.RadaPredAutomatom.Enqueue(tmpPerson);
             runCore.StatPriemednaDlzakaRaduAutomatu.AddValue(runCore.RadaPredAutomatom.Count, _core.SimulationTime);
         }
@@ -59,6 +59,18 @@ public class EventPrichod : SimulationEvent<Person, DataStructure>
         {
             EventPrichod newEvent = new EventPrichod(_core, newArrival);
             _core.TimeLine.Enqueue(newEvent, newArrival);
+        }
+        else
+        {
+            // ak je po, tak ľudia pred automatom odýdu
+            //runCore.StatPriemednaDlzakaRaduAutomatu.AddValue(runCore.RadaPredAutomatom.Count, _core.SimulationTime);
+            runCore.Automat.PripocitajOdydenych(runCore.RadaPredAutomatom.Count);
+            while (runCore.RadaPredAutomatom.Count >= 1)
+            {
+                var leavePerson = runCore.RadaPredAutomatom.Dequeue();
+                //runCore.StatPriemernyCasVObchode.AddValue(_core.SimulationTime - leavePerson.TimeOfArrival);
+            }
+            runCore.StatPriemednaDlzakaRaduAutomatu.AddValue(runCore.RadaPredAutomatom.Count, _core.SimulationTime);
         }
     }
 }
