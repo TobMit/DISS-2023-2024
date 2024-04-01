@@ -59,7 +59,11 @@ public class EventObsluhaKoniec : SimulationEvent<Person, DataStructure>
             }
             // ak nie je nikto v rade tak tak nevytváram event pre začiatok obsluhy
         }
-        // ak je veľký náklad tak neuvoľnujem pokľadňu
+        else
+        {
+            // ak je veľký náklad tak neuvoľnujem pokľadňu
+            _person.ObsluzneMiesto = _obsluzneMiesto;
+        }
 
         // ak je prázdny rad tak priradíme človeka pokadni
         var pokladna = runCore.PokladnaManager.GetVolnaPokladnaPrazdnyRad(runCore);
@@ -73,6 +77,7 @@ public class EventObsluhaKoniec : SimulationEvent<Person, DataStructure>
         else
         {
             // ak nie je pokladňa voľná pridáme do rady
+            _person.StavZakaznika = Constants.StavZakaznika.PokladnaCakaVrade;
             runCore.PokladnaManager.PriradZakaznikaDoRady(_person, runCore);
         }
     }

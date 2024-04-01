@@ -36,7 +36,7 @@ public class Core : EventSimulationCore<Person, DataStructure>
     public UniformC RndTrvaniePripravaNormal;
     public Empiric RndTrvaniePripravaHard;
     public DISS.Random.Discrete.Empiric RndTrvaniePladba;
-    public UniformC RndTrvanieVyzdvyhnutieHardTovaru;
+    public UniformC RndTrvanieVyzdvyhnutieVelkehoTovaru;
 
     // štatistiky
     public Average StatPriemernyCasVObchode;
@@ -96,7 +96,7 @@ public class Core : EventSimulationCore<Person, DataStructure>
         listPladba.Add(new(180, 480, 0.4, ExtendedRandom<double>.NextSeed()));
         listPladba.Add(new(180, 360, 0.6, ExtendedRandom<double>.NextSeed()));
         RndTrvaniePladba = new(listPladba, ExtendedRandom<double>.NextSeed());
-        RndTrvanieVyzdvyhnutieHardTovaru = new(30.0, 70.0, ExtendedRandom<double>.NextSeed());
+        RndTrvanieVyzdvyhnutieVelkehoTovaru = new(30.0, 70.0, ExtendedRandom<double>.NextSeed());
     }
 
     public override void BeforeReplication()

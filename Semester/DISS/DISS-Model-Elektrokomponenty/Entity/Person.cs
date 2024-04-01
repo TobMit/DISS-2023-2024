@@ -18,6 +18,8 @@ public class Person
     public Constants.TypVelkostiNakladu TypVelkostiNakladu { get; private set; }
     public Constants.StavZakaznika StavZakaznika { get; set; }
 
+    public ObsluzneMiesto? ObsluzneMiesto { get; set; }
+
     public Person(double pTimeOfArrival,
         double prTypZakaznika, 
         double prTypNarocnostTovaru, 

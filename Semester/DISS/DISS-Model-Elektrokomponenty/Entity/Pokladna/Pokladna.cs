@@ -32,6 +32,7 @@ public class Pokladna
     public void ObsadPokladnu(Person person)
     {
         Person = person;
+        Person.StavZakaznika = Constants.StavZakaznika.PokladnaPlati;
         Obsadena = true;
     }
     
