@@ -32,7 +32,7 @@ public class PokladnaManager
 
         if (listPokladni.Count > 0)
         {
-            return listPokladni[core.rndPickPokladna.Next(listPokladni.Count)];
+            return listPokladni[core.RndPickPokladna.Next(listPokladni.Count)];
         }
 
         return null;
@@ -53,7 +53,7 @@ public class PokladnaManager
         if (listPokladni is not null)
         {
             var list = listPokladni.ToList();
-            var pokladna = list[core.rndPickPokladna.Next(list.Count)];
+            var pokladna = list[core.RndPickPokladna.Next(list.Count)];
             pokladna.Queue.Enqueue(person);
         }
     }
