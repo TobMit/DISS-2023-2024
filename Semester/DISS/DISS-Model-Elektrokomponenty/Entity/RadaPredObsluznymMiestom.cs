@@ -36,16 +36,18 @@ public class RadaPredObsluznymMiestom
     /// <exception cref="InvalidOperationException">Ak sa pridá človek s nepsrávnym typom, čo by nemalo nastať</exception>
     public void Enqueue(Person pPerson)
     {
-        switch (pPerson.TypZakaznika)
+        var person = pPerson;
+        person.StavZakaznika = Constants.StavZakaznika.CakaVObchode;
+        switch (person.TypZakaznika)
         {
             case Constants.TypZakaznika.Basic:
-                _basicPersons.Enqueue(pPerson);
+                _basicPersons.Enqueue(person);
                 break;
             case Constants.TypZakaznika.Zmluvny:
-                _zmluvnyPersons.Enqueue(pPerson);
+                _zmluvnyPersons.Enqueue(person);
                 break;
             case Constants.TypZakaznika.Online:
-                _onlinePersons.Enqueue(pPerson);
+                _onlinePersons.Enqueue(person);
                 break;
             default:
                 // nemala by nikdy nastať
