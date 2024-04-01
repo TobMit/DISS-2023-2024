@@ -11,15 +11,17 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DISS-HelperClasses", "DISS-
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DISS-MonteCarloCore", "DISS-MonteCarloCore\DISS-MonteCarloCore.csproj", "{716518C4-1526-468D-867E-93CE64216542}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DISS-JanModelPozicky", "DISS-JanModelPozicky\DISS-JanModelPozicky.csproj", "{77463FA9-A5BC-4F7A-85F0-9C3AAF955899}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DISS-JanModelPozicky", "DISS-JanModelPozicky\DISS-JanModelPozicky.csproj", "{77463FA9-A5BC-4F7A-85F0-9C3AAF955899}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DISS-EventSimulationCore", "DISS-EventSimulationCore\DISS-EventSimulationCore.csproj", "{45411EAF-1F4F-4BB8-899C-0F337727EC08}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DISS-EventSimulationCore", "DISS-EventSimulationCore\DISS-EventSimulationCore.csproj", "{45411EAF-1F4F-4BB8-899C-0F337727EC08}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DISS-NovinovyStanok", "DISS-NovinovyStanok\DISS-NovinovyStanok.csproj", "{81ACC593-2B32-42A4-8B82-AF9AE32BDB1A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DISS-NovinovyStanok", "DISS-NovinovyStanok\DISS-NovinovyStanok.csproj", "{81ACC593-2B32-42A4-8B82-AF9AE32BDB1A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DISS-Model-Elektrokomponenty", "DISS-Model-Elektrokomponenty\DISS-Model-Elektrokomponenty.csproj", "{8A9A0234-0E37-41C8-A628-FC50C1F76059}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DISS-Model-Elektrokomponenty", "DISS-Model-Elektrokomponenty\DISS-Model-Elektrokomponenty.csproj", "{8A9A0234-0E37-41C8-A628-FC50C1F76059}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ModelRuntest", "ModelRuntest\ModelRuntest.csproj", "{A1C0AFE9-6EFD-4CE1-AC3E-4137862B9B4C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ModelRuntest", "ModelRuntest\ModelRuntest.csproj", "{A1C0AFE9-6EFD-4CE1-AC3E-4137862B9B4C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DISS-S2-Elektroomponenty", "DISS-S2-Elektroomponenty\DISS-S2-Elektroomponenty.csproj", "{68CF0D73-D8ED-4BFA-AAB8-2E182E3D762F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -63,6 +65,10 @@ Global
 		{A1C0AFE9-6EFD-4CE1-AC3E-4137862B9B4C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A1C0AFE9-6EFD-4CE1-AC3E-4137862B9B4C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A1C0AFE9-6EFD-4CE1-AC3E-4137862B9B4C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{68CF0D73-D8ED-4BFA-AAB8-2E182E3D762F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{68CF0D73-D8ED-4BFA-AAB8-2E182E3D762F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{68CF0D73-D8ED-4BFA-AAB8-2E182E3D762F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{68CF0D73-D8ED-4BFA-AAB8-2E182E3D762F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
