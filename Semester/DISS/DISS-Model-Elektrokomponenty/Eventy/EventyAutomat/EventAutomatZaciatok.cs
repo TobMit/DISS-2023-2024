@@ -14,6 +14,19 @@ public class EventAutomatZaciatok : SimulationEvent<Person, DataStructure>
 
     public override void Execuete()
     {
-        throw new NotImplementedException();
+        Core runCore = (Core)_core;
+        
+        // ak niekoho obsluhuje tak vyhodíme error to sa nemôže stať
+        if (runCore.Automat.Obsadeny)
+        {
+            throw new InvalidOperationException($"[EventAutomatZaciatok] - v čase {_core.SimulationTime} automat je obsadený človekom {runCore.Automat.Person?.ID}!");
+        }
+        
+        // obslúžime zákazníka
+        runCore.Automat.Obsluz(_person);
+        
+        // naplánujeme event pre koniec obsluhy
+        var newKoniecAutomat = runCore.RndTrvanieAutomatu.Next() + _core.SimulationTime;
+        _core.TimeLine.Enqueue(new EventAutomatKoniec(runCore, newKoniecAutomat, _person), newKoniecAutomat);
     }
 }

@@ -16,6 +16,7 @@ public class Person
     public Constants.TypZakaznika TypZakaznika { get; private set; }
     public Constants.TypNarocnostiTovaru TypNarocnostiTovaru { get; private set; }
     public Constants.TypVelkostiNakladu TypVelkostiNakladu { get; private set; }
+    public Constants.StavZakaznika StavZakaznika { get; set; }
 
     public Person(double pTimeOfArrival,
         double prTypZakaznika, 
@@ -26,6 +27,7 @@ public class Person
         SetTypZakanika(prTypZakaznika);
         SetTypNarocnostiTovaru(prTypNarocnostTovaru);
         SetTypVelkostiNakladu(prTypVelkostiNakladu);
+        StavZakaznika = Constants.StavZakaznika.RadPredAutomatom;
     }
     
     private void SetTypZakanika(double prTypZakaznika)

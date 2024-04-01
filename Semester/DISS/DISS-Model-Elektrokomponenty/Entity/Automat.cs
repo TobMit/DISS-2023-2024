@@ -18,6 +18,7 @@ public class Automat
         Person = person;
         Person.ID = CelkovyPocet++;
         Obsadeny = true;
+        Person.StavZakaznika = Constants.StavZakaznika.ObsluhujeAutomat;
     }
     
     public void Uvolni()
