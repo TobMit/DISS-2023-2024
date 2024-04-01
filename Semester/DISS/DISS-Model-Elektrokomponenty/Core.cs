@@ -7,19 +7,22 @@ namespace DISS_Model_Elektrokomponenty;
 public class Core : EventSimulationCore<Person, DataStructure>
 {
     public RadaPredObsluznymMiestom _radaPredObsluznymMiestom;
+    public ObsluzneMiestoManager _obsluzneMiestoManager;
     public Core(int numberOfReplications, int cutFirst) : base(numberOfReplications, cutFirst)
     {
         _radaPredObsluznymMiestom = new();
+        _obsluzneMiestoManager = new();
     }
 
     public override void BeforeAllReplications()
     {
-        throw new NotImplementedException();
+        _obsluzneMiestoManager.InitObsluzneMiesta();
     }
 
     public override void BeforeReplication()
     {
         _radaPredObsluznymMiestom.Clear();
+        _obsluzneMiestoManager.Clear();
     }
 
     public override void AfterReplication()

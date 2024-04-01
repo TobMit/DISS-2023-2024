@@ -40,4 +40,6 @@ public class Constants
         ObsluzneMiestoVraciaSaPreVelkyTovar = 7,
         OdisielZPredajne = 8
     }
+    
+    public static int POCET_OBSLUZNYCH_MIEST = 3;
 }
