@@ -25,6 +25,7 @@ public class ObsluzneMiesto
             throw new InvalidOperationException($"[Obsluzne miesto {ID}] - už je obsluhovaný človek {Person.ID}");
         }
         Person = pPerson;
+        Person.StavZakaznika = Constants.StavZakaznika.ObsluznomMiestoZadavaObjednavku;
         Obsadena = true;
     }
     
