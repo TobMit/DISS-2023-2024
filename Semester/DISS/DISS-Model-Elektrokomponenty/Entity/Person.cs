@@ -2,7 +2,7 @@ namespace DISS_Model_Elektrokomponenty.Entity;
 
 public class Person
 {
-    public int ID { get; private set; }
+    public int ID { get; set; }
     /// <summary>
     /// Kedy sa zákazník spavnol v systéme
     /// </summary>
@@ -10,15 +10,19 @@ public class Person
     public double VstupDoRadyPredAutomatom { get; set; }
     public double VstupDoRadyPredObsluhov { get; set; }
     public double VstupDoRadyPredPokladnov { get; set; }
+
+    public double TimeOfArrival { get; private set; }
     
     public Constants.TypZakaznika TypZakaznika { get; private set; }
     public Constants.TypNarocnostiTovaru TypNarocnostiTovaru { get; private set; }
     public Constants.TypVelkostiNakladu TypVelkostiNakladu { get; private set; }
 
-    public Person(double prTypZakaznika, 
+    public Person(double pTimeOfArrival,
+        double prTypZakaznika, 
         double prTypNarocnostTovaru, 
         double prTypVelkostiNakladu)
     {
+        TimeOfArrival = pTimeOfArrival;
         SetTypZakanika(prTypZakaznika);
         SetTypNarocnostiTovaru(prTypNarocnostTovaru);
         SetTypVelkostiNakladu(prTypVelkostiNakladu);

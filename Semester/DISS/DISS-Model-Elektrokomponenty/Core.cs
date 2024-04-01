@@ -3,6 +3,7 @@ using DISS_HelperClasses.Statistic;
 using DISS_Model_Elektrokomponenty.DataStructures;
 using DISS_Model_Elektrokomponenty.Entity;
 using DISS_Model_Elektrokomponenty.Entity.Pokladna;
+using DISS_Model_Elektrokomponenty.Eventy;
 using DISS_Model_Elektrokomponenty.RNG;
 using DISS.Random;
 using DISS.Random.Continous;
@@ -16,6 +17,7 @@ namespace DISS_Model_Elektrokomponenty;
 public class Core : EventSimulationCore<Person, DataStructure>
 {
     // Entity
+    public Queue<Person> RadaPredAutomatom;
     public RadaPredObsluznymMiestom RadaPredObsluznymMiestom;
     public ObsluzneMiestoManager ObsluzneMiestoManager;
     public PokladnaManager PokladnaManager;
@@ -49,6 +51,7 @@ public class Core : EventSimulationCore<Person, DataStructure>
 
     public Core(int numberOfReplications, int cutFirst) : base(numberOfReplications, cutFirst)
     {
+        RadaPredAutomatom = new();
         RadaPredObsluznymMiestom = new();
         ObsluzneMiestoManager = new();
         PokladnaManager = new();
@@ -98,8 +101,9 @@ public class Core : EventSimulationCore<Person, DataStructure>
 
     public override void BeforeReplication()
     {
-        SimulationTime = Constants.StartArrivalsSimulationTime;
+        SimulationTime = Constants.START_ARRIVAL_SIMULATION_TIME;
 
+        RadaPredAutomatom.Clear();
         RadaPredObsluznymMiestom.Clear();
         ObsluzneMiestoManager.Clear();
         PokladnaManager.Clear();
@@ -108,6 +112,10 @@ public class Core : EventSimulationCore<Person, DataStructure>
         StatPriemernyCasVObchode.Clear();
         StatCasStravenyPredAutomatom.Clear();
         StatPriemednaDlzakaRadu.Clear();
+        
+        // rozbehnutie modelu
+        var newArrival = RndPrichodZakaznika.Next() + SimulationTime;
+        TimeLine.Enqueue(new EventPrichod(this, newArrival), newArrival);
     }
 
     public override void AfterReplication()
