@@ -42,4 +42,5 @@ public class Constants
     }
     
     public static int POCET_OBSLUZNYCH_MIEST = 3;
+    public static int POCET_POKLADNI = 3;
 }
