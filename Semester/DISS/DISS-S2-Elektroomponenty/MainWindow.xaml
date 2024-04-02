@@ -8,39 +8,89 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
     <Window.DataContext>
-        <viewModel:MainViewModel/>
+        <viewModel:MainViewModel />
     </Window.DataContext>
-    
+
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="30"/>
-            <RowDefinition Height="*"/>
+            <RowDefinition Height="30" />
+            <RowDefinition Height="*" />
         </Grid.RowDefinitions>
         <StackPanel Grid.Row="0"
                     HorizontalAlignment="Left"
-                    Orientation="Horizontal"
-        >
+                    Orientation="Horizontal">
             <Button
                 Margin="5,0,5,0"
                 Width="50"
-                Command="{Binding StartCommand}"
-            >
+                Command="{Binding StartCommand}">
                 Start
             </Button>
             <Button
                 Margin="5,0,5,0"
                 Width="50"
-                Command="{Binding StopCommand}"
-            >
+                Command="{Binding StopCommand}">
                 Stop
             </Button>
             <Button
                 Margin="5,0,5,0"
                 Width="60"
-                Command="{Binding RychlostCommand}"
-            >
+                Command="{Binding RychlostCommand}">
                 Rychlosť
             </Button>
         </StackPanel>
+        <ScrollViewer Grid.Row="1">
+            <StackPanel>
+                <TextBlock 
+                    Text="{Binding PriemernyCasVObchode}" 
+                    Margin="5" />
+                <TextBlock 
+                    Text="{Binding PriemernyCasPredAutomatom}" 
+                    Margin="5" />
+                <TextBlock 
+                    Text="{Binding PriemernaDlzkaRaduPredAutomatom}" 
+                    Margin="5" />
+                <TextBlock 
+                    Text="{Binding PriemernyOdchodPoslednehoZakaznika}" 
+                    Margin="5" />
+                <TextBlock 
+                    Text="{Binding PriemernyPocetZakaznikov}" 
+                    Margin="5" />
+                <TextBlock 
+                    Text="{Binding SimulationTime}" 
+                    Margin="5" />
+                <TextBlock 
+                    Text="{Binding RadaPredAutomatom}" 
+                    Margin="5" />
+                <TextBlock 
+                    Text="{Binding Automat}" 
+                    Margin="5" />
+                <TextBlock 
+                    Text="{Binding RadaPredObsluznimiMiestami}" 
+                    Margin="5" />
+                <ListBox 
+                    ItemsSource="{Binding ObsluzneMiestos}" 
+                    Margin="5" />
+                <ListBox 
+                    ItemsSource="{Binding Pokladne}" 
+                    Margin="5" />
+                <Grid>
+                    <DataGrid
+                        ItemsSource="{Binding Peoples}" 
+                        AutoGenerateColumns="False" 
+                        Margin="10"
+                        >
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="ID" Binding="{Binding ID}" />
+                            <DataGridTextColumn Header="Čas príchodu" Binding="{Binding TimeOfArrival}" />
+                            <DataGridTextColumn Header="Typ Zákazníka" Binding="{Binding TypZakaznika}" />
+                            <DataGridTextColumn Header="Náročnosť tovaru" Binding="{Binding TypNarocnostiTovaru}" />
+                            <DataGridTextColumn Header="Veľkosť nákladu" Binding="{Binding TypVelkostiNakladu}" />
+                            <DataGridTextColumn Header="Stav zákazníka" Binding="{Binding StavZakaznika}" />
+                        </DataGrid.Columns>
+                        
+                    </DataGrid>
+                </Grid>
+            </StackPanel>
+        </ScrollViewer>
     </Grid>
 </Window>

@@ -34,7 +34,7 @@ public abstract class EventSimulationCore<T, TEventDataStructure> : MonteCarloCo
 
     public override void Replication()
     {
-        while (TimeLine.Count > 0)
+        while (TimeLine.Count > 0 && !_stop)
         {
             var tmpEvent = TimeLine.Dequeue();
             if (tmpEvent.EventTime < SimulationTime)

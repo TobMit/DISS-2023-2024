@@ -19,6 +19,7 @@ public class EventPrichod : SimulationEvent<Person, DataStructure>
             runCore.RndTypNarocnostTovaru.Next(),
             runCore.RndTypVelkostiNakladu.Next(), 
             runCore.Automat.GetId());
+        runCore.Persons.Add(tmpPerson);
         
         // skontrolujeme či je sú v rade pred automatom ľudia
         if (runCore.RadaPredAutomatom.Count >= 1)

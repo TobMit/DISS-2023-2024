@@ -23,7 +23,7 @@ public class Core : EventSimulationCore<Person, DataStructure>
     public PokladnaManager PokladnaManager;
     public Automat Automat;
 
-    private List<Person> _persons;
+    public List<Person> Persons;
 
     // RNG
     public RNGPickPokladna RndPickPokladna;
@@ -60,7 +60,7 @@ public class Core : EventSimulationCore<Person, DataStructure>
         PokladnaManager = new();
         Automat = new();
         
-        _persons = new();
+        Persons = new();
 
         StatPriemernyCasVObchode = new();
         StatCasStravenyPredAutomatom = new();
@@ -119,7 +119,7 @@ public class Core : EventSimulationCore<Person, DataStructure>
         PokladnaManager.Clear();
         Automat.Clear();
         
-        _persons.Clear();
+        Persons.Clear();
 
         StatPriemernyCasVObchode.Clear();
         StatCasStravenyPredAutomatom.Clear();
@@ -137,8 +137,11 @@ public class Core : EventSimulationCore<Person, DataStructure>
         _globPriemernaDlzkaRadu.AddValue(StatPriemednaDlzakaRaduAutomatu.Calucate());
         _globPriemernyOdchodPoslednehoZakaznika.AddValue(SimulationTime);
         _globPriemernyPocetZakaznikov.AddValue(Automat.CelkovyPocet);
-        Tick();
-        OnUpdateData(_eventData);
+        if (_currentReplication % 100 == 0)
+        {
+            Tick();
+            OnUpdateData(_eventData);
+        }
     }
 
     public override void AfterAllReplications()
@@ -159,9 +162,24 @@ public class Core : EventSimulationCore<Person, DataStructure>
         _eventData.ShallowUpdate = SlowDown;
         if (_eventData.ShallowUpdate)
         {
-            _eventData.People = new(_persons.Count);
-            foreach (var person in _persons)
+            var aktualnyCasSimulacie = TimeSpan.FromSeconds(SimulationTime);
+            aktualnyCasSimulacie = aktualnyCasSimulacie.Add(TimeSpan.FromHours(9));
+            var koncoviCasSimulacie = TimeSpan.FromSeconds(END_OF_SIMULATION_TIME);
+            koncoviCasSimulacie = koncoviCasSimulacie.Add(TimeSpan.FromHours(9));
+            _eventData.SimulationTime = $"Čas simulácie: {aktualnyCasSimulacie.ToString()} / {koncoviCasSimulacie}";
+            _eventData.People = new(Persons.Count);
+            foreach (var person in Persons)
             {
+                if (person.StavZakaznika == Constants.StavZakaznika.OdisielZPredajne)
+                {
+                    continue;
+                }
+                
+                //todo odstrániť iba na zrýchlenie UI
+                if (_eventData.People.Count > 25)
+                {
+                    break;
+                }
                 _eventData.People.Add(new(person));
             }
             _eventData.RadaPredAutomatom = $"Rada pred automatom: {RadaPredAutomatom.Count}";

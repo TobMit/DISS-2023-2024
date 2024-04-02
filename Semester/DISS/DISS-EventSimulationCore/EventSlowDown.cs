@@ -9,7 +9,7 @@ public class EventSlowDown <T, TEvent> : SimulationEvent<T, TEvent> where TEvent
     public override void Execuete()
     {
         // uspím vlákno
-        Thread.Sleep(100);
+        Thread.Sleep(200);
 
         if (_core.SlowDown)
         {

@@ -10,6 +10,7 @@ public class DataStructure : EventArgs
     /// </summary>
     public bool ShallowUpdate { get; set; }
 
+    public string SimulationTime { get; set; }
     public List<Person> People { get; set; }
     public string RadaPredAutomatom { get; set; }
     public string Automat { get; set; }
