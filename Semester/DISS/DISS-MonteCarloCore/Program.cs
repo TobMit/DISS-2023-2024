@@ -4,6 +4,7 @@ using DISS_HelperClasses;
 using DISS_MonteCarloCore.Core;
 using DISS.Random;
 using DISS.Random.Continous;
+using DISS.Random.Other;
 
 class TestMonteCarlo : MonteCarloCore
 {
@@ -77,41 +78,36 @@ class Program
     static void Main(string[] args)
     {
         List<EmpiricBase<double>.EmpiricData<double>> list = new();
-        // U = <0.1, 0.3); p = 0.1
-        // U = <0.3, 0.8); p = 0.35
-        // U = <0.8, 1.2); p = 0.2
-        // U = <1.2, 2.5); p = 0.15
-        // U = <2.5, 3.8); p = 0.15
-        // U = <3.8, 4.8); p = 0.05
-        list.Add(new(0.1, 0.3, 0.1));
-        list.Add(new(0.3, 0.8, 0.35));
-        list.Add(new(0.8, 1.2, 0.2));
-        list.Add(new(1.2, 2.5, 0.15));
-        list.Add(new(2.5, 3.8, 0.15));
-        list.Add(new(3.8, 4.8, 0.05));
-        Empiric test = new(list);
+        list.Add(new(11.0, 12.0, 0.1));
+        list.Add(new(12.0, 20.0, 0.6));
+        list.Add(new(20.0, 25.0, 0.3));
+        Empiric empiric = new(list);
 
-        // save 1000 000 values to file
-        // using (StreamWriter sw = new("empiric.txt"))
-        // {
-        //     for (int i = 0; i < 1000000; i++)
-        //     {
-        //         sw.WriteLine(test.Next());
-        //     }
-        // } 
-
-        PriorityQueue<string, int> testQueue = new();
-
-        testQueue.Enqueue("4", 4);
-        testQueue.Enqueue("3.1", 3);
-        testQueue.Enqueue("3.3", 3);
-        testQueue.Enqueue("2", 2);
-        testQueue.Enqueue("3.2", 3);
-        testQueue.Enqueue("1", 1);
-
-        while (testQueue.Count > 0)
+        //save 1000 000 values to file
+        using (StreamWriter sw = new("empiric.txt"))
         {
-            Console.WriteLine(testQueue.Dequeue());
+            for (int i = 0; i < 1_000_000; i++)
+            {
+                sw.WriteLine(empiric.Next());
+            }
+        } 
+        
+        Exponential exponential = new(((60.0 * 60.0) / 30.0));
+        using (StreamWriter sw = new("exponential.txt"))
+        {
+            for (int i = 0; i < 1_000_000; i++)
+            {
+                sw.WriteLine(exponential.Next());
+            }
+        }
+        
+        Triangular triangular = new(60.0, 120.0, 480.0);
+        using (StreamWriter sw = new("triangular.txt"))
+        {
+            for (int i = 0; i < 1_000_000; i++)
+            {
+                sw.WriteLine(triangular.Next());
+            }
         }
 
         // TestMonteCarlo test = new TestMonteCarlo(1000000000, 0);
