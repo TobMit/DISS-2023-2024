@@ -21,7 +21,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DISS-Model-Elektrokomponent
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ModelRuntest", "ModelRuntest\ModelRuntest.csproj", "{A1C0AFE9-6EFD-4CE1-AC3E-4137862B9B4C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DISS-S2-Elektroomponenty", "DISS-S2-Elektroomponenty\DISS-S2-Elektroomponenty.csproj", "{68CF0D73-D8ED-4BFA-AAB8-2E182E3D762F}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DISS-S2-Elektrokomponenty", "DISS-S2-Elektrokomponenty\DISS-S2-Elektrokomponenty.csproj", "{68CF0D73-D8ED-4BFA-AAB8-2E182E3D762F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
