@@ -64,7 +64,7 @@ public class EventPrichod : SimulationEvent<Person, DataStructure>
         }
         else
         {
-            // ak je po, tak ľudia pred automatom odýdu
+            // ak je po, tak ľudia pred automatom odidu
             //runCore.StatPriemednaDlzakaRaduAutomatu.AddValue(runCore.RadaPredAutomatom.Count, _core.SimulationTime);
             while (runCore.RadaPredAutomatom.Count >= 1)
             {

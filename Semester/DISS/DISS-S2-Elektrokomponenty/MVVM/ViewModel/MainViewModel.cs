@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Windows;
 using System.Windows.Threading;
+using DISS_Model_Elektrokomponenty;
 using DISS_Model_Elektrokomponenty.DataStructures;
 using DISS_S2_Elektroomponenty.Core;
 using DISS_S2_Elektroomponenty.MVVM.Model;

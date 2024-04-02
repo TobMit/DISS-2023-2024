@@ -128,6 +128,13 @@
 // pred každou ičou si iba zresetuješ model
 // event action delegat treba actions<>
 
+// tý čo odýdu z radu nezarátavajú do clekového času v systéme
+// ty čo odýdu neobslúžený sa nezarátavajú do času pred automatom
+// ale dĺžku radu zaratávame všetkých
+// iba pre dĺžku radu
+
+// počet ľudí je vlastne 9
+
 // zadanie, na otestovanie
 // obsluha 4 min
 
