@@ -163,7 +163,7 @@ public class MainViewModel : ObservableObjects
 
     private void StartModel()
     {
-        _core = new DISS_Model_Elektrokomponenty.Core(25_000, 0);
+        _core = new DISS_Model_Elektrokomponenty.Core(25_000, 0, 3, 3);
         _core.DataAvailable += UpdateUI;
         _core.Run();
     }

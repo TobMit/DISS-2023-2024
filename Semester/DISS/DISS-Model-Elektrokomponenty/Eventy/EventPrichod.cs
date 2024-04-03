@@ -29,7 +29,7 @@ public class EventPrichod : SimulationEvent<Person, DataStructure>
             runCore.StatPriemednaDlzakaRaduAutomatu.AddValue(runCore.RadaPredAutomatom.Count, _core.SimulationTime);
         }
         // ak je vpredajni viac ako 8 ľudí tak musíme čakať pred predajňou
-        else if (runCore.RadaPredObsluznymMiestom.Count >= 8)
+        else if (runCore.RadaPredObsluznymMiestom.Count >= Constants.RADA_PRED_OBSLUZNYM_MIESTOM)
         {
             //runCore.StatPriemednaDlzakaRaduAutomatu.AddValue(runCore.RadaPredAutomatom.Count, _core.SimulationTime);
             runCore.RadaPredAutomatom.Enqueue(tmpPerson);

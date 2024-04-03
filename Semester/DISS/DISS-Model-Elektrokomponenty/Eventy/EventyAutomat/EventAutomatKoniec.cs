@@ -34,7 +34,7 @@ public class EventAutomatKoniec : SimulationEvent<Person, DataStructure>
         
         // naplánujeme event pre začiatok obsluhy alebo postavenie do rady
         // ak je rada pred obslužnym miestom väčšia ako 8 je to chyba hodíme error
-        if (runCore.RadaPredObsluznymMiestom.Count > 8)
+        if (runCore.RadaPredObsluznymMiestom.Count > Constants.RADA_PRED_OBSLUZNYM_MIESTOM)
         {
             throw new InvalidOperationException($"[EventAutomatKoniec] - v čase {_core.SimulationTime} je rada pred obslužnym miestom väčšia ako 8!");
         }
@@ -82,7 +82,7 @@ public class EventAutomatKoniec : SimulationEvent<Person, DataStructure>
         }
         
         // naplánujeme evet pre začiatok automatu
-        if (runCore.RadaPredAutomatom.Count >= 1 && runCore.RadaPredObsluznymMiestom.Count < 8)
+        if (runCore.RadaPredAutomatom.Count >= 1 && runCore.RadaPredObsluznymMiestom.Count < Constants.RADA_PRED_OBSLUZNYM_MIESTOM)
         {
             //runCore.StatPriemednaDlzakaRaduAutomatu.AddValue(runCore.RadaPredAutomatom.Count, _core.SimulationTime);
             var person = runCore.RadaPredAutomatom.Dequeue();
