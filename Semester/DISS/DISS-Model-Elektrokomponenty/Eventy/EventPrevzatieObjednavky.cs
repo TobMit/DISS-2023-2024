@@ -37,23 +37,25 @@ public class EventPrevzatieObjednavky : SimulationEvent<Person, DataStructure>
         
         // planovanie začiatku obsluhy
         // ak bol zákazník online a v rade pre online sú ludia, tak naplánujem začiatok obsluhy
-        if (_person.TypZakaznika == Constants.TypZakaznika.Online &&
-            runCore.RadaPredObsluznymMiestom.CountOnline >= 1)
+        ObsluzneMiesto? tmpObsluzneMiesto = runCore.ObsluzneMiestoManager.GetVolneOnline();
+        
+        while (runCore.RadaPredObsluznymMiestom.CountOnline >= 1 && tmpObsluzneMiesto is not null)
         {
             var person = runCore.RadaPredObsluznymMiestom.Dequeue(true);
-            _person.ObsluzneMiesto.Obsluz(person);
-            _core.TimeLine.Enqueue(new EventObsluhaZaciatok(runCore, _core.SimulationTime, person, _person.ObsluzneMiesto),
+            tmpObsluzneMiesto.Obsluz(person);
+            _core.TimeLine.Enqueue(new EventObsluhaZaciatok(runCore, _core.SimulationTime, person, tmpObsluzneMiesto),
                 _core.SimulationTime);
+            tmpObsluzneMiesto = runCore.ObsluzneMiestoManager.GetVolneOnline();
         }
         // to isté pre opačný ostatné typy zákazníka
-        else if ((_person.TypZakaznika == Constants.TypZakaznika.Basic ||
-                  _person.TypZakaznika == Constants.TypZakaznika.Zmluvny) &&
-                 runCore.RadaPredObsluznymMiestom.CountOstatne >= 1)
+        tmpObsluzneMiesto = runCore.ObsluzneMiestoManager.GetVolneOstatne();
+        while (runCore.RadaPredObsluznymMiestom.CountOstatne >= 1 && tmpObsluzneMiesto is not null)
         {
             var person = runCore.RadaPredObsluznymMiestom.Dequeue(false);
-            _person.ObsluzneMiesto.Obsluz(person);
-            _core.TimeLine.Enqueue(new EventObsluhaZaciatok(runCore, _core.SimulationTime, person, _person.ObsluzneMiesto),
+            tmpObsluzneMiesto.Obsluz(person);
+            _core.TimeLine.Enqueue(new EventObsluhaZaciatok(runCore, _core.SimulationTime, person, tmpObsluzneMiesto),
                 _core.SimulationTime);
+            tmpObsluzneMiesto = runCore.ObsluzneMiestoManager.GetVolneOstatne();
         }
         // ak nie je nikto v rade tak tak nevytváram event
     }
