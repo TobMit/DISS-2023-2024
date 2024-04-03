@@ -152,11 +152,11 @@ public class Core : EventSimulationCore<Person, DataStructure>
 
     public override void AfterAllReplications()
     {
-        Console.WriteLine($"Priemerny cas v obchode: {_globPriemernyCasVObchode.Calucate()} / {_globPriemernyCasVObchode.Calucate()/60}");
-        Console.WriteLine($"Cas straveny pred automatom: {_globCasStravenyPredAutomatom.Calucate()} / {_globCasStravenyPredAutomatom.Calucate()/60}");
-        Console.WriteLine($"Priemerna dlzka radu: {_globPriemernaDlzkaRadu.Calucate()}");
-        Console.WriteLine($"Premerny odchod posledného zakaznika: {_globPriemernyOdchodPoslednehoZakaznika.Calucate()} / {9.0 + _globPriemernyOdchodPoslednehoZakaznika.Calucate()/60/60}");
-        Console.WriteLine($"Priemerny pocet zakaznikov: {_globPriemernyPocetZakaznikov.Calucate()}");
+        Console.WriteLine($"Priemerny cas v obchode: {Double.Round(_globPriemernyCasVObchode.Calucate(), 4)}s / {TimeSpan.FromSeconds(_globPriemernyCasVObchode.Calucate()).ToString(@"hh\:mm\:ss")}");
+        Console.WriteLine($"Cas straveny pred automatom: {Double.Round(_globCasStravenyPredAutomatom.Calucate(), 4)}s / {TimeSpan.FromSeconds(_globCasStravenyPredAutomatom.Calucate()).ToString(@"hh\:mm\:ss")}");
+        Console.WriteLine($"Priemerna dlzka radu: {Double.Round(_globPriemernaDlzkaRadu.Calucate(), 4)}");
+        Console.WriteLine($"Premerny odchod posledného zakaznika: {Double.Round(_globPriemernyOdchodPoslednehoZakaznika.Calucate(), 4)} / {TimeSpan.FromSeconds(Constants.START_DAY + _globPriemernyOdchodPoslednehoZakaznika.Calucate()).ToString(@"hh\:mm\:ss")}");
+        Console.WriteLine($"Priemerny pocet zakaznikov: {Double.Round(_globPriemernyPocetZakaznikov.Calucate(), 4)}");
     }
 
     protected override void Tick()

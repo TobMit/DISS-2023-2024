@@ -43,6 +43,7 @@ public class Constants
     
     public static int POCET_MIEST_V_OBCHODE = 9;
     
+    public static double START_DAY = 9*60*60; // 9:00
     public static double START_ARRIVAL_SIMULATION_TIME = 0; //9:00
     public static double END_ARRIVAL_SIMULATION_TIME = 8*60*60; // 17:00 -> 8H -> 6*60*60s
     public static double END_SIMULATION_TIME = 8*60*60 + 30*60; // 17:30 -> 8:30H -> 6*60*60s + 30*60s
