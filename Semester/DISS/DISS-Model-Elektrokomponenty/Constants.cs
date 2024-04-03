@@ -41,7 +41,7 @@ public class Constants
         OdisielZPredajne = 8
     }
     
-    public static int RADA_PRED_OBSLUZNYM_MIESTOM = 8;
+    public static int RADA_PRED_OBSLUZNYM_MIESTOM = 9;
     
     public static double START_DAY = 9*60*60; // 9:00
     public static double START_ARRIVAL_SIMULATION_TIME = 0; //9:00
