@@ -85,7 +85,7 @@ public abstract class MonteCarloCore
     }
 
     /// <summary>
-    /// Simulation thread thant runs the simulation, replication by replication.
+    /// Simulation thread that runs the simulation, replication by replication.
     /// </summary>
     private void SimulationThread()
     {
@@ -99,7 +99,7 @@ public abstract class MonteCarloCore
             Replication();
             AfterReplication();
             ReadEvent.Set();
-            if (_currentReplication % 100 == 0)
+            if (_currentReplication % 1000 == 0)
             {
                 stopwatch.Stop();
                 Console.WriteLine($"Replication run {_currentReplication} complete in time: {stopwatch.ElapsedMilliseconds}");

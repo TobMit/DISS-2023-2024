@@ -8,21 +8,25 @@ public class RNGPickPokladna : ExtendedRandom<double>
 {
     List<ExtendedRandom<int>> _listOfRNGs;
 
-    public RNGPickPokladna()
+    private int _pocetObsluznychMiest;
+    
+    public RNGPickPokladna(int pPocetObsluznychMiest)
     {
+        _pocetObsluznychMiest = pPocetObsluznychMiest;
         _listOfRNGs = new ();
         _listOfRNGs.Add(new Deterministic<int>(0));
-        for (int i = 1; i < Constants.POCET_OBSLUZNYCH_MIEST; i++)
+        for (int i = 1; i < _pocetObsluznychMiest; i++)
         {
             _listOfRNGs.Add(new Uniform(0, i));
         }
     }
     
-    public RNGPickPokladna(int seed) : base(seed)
+    public RNGPickPokladna(int seed, int pPocetObsluznychMiest) : base(seed)
     {
+        _pocetObsluznychMiest = pPocetObsluznychMiest;
         _listOfRNGs = new ();
         _listOfRNGs.Add(new Deterministic<int>(0));
-        for (int i = 1; i < Constants.POCET_OBSLUZNYCH_MIEST; i++)
+        for (int i = 1; i < _pocetObsluznychMiest; i++)
         {
             _listOfRNGs.Add(new Uniform(0, i, NextSeed()));
         }

@@ -16,6 +16,9 @@ namespace DISS_Model_Elektrokomponenty;
 
 public class Core : EventSimulationCore<Person, DataStructure>
 {
+    private int _pocetObsluznychMiest;
+    private int _pocetPokladni;
+    
     // Entity
     public Queue<Person> RadaPredAutomatom;
     public RadaPredObsluznymMiestom RadaPredObsluznymMiestom;
@@ -52,12 +55,15 @@ public class Core : EventSimulationCore<Person, DataStructure>
     private Average _globPriemernyOdchodPoslednehoZakaznika;
     private Average _globPriemernyPocetZakaznikov;
 
-    public Core(int numberOfReplications, int cutFirst) : base(numberOfReplications, cutFirst)
+    public Core(int numberOfReplications, int cutFirst, int pPocetObsluznychMiest, int pPocetPokladni) : base(numberOfReplications, cutFirst)
     {
+        _pocetObsluznychMiest = pPocetObsluznychMiest;
+        _pocetPokladni = pPocetPokladni;
+        
         RadaPredAutomatom = new();
         RadaPredObsluznymMiestom = new();
-        ObsluzneMiestoManager = new();
-        PokladnaManager = new();
+        ObsluzneMiestoManager = new(_pocetObsluznychMiest);
+        PokladnaManager = new(_pocetPokladni);
         Automat = new();
         
         Persons = new();
@@ -82,7 +88,7 @@ public class Core : EventSimulationCore<Person, DataStructure>
         PokladnaManager.InitPokladne();
 
         // Rozdelenia pravdepodobnosti
-        RndPickPokladna = new(ExtendedRandom<double>.NextSeed());
+        RndPickPokladna = new(ExtendedRandom<double>.NextSeed(), _pocetObsluznychMiest);
         // (60*60) / 30 lebo je to 30 zakaznikov za hodinu ale systém beží v sekunádch tak preto ten prepočet
         RndPrichodZakaznika = new(((60.0 * 60.0) / 30.0), ExtendedRandom<double>.NextSeed());
         RndTypZakaznika = new(0, 1, ExtendedRandom<double>.NextSeed());

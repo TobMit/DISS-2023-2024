@@ -3,21 +3,22 @@ namespace DISS_Model_Elektrokomponenty.Entity.Pokladna;
 public class PokladnaManager
 {
     public List<Pokladna> ListPokladni { get; private set; }
-    
+    private int _pocetPokladni;
 
-    public PokladnaManager()
+    public PokladnaManager(int pPocetPokladni)
     {
+        _pocetPokladni = pPocetPokladni;
         ListPokladni = new();
     }
-    
+
     public void InitPokladne()
     {
-        for (int i = 0; i < Constants.POCET_POKLADNI; i++)
+        for (int i = 0; i < _pocetPokladni; i++)
         {
             ListPokladni.Add(new(i));
         }
     }
-    
+
     /// <summary>
     /// Vráti volnu pokdľadňu ak nie nikto obsluhovaný a je voľný rad ak je voľných viac vyberie náhodne
     /// </summary>
@@ -49,7 +50,7 @@ public class PokladnaManager
         var listPokladni = ListPokladni.GroupBy(c => c.Queue.Count)
             .OrderBy(g => g.Key)
             .FirstOrDefault();
-        
+
         if (listPokladni is not null)
         {
             var list = listPokladni.ToList();
@@ -66,7 +67,7 @@ public class PokladnaManager
         ListPokladni.Clear();
         InitPokladne();
     }
-    
+
     /// <summary>
     /// Informacie na vypis
     /// </summary>

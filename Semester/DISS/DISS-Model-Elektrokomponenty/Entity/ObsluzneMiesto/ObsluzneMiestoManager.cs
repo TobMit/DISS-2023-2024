@@ -8,16 +8,19 @@ public class ObsluzneMiestoManager
     public List<ObsluzneMiesto> ListObsluznychOnlineMiest { get; private set; }
     public List<ObsluzneMiesto> ListObsluznychOstatnyMiest { get; private set; }
 
-    public ObsluzneMiestoManager()
+    private int _pocetObsluznychMiest;
+
+    public ObsluzneMiestoManager(int pPocetObsluznychMiest)
     {
+        _pocetObsluznychMiest = pPocetObsluznychMiest;
         ListObsluznychOnlineMiest = new();
         ListObsluznychOstatnyMiest = new();
     }
 
     public void InitObsluzneMiesta()
     {
-        int pocetOnlineMiest = Constants.POCET_OBSLUZNYCH_MIEST / 3;
-        int pocetOstatnych = Constants.POCET_OBSLUZNYCH_MIEST - pocetOnlineMiest;
+        int pocetOnlineMiest = _pocetObsluznychMiest / 3;
+        int pocetOstatnych = _pocetObsluznychMiest - pocetOnlineMiest;
 
         for (int i = 0; i < pocetOnlineMiest; i++)
         {

@@ -41,8 +41,7 @@ public class Constants
         OdisielZPredajne = 8
     }
     
-    public static int POCET_OBSLUZNYCH_MIEST = 3;
-    public static int POCET_POKLADNI = 3;
+    public static int POCET_MIEST_V_OBCHODE = 9;
     
     public static double START_ARRIVAL_SIMULATION_TIME = 0; //9:00
     public static double END_ARRIVAL_SIMULATION_TIME = 8*60*60; // 17:00 -> 8H -> 6*60*60s
