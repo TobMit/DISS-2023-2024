@@ -209,6 +209,7 @@ public class MainViewModel : ObservableObjects
 
         RadaPredAutomatom = "-/-";
         Automat = "-/-";
+        SimulationTime = "-/-";
     }
 
     private void InicialiseButtons()
