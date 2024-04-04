@@ -88,7 +88,7 @@ public class Core : EventSimulationCore<Person, DataStructure>
         PokladnaManager.InitPokladne();
 
         // Rozdelenia pravdepodobnosti
-        RndPickPokladna = new(ExtendedRandom<double>.NextSeed(), _pocetObsluznychMiest);
+        RndPickPokladna = new(ExtendedRandom<double>.NextSeed(), _pocetPokladni);
         // (60*60) / 30 lebo je to 30 zakaznikov za hodinu ale systém beží v sekunádch tak preto ten prepočet
         RndPrichodZakaznika = new(((60.0 * 60.0) / 30.0), ExtendedRandom<double>.NextSeed());
         RndTypZakaznika = new(0, 1, ExtendedRandom<double>.NextSeed());
@@ -187,7 +187,7 @@ public class Core : EventSimulationCore<Person, DataStructure>
                 _eventData.People.Add(new(person));
             }
             _eventData.RadaPredAutomatom = $"Rada pred automatom: {RadaPredAutomatom.Count}";
-            _eventData.Automat = Automat.ToString();
+            _eventData.Automat = Automat;
             _eventData.RadaPredObsluznimiMiestamiOnline = $"{RadaPredObsluznymMiestom.CountOnline}/{RadaPredObsluznymMiestom.Count}/{Constants.RADA_PRED_OBSLUZNYM_MIESTOM}";
             _eventData.RadaPredObsluznimiMiestamiBasic = $"{RadaPredObsluznymMiestom.CountBasic}/{RadaPredObsluznymMiestom.Count}/{Constants.RADA_PRED_OBSLUZNYM_MIESTOM}";
             _eventData.RadaPredObsluznimiMiestamiZmluvny = $"{RadaPredObsluznymMiestom.CountOstatne - RadaPredObsluznymMiestom.CountBasic}/{RadaPredObsluznymMiestom.Count}/{Constants.RADA_PRED_OBSLUZNYM_MIESTOM}";
