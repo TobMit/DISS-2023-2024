@@ -1,4 +1,5 @@
 using DISS_Model_Elektrokomponenty.Entity;
+using DISS_Model_Elektrokomponenty.Entity.Pokladna;
 
 namespace DISS_Model_Elektrokomponenty.DataStructures;
 
@@ -17,8 +18,8 @@ public class DataStructure : EventArgs
     public string RadaPredObsluznimiMiestamiOnline { get; set; }
     public string RadaPredObsluznimiMiestamiBasic { get; set; }
     public string RadaPredObsluznimiMiestamiZmluvny { get; set; }
-    public List<string> ObsluzneMiestos { get; set; }
-    public List<string> Pokladne { get; set; }
+    public List<ObsluzneMiesto> ObsluzneMiestos { get; set; }
+    public List<Pokladna> Pokladne { get; set; }
 
     public string AktuaReplikacia { get; set; }
     public string PriemernyCasVObhchode { get; set; }

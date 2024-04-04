@@ -24,7 +24,7 @@ public class ObsluzneMiestoManager
 
         for (int i = 0; i < pocetOnlineMiest; i++)
         {
-            ListObsluznychOnlineMiest.Add(new(null, i));
+            ListObsluznychOnlineMiest.Add(new(null, i, true));
         }
 
         for (int i = 0; i < pocetOstatnych; i++)
@@ -81,19 +81,8 @@ public class ObsluzneMiestoManager
     /// Informácie na obrazovku
     /// </summary>
     /// <returns>Vráti informácie na obrazovku</returns>
-    public List<string> GetInfoNaUI()
+    public List<ObsluzneMiesto> GetInfoNaUI()
     {
-        List<string> list = new();
-        foreach (ObsluzneMiesto miesto in ListObsluznychOnlineMiest)
-        {
-            list.Add("Online " + miesto.ToString());
-        }
-        
-        foreach (ObsluzneMiesto miesto in ListObsluznychOstatnyMiest)
-        {
-            list.Add("Ostané " + miesto.ToString());
-        }
-
-        return list;
+        return ListObsluznychOnlineMiest.Concat(ListObsluznychOstatnyMiest).ToList();
     }
 }

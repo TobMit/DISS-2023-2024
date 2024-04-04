@@ -72,14 +72,8 @@ public class PokladnaManager
     /// Informacie na vypis
     /// </summary>
     /// <returns>Informacie na vypis</returns>
-    public List<string> GetInfoNaUI()
+    public List<Pokladna> GetInfoNaUI()
     {
-        List<string> list = new();
-        foreach (Pokladna pokladna in ListPokladni)
-        {
-            list.Add(pokladna.ToString());
-        }
-
-        return list;
+        return ListPokladni;
     }
 }

@@ -8,11 +8,14 @@ public class Pokladna
     public bool Obsadena { get; private set; }
     public Person? Person { get; private set; }
 
+    public string Name { get; private set; }
+
     public Pokladna(int id)
     {
         Queue = new();
         ID = id;
         Person = null;
+        Name = $"Pokladna {ID}.";
     }
 
     /// <summary>

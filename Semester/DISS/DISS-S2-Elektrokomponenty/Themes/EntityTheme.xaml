@@ -1,0 +1,40 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <Style TargetType="ListViewItem" x:Key="EntityTheme">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="ListViewItem">
+                    <Border Width="242" 
+                            HorizontalAlignment="Left"
+                            CornerRadius="15"
+                            Margin="10,5">
+                        <GroupBox Header="{Binding Name}"
+                                  Foreground="White"
+                                  FontSize="15"
+                                  Margin="10,0,10,10">
+                            <StackPanel>
+                                <Label Style="{StaticResource CustomLabelStyle}"
+                                       Content="{Binding Obsah}" 
+                                       FontSize="10"/>
+                            </StackPanel>
+                        </GroupBox>
+                        <Border.Style>
+                            <Style TargetType="Border">
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding Obsadena}" Value="True">
+                                        <Setter Property="Background" Value="DarkRed"/>
+                                    </DataTrigger>
+                                    <DataTrigger Binding="{Binding Obsadena}" Value="False">
+                                        <Setter Property="Background" Value="DarkGreen"/>
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </Border.Style>
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+        <Setter Property="FocusVisualStyle" Value="{x:Null}" />
+    </Style>
+
+</ResourceDictionary>

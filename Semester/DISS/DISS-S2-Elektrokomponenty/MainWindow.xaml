@@ -411,6 +411,7 @@
                                 Width="242" 
                                 HorizontalAlignment="Left"
                                 CornerRadius="15"
+                                Margin="10,5"
                                 >
                                 <GroupBox
                                     Header="Automat"
@@ -437,6 +438,60 @@
                                     </Style>
                                 </Border.Style>
                             </Border>
+
+                            <Label
+                                Margin="10"
+                                Style="{StaticResource CustomLabelStyle}"
+                                FontSize="25"
+                                Content="Obslužné miesta"
+                                />
+
+                            <ListView
+                                Background="Transparent"
+                                KeyboardNavigation.ControlTabNavigation="none"
+                                FocusVisualStyle="{x:Null}"
+                                Focusable="true"
+                                ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                                ItemsSource="{Binding ObsluzneMiestos}"
+                                ItemContainerStyle="{StaticResource EntityTheme}"
+                                FlowDirection="LeftToRight"
+                                HorizontalAlignment="Stretch"
+                                VerticalAlignment="Stretch"
+                                BorderThickness="0">
+                                <ListView.ItemsPanel>
+                                    <ItemsPanelTemplate>
+                                        <WrapPanel />
+                                    </ItemsPanelTemplate>
+                                </ListView.ItemsPanel>
+
+                            </ListView>
+
+                            <Label
+                                Margin="10"
+                                Style="{StaticResource CustomLabelStyle}"
+                                FontSize="25"
+                                Content="Pokladne"
+                            />
+
+                            <ListView
+                                Background="Transparent"
+                                KeyboardNavigation.ControlTabNavigation="none"
+                                FocusVisualStyle="{x:Null}"
+                                Focusable="true"
+                                ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                                ItemsSource="{Binding Pokladne}"
+                                ItemContainerStyle="{StaticResource EntityTheme}"
+                                FlowDirection="LeftToRight"
+                                HorizontalAlignment="Stretch"
+                                VerticalAlignment="Stretch"
+                                BorderThickness="0">
+                                <ListView.ItemsPanel>
+                                    <ItemsPanelTemplate>
+                                        <WrapPanel />
+                                    </ItemsPanelTemplate>
+                                </ListView.ItemsPanel>
+
+                            </ListView>
 
                             <Grid>
                                 <DataGrid

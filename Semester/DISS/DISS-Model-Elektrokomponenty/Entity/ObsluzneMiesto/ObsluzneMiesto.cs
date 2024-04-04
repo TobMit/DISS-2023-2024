@@ -6,11 +6,14 @@ public class ObsluzneMiesto
     public bool Obsadena { get; private set; }
     public int ID { get; private set; }
 
-    public ObsluzneMiesto(Person pPerson, int ID)
+    public string Name { get; private set; }
+
+    public ObsluzneMiesto(Person pPerson, int ID, bool online = false)
     {
         Person = pPerson;
         Obsadena = false;
         this.ID = ID;
+        Name = online ? $"Online {ID}."  : $"Ostatné {ID}.";
     }
     
     /// <summary>
@@ -49,10 +52,14 @@ public class ObsluzneMiesto
     /// <returns>Informacie na vypis</returns>
     public override string ToString()
     {
-        if (Person is null)
+        if (Person is null )
         {
-            return $"Obslužné miesto {ID}: \n\t- Voľné\n\t- Pracovník: nečinný";
+            return $"OM {ID}: \n\t- Voľné\n\t- Pracovník: nečinný";
         }
-        return $"Obsluzne miesto {ID}: \n\t- Stojí Person: {Person?.ID} \n\t- Predavač: {(Person?.StavZakaznika == Constants.StavZakaznika.ObsluznomMiestoZadavaObjednavku ? "zadáva objednávku" : "vybavuje objednávku")}";
+        else if (Person?.StavZakaznika > Constants.StavZakaznika.ObsluznomMiestoCakaNaTovar)
+        {
+            return $"OM {ID}: \n\t- Obsadená Person: {Person?.ID} (veľký tovar) \n\t- Predavač: voľný";
+        }
+        return $"OM {ID}: \n\t- Stojí Person: {Person?.ID} \n\t- Predavač: {(Person?.StavZakaznika == Constants.StavZakaznika.ObsluznomMiestoZadavaObjednavku ? "zadáva objednávku" : "vybavuje objednávku")}";
     }
 }

@@ -24,8 +24,8 @@ public class MainViewModel : ObservableObjects
     private string _radaPredObsluznimiMiestamiOnline;
     private string _radaPredObsluznimiMiestamiBasic;
     private string _radaPredObsluznimiMiestamiZmluvny;
-    private ObservableCollection<string> _obsluzneMiestos;
-    private ObservableCollection<string> _pokladne;
+    private ObservableCollection<ObsluzneMiestoModel> _obsluzneMiestos;
+    private ObservableCollection<PokladnaModel> _pokladne;
     private string _aktulnaReplikacia;
     private string _priemernyCasVObchode;
     private string _priemernyCasPredAutomatom;
@@ -137,7 +137,7 @@ public class MainViewModel : ObservableObjects
         }
     }
 
-    public ObservableCollection<string> ObsluzneMiestos
+    public ObservableCollection<ObsluzneMiestoModel> ObsluzneMiestos
     {
         get => _obsluzneMiestos;
         set
@@ -147,7 +147,7 @@ public class MainViewModel : ObservableObjects
         }
     }
 
-    public ObservableCollection<string> Pokladne
+    public ObservableCollection<PokladnaModel> Pokladne
     {
         get => _pokladne;
         set
@@ -298,6 +298,21 @@ public class MainViewModel : ObservableObjects
         {
             MessageBox.Show("Zle zadaný vstup" + e.Message, "Chyba vstupu", MessageBoxButton.OK, MessageBoxImage.Error);
         }
+
+        List<ObsluzneMiestoModel> tmpList = new(pocetObsluznychMiest);
+        for (int i = 0; i < pocetObsluznychMiest; i++)
+        {
+            tmpList.Add(new());
+        }
+        ObsluzneMiestos = new(tmpList);
+
+        List<PokladnaModel> tmpPokladne = new(pocetPokladni);
+        for (int i = 0; i < pocetPokladni; i++)
+        {
+            tmpPokladne.Add(new());
+        }
+        Pokladne = new(tmpPokladne);
+
         _core = new DISS_Model_Elektrokomponenty.Core(pocetReplikacii, 0, pocetObsluznychMiest, pocetPokladni);
         _core.DataAvailable += UpdateUI;
         _core.Run();
@@ -337,8 +352,14 @@ public class MainViewModel : ObservableObjects
                 RadaPredObsluznimiMiestamiOnline = e.RadaPredObsluznimiMiestamiOnline;
                 RadaPredObsluznimiMiestamiBasic = e.RadaPredObsluznimiMiestamiBasic;
                 RadaPredObsluznimiMiestamiZmluvny = e.RadaPredObsluznimiMiestamiZmluvny;
-                ObsluzneMiestos = new(e.ObsluzneMiestos);
-                Pokladne = new(e.Pokladne);   
+                for (int i = 0; i < e.ObsluzneMiestos.Count; i++)
+                {
+                    ObsluzneMiestos[i].Update(e.ObsluzneMiestos[i]);
+                }
+                for (int i = 0; i < e.Pokladne.Count; i++)
+                {
+                    Pokladne[i].Update(e.Pokladne[i]);
+                };   
             }
 
             AktualnaReplikacia = e.AktuaReplikacia;
