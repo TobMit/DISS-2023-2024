@@ -9,6 +9,7 @@ public class RadaPredObsluznymMiestom
 
     public int CountOnline => _onlinePersons.Count;
     public int CountOstatne => _basicPersons.Count + _zmluvnyPersons.Count;
+    public int CountBasic => _basicPersons.Count;
 
     private readonly Queue<Person> _basicPersons;
     private readonly Queue<Person> _zmluvnyPersons;

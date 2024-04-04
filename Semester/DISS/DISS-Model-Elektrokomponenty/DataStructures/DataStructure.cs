@@ -14,7 +14,9 @@ public class DataStructure : EventArgs
     public List<Person> People { get; set; }
     public string RadaPredAutomatom { get; set; }
     public string Automat { get; set; }
-    public string RadaPredObsluznimiMiestami { get; set; }
+    public string RadaPredObsluznimiMiestamiOnline { get; set; }
+    public string RadaPredObsluznimiMiestamiBasic { get; set; }
+    public string RadaPredObsluznimiMiestamiZmluvny { get; set; }
     public List<string> ObsluzneMiestos { get; set; }
     public List<string> Pokladne { get; set; }
 

@@ -20,7 +20,9 @@ public class MainViewModel : ObservableObjects
     private string _simulationTime;
     private string _radaPredAutomatom;
     private string _automat;
-    private string _radaPredObsluznimiMiestami;
+    private string _radaPredObsluznimiMiestamiOnline;
+    private string _radaPredObsluznimiMiestamiBasic;
+    private string _radaPredObsluznimiMiestamiZmluvny;
     private ObservableCollection<string> _obsluzneMiestos;
     private ObservableCollection<string> _pokladne;
     private string _aktulnaReplikacia;
@@ -79,8 +81,11 @@ public class MainViewModel : ObservableObjects
         get => _radaPredAutomatom;
         set
         {
-            _radaPredAutomatom = value;
-            OnPropertyChanged();
+            if (String.Compare(value, _radaPredAutomatom, StringComparison.Ordinal) != 0)
+            {
+                _radaPredAutomatom = value;
+                OnPropertyChanged();
+            }
         }
     }
 
@@ -89,18 +94,49 @@ public class MainViewModel : ObservableObjects
         get => _automat;
         set
         {
-            _automat = value;
-            OnPropertyChanged();
+            if (String.Compare(value, _automat, StringComparison.Ordinal) != 0)
+            {
+                _automat = value;
+                OnPropertyChanged();
+            }
         }
     }
 
-    public string RadaPredObsluznimiMiestami
+    public string RadaPredObsluznimiMiestamiOnline
     {
-        get => _radaPredObsluznimiMiestami;
+        get => _radaPredObsluznimiMiestamiOnline;
         set
         {
-            _radaPredObsluznimiMiestami = value;
-            OnPropertyChanged();
+            // this should be faster (on binary level)
+            if (String.Compare(value, _radaPredObsluznimiMiestamiOnline, StringComparison.Ordinal) != 0)
+            {
+                _radaPredObsluznimiMiestamiOnline = value;
+                OnPropertyChanged();
+            }
+        }
+    }
+    public string RadaPredObsluznimiMiestamiBasic
+    {
+        get => _radaPredObsluznimiMiestamiBasic;
+        set
+        {
+            if (String.Compare(value, _radaPredObsluznimiMiestamiBasic, StringComparison.Ordinal) != 0)
+            {
+                _radaPredObsluznimiMiestamiBasic = value;
+                OnPropertyChanged();
+            }
+        }
+    }
+    public string RadaPredObsluznimiMiestamiZmluvny
+    {
+        get => _radaPredObsluznimiMiestamiZmluvny;
+        set
+        {
+            if (String.Compare(value, _radaPredObsluznimiMiestamiZmluvny, StringComparison.Ordinal) != 0)
+            {
+                _radaPredObsluznimiMiestamiZmluvny = value;
+                OnPropertyChanged();
+            }
         }
     }
 
@@ -129,8 +165,11 @@ public class MainViewModel : ObservableObjects
         get => _priemernyCasVObchode;
         set
         {
-            _priemernyCasVObchode = value;
-            OnPropertyChanged();
+            if (String.Compare(value, _priemernyCasVObchode, StringComparison.Ordinal) != 0)
+            {
+                _priemernyCasVObchode = value;
+                OnPropertyChanged();
+            }
         }
     }
 
@@ -139,8 +178,11 @@ public class MainViewModel : ObservableObjects
         get => _priemernyCasPredAutomatom;
         set
         {
-            _priemernyCasPredAutomatom = value;
-            OnPropertyChanged();
+            if (String.Compare(value, _priemernyCasPredAutomatom, StringComparison.Ordinal) != 0)
+            {
+                _priemernyCasPredAutomatom = value;
+                OnPropertyChanged();
+            }
         }
     }
 
@@ -149,8 +191,11 @@ public class MainViewModel : ObservableObjects
         get => _priemernaDlzkaRaduPredAutomatom;
         set
         {
-            _priemernaDlzkaRaduPredAutomatom = value;
-            OnPropertyChanged();
+            if (String.Compare(value, _priemernaDlzkaRaduPredAutomatom, StringComparison.Ordinal) != 0)
+            {
+                _priemernaDlzkaRaduPredAutomatom = value;
+                OnPropertyChanged();
+            }
         }
     }
 
@@ -159,8 +204,11 @@ public class MainViewModel : ObservableObjects
         get => _priemernyOdchodPoslednehoZakaznika;
         set
         {
-            _priemernyOdchodPoslednehoZakaznika = value;
-            OnPropertyChanged();
+            if (String.Compare(value, _priemernyOdchodPoslednehoZakaznika, StringComparison.Ordinal) != 0)
+            {
+                _priemernyOdchodPoslednehoZakaznika = value;
+                OnPropertyChanged();
+            }
         }
     }
 
@@ -169,8 +217,11 @@ public class MainViewModel : ObservableObjects
         get => _priemernyPocetZakaznikov;
         set
         {
-            _priemernyPocetZakaznikov = value;
-            OnPropertyChanged();
+            if (String.Compare(value, _priemernyPocetZakaznikov, StringComparison.Ordinal) != 0)
+            {
+                _priemernyPocetZakaznikov = value;
+                OnPropertyChanged();
+            }
         }
     }
     
@@ -188,8 +239,11 @@ public class MainViewModel : ObservableObjects
         get => _aktulnaReplikacia;
         set
         {
-            _aktulnaReplikacia = value;
-            OnPropertyChanged();
+            if (String.Compare(value, _aktulnaReplikacia, StringComparison.Ordinal) != 0)
+            {
+                _aktulnaReplikacia = value;
+                OnPropertyChanged();
+            }
         }
     }
 
@@ -208,6 +262,9 @@ public class MainViewModel : ObservableObjects
         PriemernyOdchodPoslednehoZakaznika = "-/-";
 
         RadaPredAutomatom = "-/-";
+        RadaPredObsluznimiMiestamiOnline = "-/-";
+        RadaPredObsluznimiMiestamiBasic = "-/-";
+        RadaPredObsluznimiMiestamiZmluvny = "-/-";
         Automat = "-/-";
         SimulationTime = "-/-";
     }
@@ -280,7 +337,9 @@ public class MainViewModel : ObservableObjects
                 Peoples = tmpCollection;
                 RadaPredAutomatom = e.RadaPredAutomatom;
                 Automat = e.Automat;
-                RadaPredObsluznimiMiestami = e.RadaPredObsluznimiMiestami;
+                RadaPredObsluznimiMiestamiOnline = e.RadaPredObsluznimiMiestamiOnline;
+                RadaPredObsluznimiMiestamiBasic = e.RadaPredObsluznimiMiestamiBasic;
+                RadaPredObsluznimiMiestamiZmluvny = e.RadaPredObsluznimiMiestamiZmluvny;
                 ObsluzneMiestos = new(e.ObsluzneMiestos);
                 Pokladne = new(e.Pokladne);   
             }

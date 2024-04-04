@@ -188,7 +188,9 @@ public class Core : EventSimulationCore<Person, DataStructure>
             }
             _eventData.RadaPredAutomatom = $"Rada pred automatom: {RadaPredAutomatom.Count}";
             _eventData.Automat = Automat.ToString();
-            _eventData.RadaPredObsluznimiMiestami = $"Rada pred obslúžnymi miestami: {RadaPredObsluznymMiestom.Count}/8";
+            _eventData.RadaPredObsluznimiMiestamiOnline = $"{RadaPredObsluznymMiestom.CountOnline}/{RadaPredObsluznymMiestom.Count}/{Constants.RADA_PRED_OBSLUZNYM_MIESTOM}";
+            _eventData.RadaPredObsluznimiMiestamiBasic = $"{RadaPredObsluznymMiestom.CountBasic}/{RadaPredObsluznymMiestom.Count}/{Constants.RADA_PRED_OBSLUZNYM_MIESTOM}";
+            _eventData.RadaPredObsluznimiMiestamiZmluvny = $"{RadaPredObsluznymMiestom.CountOstatne - RadaPredObsluznymMiestom.CountBasic}/{RadaPredObsluznymMiestom.Count}/{Constants.RADA_PRED_OBSLUZNYM_MIESTOM}";
             _eventData.ObsluzneMiestos = ObsluzneMiestoManager.GetInfoNaUI();
             _eventData.Pokladne = PokladnaManager.GetInfoNaUI();
         }
