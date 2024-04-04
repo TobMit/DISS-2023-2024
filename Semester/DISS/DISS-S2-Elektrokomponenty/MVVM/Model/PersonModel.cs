@@ -4,7 +4,7 @@ using DISS_S2_Elektroomponenty.Core;
 
 namespace DISS_S2_Elektroomponenty.MVVM.Model;
 
-public class PersonModel : ObservableObjects
+public class PersonModel
 {
     private int _ID;
     private double _timeOfArrival;

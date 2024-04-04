@@ -6,73 +6,203 @@
         xmlns:local="clr-namespace:DISS_S2_Elektroomponenty"
         xmlns:viewModel="clr-namespace:DISS_S2_Elektroomponenty.MVVM.ViewModel"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="MainWindow" Height="830" Width="1360"
+        WindowStartupLocation="CenterScreen"
+        >
     <Window.DataContext>
         <viewModel:MainViewModel />
     </Window.DataContext>
+    <Window.Background>
+        <SolidColorBrush Opacity="0.5" Color="#2A2B31"/>
+    </Window.Background>
 
     <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="30" />
-            <RowDefinition Height="*" />
-        </Grid.RowDefinitions>
-        <StackPanel Grid.Row="0"
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="250" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+        <StackPanel Grid.Column="0"
                     HorizontalAlignment="Left"
-                    Orientation="Horizontal">
+                    Background="#1F2125"
+                    Width="250">
+
+            <TextBlock Text="Tobiáš Mitala" 
+                       FontSize="36" FontWeight="Bold" 
+                       HorizontalAlignment="Center" 
+                       VerticalAlignment="Center">
+                <TextBlock.Foreground>
+                    <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+                        <GradientStop Color="#5047CA" Offset="0.0" />
+                        <GradientStop Color="LightGreen" Offset="0.5" />
+                        <GradientStop Color="#F16436" Offset="1.0" />
+                    </LinearGradientBrush>
+                </TextBlock.Foreground>
+            </TextBlock>
+
             <Button
-                Margin="5,0,5,0"
-                Width="50"
-                Command="{Binding StartCommand}">
-                Start
+                Margin="10,20,10,5"
+                Width="180"
+                Command="{Binding StartCommand}"
+                Style="{StaticResource ImageButtonStyle}"
+                >
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                    <Image Source="../Images/playIcon.png" Width="30" Height="30"/>
+                    <Label VerticalAlignment="Center"
+                           Content="Start"
+                           FontWeight="Bold"
+                           Foreground="White"
+                           FontSize="20"/>
+                </StackPanel>
+            </Button>
+
+            <Button
+                Margin="10,5,10,5"
+                Width="180"
+                Command="{Binding StopCommand}"
+                Style="{StaticResource ImageButtonStyle}"
+            >
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                    <Image Source="../Images/stop.png" 
+                           Width="20" 
+                           Height="20"
+                           Margin="5,0,5,0"
+                           />
+                    <Label VerticalAlignment="Center"
+                           Content="Stop"
+                           FontWeight="Bold"
+                           Foreground="White"
+                           FontSize="20"/>
+                </StackPanel>
             </Button>
             <Button
-                Margin="5,0,5,0"
-                Width="50"
-                Command="{Binding StopCommand}">
-                Stop
+                Margin="10,5,10,5"
+                Width="180"
+                Command="{Binding StopCommand}"
+                Style="{StaticResource ImageButtonStyle}"
+            >
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                    <Image Source="../Images/pause.png" 
+                           Width="30" 
+                           Height="30"/>
+                    <Label VerticalAlignment="Center"
+                           Content="Pause"
+                           FontWeight="Bold"
+                           Foreground="White"
+                           FontSize="20"/>
+                </StackPanel>
             </Button>
             <Button
-                Margin="5,0,5,0"
-                Width="60"
-                Command="{Binding RychlostCommand}">
-                Rychlosť
+                Margin="10,5,10,5"
+                Width="180"
+                Command="{Binding RychlostCommand}"
+                Style="{StaticResource ImageButtonStyle}"
+            >
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                    <Image Source="../Images/playIcon.png" Width="30" Height="30"/>
+                    <Label VerticalAlignment="Center"
+                           Content="Rýchlosť"
+                           FontWeight="Bold"
+                           Foreground="White"
+                           FontSize="20"/>
+                </StackPanel>
             </Button>
+
+            <CheckBox 
+                Style="{StaticResource CustomCheckBoxStyle}" 
+                Content="Spomalenie"
+                Margin="17,0,0,0"
+                />
+
+            <Slider 
+                Margin="17" 
+                Minimum="0" 
+                Maximum="3600" 
+                AutoToolTipPlacement="TopLeft"
+                Visibility="Visible"
+                />
+            
+
+            <GroupBox
+                Header="Nastavenia"
+                Foreground="White"
+                FontSize="20"
+                Margin="10"
+                >
+                <StackPanel>
+                    <Label Style="{StaticResource CustomLabelStyle}" 
+                           Content="Počet replikáci:"
+                           FontSize="16" />
+                    <TextBox
+                        Style="{StaticResource CutsomTextBox}"
+                        Text="25_000"
+                        />
+                    <Label Style="{StaticResource CustomLabelStyle}" 
+                           Content="Počet obslúžnych miest:"
+                           FontSize="16" />
+                    <TextBox
+                        Style="{StaticResource CutsomTextBox}"
+                        Text="15"
+                    />
+                    <Label Style="{StaticResource CustomLabelStyle}" 
+                           Content="Počet predajní"
+                           FontSize="16" />
+                    <TextBox
+                        Style="{StaticResource CutsomTextBox}"
+                        Text="6"
+                    />
+                </StackPanel>
+
+            </GroupBox>
+
+
         </StackPanel>
-        <ScrollViewer Grid.Row="1">
-            <StackPanel>
+        <WrapPanel Grid.Column="1"
+                   Background="#171720">
+            <WrapPanel>
                 <TextBlock 
                     Text="{Binding PriemernyCasVObchode}" 
-                    Margin="5" />
+                    Margin="5"
+                    Foreground="White"/>
                 <TextBlock 
                     Text="{Binding PriemernyCasPredAutomatom}" 
-                    Margin="5" />
+                    Margin="5" 
+                    Foreground="White"/>
                 <TextBlock 
                     Text="{Binding PriemernaDlzkaRaduPredAutomatom}" 
-                    Margin="5" />
+                    Margin="5"
+                    Foreground="White" />
                 <TextBlock 
                     Text="{Binding PriemernyOdchodPoslednehoZakaznika}" 
-                    Margin="5" />
+                    Margin="5" 
+                    Foreground="White"/>
                 <TextBlock 
                     Text="{Binding PriemernyPocetZakaznikov}" 
-                    Margin="5" />
+                    Margin="5" 
+                    Foreground="White"/>
                 <TextBlock 
                     Text="{Binding SimulationTime}" 
-                    Margin="5" />
+                    Margin="5"
+                    Foreground="White" />
                 <TextBlock 
                     Text="{Binding RadaPredAutomatom}" 
-                    Margin="5" />
+                    Margin="5" 
+                    Foreground="White"/>
                 <TextBlock 
                     Text="{Binding Automat}" 
-                    Margin="5" />
+                    Margin="5"
+                    Foreground="White" />
                 <TextBlock 
                     Text="{Binding RadaPredObsluznimiMiestami}" 
-                    Margin="5" />
+                    Margin="5" 
+                    Foreground="White"/>
                 <ListBox 
                     ItemsSource="{Binding ObsluzneMiestos}" 
-                    Margin="5" />
+                    Margin="5" 
+                    Foreground="White"/>
                 <ListBox 
                     ItemsSource="{Binding Pokladne}" 
-                    Margin="5" />
+                    Margin="5" 
+                    Foreground="White"/>
                 <Grid>
                     <DataGrid
                         ItemsSource="{Binding Peoples}" 
@@ -80,17 +210,23 @@
                         Margin="10"
                         >
                         <DataGrid.Columns>
-                            <DataGridTextColumn Header="ID" Binding="{Binding ID}" />
-                            <DataGridTextColumn Header="Čas príchodu" Binding="{Binding TimeOfArrival}" />
-                            <DataGridTextColumn Header="Typ Zákazníka" Binding="{Binding TypZakaznika}" />
-                            <DataGridTextColumn Header="Náročnosť tovaru" Binding="{Binding TypNarocnostiTovaru}" />
-                            <DataGridTextColumn Header="Veľkosť nákladu" Binding="{Binding TypVelkostiNakladu}" />
-                            <DataGridTextColumn Header="Stav zákazníka" Binding="{Binding StavZakaznika}" />
+                            <DataGridTextColumn
+                                Foreground="White" Header="ID" Binding="{Binding ID}" />
+                            <DataGridTextColumn
+                                Foreground="White" Header="Čas príchodu" Binding="{Binding TimeOfArrival}" />
+                            <DataGridTextColumn
+                                Foreground="White" Header="Typ Zákazníka" Binding="{Binding TypZakaznika}" />
+                            <DataGridTextColumn
+                                Foreground="White" Header="Náročnosť tovaru" Binding="{Binding TypNarocnostiTovaru}" />
+                            <DataGridTextColumn 
+                                Foreground="White" Header="Veľkosť nákladu" Binding="{Binding TypVelkostiNakladu}" />
+                            <DataGridTextColumn 
+                                Foreground="White" Header="Stav zákazníka" Binding="{Binding StavZakaznika}" />
                         </DataGrid.Columns>
                         
                     </DataGrid>
                 </Grid>
-            </StackPanel>
-        </ScrollViewer>
+            </WrapPanel>
+        </WrapPanel>
     </Grid>
 </Window>

@@ -9,7 +9,25 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Images\pause.png" />
+    <None Remove="Images\playIcon.png" />
+    <None Remove="Images\stop.png" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\DISS-Model-Elektrokomponenty\DISS-Model-Elektrokomponenty.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Images\pause.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Images\playIcon.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Images\stop.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
   </ItemGroup>
 
 </Project>
