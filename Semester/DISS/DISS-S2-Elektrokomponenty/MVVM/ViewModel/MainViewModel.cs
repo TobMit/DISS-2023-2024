@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Windows;
@@ -11,6 +12,10 @@ namespace DISS_S2_Elektroomponenty.MVVM.ViewModel;
 
 public class MainViewModel : ObservableObjects
 {
+    private string _pocetRplikacii;
+    private string _pocetObsluznychMiest;
+    private string _pocetPokladni;
+
     private DISS_Model_Elektrokomponenty.Core? _core;
     private string _simulationTime;
     private string _radaPredAutomatom;
@@ -18,6 +23,7 @@ public class MainViewModel : ObservableObjects
     private string _radaPredObsluznimiMiestami;
     private ObservableCollection<string> _obsluzneMiestos;
     private ObservableCollection<string> _pokladne;
+    private string _aktulnaReplikacia;
     private string _priemernyCasVObchode;
     private string _priemernyCasPredAutomatom;
     private string _priemernaDlzkaRaduPredAutomatom;
@@ -28,6 +34,35 @@ public class MainViewModel : ObservableObjects
     public RelayCommand StartCommand { get; set; }
     public RelayCommand StopCommand { get; set; }
     public RelayCommand RychlostCommand { get; set; }
+
+
+    public string PocetReplikacii
+    {
+        get => _pocetRplikacii;
+        set
+        {
+            _pocetRplikacii = value;
+            OnPropertyChanged();
+        }
+    }
+    public string PocetObsluznychMiest
+    {
+        get => _pocetObsluznychMiest;
+        set
+        {
+            _pocetObsluznychMiest = value;
+            OnPropertyChanged();
+        }
+    }
+    public string PocetPokladni
+    {
+        get => _pocetPokladni;
+        set
+        {
+            _pocetPokladni = value;
+            OnPropertyChanged();
+        }
+    }
 
     public string SimulationTime
     {
@@ -148,10 +183,32 @@ public class MainViewModel : ObservableObjects
             OnPropertyChanged();
         }
     }
+    public string AktualnaReplikacia
+    {
+        get => _aktulnaReplikacia;
+        set
+        {
+            _aktulnaReplikacia = value;
+            OnPropertyChanged();
+        }
+    }
 
     public MainViewModel()
     {
         InicialiseButtons();
+        PocetReplikacii = "50_000";
+        PocetObsluznychMiest = "15";
+        PocetPokladni = "6";
+
+        AktualnaReplikacia = "-/-";
+        PriemernaDlzkaRaduPredAutomatom = "-/-";
+        PriemernyCasPredAutomatom = "-/-";
+        PriemernyCasVObchode = "-/-";
+        PriemernyPocetZakaznikov = "-/-";
+        PriemernyOdchodPoslednehoZakaznika = "-/-";
+
+        RadaPredAutomatom = "-/-";
+        Automat = "-/-";
     }
 
     private void InicialiseButtons()
@@ -163,7 +220,30 @@ public class MainViewModel : ObservableObjects
 
     private void StartModel()
     {
-        _core = new DISS_Model_Elektrokomponenty.Core(25_000, 0, 3, 3);
+        int pocetReplikacii = 3;
+        int pocetObsluznychMiest = 3;
+        int pocetPokladni = 1;
+        try
+        {
+            pocetReplikacii = Int32.Parse(PocetReplikacii.Replace("_", ""));
+            pocetObsluznychMiest = int.Parse(PocetObsluznychMiest);
+            pocetPokladni = int.Parse(PocetPokladni);
+
+            if (pocetObsluznychMiest < 3)
+            {
+                throw new Exception("Nepravyn pocet obsluznych miest");
+            }
+
+            if (pocetPokladni < 1)
+            {
+                throw new Exception("Nespravny pocet pokladni");
+            }
+        }
+        catch (Exception e)
+        {
+            MessageBox.Show("Zle zadaný vstup" + e.Message, "Chyba vstupu", MessageBoxButton.OK, MessageBoxImage.Error);
+        }
+        _core = new DISS_Model_Elektrokomponenty.Core(pocetReplikacii, 0, pocetObsluznychMiest, pocetPokladni);
         _core.DataAvailable += UpdateUI;
         _core.Run();
     }
@@ -203,6 +283,8 @@ public class MainViewModel : ObservableObjects
                 ObsluzneMiestos = new(e.ObsluzneMiestos);
                 Pokladne = new(e.Pokladne);   
             }
+
+            AktualnaReplikacia = e.AktuaReplikacia;
             PriemernyCasVObchode = e.PriemernyCasVObhchode;
             PriemernyCasPredAutomatom = e.PriemernyCasPredAutomatom;
             PriemernaDlzkaRaduPredAutomatom = e.PriemernaDlzkaraduPredAutomatom;

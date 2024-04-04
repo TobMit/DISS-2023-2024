@@ -157,6 +157,8 @@ public class Core : EventSimulationCore<Person, DataStructure>
         Console.WriteLine($"Priemerna dlzka radu: {Double.Round(_globPriemernaDlzkaRadu.Calucate(), 4)}");
         Console.WriteLine($"Premerny odchod posledného zakaznika: {Double.Round(_globPriemernyOdchodPoslednehoZakaznika.Calucate(), 4)} / {TimeSpan.FromSeconds(Constants.START_DAY + _globPriemernyOdchodPoslednehoZakaznika.Calucate()).ToString(@"hh\:mm\:ss")}");
         Console.WriteLine($"Priemerny pocet zakaznikov: {Double.Round(_globPriemernyPocetZakaznikov.Calucate(), 4)}");
+        Tick();
+        OnUpdateData(_eventData);
     }
 
     protected override void Tick()
@@ -168,11 +170,7 @@ public class Core : EventSimulationCore<Person, DataStructure>
         _eventData.ShallowUpdate = SlowDown;
         if (_eventData.ShallowUpdate)
         {
-            var aktualnyCasSimulacie = TimeSpan.FromSeconds(SimulationTime);
-            aktualnyCasSimulacie = aktualnyCasSimulacie.Add(TimeSpan.FromHours(9));
-            var koncoviCasSimulacie = TimeSpan.FromSeconds(END_OF_SIMULATION_TIME);
-            koncoviCasSimulacie = koncoviCasSimulacie.Add(TimeSpan.FromHours(9));
-            _eventData.SimulationTime = $"Čas simulácie: {aktualnyCasSimulacie.ToString()} / {koncoviCasSimulacie}";
+            _eventData.SimulationTime = $"{TimeSpan.FromSeconds(Constants.START_DAY + SimulationTime).ToString(@"hh\:mm\:ss")} / {TimeSpan.FromSeconds(Constants.START_DAY + END_OF_SIMULATION_TIME).ToString(@"hh\:mm\:ss")}";
             _eventData.People = new(Persons.Count);
             foreach (var person in Persons)
             {
@@ -195,49 +193,51 @@ public class Core : EventSimulationCore<Person, DataStructure>
             _eventData.Pokladne = PokladnaManager.GetInfoNaUI();
         }
 
+        _eventData.AktuaReplikacia = _currentReplication.ToString();
+        
         if (_globPriemernyCasVObchode.Count > 0)
         {
-            _eventData.PriemernyCasVObhchode = $"Priemerný čas v obchode: {_globPriemernyCasVObchode.Calucate()} / {_globPriemernyCasVObchode.Calucate()/60}";
+            _eventData.PriemernyCasVObhchode = $"{Double.Round(_globPriemernyCasVObchode.Calucate(), 3)}s / {TimeSpan.FromSeconds(_globPriemernyCasVObchode.Calucate()).ToString(@"hh\:mm\:ss")}";
         }
         else
         {
-            _eventData.PriemernyCasVObhchode = "Priemerný čas v obchode: nan / nan";
+            _eventData.PriemernyCasVObhchode = "-/- / -:-:-";
         }
 
         if (_globCasStravenyPredAutomatom.Count > 0)
         {
-            _eventData.PriemernyCasPredAutomatom = $"Priemerný čas pred automatom: {_globCasStravenyPredAutomatom.Calucate()} / {_globCasStravenyPredAutomatom.Calucate()/60}";
+            _eventData.PriemernyCasPredAutomatom = $"{Double.Round(_globCasStravenyPredAutomatom.Calucate(), 3)}s / {TimeSpan.FromSeconds(_globCasStravenyPredAutomatom.Calucate()).ToString(@"hh\:mm\:ss")}";
         }
         else
         {
-            _eventData.PriemernyCasPredAutomatom = "Priemerný čas pred automatom: nan / nan";
+            _eventData.PriemernyCasPredAutomatom = "-/- / -:-:-";
         }
 
         if (_globPriemernaDlzkaRadu.Count > 0)
         {
-            _eventData.PriemernaDlzkaraduPredAutomatom = $"Priemerná dĺžka radu pred automatom: {_globPriemernaDlzkaRadu.Calucate()}";
+            _eventData.PriemernaDlzkaraduPredAutomatom = $"{Double.Round(_globPriemernaDlzkaRadu.Calucate(), 3)}";
         }
         else
         {
-            _eventData.PriemernaDlzkaraduPredAutomatom = "Priemerná dĺžka radu pred automatom: nan";
+            _eventData.PriemernaDlzkaraduPredAutomatom = "-/-";
         }
 
         if (_globPriemernyOdchodPoslednehoZakaznika.Count > 0)
         {
-            _eventData.PriemernyOdchodPoslednehoZakaznika = $"Premerný odchod posledného zakaznika: {_globPriemernyOdchodPoslednehoZakaznika.Calucate()} / {9.0 + _globPriemernyOdchodPoslednehoZakaznika.Calucate()/60/60}";
+            _eventData.PriemernyOdchodPoslednehoZakaznika = $"{Double.Round(_globPriemernyOdchodPoslednehoZakaznika.Calucate(), 3)} / {TimeSpan.FromSeconds(Constants.START_DAY + _globPriemernyOdchodPoslednehoZakaznika.Calucate()).ToString(@"hh\:mm\:ss")}";
         }
         else
         {
-            _eventData.PriemernyOdchodPoslednehoZakaznika = "Premerný odchod posledného zakaznika: nan / nan";
+            _eventData.PriemernyOdchodPoslednehoZakaznika = "-/- / -:-:-";
         }
 
         if (_globPriemernyPocetZakaznikov.Count > 0)
         {
-            _eventData.PriemernyPocetZakaznikov = $"Priemerný počet zákazníkov: {_globPriemernyPocetZakaznikov.Calucate()}";
+            _eventData.PriemernyPocetZakaznikov = $"{Double.Round(_globPriemernyPocetZakaznikov.Calucate(), 3)}";
         }
         else
         {
-            _eventData.PriemernyPocetZakaznikov = "Priemerný počet zákazníkov: nan";
+            _eventData.PriemernyPocetZakaznikov = "-/-";
         }
     }
 }

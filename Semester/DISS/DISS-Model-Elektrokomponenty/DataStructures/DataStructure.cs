@@ -18,6 +18,7 @@ public class DataStructure : EventArgs
     public List<string> ObsluzneMiestos { get; set; }
     public List<string> Pokladne { get; set; }
 
+    public string AktuaReplikacia { get; set; }
     public string PriemernyCasVObhchode { get; set; }
     public string PriemernyCasPredAutomatom { get; set; }
     public string PriemernaDlzkaraduPredAutomatom { get; set; }

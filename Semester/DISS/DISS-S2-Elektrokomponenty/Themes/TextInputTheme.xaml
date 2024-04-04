@@ -13,13 +13,7 @@
                         CornerRadius="5"
                         Height="30"
                         Background="{TemplateBinding Background}">
-                        <TextBox Text="{TemplateBinding Text}"
-                                 Foreground="{TemplateBinding Foreground}"
-                                 FontSize="{TemplateBinding FontSize}"
-                                 FontWeight="{TemplateBinding FontWeight}"
-                                 Background="Transparent"
-                                 BorderThickness="0"
-                                 CaretBrush="White" />
+                        <ScrollViewer Margin="0" x:Name="PART_ContentHost"/>
                     </Border>
                 </ControlTemplate>
             </Setter.Value>
