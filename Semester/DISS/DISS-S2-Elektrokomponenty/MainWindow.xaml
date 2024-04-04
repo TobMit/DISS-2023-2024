@@ -500,20 +500,21 @@
                                     Margin="10">
                                     <DataGrid.Columns>
                                         <DataGridTextColumn
-                                            Foreground="White" Header="ID" Binding="{Binding ID}" />
+                                            Foreground="Black" Header="ID" Binding="{Binding ID}" />
                                         <DataGridTextColumn
-                                            Foreground="White" Header="Čas príchodu" Binding="{Binding TimeOfArrival}" />
+                                            Foreground="Black" Header="Čas príchodu" Binding="{Binding TimeOfArrival}" />
                                         <DataGridTextColumn
-                                            Foreground="White" Header="Typ Zákazníka" Binding="{Binding TypZakaznika}" />
+                                            Foreground="Black" Header="Typ Zákazníka" Binding="{Binding TypZakaznika}" />
                                         <DataGridTextColumn
-                                            Foreground="White" Header="Náročnosť tovaru"
+                                            Foreground="Black" Header="Náročnosť tovaru"
                                             Binding="{Binding TypNarocnostiTovaru}" />
                                         <DataGridTextColumn
-                                            Foreground="White" Header="Veľkosť nákladu"
+                                            Foreground="Black" Header="Veľkosť nákladu"
                                             Binding="{Binding TypVelkostiNakladu}" />
                                         <DataGridTextColumn
-                                            Foreground="White" Header="Stav zákazníka"
-                                            Binding="{Binding StavZakaznika}" />
+                                            Foreground="Black" Header="Stav zákazníka"
+                                            Binding="{Binding StavZakaznika}" 
+                                            Width="*"/>
                                     </DataGrid.Columns>
 
                                 </DataGrid>
