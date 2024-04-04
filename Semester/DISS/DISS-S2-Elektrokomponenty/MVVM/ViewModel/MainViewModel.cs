@@ -5,6 +5,7 @@ using System.Windows;
 using System.Windows.Threading;
 using DISS_Model_Elektrokomponenty;
 using DISS_Model_Elektrokomponenty.DataStructures;
+using DISS_Model_Elektrokomponenty.Entity;
 using DISS_S2_Elektroomponenty.Core;
 using DISS_S2_Elektroomponenty.MVVM.Model;
 
@@ -19,7 +20,7 @@ public class MainViewModel : ObservableObjects
     private DISS_Model_Elektrokomponenty.Core? _core;
     private string _simulationTime;
     private string _radaPredAutomatom;
-    private string _automat;
+    private AutomatModel _automat;
     private string _radaPredObsluznimiMiestamiOnline;
     private string _radaPredObsluznimiMiestamiBasic;
     private string _radaPredObsluznimiMiestamiZmluvny;
@@ -89,16 +90,12 @@ public class MainViewModel : ObservableObjects
         }
     }
 
-    public string Automat
+    public AutomatModel Automat
     {
         get => _automat;
         set
         {
-            if (String.Compare(value, _automat, StringComparison.Ordinal) != 0)
-            {
-                _automat = value;
-                OnPropertyChanged();
-            }
+            _automat = value;
         }
     }
 
@@ -265,7 +262,7 @@ public class MainViewModel : ObservableObjects
         RadaPredObsluznimiMiestamiOnline = "-/-";
         RadaPredObsluznimiMiestamiBasic = "-/-";
         RadaPredObsluznimiMiestamiZmluvny = "-/-";
-        Automat = "-/-";
+        Automat = new();
         SimulationTime = "-/-";
     }
 
@@ -336,7 +333,7 @@ public class MainViewModel : ObservableObjects
                 }
                 Peoples = tmpCollection;
                 RadaPredAutomatom = e.RadaPredAutomatom;
-                Automat = e.Automat;
+                Automat.Update(e.Automat);
                 RadaPredObsluznimiMiestamiOnline = e.RadaPredObsluznimiMiestamiOnline;
                 RadaPredObsluznimiMiestamiBasic = e.RadaPredObsluznimiMiestamiBasic;
                 RadaPredObsluznimiMiestamiZmluvny = e.RadaPredObsluznimiMiestamiZmluvny;

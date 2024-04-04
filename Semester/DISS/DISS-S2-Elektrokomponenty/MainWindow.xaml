@@ -343,7 +343,8 @@
                         FontSize="20"
                         Margin="10,10,10,10">
                         <StackPanel
-                            Orientation="Vertical">
+                            Orientation="Vertical"
+                            >
                             <Label
                                 Margin="5"
                                 Style="{StaticResource CustomLabelStyle}"
@@ -406,7 +407,36 @@
                                 </StackPanel>
                             </Grid>
 
-                            <Border></Border>
+                            <Border
+                                Width="242" 
+                                HorizontalAlignment="Left"
+                                CornerRadius="15"
+                                >
+                                <GroupBox
+                                    Header="Automat"
+                                    Foreground="White"
+                                    FontSize="25"
+                                    Margin="10,0,10,10">
+                                    <StackPanel>
+                                        <Label 
+                                            Style="{StaticResource CustomLabelStyle}"
+                                            Content="{Binding Automat.Obsah}"
+                                            />
+                                    </StackPanel>
+                                </GroupBox>
+                                <Border.Style>
+                                    <Style TargetType="Border">
+                                        <Style.Triggers>
+                                            <DataTrigger Binding="{Binding Automat.Obsadeny}" Value="True">
+                                                <Setter Property="Background" Value="DarkRed"/>
+                                            </DataTrigger>
+                                            <DataTrigger Binding="{Binding Automat.Obsadeny}" Value="False">
+                                                <Setter Property="Background" Value="DarkGreen"/>
+                                            </DataTrigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </Border.Style>
+                            </Border>
 
                             <Grid>
                                 <DataGrid

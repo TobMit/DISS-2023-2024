@@ -13,7 +13,7 @@ public class DataStructure : EventArgs
     public string SimulationTime { get; set; }
     public List<Person> People { get; set; }
     public string RadaPredAutomatom { get; set; }
-    public string Automat { get; set; }
+    public Automat Automat { get; set; }
     public string RadaPredObsluznimiMiestamiOnline { get; set; }
     public string RadaPredObsluznimiMiestamiBasic { get; set; }
     public string RadaPredObsluznimiMiestamiZmluvny { get; set; }
