@@ -86,23 +86,10 @@
                            FontSize="20" />
                 </StackPanel>
             </Button>
-            <Button
-                Margin="10,5,10,5"
-                Width="180"
-                Command="{Binding RychlostCommand}"
-                Style="{StaticResource ImageButtonStyle}">
-                <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
-                    <Image Source="../Images/playIcon.png" Width="30" Height="30" />
-                    <Label VerticalAlignment="Center"
-                           Content="Rýchlosť"
-                           FontWeight="Bold"
-                           Foreground="White"
-                           FontSize="20" />
-                </StackPanel>
-            </Button>
 
             <CheckBox
                 Style="{StaticResource CustomCheckBoxStyle}"
+                IsChecked="{Binding SlowDown, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                 Content="Spomalenie"
                 Margin="17,0,0,0" />
 
@@ -336,7 +323,8 @@
                 <Border Grid.Row="1"
                         Margin="20, 0, 20,0"
                         Background="#1F2125"
-                        CornerRadius="10">
+                        CornerRadius="10"
+                        Visibility="{Binding ReplicationDetial}">
                     <GroupBox
                         Header="Priebeh simulácie"
                         Foreground="White"

@@ -33,10 +33,11 @@ public class MainViewModel : ObservableObjects
     private string _priemernyOdchodPoslednehoZakaznika;
     private string _priemernyPocetZakaznikov;
     private ObservableCollection<PersonModel> _peoples;
+    private bool _slowDown;
+    private Visibility _replicationDetailVisibility;
 
     public RelayCommand StartCommand { get; set; }
     public RelayCommand StopCommand { get; set; }
-    public RelayCommand RychlostCommand { get; set; }
 
 
     public string PocetReplikacii
@@ -244,6 +245,31 @@ public class MainViewModel : ObservableObjects
         }
     }
 
+    public bool SlowDown
+    {
+        get => _slowDown;
+        set
+        {
+            if (value != _slowDown)
+            {
+                _slowDown = value;
+                SetReplicationDetailVisibilit(_slowDown);
+                RychlostModel();
+                OnPropertyChanged();
+            }
+        }
+    }
+
+    public Visibility ReplicationDetial
+    {
+        get => _replicationDetailVisibility;
+        set
+        {
+            _replicationDetailVisibility = value;
+            OnPropertyChanged();
+        }
+    }
+
     public MainViewModel()
     {
         InicialiseButtons();
@@ -264,13 +290,14 @@ public class MainViewModel : ObservableObjects
         RadaPredObsluznimiMiestamiZmluvny = "-/-";
         Automat = new();
         SimulationTime = "-/-";
+        SlowDown = false;
+        ReplicationDetial = Visibility.Collapsed;
     }
 
     private void InicialiseButtons()
     {
         StartCommand = new RelayCommand(o => StartModel());
         StopCommand = new RelayCommand(o => StopModel());
-        RychlostCommand = new RelayCommand(o => RychlostModel());
     }
 
     private void StartModel()
@@ -313,7 +340,7 @@ public class MainViewModel : ObservableObjects
         }
         Pokladne = new(tmpPokladne);
 
-        _core = new DISS_Model_Elektrokomponenty.Core(pocetReplikacii, 0, pocetObsluznychMiest, pocetPokladni);
+        _core = new DISS_Model_Elektrokomponenty.Core(pocetReplikacii, 0, pocetObsluznychMiest, pocetPokladni) {SlowDown = _slowDown};
         _core.DataAvailable += UpdateUI;
         _core.Run();
     }
@@ -330,7 +357,26 @@ public class MainViewModel : ObservableObjects
     {
         if (_core is not null)
         {
-            _core.SlowDown = !_core.SlowDown;
+            if (_slowDown)
+            {
+                _core.SlowDown = true;
+            }
+            else
+            {
+                _core.SlowDown = false;
+            }
+        }
+    }
+
+    private void SetReplicationDetailVisibilit(bool visibilit)
+    {
+        if (visibilit)
+        {
+            ReplicationDetial = Visibility.Visible;
+        }
+        else
+        {
+            ReplicationDetial = Visibility.Collapsed;
         }
     }
     
