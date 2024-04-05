@@ -37,6 +37,7 @@ public class MainViewModel : ObservableObjects
     private ObservableCollection<PersonModel> _peoples;
     private bool _slowDown;
     private Visibility _replicationDetailVisibility;
+    private double _sliderValue;
 
     public RelayCommand StartCommand { get; set; }
     public RelayCommand StopCommand { get; set; }
@@ -257,7 +258,7 @@ public class MainViewModel : ObservableObjects
             {
                 _slowDown = value;
                 SetReplicationDetailVisibilit(_slowDown);
-                RychlostModel();
+                SledovanieSimulacie();
                 OnPropertyChanged();
             }
         }
@@ -284,6 +285,17 @@ public class MainViewModel : ObservableObjects
 
     }
 
+    public double SliderValue
+    {
+        get => _sliderValue;
+        set
+        {
+            _sliderValue = value;
+            SetSimulaciaSpeed();
+            OnPropertyChanged();
+        }
+    }
+
     public MainViewModel()
     {
         InicialiseButtons();
@@ -291,6 +303,7 @@ public class MainViewModel : ObservableObjects
         PocetObsluznychMiest = "15";
         PocetPokladni = "6";
         PauseButtonText = "Pause";
+        SliderValue = 130;
 
         AktualnaReplikacia = "-/-";
         PriemernaDlzkaRaduPredAutomatom = "-/-";
@@ -356,7 +369,11 @@ public class MainViewModel : ObservableObjects
         }
         Pokladne = new(tmpPokladne);
 
-        _core = new DISS_Model_Elektrokomponenty.Core(pocetReplikacii, 0, pocetObsluznychMiest, pocetPokladni) {SlowDown = _slowDown};
+        _core = new DISS_Model_Elektrokomponenty.Core(pocetReplikacii, 0, pocetObsluznychMiest, pocetPokladni)
+        {
+            SlowDown = _slowDown,
+            SlowDownSpeed = SliderValue
+        };
         _core.DataAvailable += UpdateUI;
         _core.Run();
     }
@@ -389,7 +406,7 @@ public class MainViewModel : ObservableObjects
         }
     }
 
-    private void RychlostModel()
+    private void SledovanieSimulacie()
     {
         if (_core is not null)
         {
@@ -401,6 +418,14 @@ public class MainViewModel : ObservableObjects
             {
                 _core.SlowDown = false;
             }
+        }
+    }
+
+    private void SetSimulaciaSpeed()
+    {
+        if (_core is not null)
+        {
+            _core.SlowDownSpeed = _sliderValue;
         }
     }
 

@@ -24,5 +24,13 @@ namespace DISS_S2_Elektroomponenty
         {
             InitializeComponent();
         }
+
+        private void UIElement_OnPreviewMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            var slider = (Slider)sender;
+            var point = e.GetPosition(slider);
+            var value = point.X / slider.ActualWidth * (slider.Maximum - slider.Minimum) + slider.Minimum;
+            slider.Value = value;
+        }
     }
 }

@@ -9,6 +9,7 @@ namespace DISS_EventSimulationCore;
 /// <typeparam name="TEventDataStructure">Dátova štruktúra ktorá sa vracia v evente</typeparam>
 public abstract class EventSimulationCore<T, TEventDataStructure> : MonteCarloCore where TEventDataStructure : EventArgs
 {
+    public int POCET_UPDATOV_ZA_SEKUNDU = 5;
     public event EventHandler<TEventDataStructure> DataAvailable;
     public TEventDataStructure? _eventData;
     
@@ -22,14 +23,14 @@ public abstract class EventSimulationCore<T, TEventDataStructure> : MonteCarloCo
     public bool Pause { get; set; }
     
     /// <summary>
-    /// Interval spomalenia <0,1> kde 0 je maximálne spomalenie (1s) a 1 je 1H hodina
+    /// Interval spomalenia <1,3600> kde 0 je maximálne spomalenie (1s) a 3600 je 1H hodina
     /// </summary>
     public double SlowDownSpeed { get; set; }
 
     protected EventSimulationCore(int numberOfReplications, int cutFirst) : base(numberOfReplications, cutFirst)
     {
         SlowDown = false;
-        SlowDownSpeed = 0.01;
+        SlowDownSpeed = 1;
         generateSlowDownEvent = SlowDown;
         _eventData = null;
         Pause = false;
@@ -60,7 +61,8 @@ public abstract class EventSimulationCore<T, TEventDataStructure> : MonteCarloCo
             if (SlowDown && !generateSlowDownEvent)
             {
                 generateSlowDownEvent = true;
-                var newTime = 1 + (SlowDownSpeed - 0) * (3600 - 1) / (1 - 0);
+                //var newTime = 1 + (SlowDownSpeed - 0) * (3600 - 1) / (1 - 0);
+                var newTime = SlowDownSpeed / POCET_UPDATOV_ZA_SEKUNDU;
                 newTime += SimulationTime;
                 TimeLine.Enqueue(new EventSlowDown<T, TEventDataStructure>(this, newTime), newTime);
             } 
@@ -80,6 +82,8 @@ public abstract class EventSimulationCore<T, TEventDataStructure> : MonteCarloCo
                 }
             }
         }
+
+        generateSlowDownEvent = false;
     }
 
     /// <summary>

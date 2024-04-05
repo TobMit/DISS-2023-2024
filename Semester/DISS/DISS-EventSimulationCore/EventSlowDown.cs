@@ -9,11 +9,12 @@ public class EventSlowDown <T, TEvent> : SimulationEvent<T, TEvent> where TEvent
     public override void Execuete()
     {
         // uspím vlákno
-        Thread.Sleep(200);
+        Thread.Sleep(1000 / _core.POCET_UPDATOV_ZA_SEKUNDU);
 
         if (_core.SlowDown)
         {
-            var newTime = 1 + (_core.SlowDownSpeed - 0) * (3600 - 1) / (1 - 0);
+            //var newTime = 1 + (_core.SlowDownSpeed - 0) * (3600 - 1) / (1 - 0);
+            var newTime = _core.SlowDownSpeed / _core.POCET_UPDATOV_ZA_SEKUNDU;
             newTime += EventTime;
             if (newTime < _core.END_OF_SIMULATION_TIME)
             {
