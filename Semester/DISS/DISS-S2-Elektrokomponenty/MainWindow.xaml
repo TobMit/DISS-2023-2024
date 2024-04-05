@@ -73,14 +73,14 @@
             <Button
                 Margin="10,5,10,5"
                 Width="180"
-                Command="{Binding StopCommand}"
+                Command="{Binding PauseCommand}"
                 Style="{StaticResource ImageButtonStyle}">
                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
                     <Image Source="../Images/pause.png"
                            Width="30"
                            Height="30" />
                     <Label VerticalAlignment="Center"
-                           Content="Pause"
+                           Content="{Binding PauseButtonText}"
                            FontWeight="Bold"
                            Foreground="White"
                            FontSize="20" />

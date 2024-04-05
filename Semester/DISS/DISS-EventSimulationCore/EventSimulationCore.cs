@@ -18,6 +18,8 @@ public abstract class EventSimulationCore<T, TEventDataStructure> : MonteCarloCo
 
     public bool SlowDown { get; set; }
     private bool generateSlowDownEvent;
+
+    public bool Pause { get; set; }
     
     /// <summary>
     /// Interval spomalenia <0,1> kde 0 je maximálne spomalenie (1s) a 1 je 1H hodina
@@ -30,6 +32,7 @@ public abstract class EventSimulationCore<T, TEventDataStructure> : MonteCarloCo
         SlowDownSpeed = 0.01;
         generateSlowDownEvent = SlowDown;
         _eventData = null;
+        Pause = false;
     }
 
     public override void Replication()
@@ -53,11 +56,6 @@ public abstract class EventSimulationCore<T, TEventDataStructure> : MonteCarloCo
                 Tick();
             }
             
-            
-            // TimeSpan timeSpan = TimeSpan.FromSeconds(SimulationTime);
-            // timeSpan = timeSpan.Add(TimeSpan.FromHours(9));
-            // Console.WriteLine($"[Event Sim Core] - Simulačný čas: {timeSpan}");
-            
             // na generovanie spomalenia
             if (SlowDown && !generateSlowDownEvent)
             {
@@ -70,6 +68,16 @@ public abstract class EventSimulationCore<T, TEventDataStructure> : MonteCarloCo
             {
                 generateSlowDownEvent = false;
                 
+            }
+
+            if (Pause)
+            {
+                Tick();
+                if (_eventData != null) OnUpdateData(_eventData);
+                while (Pause)
+                {
+                    Thread.Sleep(200);
+                }
             }
         }
     }

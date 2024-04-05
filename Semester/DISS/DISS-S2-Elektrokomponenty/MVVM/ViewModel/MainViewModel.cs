@@ -17,6 +17,7 @@ public class MainViewModel : ObservableObjects
     private string _pocetRplikacii;
     private string _pocetObsluznychMiest;
     private string _pocetPokladni;
+    private string _pauseButtonText;
 
     private DISS_Model_Elektrokomponenty.Core? _core;
     private string _simulationTime;
@@ -39,6 +40,7 @@ public class MainViewModel : ObservableObjects
 
     public RelayCommand StartCommand { get; set; }
     public RelayCommand StopCommand { get; set; }
+    public RelayCommand PauseCommand { get; set; }
 
 
     public string PocetReplikacii
@@ -271,12 +273,24 @@ public class MainViewModel : ObservableObjects
         }
     }
 
+    public string PauseButtonText
+    {
+        get => _pauseButtonText;
+        set
+        {
+            _pauseButtonText = value;
+            OnPropertyChanged();
+        }
+
+    }
+
     public MainViewModel()
     {
         InicialiseButtons();
         PocetReplikacii = "50_000";
         PocetObsluznychMiest = "15";
         PocetPokladni = "6";
+        PauseButtonText = "Pause";
 
         AktualnaReplikacia = "-/-";
         PriemernaDlzkaRaduPredAutomatom = "-/-";
@@ -299,6 +313,7 @@ public class MainViewModel : ObservableObjects
     {
         StartCommand = new RelayCommand(o => StartModel());
         StopCommand = new RelayCommand(o => StopModel());
+        PauseCommand = new RelayCommand(o => PauseModel());
     }
 
     private void StartModel()
@@ -351,6 +366,26 @@ public class MainViewModel : ObservableObjects
         if (_core is not null)
         {
             _core.Stop();
+        }
+    }
+
+    private void PauseModel()
+    {
+        if (_core is not null)
+        {
+            if (_core.IsRunning)
+            {
+                if (_core.Pause)
+                {
+                    _core.Pause = false;
+                    PauseButtonText = "Pause";
+                }
+                else
+                {
+                    _core.Pause = true;
+                    PauseButtonText = "Continue";
+                }
+            }
         }
     }
 
