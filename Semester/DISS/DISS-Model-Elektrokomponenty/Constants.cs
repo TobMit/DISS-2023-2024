@@ -40,7 +40,8 @@ public class Constants
         ObsluzneMiestoVraciaSaPreVelkyTovar = 7,
         OdisielZPredajne = 8
     }
-    
+
+    public static int POCET_DAT_V_GRAFE = 100;
     public static int RADA_PRED_OBSLUZNYM_MIESTOM = 9;
     
     public static double START_DAY = 9*60*60; // 9:00

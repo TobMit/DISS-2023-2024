@@ -16,6 +16,8 @@ namespace DISS_Model_Elektrokomponenty;
 
 public class Core : EventSimulationCore<Person, DataStructure>
 {
+    public bool BehZavislosti { get; set; }
+    
     private int _pocetObsluznychMiest;
     private int _pocetPokladni;
 
@@ -144,6 +146,24 @@ public class Core : EventSimulationCore<Person, DataStructure>
         _globPriemernaDlzkaRadu.AddValue(StatPriemednaDlzakaRaduAutomatu.Calucate());
         _globPriemernyOdchodPoslednehoZakaznika.AddValue(SimulationTime);
         _globPriemernyPocetZakaznikov.AddValue(Automat.CelkovyPocet);
+        if (BehZavislosti)
+        {
+            if (_currentReplication < _cutFirst)
+            {
+                return;
+            }
+            
+            int stepSize = _numberOfReplications / Constants.POCET_DAT_V_GRAFE;
+            if (stepSize >= 2)
+            {
+                if (_currentReplication % stepSize == 0)
+                {
+                    Tick();
+                    OnUpdateData(_eventData);
+                }    
+            }
+            return;
+        }
         if (_currentReplication % 100 == 0)
         {
             if (_eventData is not null)
@@ -165,6 +185,12 @@ public class Core : EventSimulationCore<Person, DataStructure>
         Console.WriteLine(
             $"Premerny odchod posledného zakaznika: {Double.Round(_globPriemernyOdchodPoslednehoZakaznika.Calucate(), 4)} / {TimeSpan.FromSeconds(Constants.START_DAY + _globPriemernyOdchodPoslednehoZakaznika.Calucate()).ToString(@"hh\:mm\:ss")}");
         Console.WriteLine($"Priemerny pocet zakaznikov: {Double.Round(_globPriemernyPocetZakaznikov.Calucate(), 4)}");
+        if (BehZavislosti)
+        {
+            Tick();
+            OnUpdateData(_eventData);
+            return;
+        }
         Tick();
         _eventData.NewData = true;
         OnUpdateData(_eventData);
@@ -172,6 +198,24 @@ public class Core : EventSimulationCore<Person, DataStructure>
 
     protected override void Tick()
     {
+        if (BehZavislosti)
+        {
+            if (_eventData is null)
+            {
+                _eventData = new();
+            }
+            _eventData.AktuaReplikacia = _currentReplication.ToString();
+            if (_globPriemernaDlzkaRadu.Count > 0)
+            {
+                _eventData.BehZavislostiPriemernyPocetZakaznikovPredAutomatom = Double.Round(_globPriemernaDlzkaRadu.Calucate(), 3);
+            }
+            else
+            {
+                _eventData.BehZavislostiPriemernyPocetZakaznikovPredAutomatom = 0;
+            }
+            return;
+        }
+        
         if (_eventData is null)
         {
             _eventData = new();

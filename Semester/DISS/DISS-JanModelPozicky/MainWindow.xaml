@@ -7,26 +7,24 @@
         xmlns:global="clr-namespace:"
         xmlns:lvc="clr-namespace:LiveCharts.Wpf;assembly=LiveCharts.Wpf"
         mc:Ignorable="d"
-        Title="Jan Model" Height="500" Width="900"
-        >
+        Title="Jan Model" Height="500" Width="900">
 
     <Window.DataContext>
-        <global:MainViewModel/>
+        <global:MainViewModel />
     </Window.DataContext>
 
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="25"/>
-            <RowDefinition Height="25"/>
-            <RowDefinition Height="25"/>
-            <RowDefinition Height="30"/>
-            <RowDefinition Height="*"/>
+            <RowDefinition Height="25" />
+            <RowDefinition Height="25" />
+            <RowDefinition Height="25" />
+            <RowDefinition Height="30" />
+            <RowDefinition Height="*" />
         </Grid.RowDefinitions>
 
         <StackPanel Grid.Row="0"
                     HorizontalAlignment="Left"
-                    Orientation="Horizontal"
-                    >
+                    Orientation="Horizontal">
             <Label>Počet replikácií:</Label>
             <TextBox
                 Text="{Binding NumberOfRelication}"
@@ -34,14 +32,12 @@
                 Margin="5,0,5,0"
                 TextAlignment="Right"
                 VerticalContentAlignment="Center"
-                Width="100"
-                />
+                Width="100" />
         </StackPanel>
 
         <StackPanel Grid.Row="1"
                     HorizontalAlignment="Left"
-                    Orientation="Horizontal"
-        >
+                    Orientation="Horizontal">
             <Label>Pocet replikácií orezanych na zaciatku:</Label>
             <TextBox
                 Text="{Binding CutFirst}"
@@ -49,14 +45,12 @@
                 Margin="5,0,5,0"
                 TextAlignment="Right"
                 VerticalContentAlignment="Center"
-                Width="100"
-            />
+                Width="100" />
         </StackPanel>
 
         <StackPanel Grid.Row="2"
                     HorizontalAlignment="Left"
-                    Orientation="Horizontal"
-        >
+                    Orientation="Horizontal">
             <Label>Pozicana suma:</Label>
             <TextBox
                 Text="{Binding BeginSuma}"
@@ -64,89 +58,74 @@
                 Margin="5,0,5,0"
                 TextAlignment="Right"
                 VerticalContentAlignment="Center"
-                Width="100"
-            />
+                Width="100" />
         </StackPanel>
 
         <StackPanel Grid.Row="3"
                     HorizontalAlignment="Left"
-                    Orientation="Horizontal"
-        >
+                    Orientation="Horizontal">
             <Button
                 Margin="5,0,5,0"
                 Width="50"
-                Command="{Binding StartCommand}"
-                >
+                Command="{Binding StartCommand}">
                 Start
             </Button>
             <Button
                 Margin="5,0,5,0"
                 Width="50"
-                Command="{Binding StopCommand}"
-                >
+                Command="{Binding StopCommand}">
                 Stop
             </Button>
         </StackPanel>
 
-        <ScrollViewer Grid.Row="4"
-                      >
+        <ScrollViewer Grid.Row="4">
             <StackPanel
-            CanVerticallyScroll="True"
-            >
-                <lvc:CartesianChart 
-                Grid.Row="4"
-                Name="FisrVariant"
-                Height="300"
-                Series="{Binding SeriesCollectionVariantA}"
-            >
+                CanVerticallyScroll="True">
+                <lvc:CartesianChart
+                    Grid.Row="4"
+                    Name="FisrVariant"
+                    Height="300"
+                    Series="{Binding SeriesCollectionVariantA}">
                     <lvc:CartesianChart.AxisX>
-                        <lvc:Axis Labels="{Binding LabelsVariantA}"/>
+                        <lvc:Axis Labels="{Binding LabelsVariantA}" />
                     </lvc:CartesianChart.AxisX>
                 </lvc:CartesianChart>
                 <StackPanel
-                Orientation="Horizontal"
-                HorizontalAlignment="Center"
-                >
+                    Orientation="Horizontal"
+                    HorizontalAlignment="Center">
                     <Label
-                    Content="{Binding VysledokPokusuJeden}"
-                    />
+                        Content="{Binding VysledokPokusuJeden}" />
                 </StackPanel>
-                <lvc:CartesianChart 
-                Grid.Row="4"
-                Name="SecondVariant"
-                Height="300"
-                Series="{Binding SeriesCollectionVariantB}"
-            >
+                <lvc:CartesianChart
+                    Grid.Row="4"
+                    Name="SecondVariant"
+                    Height="300"
+                    Series="{Binding SeriesCollectionVariantB}">
                     <lvc:CartesianChart.AxisX>
-                        <lvc:Axis Labels="{Binding LabelsVariantB}"/>
+                        <lvc:Axis Labels="{Binding LabelsVariantB}" />
                     </lvc:CartesianChart.AxisX>
                 </lvc:CartesianChart>
                 <StackPanel
-                Orientation="Horizontal"
-                HorizontalAlignment="Center"
-            >
+                    Orientation="Horizontal"
+                    HorizontalAlignment="Center">
                     <Label
-                    Content="{Binding VysledokPokusuDva}"
-                />
+                        Content="{Binding VysledokPokusuDva}" />
                 </StackPanel>
 
-                <lvc:CartesianChart 
-                Grid.Row="4"
-                Name="ThirdVarint"
-                Height="300"
-                Series="{Binding SeriesCollectionVariantC}"
-            >
+                <lvc:CartesianChart
+                    Grid.Row="4"
+                    Name="ThirdVarint"
+                    Height="300"
+                    Series="{Binding SeriesCollectionVariantC}">
                     <lvc:CartesianChart.AxisX>
-                        <lvc:Axis Labels="{Binding LabelsVariantC}"/>
+                        <lvc:Axis Labels="{Binding LabelsVariantC}" />
                     </lvc:CartesianChart.AxisX>
                 </lvc:CartesianChart>
                 <StackPanel
-                Orientation="Horizontal"
-                HorizontalAlignment="Center"
-            >
+                    Orientation="Horizontal"
+                    HorizontalAlignment="Center">
                     <Label
-                    Content="{Binding VysledokPokusuTri}"
-                />
+                        Content="{Binding VysledokPokusuTri}" />
                 </StackPanel>
             </StackPanel>
         </ScrollViewer>

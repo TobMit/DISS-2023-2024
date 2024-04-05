@@ -5,6 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:DISS_S2_Elektroomponenty"
         xmlns:viewModel="clr-namespace:DISS_S2_Elektroomponenty.MVVM.ViewModel"
+        xmlns:lvc="clr-namespace:LiveCharts.Wpf;assembly=LiveCharts.Wpf"
         mc:Ignorable="d"
         Title="MainWindow" Height="830" Width="1360"
         WindowStartupLocation="CenterScreen">
@@ -89,9 +90,16 @@
 
             <CheckBox
                 Style="{StaticResource CustomCheckBoxStyle}"
+                IsChecked="{Binding BehZavisloti, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                Content="Beh závislostí"
+                Margin="17,0,0,10" />
+            
+            <CheckBox
+                Style="{StaticResource CustomCheckBoxStyle}"
                 IsChecked="{Binding SlowDown, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                 Content="Spomalenie"
-                Margin="17,0,0,0" />
+                Margin="17,0,0,0"
+                Visibility="{Binding BehZavislotiVisibilityOstatne}"/>
 
             <Label
                 Style="{StaticResource CustomLabelStyle}"
@@ -132,11 +140,22 @@
                         Text="{Binding PocetObsluznychMiest, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
                     <Label Style="{StaticResource CustomLabelStyle}"
                            Content="Počet predajní"
-                           FontSize="16" />
+                           FontSize="16"
+                           Visibility="{Binding BehZavislotiVisibilityOstatne}"/>
                     <TextBox
                         CaretBrush="White"
                         Style="{StaticResource CutsomTextBox}"
-                        Text="{Binding PocetPokladni, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                        Text="{Binding PocetPokladni, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                        Visibility="{Binding BehZavislotiVisibilityOstatne}"/>
+                    <Label Style="{StaticResource CustomLabelStyle}"
+                           Content="Cut first"
+                           FontSize="16"
+                           Visibility="{Binding BehZavislotiVisibility}"/>
+                    <TextBox
+                        CaretBrush="White"
+                        Style="{StaticResource CutsomTextBox}"
+                        Text="{Binding CutFirst, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                        Visibility="{Binding BehZavislotiVisibility}"/>
                 </StackPanel>
             </GroupBox>
         </StackPanel>
@@ -154,7 +173,8 @@
                 <Border Grid.Row="0"
                         Margin="20, 0, 20,15"
                         Background="#1F2125"
-                        CornerRadius="10">
+                        CornerRadius="10"
+                        Visibility="{Binding BehZavislotiVisibilityOstatne}">
                     <GroupBox
                         Header="Celkové štatistiky"
                         Foreground="White"
@@ -326,6 +346,45 @@
                                     FontWeight="Bold" />
                             </StackPanel>
                         </Grid>
+                    </GroupBox>
+                </Border>
+                
+                <Border Grid.Row="0"
+                        Margin="20, 0, 20,15"
+                        Background="#1F2125"
+                        CornerRadius="10"
+                        Visibility="{Binding BehZavislotiVisibility}">
+                    <GroupBox
+                        Header="Beh Závislostí"
+                        Foreground="White"
+                        FontSize="20"
+                        Margin="10,10,10,10">
+                        <StackPanel>
+                            <Label
+                                Margin="5"
+                                Style="{StaticResource CustomLabelStyle}"
+                                Content="Závislosť priemerného počtu čakajúcich v rade pred automatom na počte pokladní 2-6"
+                                FontSize="20"
+                                FontWeight="Bold" />
+                            <Label
+                                Style="{StaticResource CustomLabelStyle}"
+                                Content="Aktuálna Replikácia:"
+                                FontSize="15"
+                                Margin="10,0"/>
+                            <TextBlock
+                                Text="{Binding AktualnaReplikacia}"
+                                Margin="10,0"
+                                Foreground="White"
+                                FontSize="20"
+                                FontWeight="Bold" />
+                            <lvc:CartesianChart
+                                Grid.Row="4"
+                                Name="CharfZavislosti"
+                                MinHeight="650"
+                                LegendLocation="Bottom"
+                                Series="{Binding SeriesCollection}">
+                            </lvc:CartesianChart>
+                        </StackPanel>
                     </GroupBox>
                 </Border>
 

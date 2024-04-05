@@ -28,6 +28,8 @@ public class DataStructure : EventArgs
     public string PriemernyOdchodPoslednehoZakaznika { get; set; }
     public string PriemernyPocetZakaznikov { get; set; }
 
+    public double BehZavislostiPriemernyPocetZakaznikovPredAutomatom { get; set; }
+
     public DataStructure()
     {
         NewData = true;
