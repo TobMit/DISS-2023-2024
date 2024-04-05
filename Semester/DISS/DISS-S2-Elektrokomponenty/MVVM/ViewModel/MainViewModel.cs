@@ -368,6 +368,7 @@ public class MainViewModel : ObservableObjects
             tmpPokladne.Add(new());
         }
         Pokladne = new(tmpPokladne);
+        PauseButtonText = "Pause";
 
         _core = new DISS_Model_Elektrokomponenty.Core(pocetReplikacii, 0, pocetObsluznychMiest, pocetPokladni)
         {
@@ -383,6 +384,7 @@ public class MainViewModel : ObservableObjects
         if (_core is not null)
         {
             _core.Stop();
+            PauseButtonText = "Pause";
         }
     }
 

@@ -98,6 +98,7 @@
                 Content="Zmena rýchlosti simlácie"
                 Margin="0,10,0,0"
                 FontSize="20"
+                Visibility="{Binding ReplicationDetial}"
                 />
             <Slider
                 Margin="17"
