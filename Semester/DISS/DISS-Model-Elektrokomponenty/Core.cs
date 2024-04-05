@@ -95,7 +95,7 @@ public class Core : EventSimulationCore<Person, DataStructure>
         RndTypZakaznika = new(0, 1, ExtendedRandom<double>.NextSeed());
         RndTypNarocnostTovaru = new(0, 1.0, ExtendedRandom<double>.NextSeed());
         RndTypVelkostiNakladu = new(0, 1.0, ExtendedRandom<double>.NextSeed());
-        RndTrvanieAutomatu = new(30.0, 180.0, ExtendedRandom<double>.NextSeed());
+        RndTrvanieAutomatu = new(30.0, 120.0, ExtendedRandom<double>.NextSeed());
         RndTrvanieDiktovania = new(60.0, 900.0, ExtendedRandom<double>.NextSeed());
         RndTrvanieOnlinePripravaTovaru = new(60.0, 120.0, 480.0, ExtendedRandom<double>.NextSeed());
         List<EmpiricBase<double>.EmpiricDataWithSeed<double>> listSimple = new();
