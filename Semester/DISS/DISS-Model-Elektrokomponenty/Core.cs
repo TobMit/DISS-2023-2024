@@ -18,7 +18,7 @@ public class Core : EventSimulationCore<Person, DataStructure>
 {
     private int _pocetObsluznychMiest;
     private int _pocetPokladni;
-    
+
     // Entity
     public Queue<Person> RadaPredAutomatom;
     public RadaPredObsluznymMiestom RadaPredObsluznymMiestom;
@@ -55,17 +55,18 @@ public class Core : EventSimulationCore<Person, DataStructure>
     private Average _globPriemernyOdchodPoslednehoZakaznika;
     private Average _globPriemernyPocetZakaznikov;
 
-    public Core(int numberOfReplications, int cutFirst, int pPocetObsluznychMiest, int pPocetPokladni) : base(numberOfReplications, cutFirst)
+    public Core(int numberOfReplications, int cutFirst, int pPocetObsluznychMiest, int pPocetPokladni) : base(
+        numberOfReplications, cutFirst)
     {
         _pocetObsluznychMiest = pPocetObsluznychMiest;
         _pocetPokladni = pPocetPokladni;
-        
+
         RadaPredAutomatom = new();
         RadaPredObsluznymMiestom = new();
         ObsluzneMiestoManager = new(_pocetObsluznychMiest);
         PokladnaManager = new(_pocetPokladni);
         Automat = new();
-        
+
         Persons = new();
 
         StatPriemernyCasVObchode = new();
@@ -82,7 +83,7 @@ public class Core : EventSimulationCore<Person, DataStructure>
     public override void BeforeAllReplications()
     {
         END_OF_SIMULATION_TIME = Constants.END_SIMULATION_TIME;
-        
+
         TimeLine = new();
         ObsluzneMiestoManager.InitObsluzneMiesta();
         PokladnaManager.InitPokladne();
@@ -124,13 +125,13 @@ public class Core : EventSimulationCore<Person, DataStructure>
         ObsluzneMiestoManager.Clear();
         PokladnaManager.Clear();
         Automat.Clear();
-        
+
         Persons.Clear();
 
         StatPriemernyCasVObchode.Clear();
         StatCasStravenyPredAutomatom.Clear();
         StatPriemednaDlzakaRaduAutomatu.Clear();
-        
+
         // rozbehnutie modelu
         var newArrival = RndPrichodZakaznika.Next() + SimulationTime;
         TimeLine.Enqueue(new EventPrichod(this, newArrival), newArrival);
@@ -145,6 +146,10 @@ public class Core : EventSimulationCore<Person, DataStructure>
         _globPriemernyPocetZakaznikov.AddValue(Automat.CelkovyPocet);
         if (_currentReplication % 100 == 0)
         {
+            if (_eventData is not null)
+            {
+                _eventData.NewData = true;
+            }
             Tick();
             OnUpdateData(_eventData);
         }
@@ -152,12 +157,16 @@ public class Core : EventSimulationCore<Person, DataStructure>
 
     public override void AfterAllReplications()
     {
-        Console.WriteLine($"Priemerny cas v obchode: {Double.Round(_globPriemernyCasVObchode.Calucate(), 4)}s / {TimeSpan.FromSeconds(_globPriemernyCasVObchode.Calucate()).ToString(@"hh\:mm\:ss")}");
-        Console.WriteLine($"Cas straveny pred automatom: {Double.Round(_globCasStravenyPredAutomatom.Calucate(), 4)}s / {TimeSpan.FromSeconds(_globCasStravenyPredAutomatom.Calucate()).ToString(@"hh\:mm\:ss")}");
+        Console.WriteLine(
+            $"Priemerny cas v obchode: {Double.Round(_globPriemernyCasVObchode.Calucate(), 4)}s / {TimeSpan.FromSeconds(_globPriemernyCasVObchode.Calucate()).ToString(@"hh\:mm\:ss")}");
+        Console.WriteLine(
+            $"Cas straveny pred automatom: {Double.Round(_globCasStravenyPredAutomatom.Calucate(), 4)}s / {TimeSpan.FromSeconds(_globCasStravenyPredAutomatom.Calucate()).ToString(@"hh\:mm\:ss")}");
         Console.WriteLine($"Priemerna dlzka radu: {Double.Round(_globPriemernaDlzkaRadu.Calucate(), 4)}");
-        Console.WriteLine($"Premerny odchod posledného zakaznika: {Double.Round(_globPriemernyOdchodPoslednehoZakaznika.Calucate(), 4)} / {TimeSpan.FromSeconds(Constants.START_DAY + _globPriemernyOdchodPoslednehoZakaznika.Calucate()).ToString(@"hh\:mm\:ss")}");
+        Console.WriteLine(
+            $"Premerny odchod posledného zakaznika: {Double.Round(_globPriemernyOdchodPoslednehoZakaznika.Calucate(), 4)} / {TimeSpan.FromSeconds(Constants.START_DAY + _globPriemernyOdchodPoslednehoZakaznika.Calucate()).ToString(@"hh\:mm\:ss")}");
         Console.WriteLine($"Priemerny pocet zakaznikov: {Double.Round(_globPriemernyPocetZakaznikov.Calucate(), 4)}");
         Tick();
+        _eventData.NewData = true;
         OnUpdateData(_eventData);
     }
 
@@ -167,79 +176,82 @@ public class Core : EventSimulationCore<Person, DataStructure>
         {
             _eventData = new();
         }
-        _eventData.ShallowUpdate = SlowDown;
+        
+        // update sim času aj keď nie sú nové dáta
         if (_eventData.ShallowUpdate)
         {
-            _eventData.SimulationTime = $"{TimeSpan.FromSeconds(Constants.START_DAY + SimulationTime).ToString(@"hh\:mm\:ss")} / {TimeSpan.FromSeconds(Constants.START_DAY + END_OF_SIMULATION_TIME).ToString(@"hh\:mm\:ss")}";
-            _eventData.People = new(Persons.Count);
-            foreach (var person in Persons)
+            _eventData.SimulationTime =
+                $"{TimeSpan.FromSeconds(Constants.START_DAY + SimulationTime).ToString(@"hh\:mm\:ss")} / {TimeSpan.FromSeconds(Constants.START_DAY + END_OF_SIMULATION_TIME).ToString(@"hh\:mm\:ss")}";
+        }
+
+        if (_eventData.NewData)
+        {
+            _eventData.ShallowUpdate = SlowDown;
+            if (_eventData.ShallowUpdate)
             {
-                if (person.StavZakaznika == Constants.StavZakaznika.OdisielZPredajne)
-                {
-                    continue;
-                }
-                
-                //todo odstrániť iba na zrýchlenie UI
-                if (_eventData.People.Count > 25)
-                {
-                    break;
-                }
-                _eventData.People.Add(new(person));
+                _eventData.People = Persons.Where(o => o.StavZakaznika != Constants.StavZakaznika.OdisielZPredajne)
+                    .ToList();
+                _eventData.RadaPredAutomatom = $"Rada pred automatom: {RadaPredAutomatom.Count}";
+                _eventData.Automat = Automat;
+                _eventData.RadaPredObsluznimiMiestamiOnline =
+                    $"{RadaPredObsluznymMiestom.CountOnline}/{RadaPredObsluznymMiestom.Count}/{Constants.RADA_PRED_OBSLUZNYM_MIESTOM}";
+                _eventData.RadaPredObsluznimiMiestamiBasic =
+                    $"{RadaPredObsluznymMiestom.CountBasic}/{RadaPredObsluznymMiestom.Count}/{Constants.RADA_PRED_OBSLUZNYM_MIESTOM}";
+                _eventData.RadaPredObsluznimiMiestamiZmluvny =
+                    $"{RadaPredObsluznymMiestom.CountOstatne - RadaPredObsluznymMiestom.CountBasic}/{RadaPredObsluznymMiestom.Count}/{Constants.RADA_PRED_OBSLUZNYM_MIESTOM}";
+                _eventData.ObsluzneMiestos = ObsluzneMiestoManager.GetInfoNaUI();
+                _eventData.Pokladne = PokladnaManager.GetInfoNaUI();
             }
-            _eventData.RadaPredAutomatom = $"Rada pred automatom: {RadaPredAutomatom.Count}";
-            _eventData.Automat = Automat;
-            _eventData.RadaPredObsluznimiMiestamiOnline = $"{RadaPredObsluznymMiestom.CountOnline}/{RadaPredObsluznymMiestom.Count}/{Constants.RADA_PRED_OBSLUZNYM_MIESTOM}";
-            _eventData.RadaPredObsluznimiMiestamiBasic = $"{RadaPredObsluznymMiestom.CountBasic}/{RadaPredObsluznymMiestom.Count}/{Constants.RADA_PRED_OBSLUZNYM_MIESTOM}";
-            _eventData.RadaPredObsluznimiMiestamiZmluvny = $"{RadaPredObsluznymMiestom.CountOstatne - RadaPredObsluznymMiestom.CountBasic}/{RadaPredObsluznymMiestom.Count}/{Constants.RADA_PRED_OBSLUZNYM_MIESTOM}";
-            _eventData.ObsluzneMiestos = ObsluzneMiestoManager.GetInfoNaUI();
-            _eventData.Pokladne = PokladnaManager.GetInfoNaUI();
-        }
 
-        _eventData.AktuaReplikacia = _currentReplication.ToString();
-        
-        if (_globPriemernyCasVObchode.Count > 0)
-        {
-            _eventData.PriemernyCasVObhchode = $"{Double.Round(_globPriemernyCasVObchode.Calucate(), 3)}s / {TimeSpan.FromSeconds(_globPriemernyCasVObchode.Calucate()).ToString(@"hh\:mm\:ss")}";
-        }
-        else
-        {
-            _eventData.PriemernyCasVObhchode = "-/- / -:-:-";
-        }
+            _eventData.AktuaReplikacia = _currentReplication.ToString();
 
-        if (_globCasStravenyPredAutomatom.Count > 0)
-        {
-            _eventData.PriemernyCasPredAutomatom = $"{Double.Round(_globCasStravenyPredAutomatom.Calucate(), 3)}s / {TimeSpan.FromSeconds(_globCasStravenyPredAutomatom.Calucate()).ToString(@"hh\:mm\:ss")}";
-        }
-        else
-        {
-            _eventData.PriemernyCasPredAutomatom = "-/- / -:-:-";
-        }
+            if (_globPriemernyCasVObchode.Count > 0)
+            {
+                _eventData.PriemernyCasVObhchode =
+                    $"{Double.Round(_globPriemernyCasVObchode.Calucate(), 3)}s / {TimeSpan.FromSeconds(_globPriemernyCasVObchode.Calucate()).ToString(@"hh\:mm\:ss")}";
+            }
+            else
+            {
+                _eventData.PriemernyCasVObhchode = "-/- / -:-:-";
+            }
 
-        if (_globPriemernaDlzkaRadu.Count > 0)
-        {
-            _eventData.PriemernaDlzkaraduPredAutomatom = $"{Double.Round(_globPriemernaDlzkaRadu.Calucate(), 3)}";
-        }
-        else
-        {
-            _eventData.PriemernaDlzkaraduPredAutomatom = "-/-";
-        }
+            if (_globCasStravenyPredAutomatom.Count > 0)
+            {
+                _eventData.PriemernyCasPredAutomatom =
+                    $"{Double.Round(_globCasStravenyPredAutomatom.Calucate(), 3)}s / {TimeSpan.FromSeconds(_globCasStravenyPredAutomatom.Calucate()).ToString(@"hh\:mm\:ss")}";
+            }
+            else
+            {
+                _eventData.PriemernyCasPredAutomatom = "-/- / -:-:-";
+            }
 
-        if (_globPriemernyOdchodPoslednehoZakaznika.Count > 0)
-        {
-            _eventData.PriemernyOdchodPoslednehoZakaznika = $"{Double.Round(_globPriemernyOdchodPoslednehoZakaznika.Calucate(), 3)} / {TimeSpan.FromSeconds(Constants.START_DAY + _globPriemernyOdchodPoslednehoZakaznika.Calucate()).ToString(@"hh\:mm\:ss")}";
-        }
-        else
-        {
-            _eventData.PriemernyOdchodPoslednehoZakaznika = "-/- / -:-:-";
-        }
+            if (_globPriemernaDlzkaRadu.Count > 0)
+            {
+                _eventData.PriemernaDlzkaraduPredAutomatom = $"{Double.Round(_globPriemernaDlzkaRadu.Calucate(), 3)}";
+            }
+            else
+            {
+                _eventData.PriemernaDlzkaraduPredAutomatom = "-/-";
+            }
 
-        if (_globPriemernyPocetZakaznikov.Count > 0)
-        {
-            _eventData.PriemernyPocetZakaznikov = $"{Double.Round(_globPriemernyPocetZakaznikov.Calucate(), 3)}";
-        }
-        else
-        {
-            _eventData.PriemernyPocetZakaznikov = "-/-";
+            if (_globPriemernyOdchodPoslednehoZakaznika.Count > 0)
+            {
+                _eventData.PriemernyOdchodPoslednehoZakaznika =
+                    $"{Double.Round(_globPriemernyOdchodPoslednehoZakaznika.Calucate(), 3)} / {TimeSpan.FromSeconds(Constants.START_DAY + _globPriemernyOdchodPoslednehoZakaznika.Calucate()).ToString(@"hh\:mm\:ss")}";
+            }
+            else
+            {
+                _eventData.PriemernyOdchodPoslednehoZakaznika = "-/- / -:-:-";
+            }
+
+            if (_globPriemernyPocetZakaznikov.Count > 0)
+            {
+                _eventData.PriemernyPocetZakaznikov = $"{Double.Round(_globPriemernyPocetZakaznikov.Calucate(), 3)}";
+            }
+            else
+            {
+                _eventData.PriemernyPocetZakaznikov = "-/-";
+            }
         }
     }
 }

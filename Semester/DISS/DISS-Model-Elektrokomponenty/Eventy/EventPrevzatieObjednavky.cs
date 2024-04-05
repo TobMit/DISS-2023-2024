@@ -18,6 +18,7 @@ public class EventPrevzatieObjednavky : SimulationEvent<Person, DataStructure>
     public override void Execuete()
     {
         Core runCore = (Core)_core;
+        if (_core._eventData != null) _core._eventData.NewData = true;
         // ak zákazník nemá veľkú objednávku tak vyhodím error
         if (_person.TypVelkostiNakladu != Constants.TypVelkostiNakladu.Velka)
         {

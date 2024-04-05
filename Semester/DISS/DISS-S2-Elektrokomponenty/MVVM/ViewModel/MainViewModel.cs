@@ -1,6 +1,7 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Linq;
 using System.Windows;
 using System.Windows.Threading;
 using DISS_Model_Elektrokomponenty;
@@ -323,7 +324,7 @@ public class MainViewModel : ObservableObjects
         }
         catch (Exception e)
         {
-            MessageBox.Show("Zle zadan� vstup" + e.Message, "Chyba vstupu", MessageBoxButton.OK, MessageBoxImage.Error);
+            MessageBox.Show("Zle zadaný vstup" + e.Message, "Chyba vstupu", MessageBoxButton.OK, MessageBoxImage.Error);
         }
 
         List<ObsluzneMiestoModel> tmpList = new(pocetObsluznychMiest);
@@ -384,36 +385,60 @@ public class MainViewModel : ObservableObjects
     {
         Application.Current.Dispatcher.Invoke(() =>
         {
+            // pri pomalom behu update cas aj keď nie je zadna aktiviata -> plynulejsi beh
             if (e.ShallowUpdate)
             {
                 SimulationTime = e.SimulationTime;
-                ObservableCollection<PersonModel> tmpCollection = new();
-                foreach (var person in e.People)
-                {
-                    tmpCollection.Add(new PersonModel(person));
-                }
-                Peoples = tmpCollection;
-                RadaPredAutomatom = e.RadaPredAutomatom;
-                Automat.Update(e.Automat);
-                RadaPredObsluznimiMiestamiOnline = e.RadaPredObsluznimiMiestamiOnline;
-                RadaPredObsluznimiMiestamiBasic = e.RadaPredObsluznimiMiestamiBasic;
-                RadaPredObsluznimiMiestamiZmluvny = e.RadaPredObsluznimiMiestamiZmluvny;
-                for (int i = 0; i < e.ObsluzneMiestos.Count; i++)
-                {
-                    ObsluzneMiestos[i].Update(e.ObsluzneMiestos[i]);
-                }
-                for (int i = 0; i < e.Pokladne.Count; i++)
-                {
-                    Pokladne[i].Update(e.Pokladne[i]);
-                };   
             }
 
-            AktualnaReplikacia = e.AktuaReplikacia;
-            PriemernyCasVObchode = e.PriemernyCasVObhchode;
-            PriemernyCasPredAutomatom = e.PriemernyCasPredAutomatom;
-            PriemernaDlzkaRaduPredAutomatom = e.PriemernaDlzkaraduPredAutomatom;
-            PriemernyOdchodPoslednehoZakaznika = e.PriemernyOdchodPoslednehoZakaznika;
-            PriemernyPocetZakaznikov = e.PriemernyPocetZakaznikov;
+            if (e.NewData)
+            {
+                e.NewData = false;
+                if (e.ShallowUpdate)
+                {
+                    if (Peoples is null)
+                    {
+                        Peoples = new();
+                    }
+
+                    // nahradím novým listom
+                    if (Peoples.Count > e.People.Count)
+                    {
+                        Peoples = new();
+                    }
+                    for (int i = 0; i < e.People.Count; i++)
+                    {
+                        if (i < Peoples.Count )
+                        {
+                            Peoples[i].Update(e.People[i]);
+                        }
+                        else
+                        {
+                            Peoples.Add(new PersonModel(e.People[i]));
+                        }
+                    }
+                    RadaPredAutomatom = e.RadaPredAutomatom;
+                    Automat.Update(e.Automat);
+                    RadaPredObsluznimiMiestamiOnline = e.RadaPredObsluznimiMiestamiOnline;
+                    RadaPredObsluznimiMiestamiBasic = e.RadaPredObsluznimiMiestamiBasic;
+                    RadaPredObsluznimiMiestamiZmluvny = e.RadaPredObsluznimiMiestamiZmluvny;
+                    for (int i = 0; i < e.ObsluzneMiestos.Count; i++)
+                    {
+                        ObsluzneMiestos[i].Update(e.ObsluzneMiestos[i]);
+                    }
+                    for (int i = 0; i < e.Pokladne.Count; i++)
+                    {
+                        Pokladne[i].Update(e.Pokladne[i]);
+                    };   
+                }
+
+                AktualnaReplikacia = e.AktuaReplikacia;
+                PriemernyCasVObchode = e.PriemernyCasVObhchode;
+                PriemernyCasPredAutomatom = e.PriemernyCasPredAutomatom;
+                PriemernaDlzkaRaduPredAutomatom = e.PriemernaDlzkaraduPredAutomatom;
+                PriemernyOdchodPoslednehoZakaznika = e.PriemernyOdchodPoslednehoZakaznika;
+                PriemernyPocetZakaznikov = e.PriemernyPocetZakaznikov;
+            }
         });
     }
 }

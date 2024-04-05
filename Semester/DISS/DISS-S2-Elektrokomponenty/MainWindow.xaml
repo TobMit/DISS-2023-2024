@@ -410,6 +410,7 @@
                                         <Label 
                                             Style="{StaticResource CustomLabelStyle}"
                                             Content="{Binding Automat.Obsah}"
+                                            FontSize="15"
                                             />
                                     </StackPanel>
                                 </GroupBox>

@@ -22,6 +22,7 @@ public class EventObsluhaKoniec : SimulationEvent<Person, DataStructure>
     public override void Execuete()
     {
         Core runCore = (Core)_core;
+        if (_core._eventData != null) _core._eventData.NewData = true;
         // ak je obslužne miesto prázdne hodíme error
         if (!_obsluzneMiesto.Obsadena)
         {

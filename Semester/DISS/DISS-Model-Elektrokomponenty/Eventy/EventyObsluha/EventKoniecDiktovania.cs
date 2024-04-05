@@ -21,6 +21,7 @@ public class EventKoniecDiktovania : SimulationEvent<Person, DataStructure>
     public override void Execuete()
     {
         Core runCore = (Core)_core;
+        if (_core._eventData != null) _core._eventData.NewData = true;
         // ak obslužné miesto nie je obsadené tak hodíme error
         if (!_obsluzneMiesto.Obsadena)
         {

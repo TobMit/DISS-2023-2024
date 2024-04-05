@@ -14,6 +14,7 @@ public class EventPrichod : SimulationEvent<Person, DataStructure>
     public override void Execuete()
     {
         Core runCore = (Core)_core;
+        if (_core._eventData != null) _core._eventData.NewData = true;
         Person tmpPerson = new Person(_core.SimulationTime, 
             runCore.RndTypZakaznika.Next(),
             runCore.RndTypNarocnostTovaru.Next(),

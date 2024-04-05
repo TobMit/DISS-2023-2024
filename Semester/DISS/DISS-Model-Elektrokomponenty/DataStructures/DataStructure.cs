@@ -10,7 +10,7 @@ public class DataStructure : EventArgs
     /// Fasle - ak beží simulácia v pomalom režime
     /// </summary>
     public bool ShallowUpdate { get; set; }
-
+    public bool NewData { get; set; }
     public string SimulationTime { get; set; }
     public List<Person> People { get; set; }
     public string RadaPredAutomatom { get; set; }
@@ -27,4 +27,9 @@ public class DataStructure : EventArgs
     public string PriemernaDlzkaraduPredAutomatom { get; set; }
     public string PriemernyOdchodPoslednehoZakaznika { get; set; }
     public string PriemernyPocetZakaznikov { get; set; }
+
+    public DataStructure()
+    {
+        NewData = true;
+    }
 }

@@ -22,6 +22,7 @@ public class EventPladbaKoniec : SimulationEvent<Person, DataStructure>
     public override void Execuete()
     {
         Core runCore = (Core)_core;
+        if (_core._eventData != null) _core._eventData.NewData = true;
         // ak nie je pokladňa obsadená hodim error
         if (!_pokladna.Obsadena)
         {

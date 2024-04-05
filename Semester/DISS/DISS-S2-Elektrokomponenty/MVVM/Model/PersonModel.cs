@@ -1,13 +1,14 @@
 using DISS_Model_Elektrokomponenty;
 using DISS_Model_Elektrokomponenty.Entity;
 using DISS_S2_Elektroomponenty.Core;
+using System;
 
 namespace DISS_S2_Elektroomponenty.MVVM.Model;
 
-public class PersonModel
+public class PersonModel : ObservableObjects
 {
     private int _ID;
-    private double _timeOfArrival;
+    private string _timeOfArrival;
     private Constants.TypZakaznika _typZakaznika;
     private Constants.TypNarocnostiTovaru _typNarocnostiTovaru;
     private Constants.TypVelkostiNakladu _typVelkostiNakladu;
@@ -18,18 +19,24 @@ public class PersonModel
         get => _ID;
         set
         {
-            _ID = value;
-            // OnPropertyChanged();
+            if (value != _ID)
+            {
+                _ID = value;
+                OnPropertyChanged();
+            }
         }
     }
 
-    public double TimeOfArrival
+    public string TimeOfArrival
     {
         get => _timeOfArrival;
         set
         {
-            _timeOfArrival = value;
-            // OnPropertyChanged();
+            if (String.Compare(value, _timeOfArrival, StringComparison.Ordinal) != 0)
+            {
+                _timeOfArrival = value;
+                OnPropertyChanged();
+            }
         }
     }
 
@@ -38,8 +45,11 @@ public class PersonModel
         get => _typZakaznika;
         set
         {
-            _typZakaznika = value;
-            // OnPropertyChanged();
+            if (value != _typZakaznika)
+            {
+                _typZakaznika = value;
+                OnPropertyChanged();
+            }
         }
     }
 
@@ -48,8 +58,11 @@ public class PersonModel
         get => _typNarocnostiTovaru;
         set
         {
-            _typNarocnostiTovaru = value;
-            // OnPropertyChanged();
+            if (value != _typNarocnostiTovaru)
+            {
+                _typNarocnostiTovaru = value;
+                OnPropertyChanged();
+            }
         }
     }
 
@@ -58,8 +71,11 @@ public class PersonModel
         get => _typVelkostiNakladu;
         set
         {
-            _typVelkostiNakladu = value;
-            // OnPropertyChanged();
+            if (value != _typVelkostiNakladu)
+            {
+                _typVelkostiNakladu = value;
+                OnPropertyChanged();
+            }
         }
     }
 
@@ -68,18 +84,31 @@ public class PersonModel
         get => _stavZakaznika;
         set
         {
-            _stavZakaznika = value;
-            // OnPropertyChanged();
+            if (value != _stavZakaznika)
+            {
+                _stavZakaznika = value;
+                OnPropertyChanged();
+            }
         }
     }
 
     public PersonModel(Person person)
     {
         ID = person.ID;
-        TimeOfArrival = person.TimeOfArrival;
+        TimeOfArrival = TimeSpan.FromSeconds(Constants.START_DAY + person.TimeOfArrival).ToString(@"hh\:mm\:ss");
         TypZakaznika = person.TypZakaznika;
         TypNarocnostiTovaru = person.TypNarocnostiTovaru;
         TypVelkostiNakladu = person.TypVelkostiNakladu;
         StavZakaznika = person.StavZakaznika;
+    }
+
+    public void Update(Person pPerson)
+    {
+        ID = pPerson.ID;
+        TimeOfArrival = TimeSpan.FromSeconds(Constants.START_DAY + pPerson.TimeOfArrival).ToString(@"hh\:mm\:ss");
+        TypZakaznika = pPerson.TypZakaznika;
+        TypNarocnostiTovaru = pPerson.TypNarocnostiTovaru;
+        TypVelkostiNakladu = pPerson.TypVelkostiNakladu;
+        StavZakaznika = pPerson.StavZakaznika;
     }
 }

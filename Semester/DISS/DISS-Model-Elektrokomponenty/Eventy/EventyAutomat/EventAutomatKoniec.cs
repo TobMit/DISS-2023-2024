@@ -16,7 +16,7 @@ public class EventAutomatKoniec : SimulationEvent<Person, DataStructure>
     public override void Execuete()
     {
         Core runCore = (Core)_core;
-        
+        if (_core._eventData != null) _core._eventData.NewData = true;
         // ak nikto nie je obsluhovaný v automate tak hodíme error to nemôže nastať
         if (!runCore.Automat.Obsadeny)
         {
