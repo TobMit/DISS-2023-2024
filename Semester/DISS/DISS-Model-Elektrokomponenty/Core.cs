@@ -56,6 +56,7 @@ public class Core : EventSimulationCore<Person, DataStructure>
     private Average _globPriemernaDlzkaRadu;
     private Average _globPriemernyOdchodPoslednehoZakaznika;
     private Average _globPriemernyPocetZakaznikov;
+    private Average _globPriemernyPocetObsluzenychZakaznikov;
 
     public Core(int numberOfReplications, int cutFirst, int pPocetObsluznychMiest, int pPocetPokladni) : base(
         numberOfReplications, cutFirst)
@@ -80,6 +81,7 @@ public class Core : EventSimulationCore<Person, DataStructure>
         _globPriemernaDlzkaRadu = new();
         _globPriemernyOdchodPoslednehoZakaznika = new();
         _globPriemernyPocetZakaznikov = new();
+        _globPriemernyPocetObsluzenychZakaznikov = new();
     }
 
     public override void BeforeAllReplications()
@@ -146,6 +148,7 @@ public class Core : EventSimulationCore<Person, DataStructure>
         _globPriemernaDlzkaRadu.AddValue(StatPriemednaDlzakaRaduAutomatu.Calucate(Constants.END_ARRIVAL_SIMULATION_TIME));
         _globPriemernyOdchodPoslednehoZakaznika.AddValue(SimulationTime);
         _globPriemernyPocetZakaznikov.AddValue(Automat.CelkovyPocet);
+        _globPriemernyPocetObsluzenychZakaznikov.AddValue(Automat.PocetObsluzenych);
         if (BehZavislosti)
         {
             if (_currentReplication < _cutFirst)
@@ -181,10 +184,11 @@ public class Core : EventSimulationCore<Person, DataStructure>
             $"Priemerny cas v obchode: {Double.Round(_globPriemernyCasVObchode.Calucate(), 4)}s / {TimeSpan.FromSeconds(_globPriemernyCasVObchode.Calucate()).ToString(@"hh\:mm\:ss")}");
         Console.WriteLine(
             $"Cas straveny pred automatom: {Double.Round(_globCasStravenyPredAutomatom.Calucate(), 4)}s / {TimeSpan.FromSeconds(_globCasStravenyPredAutomatom.Calucate()).ToString(@"hh\:mm\:ss")}");
-        Console.WriteLine($"Priemerna dlzka radu: {Double.Round(_globPriemernaDlzkaRadu.Calucate(), 4)}");
+        Console.WriteLine($"Priemerna dlzka radu pred automatom: {Double.Round(_globPriemernaDlzkaRadu.Calucate(), 4)}");
         Console.WriteLine(
             $"Premerny odchod posledného zakaznika: {Double.Round(_globPriemernyOdchodPoslednehoZakaznika.Calucate(), 4)} / {TimeSpan.FromSeconds(Constants.START_DAY + _globPriemernyOdchodPoslednehoZakaznika.Calucate()).ToString(@"hh\:mm\:ss")}");
         Console.WriteLine($"Priemerny pocet zakaznikov: {Double.Round(_globPriemernyPocetZakaznikov.Calucate(), 4)}");
+        Console.WriteLine($"Priemerny pocet obsluzenych zakaznikov: {Double.Round(_globPriemernyPocetObsluzenychZakaznikov.Calucate(), 4)}");
         if (BehZavislosti)
         {
             Tick();
@@ -295,6 +299,14 @@ public class Core : EventSimulationCore<Person, DataStructure>
             else
             {
                 _eventData.PriemernyPocetZakaznikov = "-/-";
+            }
+            if (_globPriemernyPocetObsluzenychZakaznikov.Count > 0)
+            {
+                _eventData.PriemernyPocetObsluzenychZakaznikov = $"{Double.Round(_globPriemernyPocetObsluzenychZakaznikov.Calucate(), 3)}";
+            }
+            else
+            {
+                _eventData.PriemernyPocetObsluzenychZakaznikov = "-/-";
             }
         }
     }

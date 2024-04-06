@@ -67,6 +67,7 @@ public class EventPrichod : SimulationEvent<Person, DataStructure>
         else
         {
             // ak je po, tak ľudia pred automatom odidu
+            runCore.Automat.PocetObsluzenych = runCore.Automat.CelkovyPocet - runCore.RadaPredAutomatom.Count;
             while (runCore.RadaPredAutomatom.Count >= 1)
             {
                 var leavePerson = runCore.RadaPredAutomatom.Dequeue();

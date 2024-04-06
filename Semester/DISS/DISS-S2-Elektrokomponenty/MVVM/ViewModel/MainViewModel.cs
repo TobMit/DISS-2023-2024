@@ -44,6 +44,7 @@ public class MainViewModel : ObservableObjects
     private string _priemernaDlzkaRaduPredAutomatom;
     private string _priemernyOdchodPoslednehoZakaznika;
     private string _priemernyPocetZakaznikov;
+    private string _priemernyPocetObsluzenychZakaznikov;
     private ObservableCollection<PersonModel> _peoples;
     private bool _slowDown;
     private Visibility _replicationDetailVisibility;
@@ -252,6 +253,19 @@ public class MainViewModel : ObservableObjects
         }
     }
     
+    public string PriemernyPocetObsluzenychZakaznikov
+    {
+        get => _priemernyPocetObsluzenychZakaznikov;
+        set
+        {
+            if (String.Compare(value, _priemernyPocetObsluzenychZakaznikov, StringComparison.Ordinal) != 0)
+            {
+                _priemernyPocetObsluzenychZakaznikov = value;
+                OnPropertyChanged();
+            }
+        }
+    }
+    
     public ObservableCollection<PersonModel> Peoples
     {
         get => _peoples;
@@ -375,9 +389,9 @@ public class MainViewModel : ObservableObjects
     public MainViewModel()
     {
         InicialiseButtons();
-        PocetReplikacii = "50_000";
-        PocetObsluznychMiest = "15";
-        PocetPokladni = "6";
+        PocetReplikacii = "25_000";
+        PocetObsluznychMiest = "13";
+        PocetPokladni = "4";
         PauseButtonText = "Pause";
         CutFirst = "4000";
         SliderValue = 130;
@@ -388,6 +402,7 @@ public class MainViewModel : ObservableObjects
         PriemernyCasVObchode = "-/-";
         PriemernyPocetZakaznikov = "-/-";
         PriemernyOdchodPoslednehoZakaznika = "-/-";
+        PriemernyPocetObsluzenychZakaznikov = "-/-";
 
         RadaPredAutomatom = "-/-";
         RadaPredObsluznimiMiestamiOnline = "-/-";
@@ -783,6 +798,7 @@ public class MainViewModel : ObservableObjects
                 PriemernaDlzkaRaduPredAutomatom = e.PriemernaDlzkaraduPredAutomatom;
                 PriemernyOdchodPoslednehoZakaznika = e.PriemernyOdchodPoslednehoZakaznika;
                 PriemernyPocetZakaznikov = e.PriemernyPocetZakaznikov;
+                PriemernyPocetObsluzenychZakaznikov = e.PriemernyPocetObsluzenychZakaznikov;
             }
         });
     }

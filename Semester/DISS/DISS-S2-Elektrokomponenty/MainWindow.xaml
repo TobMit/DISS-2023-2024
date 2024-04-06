@@ -248,7 +248,7 @@
                                     Content="Priemerný počet obslúžených:"
                                     FontSize="15" />
                                 <TextBlock
-                                    Text="230"
+                                    Text="{Binding PriemernyPocetObsluzenychZakaznikov}"
                                     Margin="0,0,0,8"
                                     Foreground="White"
                                     FontSize="20"

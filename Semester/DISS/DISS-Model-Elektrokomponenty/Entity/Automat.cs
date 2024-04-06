@@ -8,6 +8,8 @@ public class Automat
 
     public Person? Person { get; private set; }
 
+    public int PocetObsluzenych { get; set; }
+
     public Automat()
     {
         CelkovyPocet = 0;
@@ -31,6 +33,7 @@ public class Automat
         CelkovyPocet = 0;
         Person = null;
         Obsadeny = false;
+        PocetObsluzenych = 0;
     }
 
     public int GetId()
