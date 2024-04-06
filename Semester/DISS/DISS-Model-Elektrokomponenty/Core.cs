@@ -1,4 +1,5 @@
-﻿using DISS_EventSimulationCore;
+﻿using System.Text;
+using DISS_EventSimulationCore;
 using DISS_HelperClasses.Statistic;
 using DISS_Model_Elektrokomponenty.DataStructures;
 using DISS_Model_Elektrokomponenty.Entity;
@@ -62,6 +63,7 @@ public class Core : EventSimulationCore<Person, DataStructure>
     private Average _globPriemernaDlzkaRaduPredObsluhouBasic;
     private Average _globPriemernaDlzkaRaduPredObsluhouZmluvny;
     private Average _globPriemernaDlzkaRaduPredObsluhouOnline;
+    private List<Average> _globPriemerneDlzkyRadovPredPokladnami;
 
     public Core(int numberOfReplications, int cutFirst, int pPocetObsluznychMiest, int pPocetPokladni) : base(
         numberOfReplications, cutFirst)
@@ -72,7 +74,7 @@ public class Core : EventSimulationCore<Person, DataStructure>
         RadaPredAutomatom = new();
         RadaPredObsluznymMiestom = new(this);
         ObsluzneMiestoManager = new(_pocetObsluznychMiest);
-        PokladnaManager = new(_pocetPokladni);
+        PokladnaManager = new(_pocetPokladni, this);
         Automat = new();
 
         Persons = new();
@@ -92,6 +94,11 @@ public class Core : EventSimulationCore<Person, DataStructure>
         _globPriemernaDlzkaRaduPredObsluhouBasic = new();
         _globPriemernaDlzkaRaduPredObsluhouZmluvny = new();
         _globPriemernaDlzkaRaduPredObsluhouOnline = new();
+        _globPriemerneDlzkyRadovPredPokladnami = new(_pocetPokladni);
+        for (int i = 0; i < _pocetPokladni; i++)
+        {
+            _globPriemerneDlzkyRadovPredPokladnami.Add(new());
+        }
     }
 
     public override void BeforeAllReplications()
@@ -164,6 +171,10 @@ public class Core : EventSimulationCore<Person, DataStructure>
         _globPriemernaDlzkaRaduPredObsluhouBasic.AddValue(RadaPredObsluznymMiestom.PriemernaDlzkaBasic.Calucate(SimulationTime));
         _globPriemernaDlzkaRaduPredObsluhouOnline.AddValue(RadaPredObsluznymMiestom.PriemernaDlzkaOnline.Calucate(SimulationTime));
         _globPriemernaDlzkaRaduPredObsluhouZmluvny.AddValue(RadaPredObsluznymMiestom.PriemernaDlzkaZmluvny.Calucate(SimulationTime));
+        for (int i = 0; i < _pocetPokladni; i++)
+        {
+            _globPriemerneDlzkyRadovPredPokladnami[i].AddValue(PokladnaManager.ListPokladni[i].PriemernaDlzkaRadu.Calucate(SimulationTime));
+        }
         if (BehZavislosti)
         {
             if (_currentReplication < _cutFirst)
@@ -206,6 +217,12 @@ public class Core : EventSimulationCore<Person, DataStructure>
         Console.WriteLine($"Priemerny pocet obsluzenych zakaznikov: {Double.Round(_globPriemernyPocetObsluzenychZakaznikov.Calucate(), 4)}");
         Console.WriteLine($"Priemerne vytazenie automatu: {Double.Round(_globPriemerneVytazenieAutomatu.Calucate(), 4)*100}%");
         Console.WriteLine($"Priemerna dlzka radu pred obsluhou basic/zmluvny/online: {Double.Round(_globPriemernaDlzkaRaduPredObsluhouBasic.Calucate(), 4)}/{Double.Round(_globPriemernaDlzkaRaduPredObsluhouZmluvny.Calucate(), 4)}/{Double.Round(_globPriemernaDlzkaRaduPredObsluhouOnline.Calucate(), 4)}");
+        StringBuilder sb = new();
+        for (int i = 0; i < _pocetPokladni; i++)
+        {
+            sb.Append($"[{Double.Round(_globPriemerneDlzkyRadovPredPokladnami[i].Calucate(), 4)}],");
+        }
+        Console.WriteLine($"Priemerne dlzky radov pred pokladnami: {sb.Remove(sb.Length - 1, 1)}");
         if (BehZavislosti)
         {
             Tick();
@@ -343,6 +360,19 @@ public class Core : EventSimulationCore<Person, DataStructure>
             {
                 _eventData.PriemerneDlzkyRadovPredObsluhov = "[-/-], [-/-], [-/-]";
             }
+            StringBuilder sb = new();
+            for (int i = 0; i < _pocetPokladni; i++)
+            {
+                if (_globPriemerneDlzkyRadovPredPokladnami[i].Count <= 0)
+                {
+                    sb.Append("[-],");
+                }
+                else
+                {
+                    sb.Append($"[{Double.Round(_globPriemerneDlzkyRadovPredPokladnami[i].Calucate(), 3)}],");
+                }
+            }
+            _eventData.PriemerneDlzkyRadovPredPokladnami = sb.Remove(sb.Length - 1, 1).ToString();
         }
     }
 }

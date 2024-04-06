@@ -4,18 +4,20 @@ public class PokladnaManager
 {
     public List<Pokladna> ListPokladni { get; private set; }
     private int _pocetPokladni;
+    private Core _core;
 
-    public PokladnaManager(int pPocetPokladni)
+    public PokladnaManager(int pPocetPokladni, Core pCore)
     {
         _pocetPokladni = pPocetPokladni;
         ListPokladni = new();
+        _core = pCore;
     }
 
     public void InitPokladne()
     {
         for (int i = 0; i < _pocetPokladni; i++)
         {
-            ListPokladni.Add(new(i));
+            ListPokladni.Add(new(i, _core));
         }
     }
 
@@ -56,6 +58,7 @@ public class PokladnaManager
             var list = listPokladni.ToList();
             var pokladna = list[core.RndPickPokladna.Next(list.Count)];
             pokladna.Queue.Enqueue(person);
+            pokladna.PriemernaDlzkaRadu.AddValue(_core.SimulationTime, pokladna.Queue.Count);
         }
     }
 

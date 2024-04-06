@@ -50,6 +50,7 @@ public class EventPladbaKoniec : SimulationEvent<Person, DataStructure>
         if (_pokladna.Queue.Count >= 1)
         {
             var person = _pokladna.Queue.Dequeue();
+            _pokladna.PriemernaDlzkaRadu.AddValue(runCore.SimulationTime, _pokladna.Queue.Count);
             _pokladna.ObsadPokladnu(person);
             _core.TimeLine.Enqueue(new EventPladbaZaciatok(runCore, _core.SimulationTime, person, _pokladna), _core.SimulationTime);
         }

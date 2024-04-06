@@ -30,6 +30,7 @@ public class DataStructure : EventArgs
     public string PriemernyPocetObsluzenychZakaznikov { get; set; }
     public string PriemerneVytazenieAutomatu { get; set; }
     public string PriemerneDlzkyRadovPredObsluhov { get; set; }
+    public string PriemerneDlzkyRadovPredPokladnami { get; set; }
 
     public double BehZavislostiPriemernyPocetZakaznikovPredAutomatom { get; set; }
 

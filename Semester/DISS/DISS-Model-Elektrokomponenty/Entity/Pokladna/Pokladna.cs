@@ -1,7 +1,11 @@
+using DISS_HelperClasses.Statistic;
+
 namespace DISS_Model_Elektrokomponenty.Entity.Pokladna;
 
 public class Pokladna
 {
+    private Core _core;
+    
     public Queue<Person> Queue { get; private set; }
     public int ID { get; private set; }
 
@@ -10,12 +14,16 @@ public class Pokladna
 
     public string Name { get; private set; }
 
-    public Pokladna(int id)
+    public WeightedAverage PriemernaDlzkaRadu { get; set; }
+
+    public Pokladna(int id, Core pCore)
     {
         Queue = new();
         ID = id;
         Person = null;
         Name = $"Pokladna {ID}.";
+        PriemernaDlzkaRadu = new ();
+        _core = pCore;
     }
 
     /// <summary>
@@ -26,6 +34,7 @@ public class Pokladna
         Queue.Clear();
         Obsadena = false;
         Person = null;
+        PriemernaDlzkaRadu.Clear();
     }
     
     /// <summary>

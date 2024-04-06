@@ -46,7 +46,8 @@ public class MainViewModel : ObservableObjects
     private string _priemernyPocetZakaznikov;
     private string _priemernyPocetObsluzenychZakaznikov;
     private string _priemerneVytazenieAutomatu;
-    private string _premerneDlzkyRadovPredObsluhov;
+    private string _priemerneDlzkyRadovPredObsluhov;
+    private string _priemerneDlzkyRadovPredPokladnami;
     private ObservableCollection<PersonModel> _peoples;
     private bool _slowDown;
     private Visibility _replicationDetailVisibility;
@@ -283,12 +284,25 @@ public class MainViewModel : ObservableObjects
     
     public string PriemerneDlzkyRadovPredObsluhov
     {
-        get => _premerneDlzkyRadovPredObsluhov;
+        get => _priemerneDlzkyRadovPredObsluhov;
         set
         {
-            if (String.Compare(value, _premerneDlzkyRadovPredObsluhov, StringComparison.Ordinal) != 0)
+            if (String.Compare(value, _priemerneDlzkyRadovPredObsluhov, StringComparison.Ordinal) != 0)
             {
-                _premerneDlzkyRadovPredObsluhov = value;
+                _priemerneDlzkyRadovPredObsluhov = value;
+                OnPropertyChanged();
+            }
+        }
+    }
+    
+    public string PriemerneDlzkyRadovPredPokladnami
+    {
+        get => _priemerneDlzkyRadovPredPokladnami;
+        set
+        {
+            if (String.Compare(value, _priemerneDlzkyRadovPredPokladnami, StringComparison.Ordinal) != 0)
+            {
+                _priemerneDlzkyRadovPredPokladnami = value;
                 OnPropertyChanged();
             }
         }
@@ -433,6 +447,7 @@ public class MainViewModel : ObservableObjects
         PriemernyPocetObsluzenychZakaznikov = "-/-";
         PriemerneVytazenieAutomatu = "-/-";
         PriemerneDlzkyRadovPredObsluhov = "[-/-], [-/-], [-/-]";
+        PriemerneDlzkyRadovPredPokladnami = "[-/-]...";
 
         RadaPredAutomatom = "-/-";
         RadaPredObsluznimiMiestamiOnline = "-/-";
@@ -831,6 +846,7 @@ public class MainViewModel : ObservableObjects
                 PriemernyPocetObsluzenychZakaznikov = e.PriemernyPocetObsluzenychZakaznikov;
                 PriemerneVytazenieAutomatu = e.PriemerneVytazenieAutomatu;
                 PriemerneDlzkyRadovPredObsluhov = e.PriemerneDlzkyRadovPredObsluhov;
+                PriemerneDlzkyRadovPredPokladnami = e.PriemerneDlzkyRadovPredPokladnami;
             }
         });
     }
