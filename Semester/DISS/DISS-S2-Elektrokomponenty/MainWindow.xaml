@@ -282,9 +282,9 @@
                                 <Label
                                     Style="{StaticResource CustomLabelStyle}"
                                     Content="Priemerne vyťaženie Automatu:"
-                                    FontSize="10" />
+                                    FontSize="15" />
                                 <TextBlock
-                                    Text="80%"
+                                    Text="{Binding PriemerneVytazenieAutomatu}"
                                     Margin="0,0,0,8"
                                     Foreground="White"
                                     FontSize="20"

@@ -24,6 +24,7 @@ public class EventAutomatZaciatok : SimulationEvent<Person, DataStructure>
         
         // obslúžime zákazníka
         runCore.StatCasStravenyPredAutomatom.AddValue(_core.SimulationTime - _person.TimeOfArrival);
+        runCore.StatVytazenieAutomatu.AddValue(_core.SimulationTime, 1);
         
         // naplánujeme event pre koniec obsluhy
         var newKoniecAutomat = runCore.RndTrvanieAutomatu.Next() + _core.SimulationTime;

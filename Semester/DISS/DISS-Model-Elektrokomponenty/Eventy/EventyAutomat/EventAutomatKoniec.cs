@@ -88,7 +88,12 @@ public class EventAutomatKoniec : SimulationEvent<Person, DataStructure>
             var person = runCore.RadaPredAutomatom.Dequeue();
             runCore.StatPriemednaDlzakaRaduAutomatu.AddValue(EventTime, runCore.RadaPredAutomatom.Count);
             runCore.Automat.Obsluz(person);
+            runCore.StatVytazenieAutomatu.AddValue(_core.SimulationTime, 1);
             _core.TimeLine.Enqueue(new EventAutomatZaciatok(runCore, _core.SimulationTime, person), _core.SimulationTime);
+        }
+        else
+        {
+            runCore.StatVytazenieAutomatu.AddValue(_core.SimulationTime, 0);
         }
     }
 }
