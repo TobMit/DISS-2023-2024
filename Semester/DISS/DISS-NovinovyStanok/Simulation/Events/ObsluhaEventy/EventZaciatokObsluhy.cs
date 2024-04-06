@@ -15,7 +15,7 @@ public class EventZaciatokObsluhy : SimulationEvent<Person, DataStructure>
         _person.State = 2;
         
         Core runCore = (Core)_core;
-        runCore.AvgDlzkaRadu.AddValue(runCore.Queue.Count, _core.SimulationTime); // štatistika
+        runCore.AvgDlzkaRadu.AddValue(runCore.Queue.Count); // štatistika
         runCore.obsluhovanyClovek = true;
         //Console.WriteLine($"[Clovek {_person.ID}]: cas: {runCore.SimulationTime} - Je pred pokladňou");
         

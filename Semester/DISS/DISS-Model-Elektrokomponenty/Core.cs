@@ -143,7 +143,7 @@ public class Core : EventSimulationCore<Person, DataStructure>
     {
         _globPriemernyCasVObchode.AddValue(StatPriemernyCasVObchode.Calucate());
         _globCasStravenyPredAutomatom.AddValue(StatCasStravenyPredAutomatom.Calucate());
-        _globPriemernaDlzkaRadu.AddValue(StatPriemednaDlzakaRaduAutomatu.Calucate());
+        _globPriemernaDlzkaRadu.AddValue(StatPriemednaDlzakaRaduAutomatu.Calucate(Constants.END_ARRIVAL_SIMULATION_TIME));
         _globPriemernyOdchodPoslednehoZakaznika.AddValue(SimulationTime);
         _globPriemernyPocetZakaznikov.AddValue(Automat.CelkovyPocet);
         if (BehZavislosti)

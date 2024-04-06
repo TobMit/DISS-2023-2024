@@ -19,8 +19,9 @@ public class EventKoniecObsluhy : SimulationEvent<Person, DataStructure>
 
         if (runCore.Queue.Count >= 1)
         {
+            runCore.AvgDlzkaRadu.AddValue(runCore.Queue.Count);
             var tmpPerson = runCore.Queue.Dequeue();
-            runCore.AvgDlzkaRadu.AddValue(runCore.Queue.Count, _core.SimulationTime);
+            runCore.AvgDlzkaRadu.AddValue(runCore.Queue.Count);
             runCore.TimeLine.Enqueue(new EventZaciatokObsluhy(runCore,_core.SimulationTime, tmpPerson), _core.SimulationTime);
         }
 

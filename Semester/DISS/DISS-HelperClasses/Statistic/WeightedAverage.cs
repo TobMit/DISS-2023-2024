@@ -2,43 +2,44 @@ namespace DISS_HelperClasses.Statistic;
 
 public class WeightedAverage : Average
 {
-    public double SumOfWeightedValues { get; private set; }
+    private List<Pair<double, int>> _listOfData;
 
-    private double weightSum;
-    public override double Calucate()
+    public WeightedAverage()
     {
-        if (SumAll == 0)
-        {
-            return 0;
-        }
-
-        if (weightSum == 0)
-        {
-            throw new InvalidOperationException("Nemôžem počítať priemer s nulovou váhou");
-        }
-
-        return SumOfWeightedValues / SumAll;
+        _listOfData = new();
     }
-    
-    // new sková metódu pred okolitým svetom
-    public override void AddValue(double pValue)
+
+    public override double Calucate()
     {
         throw new InvalidOperationException("Táto funkcia nieje podporovaná pre vážený priemer");
     }
 
-    public void AddValue(double pValue, double pWeight)
+    public double Calucate(double totalTime)
     {
-        //Console.WriteLine("Adding value: " + pValue + " with weight: " + pWeight);
-        SumOfWeightedValues += pValue * pWeight;
-        SumAll += pWeight;
-        weightSum += pWeight;
-        Count++;
+        double integral = 0;
+        Pair<double, int> lastTime = new(0,0);
+        foreach (var data in _listOfData)
+        {
+            integral += (data.First - lastTime.First)*((double)(data.Second + lastTime.Second)/ 2);
+            lastTime = data;
+        }
+        return integral / totalTime;
+    }
+
+    // new sková metódu pred okolitým svetom
+    public void AddValue(double pValue, int dlzka)
+    {
+        _listOfData.Add(new Pair<double, int>(pValue, dlzka));
     }
     
+    public override void AddValue(double pValue)
+    {
+        //_listOfData.Add(pValue);
+    }
+
     public override void Clear()
     {
         base.Clear();
-        SumOfWeightedValues = 0.0;
-        weightSum = 0.0;
+        _listOfData.Clear();
     }
 }

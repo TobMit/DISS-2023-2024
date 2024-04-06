@@ -84,9 +84,9 @@ public class EventAutomatKoniec : SimulationEvent<Person, DataStructure>
         // naplánujeme evet pre začiatok automatu
         if (runCore.RadaPredAutomatom.Count >= 1 && runCore.RadaPredObsluznymMiestom.Count < Constants.RADA_PRED_OBSLUZNYM_MIESTOM)
         {
-            //runCore.StatPriemednaDlzakaRaduAutomatu.AddValue(runCore.RadaPredAutomatom.Count, _core.SimulationTime);
+            // runCore.StatPriemednaDlzakaRaduAutomatu.AddValue(EventTime, runCore.RadaPredAutomatom.Count);
             var person = runCore.RadaPredAutomatom.Dequeue();
-            runCore.StatPriemednaDlzakaRaduAutomatu.AddValue(runCore.RadaPredAutomatom.Count, _core.SimulationTime);
+            runCore.StatPriemednaDlzakaRaduAutomatu.AddValue(EventTime, runCore.RadaPredAutomatom.Count);
             runCore.Automat.Obsluz(person);
             _core.TimeLine.Enqueue(new EventAutomatZaciatok(runCore, _core.SimulationTime, person), _core.SimulationTime);
         }
