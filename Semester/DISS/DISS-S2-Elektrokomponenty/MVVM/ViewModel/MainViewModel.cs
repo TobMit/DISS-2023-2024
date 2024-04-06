@@ -46,6 +46,7 @@ public class MainViewModel : ObservableObjects
     private string _priemernyPocetZakaznikov;
     private string _priemernyPocetObsluzenychZakaznikov;
     private string _priemerneVytazenieAutomatu;
+    private string _premerneDlzkyRadovPredObsluhov;
     private ObservableCollection<PersonModel> _peoples;
     private bool _slowDown;
     private Visibility _replicationDetailVisibility;
@@ -280,6 +281,19 @@ public class MainViewModel : ObservableObjects
         }
     }
     
+    public string PriemerneDlzkyRadovPredObsluhov
+    {
+        get => _premerneDlzkyRadovPredObsluhov;
+        set
+        {
+            if (String.Compare(value, _premerneDlzkyRadovPredObsluhov, StringComparison.Ordinal) != 0)
+            {
+                _premerneDlzkyRadovPredObsluhov = value;
+                OnPropertyChanged();
+            }
+        }
+    }
+    
     public ObservableCollection<PersonModel> Peoples
     {
         get => _peoples;
@@ -418,6 +432,7 @@ public class MainViewModel : ObservableObjects
         PriemernyOdchodPoslednehoZakaznika = "-/-";
         PriemernyPocetObsluzenychZakaznikov = "-/-";
         PriemerneVytazenieAutomatu = "-/-";
+        PriemerneDlzkyRadovPredObsluhov = "[-/-], [-/-], [-/-]";
 
         RadaPredAutomatom = "-/-";
         RadaPredObsluznimiMiestamiOnline = "-/-";
@@ -815,6 +830,7 @@ public class MainViewModel : ObservableObjects
                 PriemernyPocetZakaznikov = e.PriemernyPocetZakaznikov;
                 PriemernyPocetObsluzenychZakaznikov = e.PriemernyPocetObsluzenychZakaznikov;
                 PriemerneVytazenieAutomatu = e.PriemerneVytazenieAutomatu;
+                PriemerneDlzkyRadovPredObsluhov = e.PriemerneDlzkyRadovPredObsluhov;
             }
         });
     }

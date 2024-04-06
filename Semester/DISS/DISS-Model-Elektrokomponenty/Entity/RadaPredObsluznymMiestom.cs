@@ -1,3 +1,5 @@
+using DISS_HelperClasses.Statistic;
+
 namespace DISS_Model_Elektrokomponenty.Entity;
 
 public class RadaPredObsluznymMiestom
@@ -14,12 +16,21 @@ public class RadaPredObsluznymMiestom
     private readonly Queue<Person> _basicPersons;
     private readonly Queue<Person> _zmluvnyPersons;
     private readonly Queue<Person> _onlinePersons;
+    
+    private Core _core;
+    public WeightedAverage PriemernaDlzkaBasic { get; set; }
+    public WeightedAverage PriemernaDlzkaZmluvny { get; set; }
+    public WeightedAverage PriemernaDlzkaOnline { get; set; }
 
-    public RadaPredObsluznymMiestom()
+    public RadaPredObsluznymMiestom(Core pCore)
     {
         _basicPersons = new();
         _zmluvnyPersons = new Queue<Person>();
         _onlinePersons = new();
+        _core = pCore;
+        PriemernaDlzkaBasic = new ();
+        PriemernaDlzkaZmluvny = new ();
+        PriemernaDlzkaOnline = new ();
     }
 
     /// <summary>
@@ -43,11 +54,14 @@ public class RadaPredObsluznymMiestom
         {
             case Constants.TypZakaznika.Basic:
                 _basicPersons.Enqueue(person);
+                PriemernaDlzkaBasic.AddValue(_core.SimulationTime, _basicPersons.Count);
                 break;
             case Constants.TypZakaznika.Zmluvny:
+                PriemernaDlzkaZmluvny.AddValue(_core.SimulationTime, _zmluvnyPersons.Count);
                 _zmluvnyPersons.Enqueue(person);
                 break;
             case Constants.TypZakaznika.Online:
+                PriemernaDlzkaOnline.AddValue(_core.SimulationTime, _onlinePersons.Count);
                 _onlinePersons.Enqueue(person);
                 break;
             default:
@@ -72,17 +86,19 @@ public class RadaPredObsluznymMiestom
                 throw new ArgumentException(
                     "[RadaPredObsluznymMiestom - Dequeue online] - V rade už nie je žiaden online zákazník");
             }
-
+            PriemernaDlzkaOnline.AddValue(_core.SimulationTime, _onlinePersons.Count-1);
             return _onlinePersons.Dequeue();
         }
 
         if (_zmluvnyPersons.Count > 0)
         {
+            PriemernaDlzkaZmluvny.AddValue(_core.SimulationTime, _zmluvnyPersons.Count-1);
             return _zmluvnyPersons.Dequeue();
         }
 
         if (_basicPersons.Count > 0)
         {
+            PriemernaDlzkaBasic.AddValue(_core.SimulationTime, _basicPersons.Count-1);
             return _basicPersons.Dequeue();
         }
 
@@ -98,5 +114,8 @@ public class RadaPredObsluznymMiestom
         _basicPersons.Clear();
         _zmluvnyPersons.Clear();
         _onlinePersons.Clear();
+        PriemernaDlzkaBasic.Clear();
+        PriemernaDlzkaZmluvny.Clear();
+        PriemernaDlzkaOnline.Clear();
     }
 }

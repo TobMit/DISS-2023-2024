@@ -59,6 +59,9 @@ public class Core : EventSimulationCore<Person, DataStructure>
     private Average _globPriemernyPocetZakaznikov;
     private Average _globPriemernyPocetObsluzenychZakaznikov;
     private Average _globPriemerneVytazenieAutomatu;
+    private Average _globPriemernaDlzkaRaduPredObsluhouBasic;
+    private Average _globPriemernaDlzkaRaduPredObsluhouZmluvny;
+    private Average _globPriemernaDlzkaRaduPredObsluhouOnline;
 
     public Core(int numberOfReplications, int cutFirst, int pPocetObsluznychMiest, int pPocetPokladni) : base(
         numberOfReplications, cutFirst)
@@ -67,7 +70,7 @@ public class Core : EventSimulationCore<Person, DataStructure>
         _pocetPokladni = pPocetPokladni;
 
         RadaPredAutomatom = new();
-        RadaPredObsluznymMiestom = new();
+        RadaPredObsluznymMiestom = new(this);
         ObsluzneMiestoManager = new(_pocetObsluznychMiest);
         PokladnaManager = new(_pocetPokladni);
         Automat = new();
@@ -86,6 +89,9 @@ public class Core : EventSimulationCore<Person, DataStructure>
         _globPriemernyPocetZakaznikov = new();
         _globPriemernyPocetObsluzenychZakaznikov = new();
         _globPriemerneVytazenieAutomatu = new();
+        _globPriemernaDlzkaRaduPredObsluhouBasic = new();
+        _globPriemernaDlzkaRaduPredObsluhouZmluvny = new();
+        _globPriemernaDlzkaRaduPredObsluhouOnline = new();
     }
 
     public override void BeforeAllReplications()
@@ -155,6 +161,9 @@ public class Core : EventSimulationCore<Person, DataStructure>
         _globPriemernyPocetZakaznikov.AddValue(Automat.CelkovyPocet);
         _globPriemernyPocetObsluzenychZakaznikov.AddValue(Automat.PocetObsluzenych);
         _globPriemerneVytazenieAutomatu.AddValue(StatVytazenieAutomatu.Calucate(Constants.END_SIMULATION_TIME));
+        _globPriemernaDlzkaRaduPredObsluhouBasic.AddValue(RadaPredObsluznymMiestom.PriemernaDlzkaBasic.Calucate(SimulationTime));
+        _globPriemernaDlzkaRaduPredObsluhouOnline.AddValue(RadaPredObsluznymMiestom.PriemernaDlzkaOnline.Calucate(SimulationTime));
+        _globPriemernaDlzkaRaduPredObsluhouZmluvny.AddValue(RadaPredObsluznymMiestom.PriemernaDlzkaZmluvny.Calucate(SimulationTime));
         if (BehZavislosti)
         {
             if (_currentReplication < _cutFirst)
@@ -196,6 +205,7 @@ public class Core : EventSimulationCore<Person, DataStructure>
         Console.WriteLine($"Priemerny pocet zakaznikov: {Double.Round(_globPriemernyPocetZakaznikov.Calucate(), 4)}");
         Console.WriteLine($"Priemerny pocet obsluzenych zakaznikov: {Double.Round(_globPriemernyPocetObsluzenychZakaznikov.Calucate(), 4)}");
         Console.WriteLine($"Priemerne vytazenie automatu: {Double.Round(_globPriemerneVytazenieAutomatu.Calucate(), 4)*100}%");
+        Console.WriteLine($"Priemerna dlzka radu pred obsluhou basic/zmluvny/online: {Double.Round(_globPriemernaDlzkaRaduPredObsluhouBasic.Calucate(), 4)}/{Double.Round(_globPriemernaDlzkaRaduPredObsluhouZmluvny.Calucate(), 4)}/{Double.Round(_globPriemernaDlzkaRaduPredObsluhouOnline.Calucate(), 4)}");
         if (BehZavislosti)
         {
             Tick();
@@ -323,6 +333,15 @@ public class Core : EventSimulationCore<Person, DataStructure>
             else
             {
                 _eventData.PriemerneVytazenieAutomatu = "-/-";
+            }
+            if (_globPriemernaDlzkaRaduPredObsluhouBasic.Count > 0 && _globPriemernaDlzkaRaduPredObsluhouZmluvny.Count > 0 && _globPriemernaDlzkaRaduPredObsluhouOnline.Count > 0)
+            {
+                _eventData.PriemerneDlzkyRadovPredObsluhov = $"[{Double.Round(_globPriemernaDlzkaRaduPredObsluhouBasic.Calucate(), 3)}],[{Double.Round(_globPriemernaDlzkaRaduPredObsluhouZmluvny.Calucate(), 3)}],[{Double.Round(_globPriemernaDlzkaRaduPredObsluhouOnline.Calucate(), 3)}]";
+                
+            }
+            else
+            {
+                _eventData.PriemerneDlzkyRadovPredObsluhov = "[-/-], [-/-], [-/-]";
             }
         }
     }
