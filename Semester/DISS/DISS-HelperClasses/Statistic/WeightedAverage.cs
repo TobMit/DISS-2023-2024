@@ -3,6 +3,7 @@ namespace DISS_HelperClasses.Statistic;
 public class WeightedAverage : Average
 {
     private List<Pair<double, int>> _listOfData;
+    private Pair<double, int> lastData;
 
     public WeightedAverage()
     {
@@ -16,20 +17,23 @@ public class WeightedAverage : Average
 
     public double Calucate(double totalTime)
     {
-        double integral = 0;
-        Pair<double, int> lastTime = new(0,0);
-        foreach (var data in _listOfData)
-        {
-            integral += (data.First - lastTime.First)*((double)(data.Second + lastTime.Second)/ 2);
-            lastTime = data;
-        }
-        return integral / totalTime;
+        return SumAll / totalTime;
     }
 
     // new sková metódu pred okolitým svetom
-    public void AddValue(double pValue, int dlzka)
+    public void AddValue(double pValue, int count)
     {
-        _listOfData.Add(new Pair<double, int>(pValue, dlzka));
+        if (Count <= 1)
+        {
+            lastData = new Pair<double, int>(pValue, count);
+            Count++;
+        }
+        else
+        {
+            SumAll += (pValue - lastData.First) * lastData.Second;
+            lastData.First = pValue;
+            lastData.Second = count;
+        }
     }
     
     public override void AddValue(double pValue)
