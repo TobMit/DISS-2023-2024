@@ -1,3 +1,5 @@
+using DISS_HelperClasses.Statistic;
+
 namespace DISS_Model_Elektrokomponenty.Entity;
 
 public class ObsluzneMiesto
@@ -5,15 +7,19 @@ public class ObsluzneMiesto
     public Person? Person { get; set; }
     public bool Obsadena { get; private set; }
     public int ID { get; private set; }
-
     public string Name { get; private set; }
+    
+    private Core _core;
+    public WorkLoadAverage PriemerneVytazenieOM { get; set; }
 
-    public ObsluzneMiesto(Person pPerson, int ID, bool online = false)
+    public ObsluzneMiesto(Person pPerson, int id, Core pCore, bool online = false)
     {
         Person = pPerson;
         Obsadena = false;
-        this.ID = ID;
-        Name = online ? $"Online {ID}."  : $"Ostatné {ID}.";
+        ID = id;
+        Name = online ? $"Online {id}."  : $"Ostatné {id}.";
+        PriemerneVytazenieOM = new();
+        _core = pCore;
     }
     
     /// <summary>
@@ -30,6 +36,7 @@ public class ObsluzneMiesto
         Person = pPerson;
         Person.StavZakaznika = Constants.StavZakaznika.ObsluznomMiestoZadavaObjednavku;
         Obsadena = true;
+        PriemerneVytazenieOM.AddValue(_core.SimulationTime, true);
     }
     
     /// <summary>
@@ -44,6 +51,7 @@ public class ObsluzneMiesto
         }
         Person = null;
         Obsadena = false;
+        PriemerneVytazenieOM.AddValue(_core.SimulationTime, false);
     }
     
     /// <summary>

@@ -307,7 +307,7 @@
                                     Content="Priemere vyťaženie obslužných miest pre neonline zákazníkov:"
                                     FontSize="15" />
                                 <TextBlock
-                                    Text="[2.2], [2.2], [1.1]..."
+                                    Text="{Binding PriemerneVytazenieObsluhyOstatne}"
                                     Margin="0,0,0,8"
                                     Foreground="White"
                                     TextWrapping="Wrap"
@@ -319,7 +319,7 @@
                                     Content="Priemere vyťaženie obslužných miest pre online zákazníkov:"
                                     FontSize="15" />
                                 <TextBlock
-                                    Text="[2.2], [2.2], [1.1]..."
+                                    Text="{Binding PriemerneVytazenieObsluhyOnline}"
                                     Margin="0,0,0,8"
                                     Foreground="White"
                                     TextWrapping="Wrap"

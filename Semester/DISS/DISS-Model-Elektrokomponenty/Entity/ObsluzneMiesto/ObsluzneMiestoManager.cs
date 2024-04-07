@@ -9,12 +9,14 @@ public class ObsluzneMiestoManager
     public List<ObsluzneMiesto> ListObsluznychOstatnyMiest { get; private set; }
 
     private int _pocetObsluznychMiest;
+    private Core _core;
 
-    public ObsluzneMiestoManager(int pPocetObsluznychMiest)
+    public ObsluzneMiestoManager(int pPocetObsluznychMiest, Core pCore)
     {
         _pocetObsluznychMiest = pPocetObsluznychMiest;
         ListObsluznychOnlineMiest = new();
         ListObsluznychOstatnyMiest = new();
+        _core = pCore;
     }
 
     public void InitObsluzneMiesta()
@@ -24,12 +26,12 @@ public class ObsluzneMiestoManager
 
         for (int i = 0; i < pocetOnlineMiest; i++)
         {
-            ListObsluznychOnlineMiest.Add(new(null, i, true));
+            ListObsluznychOnlineMiest.Add(new(null, i, _core, true));
         }
 
         for (int i = 0; i < pocetOstatnych; i++)
         {
-            ListObsluznychOstatnyMiest.Add(new(null, i));
+            ListObsluznychOstatnyMiest.Add(new(null, i, _core));
         }
     }
 

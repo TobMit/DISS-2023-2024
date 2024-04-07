@@ -64,6 +64,8 @@ public class Core : EventSimulationCore<Person, DataStructure>
     private Average _globPriemernaDlzkaRaduPredObsluhouOnline;
     private List<Average> _globPriemerneDlzkyRadovPredPokladnami;
     private List<Average> _globPriemerneVytazeniePokladni;
+    private List<Average> _globPriemerneVytaznieObsluhyOnline;
+    private List<Average> _globPriemerneVytaznieObsluhyOstatne;
 
     public Core(int numberOfReplications, int cutFirst, int pPocetObsluznychMiest, int pPocetPokladni) : base(
         numberOfReplications, cutFirst)
@@ -73,7 +75,7 @@ public class Core : EventSimulationCore<Person, DataStructure>
 
         RadaPredAutomatom = new();
         RadaPredObsluznymMiestom = new(this);
-        ObsluzneMiestoManager = new(_pocetObsluznychMiest);
+        ObsluzneMiestoManager = new(_pocetObsluznychMiest, this);
         PokladnaManager = new(_pocetPokladni, this);
         Automat = new(this);
 
@@ -100,6 +102,9 @@ public class Core : EventSimulationCore<Person, DataStructure>
             _globPriemerneDlzkyRadovPredPokladnami.Add(new());
             _globPriemerneVytazeniePokladni.Add(new());
         }
+        _globPriemerneVytaznieObsluhyOnline = new(ObsluzneMiestoManager.ListObsluznychOnlineMiest.Count);
+        _globPriemerneVytaznieObsluhyOstatne = new(ObsluzneMiestoManager.ListObsluznychOstatnyMiest.Count);
+        
     }
 
     public override void BeforeAllReplications()
@@ -109,6 +114,15 @@ public class Core : EventSimulationCore<Person, DataStructure>
         TimeLine = new();
         ObsluzneMiestoManager.InitObsluzneMiesta();
         PokladnaManager.InitPokladne();
+        // Po nainicializovani sa obsluznych miest sa nainicializujú aj statistiky
+        for (int i = 0; i < ObsluzneMiestoManager.ListObsluznychOnlineMiest.Count; i++)
+        {
+            _globPriemerneVytaznieObsluhyOnline.Add(new());
+        }
+        for (int i = 0; i < ObsluzneMiestoManager.ListObsluznychOstatnyMiest.Count; i++)
+        {
+            _globPriemerneVytaznieObsluhyOstatne.Add(new());
+        }
 
         // Rozdelenia pravdepodobnosti
         RndPickPokladna = new(ExtendedRandom<double>.NextSeed(), _pocetPokladni);
@@ -176,6 +190,14 @@ public class Core : EventSimulationCore<Person, DataStructure>
             _globPriemerneDlzkyRadovPredPokladnami[i].AddValue(PokladnaManager.ListPokladni[i].PriemernaDlzkaRadu.Calucate(SimulationTime));
             _globPriemerneVytazeniePokladni[i].AddValue(PokladnaManager.ListPokladni[i].PriemerneVytazeniePredajne.Calucate(SimulationTime));
         }
+        for (int i = 0; i < ObsluzneMiestoManager.ListObsluznychOnlineMiest.Count; i++)
+        {
+            _globPriemerneVytaznieObsluhyOnline[i].AddValue(ObsluzneMiestoManager.ListObsluznychOnlineMiest[i].PriemerneVytazenieOM.Calucate(SimulationTime));
+        }
+        for (int i = 0; i < ObsluzneMiestoManager.ListObsluznychOstatnyMiest.Count; i++)
+        {
+            _globPriemerneVytaznieObsluhyOstatne[i].AddValue(ObsluzneMiestoManager.ListObsluznychOstatnyMiest[i].PriemerneVytazenieOM.Calucate(SimulationTime));
+        }
         if (BehZavislosti)
         {
             if (_currentReplication < _cutFirst)
@@ -227,6 +249,18 @@ public class Core : EventSimulationCore<Person, DataStructure>
         }
         Console.WriteLine($"Priemerne dlzky radov pred pokladnami: {sbPriemernaDlzkaRadu.Remove(sbPriemernaDlzkaRadu.Length - 1, 1)}");
         Console.WriteLine($"Priemerne vytazenie pokladni: {sbPriemerneVytazeniePokladne.Remove(sbPriemerneVytazeniePokladne.Length - 1, 1)}");
+        StringBuilder sbPriemerneVytazenieObsluhyOnline = new();
+        foreach (var stat in _globPriemerneVytaznieObsluhyOnline)
+        {
+            sbPriemerneVytazenieObsluhyOnline.Append($"[{Double.Round(stat.Calucate(),4)*100:0.00}%],");
+        }
+        Console.WriteLine($"Priemerne vytazenie obsluhy online: {sbPriemerneVytazenieObsluhyOnline.Remove(sbPriemerneVytazenieObsluhyOnline.Length - 1, 1)}");
+        StringBuilder sbPriemerneVytazenieObsluhyOstatne = new();
+        foreach (var stat in _globPriemerneVytaznieObsluhyOstatne)
+        {
+            sbPriemerneVytazenieObsluhyOstatne.Append($"[{Double.Round(stat.Calucate(),4)*100:0.00}%],");
+        }
+        Console.WriteLine($"Priemerne vytazenie obsluhy ostatne: {sbPriemerneVytazenieObsluhyOstatne.Remove(sbPriemerneVytazenieObsluhyOstatne.Length - 1, 1)}");
         if (BehZavislosti)
         {
             Tick();
@@ -381,6 +415,32 @@ public class Core : EventSimulationCore<Person, DataStructure>
             }
             _eventData.PriemerneDlzkyRadovPredPokladnami = sbPriemernaDlkaRadu.Remove(sbPriemernaDlkaRadu.Length - 1, 1).ToString();
             _eventData.PriemerneVytazeniePokladni = sbPriemerneVytazeniePokladni.Remove(sbPriemerneVytazeniePokladni.Length - 1, 1).ToString();
+            StringBuilder sbPriemerneVytazenieObsluhyOnline = new();
+            for (int i = 0; i < ObsluzneMiestoManager.ListObsluznychOnlineMiest.Count; i++)
+            {
+                if (_globPriemerneVytaznieObsluhyOnline[i].Count <= 0 )
+                {
+                    sbPriemerneVytazenieObsluhyOnline.Append("[-/-],");
+                }
+                else
+                {
+                    sbPriemerneVytazenieObsluhyOnline.Append($"[{Double.Round(_globPriemerneVytaznieObsluhyOnline[i].Calucate(),4)*100:0.00}%],");
+                }
+            }
+            _eventData.PriemerneVytazenieObsluhyOnline = sbPriemerneVytazenieObsluhyOnline.Remove(sbPriemerneVytazenieObsluhyOnline.Length - 1, 1).ToString();
+            StringBuilder sbPriemerneVytazenieObsluhyOstatne = new();
+            for (int i = 0; i < ObsluzneMiestoManager.ListObsluznychOstatnyMiest.Count; i++)
+            {
+                if (_globPriemerneVytaznieObsluhyOstatne[i].Count <= 0 )
+                {
+                    sbPriemerneVytazenieObsluhyOstatne.Append("[-/-],");
+                }
+                else
+                {
+                    sbPriemerneVytazenieObsluhyOstatne.Append($"[{Double.Round(_globPriemerneVytaznieObsluhyOstatne[i].Calucate(),4)*100:0.00}%],");
+                }
+            }
+            _eventData.PriemerneVytazenieObsluhyOstatne = sbPriemerneVytazenieObsluhyOstatne.Remove(sbPriemerneVytazenieObsluhyOstatne.Length - 1, 1).ToString();
         }
     }
 }
