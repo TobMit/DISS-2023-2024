@@ -1,3 +1,5 @@
+using DISS_HelperClasses.Statistic;
+
 namespace DISS_Model_Elektrokomponenty.Entity;
 
 public class Automat
@@ -9,10 +11,15 @@ public class Automat
     public Person? Person { get; private set; }
 
     public int PocetObsluzenych { get; set; }
+    private Core _core;
 
-    public Automat()
+    public WorkLoadAverage StatVytazenieAutomatu { get; set; }
+
+    public Automat(Core pCore)
     {
         CelkovyPocet = 0;
+        _core = pCore;
+        StatVytazenieAutomatu = new();
     }
     
     public void Obsluz(Person person)
@@ -20,12 +27,14 @@ public class Automat
         Person = person;
         Obsadeny = true;
         Person.StavZakaznika = Constants.StavZakaznika.ObsluhujeAutomat;
+        StatVytazenieAutomatu.AddValue(_core.SimulationTime, true);
     }
     
     public void Uvolni()
     {
         Obsadeny = false;
         Person = null;
+        StatVytazenieAutomatu.AddValue(_core.SimulationTime, false);
     }
 
     public void Clear()
@@ -34,6 +43,7 @@ public class Automat
         Person = null;
         Obsadeny = false;
         PocetObsluzenych = 0;
+        StatVytazenieAutomatu.Clear();
     }
 
     public int GetId()

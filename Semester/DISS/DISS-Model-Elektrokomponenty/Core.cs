@@ -50,7 +50,6 @@ public class Core : EventSimulationCore<Person, DataStructure>
     public Average StatPriemernyCasVObchode;
     public Average StatCasStravenyPredAutomatom;
     public WeightedAverage StatPriemednaDlzakaRaduAutomatu;
-    public WeightedAverage StatVytazenieAutomatu;
 
     // glob statistiky
     private Average _globPriemernyCasVObchode;
@@ -64,6 +63,7 @@ public class Core : EventSimulationCore<Person, DataStructure>
     private Average _globPriemernaDlzkaRaduPredObsluhouZmluvny;
     private Average _globPriemernaDlzkaRaduPredObsluhouOnline;
     private List<Average> _globPriemerneDlzkyRadovPredPokladnami;
+    private List<Average> _globPriemerneVytazeniePokladni;
 
     public Core(int numberOfReplications, int cutFirst, int pPocetObsluznychMiest, int pPocetPokladni) : base(
         numberOfReplications, cutFirst)
@@ -75,14 +75,13 @@ public class Core : EventSimulationCore<Person, DataStructure>
         RadaPredObsluznymMiestom = new(this);
         ObsluzneMiestoManager = new(_pocetObsluznychMiest);
         PokladnaManager = new(_pocetPokladni, this);
-        Automat = new();
+        Automat = new(this);
 
         Persons = new();
 
         StatPriemernyCasVObchode = new();
         StatCasStravenyPredAutomatom = new();
         StatPriemednaDlzakaRaduAutomatu = new();
-        StatVytazenieAutomatu = new();
 
         _globPriemernyCasVObchode = new();
         _globCasStravenyPredAutomatom = new();
@@ -95,9 +94,11 @@ public class Core : EventSimulationCore<Person, DataStructure>
         _globPriemernaDlzkaRaduPredObsluhouZmluvny = new();
         _globPriemernaDlzkaRaduPredObsluhouOnline = new();
         _globPriemerneDlzkyRadovPredPokladnami = new(_pocetPokladni);
+        _globPriemerneVytazeniePokladni = new(_pocetPokladni);
         for (int i = 0; i < _pocetPokladni; i++)
         {
             _globPriemerneDlzkyRadovPredPokladnami.Add(new());
+            _globPriemerneVytazeniePokladni.Add(new());
         }
     }
 
@@ -152,7 +153,6 @@ public class Core : EventSimulationCore<Person, DataStructure>
         StatPriemernyCasVObchode.Clear();
         StatCasStravenyPredAutomatom.Clear();
         StatPriemednaDlzakaRaduAutomatu.Clear();
-        StatVytazenieAutomatu.Clear();
 
         // rozbehnutie modelu
         var newArrival = RndPrichodZakaznika.Next() + SimulationTime;
@@ -167,7 +167,7 @@ public class Core : EventSimulationCore<Person, DataStructure>
         _globPriemernyOdchodPoslednehoZakaznika.AddValue(SimulationTime);
         _globPriemernyPocetZakaznikov.AddValue(Automat.CelkovyPocet);
         _globPriemernyPocetObsluzenychZakaznikov.AddValue(Automat.PocetObsluzenych);
-        _globPriemerneVytazenieAutomatu.AddValue(StatVytazenieAutomatu.Calucate(Constants.END_SIMULATION_TIME));
+        _globPriemerneVytazenieAutomatu.AddValue(Automat.StatVytazenieAutomatu.Calucate(Constants.END_ARRIVAL_SIMULATION_TIME));
         _globPriemernaDlzkaRaduPredObsluhouBasic.AddValue(RadaPredObsluznymMiestom.PriemernaDlzkaBasic.Calucate(SimulationTime));
         _globPriemernaDlzkaRaduPredObsluhouOnline.AddValue(RadaPredObsluznymMiestom.PriemernaDlzkaOnline.Calucate(SimulationTime));
         _globPriemernaDlzkaRaduPredObsluhouZmluvny.AddValue(RadaPredObsluznymMiestom.PriemernaDlzkaZmluvny.Calucate(SimulationTime));
