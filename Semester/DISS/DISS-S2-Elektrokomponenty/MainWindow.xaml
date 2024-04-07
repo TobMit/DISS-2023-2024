@@ -298,6 +298,7 @@
                                     Text="{Binding PriemerneDlzkyRadovPredObsluhov}"
                                     Margin="0,0,0,8"
                                     Foreground="White"
+                                    TextWrapping="Wrap"
                                     FontSize="20"
                                     FontWeight="Bold" />
 
@@ -309,6 +310,7 @@
                                     Text="[2.2], [2.2], [1.1]..."
                                     Margin="0,0,0,8"
                                     Foreground="White"
+                                    TextWrapping="Wrap"
                                     FontSize="20"
                                     FontWeight="Bold" />
 
@@ -320,6 +322,7 @@
                                     Text="[2.2], [2.2], [1.1]..."
                                     Margin="0,0,0,8"
                                     Foreground="White"
+                                    TextWrapping="Wrap"
                                     FontSize="20"
                                     FontWeight="Bold" />
 
@@ -331,6 +334,7 @@
                                     Text="{Binding PriemerneVytazeniePokladni}"
                                     Margin="0,0,0,8"
                                     Foreground="White"
+                                    TextWrapping="Wrap"
                                     FontSize="20"
                                     FontWeight="Bold" />
 
@@ -342,6 +346,7 @@
                                     Text="{Binding PriemerneDlzkyRadovPredPokladnami}"
                                     Margin="0,0,0,8"
                                     Foreground="White"
+                                    TextWrapping="Wrap"
                                     FontSize="20"
                                     FontWeight="Bold" />
                             </StackPanel>

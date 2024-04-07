@@ -348,7 +348,7 @@ public class Core : EventSimulationCore<Person, DataStructure>
             }
             if (_globPriemerneVytazenieAutomatu.Count > 0)
             {
-                _eventData.PriemerneVytazenieAutomatu = $"{Double.Round(_globPriemerneVytazenieAutomatu.Calucate(), 4)*100}%";
+                _eventData.PriemerneVytazenieAutomatu = $"{Double.Round(_globPriemerneVytazenieAutomatu.Calucate(), 4)*100:0.00}%";
                 
             }
             else
@@ -375,8 +375,8 @@ public class Core : EventSimulationCore<Person, DataStructure>
                 }
                 else
                 {
-                    sbPriemernaDlkaRadu.Append($"[{Double.Round(_globPriemerneDlzkyRadovPredPokladnami[i].Calucate(), 3)}],");
-                    sbPriemerneVytazeniePokladni.Append($"[{Double.Round(_globPriemerneVytazeniePokladni[i].Calucate(), 4)*100}%],");
+                    sbPriemernaDlkaRadu.Append($"[{Double.Round(_globPriemerneDlzkyRadovPredPokladnami[i].Calucate(), 3):0.000}],");
+                    sbPriemerneVytazeniePokladni.Append($"[{Double.Round(_globPriemerneVytazeniePokladni[i].Calucate(), 4)*100:0.00}%],");
                 }
             }
             _eventData.PriemerneDlzkyRadovPredPokladnami = sbPriemernaDlkaRadu.Remove(sbPriemernaDlkaRadu.Length - 1, 1).ToString();
