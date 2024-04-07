@@ -328,7 +328,7 @@
                                     Content="Priemere vyťaženie pokladní:"
                                     FontSize="15" />
                                 <TextBlock
-                                    Text="[2.2], [2.2], [1.1]..."
+                                    Text="{Binding PriemerneVytazeniePokladni}"
                                     Margin="0,0,0,8"
                                     Foreground="White"
                                     FontSize="20"

@@ -15,6 +15,7 @@ public class Pokladna
     public string Name { get; private set; }
 
     public WeightedAverage PriemernaDlzkaRadu { get; set; }
+    public WorkLoadAverage PriemerneVytazeniePredajne { get; set; }
 
     public Pokladna(int id, Core pCore)
     {
@@ -23,6 +24,7 @@ public class Pokladna
         Person = null;
         Name = $"Pokladna {ID}.";
         PriemernaDlzkaRadu = new ();
+        PriemerneVytazeniePredajne = new ();
         _core = pCore;
     }
 
@@ -35,6 +37,7 @@ public class Pokladna
         Obsadena = false;
         Person = null;
         PriemernaDlzkaRadu.Clear();
+        PriemerneVytazeniePredajne.Clear();
     }
     
     /// <summary>
@@ -46,6 +49,7 @@ public class Pokladna
         Person = person;
         Person.StavZakaznika = Constants.StavZakaznika.PokladnaPlati;
         Obsadena = true;
+        PriemerneVytazeniePredajne.AddValue(_core.SimulationTime, true);
     }
     
     /// <summary>
@@ -55,6 +59,7 @@ public class Pokladna
     {
         Person = null;
         Obsadena = false;
+        PriemerneVytazeniePredajne.AddValue(_core.SimulationTime, false);
     }
     
     /// <summary>

@@ -174,6 +174,7 @@ public class Core : EventSimulationCore<Person, DataStructure>
         for (int i = 0; i < _pocetPokladni; i++)
         {
             _globPriemerneDlzkyRadovPredPokladnami[i].AddValue(PokladnaManager.ListPokladni[i].PriemernaDlzkaRadu.Calucate(SimulationTime));
+            _globPriemerneVytazeniePokladni[i].AddValue(PokladnaManager.ListPokladni[i].PriemerneVytazeniePredajne.Calucate(SimulationTime));
         }
         if (BehZavislosti)
         {
@@ -217,12 +218,15 @@ public class Core : EventSimulationCore<Person, DataStructure>
         Console.WriteLine($"Priemerny pocet obsluzenych zakaznikov: {Double.Round(_globPriemernyPocetObsluzenychZakaznikov.Calucate(), 4)}");
         Console.WriteLine($"Priemerne vytazenie automatu: {Double.Round(_globPriemerneVytazenieAutomatu.Calucate(), 4)*100}%");
         Console.WriteLine($"Priemerna dlzka radu pred obsluhou basic/zmluvny/online: {Double.Round(_globPriemernaDlzkaRaduPredObsluhouBasic.Calucate(), 4)}/{Double.Round(_globPriemernaDlzkaRaduPredObsluhouZmluvny.Calucate(), 4)}/{Double.Round(_globPriemernaDlzkaRaduPredObsluhouOnline.Calucate(), 4)}");
-        StringBuilder sb = new();
+        StringBuilder sbPriemernaDlzkaRadu = new();
+        StringBuilder sbPriemerneVytazeniePokladne = new();
         for (int i = 0; i < _pocetPokladni; i++)
         {
-            sb.Append($"[{Double.Round(_globPriemerneDlzkyRadovPredPokladnami[i].Calucate(), 4)}],");
+            sbPriemernaDlzkaRadu.Append($"[{Double.Round(_globPriemerneDlzkyRadovPredPokladnami[i].Calucate(), 4)}],");
+            sbPriemerneVytazeniePokladne.Append($"[{Double.Round(_globPriemerneVytazeniePokladni[i].Calucate(), 4)*100}%],");
         }
-        Console.WriteLine($"Priemerne dlzky radov pred pokladnami: {sb.Remove(sb.Length - 1, 1)}");
+        Console.WriteLine($"Priemerne dlzky radov pred pokladnami: {sbPriemernaDlzkaRadu.Remove(sbPriemernaDlzkaRadu.Length - 1, 1)}");
+        Console.WriteLine($"Priemerne vytazenie pokladni: {sbPriemerneVytazeniePokladne.Remove(sbPriemerneVytazeniePokladne.Length - 1, 1)}");
         if (BehZavislosti)
         {
             Tick();
@@ -360,19 +364,23 @@ public class Core : EventSimulationCore<Person, DataStructure>
             {
                 _eventData.PriemerneDlzkyRadovPredObsluhov = "[-/-], [-/-], [-/-]";
             }
-            StringBuilder sb = new();
+            StringBuilder sbPriemernaDlkaRadu = new();
+            StringBuilder sbPriemerneVytazeniePokladni = new();
             for (int i = 0; i < _pocetPokladni; i++)
             {
                 if (_globPriemerneDlzkyRadovPredPokladnami[i].Count <= 0)
                 {
-                    sb.Append("[-],");
+                    sbPriemernaDlkaRadu.Append("[-/-],");
+                    sbPriemerneVytazeniePokladni.Append("[-/-],");
                 }
                 else
                 {
-                    sb.Append($"[{Double.Round(_globPriemerneDlzkyRadovPredPokladnami[i].Calucate(), 3)}],");
+                    sbPriemernaDlkaRadu.Append($"[{Double.Round(_globPriemerneDlzkyRadovPredPokladnami[i].Calucate(), 3)}],");
+                    sbPriemerneVytazeniePokladni.Append($"[{Double.Round(_globPriemerneVytazeniePokladni[i].Calucate(), 4)*100}%],");
                 }
             }
-            _eventData.PriemerneDlzkyRadovPredPokladnami = sb.Remove(sb.Length - 1, 1).ToString();
+            _eventData.PriemerneDlzkyRadovPredPokladnami = sbPriemernaDlkaRadu.Remove(sbPriemernaDlkaRadu.Length - 1, 1).ToString();
+            _eventData.PriemerneVytazeniePokladni = sbPriemerneVytazeniePokladni.Remove(sbPriemerneVytazeniePokladni.Length - 1, 1).ToString();
         }
     }
 }
