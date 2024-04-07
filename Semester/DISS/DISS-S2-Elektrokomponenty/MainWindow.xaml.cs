@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -12,6 +13,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using DISS_S2_Elektroomponenty.MVVM.ViewModel;
 
 namespace DISS_S2_Elektroomponenty
 {
@@ -31,6 +33,14 @@ namespace DISS_S2_Elektroomponenty
             var point = e.GetPosition(slider);
             var value = point.X / slider.ActualWidth * (slider.Maximum - slider.Minimum) + slider.Minimum;
             slider.Value = value;
+        }
+
+        private void MainWindow_OnClosing(object? sender, CancelEventArgs e)
+        {
+            if (DataContext is MainViewModel viewModel)
+            {
+                viewModel.OnWindowClosing();
+            }
         }
     }
 }

@@ -954,4 +954,9 @@ public class MainViewModel : ObservableObjects
             SeriesCollection?[4].Values.Add(e.BehZavislostiPriemernyPocetZakaznikovPredAutomatom);
         });
     }
+
+    public void OnWindowClosing()
+    {
+        StopModel();
+    }
 }

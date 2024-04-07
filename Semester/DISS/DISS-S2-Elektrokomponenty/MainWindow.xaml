@@ -7,8 +7,9 @@
         xmlns:viewModel="clr-namespace:DISS_S2_Elektroomponenty.MVVM.ViewModel"
         xmlns:lvc="clr-namespace:LiveCharts.Wpf;assembly=LiveCharts.Wpf"
         mc:Ignorable="d"
-        Title="MainWindow" Height="830" Width="1360"
-        WindowStartupLocation="CenterScreen">
+        Title="DISS-S2-TobiasMitala" Height="830" Width="1360"
+        WindowStartupLocation="CenterScreen"
+        Closing="MainWindow_OnClosing">
     <Window.DataContext>
         <viewModel:MainViewModel />
     </Window.DataContext>
