@@ -49,14 +49,14 @@ public class RadaPredObsluznymMiestom
     public void Enqueue(Person pPerson)
     {
         var person = pPerson;
-        person.StavZakaznika = Constants.StavZakaznika.CakaVObchode;
+        person.StavZakaznika = Constants.StavZakaznika.ČakáVObchode;
         switch (person.TypZakaznika)
         {
             case Constants.TypZakaznika.Basic:
                 _basicPersons.Enqueue(person);
                 PriemernaDlzkaBasic.AddValue(_core.SimulationTime, _basicPersons.Count);
                 break;
-            case Constants.TypZakaznika.Zmluvny:
+            case Constants.TypZakaznika.Zmluvný:
                 PriemernaDlzkaZmluvny.AddValue(_core.SimulationTime, _zmluvnyPersons.Count);
                 _zmluvnyPersons.Enqueue(person);
                 break;

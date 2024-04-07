@@ -315,8 +315,7 @@ public class Core : EventSimulationCore<Person, DataStructure>
             _eventData.ShallowUpdate = SlowDown;
             if (_eventData.ShallowUpdate)
             {
-                _eventData.People = Persons.Where(o => o.StavZakaznika != Constants.StavZakaznika.OdisielZPredajne)
-                    .ToList();
+                _eventData.People = Persons;
                 _eventData.RadaPredAutomatom = $"Rada pred automatom: {RadaPredAutomatom.Count}";
                 _eventData.Automat = Automat;
                 _eventData.RadaPredObsluznimiMiestamiOnline =

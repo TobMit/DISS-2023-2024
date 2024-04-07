@@ -34,7 +34,7 @@ public class EventKoniecDiktovania : SimulationEvent<Person, DataStructure>
             throw new InvalidOperationException($"[EventKoniecDiktovania] - v čase {_core.SimulationTime} obslužuje sa iný človek ({_obsluzneMiesto.Person.ID}) ako mal byť obsluhovaný ({_person.ID})!");
         }
 
-        _person.StavZakaznika = Constants.StavZakaznika.ObsluznomMiestoCakaNaTovar;
+        _person.StavZakaznika = Constants.StavZakaznika.ObslužnomMieste_ČakáNaTovar;
         // naplánovanie objednávky podľa zložitosti objednávky
         if (_person.TypNarocnostiTovaru == Constants.TypNarocnostiTovaru.Simple)
         {

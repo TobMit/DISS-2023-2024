@@ -49,7 +49,7 @@ public class EventObsluhaZaciatok : SimulationEvent<Person, DataStructure>
         }
         
         // Ak je ostatné tak naplánujeme EventKoniecDiktovania
-        else if (_person.TypZakaznika == Constants.TypZakaznika.Basic || _person.TypZakaznika == Constants.TypZakaznika.Zmluvny)
+        else if (_person.TypZakaznika == Constants.TypZakaznika.Basic || _person.TypZakaznika == Constants.TypZakaznika.Zmluvný)
         {
             var newKoniecDiktovania = runCore.RndTrvanieDiktovania.Next() + _core.SimulationTime;
             _core.TimeLine.Enqueue(new EventKoniecDiktovania(_core, newKoniecDiktovania, _person, _obsluzneMiesto), newKoniecDiktovania);

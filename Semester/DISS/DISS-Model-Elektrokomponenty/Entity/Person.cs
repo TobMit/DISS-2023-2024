@@ -42,7 +42,7 @@ public class Person
         }
         else if (prTypZakaznika < 0.65)
         {
-            TypZakaznika = Constants.TypZakaznika.Zmluvny;
+            TypZakaznika = Constants.TypZakaznika.Zmluvný;
         }
         else
         {
@@ -70,11 +70,11 @@ public class Person
     {
         if (prTypVelkostiNakladu < 0.6)
         {
-            TypVelkostiNakladu = Constants.TypVelkostiNakladu.Velka;
+            TypVelkostiNakladu = Constants.TypVelkostiNakladu.Veľká;
         }
         else
         {
-            TypVelkostiNakladu = Constants.TypVelkostiNakladu.Normalna;
+            TypVelkostiNakladu = Constants.TypVelkostiNakladu.Normálna;
         }
     }
 

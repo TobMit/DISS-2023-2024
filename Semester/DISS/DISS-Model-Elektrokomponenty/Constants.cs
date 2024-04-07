@@ -5,7 +5,7 @@ public class Constants
     public enum TypZakaznika
     {
         Basic = 0,
-        Zmluvny = 1,
+        Zmluvný = 1,
         Online = 2
     }
     
@@ -17,8 +17,8 @@ public class Constants
 
     public enum TypVelkostiNakladu
     {
-        Normalna = 0,
-        Velka = 1
+        Normálna = 0,
+        Veľká = 1
     }
     
     public enum TypNarocnostiTovaru
@@ -32,13 +32,13 @@ public class Constants
     {
         RadPredAutomatom = 0,
         ObsluhujeAutomat = 1,
-        CakaVObchode = 2,
-        ObsluznomMiestoZadavaObjednavku = 3,
-        ObsluznomMiestoCakaNaTovar = 4, //todo možo vymeniť s 3
-        PokladnaCakaVrade = 5,
-        PokladnaPlati = 6,
-        ObsluzneMiestoVraciaSaPreVelkyTovar = 7,
-        OdisielZPredajne = 8
+        ČakáVObchode = 2,
+        ObslužnomMieste_ZadávaObjednávku = 3,
+        ObslužnomMieste_ČakáNaTovar = 4,
+        PokladňaČakáVRade = 5,
+        PokladňaPlatí = 6,
+        ObslužnéMiestoVraciaSaPreVeľkýTovar = 7,
+        OdišielZPredajne = 8
     }
 
     public static int POCET_DAT_V_GRAFE = 100;
@@ -58,19 +58,19 @@ public class Constants
                 return "Stojí v rade pred automatom";
             case StavZakaznika.ObsluhujeAutomat:
                 return "Obsluhuje automat";
-            case StavZakaznika.CakaVObchode:
+            case StavZakaznika.ČakáVObchode:
                 return "Čaka v obchode";
-            case StavZakaznika.ObsluznomMiestoZadavaObjednavku:
+            case StavZakaznika.ObslužnomMieste_ZadávaObjednávku:
                 return "Obslúžne miesto: Zadáva objednávku";
-            case StavZakaznika.ObsluznomMiestoCakaNaTovar:
+            case StavZakaznika.ObslužnomMieste_ČakáNaTovar:
                 return "Obslužné miesto: Čaká na tovar";
-            case StavZakaznika.PokladnaCakaVrade:
+            case StavZakaznika.PokladňaČakáVRade:
                 return "Pokladňa: Čaká v rade";
-            case StavZakaznika.PokladnaPlati:
+            case StavZakaznika.PokladňaPlatí:
                 return "Pokladňa: Platí";
-            case StavZakaznika.ObsluzneMiestoVraciaSaPreVelkyTovar:
+            case StavZakaznika.ObslužnéMiestoVraciaSaPreVeľkýTovar:
                 return "Obslužné miesto: Vracia sa pre veľký tovar";
-            case StavZakaznika.OdisielZPredajne:
+            case StavZakaznika.OdišielZPredajne:
                 return "Odišiel z predajne";
             default:
                 return "Neznámy stav";

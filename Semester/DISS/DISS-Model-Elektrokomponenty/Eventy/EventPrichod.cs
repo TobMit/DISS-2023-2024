@@ -71,7 +71,7 @@ public class EventPrichod : SimulationEvent<Person, DataStructure>
             while (runCore.RadaPredAutomatom.Count >= 1)
             {
                 var leavePerson = runCore.RadaPredAutomatom.Dequeue();
-                leavePerson.StavZakaznika = Constants.StavZakaznika.OdisielZPredajne;
+                leavePerson.StavZakaznika = Constants.StavZakaznika.OdišielZPredajne;
                 //runCore.StatPriemernyCasVObchode.AddValue(_core.SimulationTime - leavePerson.TimeOfArrival);
             }
         }

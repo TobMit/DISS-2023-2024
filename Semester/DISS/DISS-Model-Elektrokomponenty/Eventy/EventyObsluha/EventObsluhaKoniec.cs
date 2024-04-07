@@ -38,7 +38,7 @@ public class EventObsluhaKoniec : SimulationEvent<Person, DataStructure>
         }
 
         // uvolnime obslužné miesto ak je veľkosť tovaru normálna
-        if (_person.TypVelkostiNakladu == Constants.TypVelkostiNakladu.Normalna)
+        if (_person.TypVelkostiNakladu == Constants.TypVelkostiNakladu.Normálna)
         {
             _obsluzneMiesto.Uvolni();
             // ak je online zákazník a nachádza sa v rade tak ho zavoláme k obslúžnemu miestu
@@ -84,7 +84,7 @@ public class EventObsluhaKoniec : SimulationEvent<Person, DataStructure>
         else
         {
             // ak nie je pokladňa voľná pridáme do rady
-            _person.StavZakaznika = Constants.StavZakaznika.PokladnaCakaVrade;
+            _person.StavZakaznika = Constants.StavZakaznika.PokladňaČakáVRade;
             runCore.PokladnaManager.PriradZakaznikaDoRady(_person, runCore);
         }
     }

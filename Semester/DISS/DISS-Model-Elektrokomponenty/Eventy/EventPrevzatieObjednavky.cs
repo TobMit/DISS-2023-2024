@@ -20,7 +20,7 @@ public class EventPrevzatieObjednavky : SimulationEvent<Person, DataStructure>
         Core runCore = (Core)_core;
         if (_core._eventData != null) _core._eventData.NewData = true;
         // ak zákazník nemá veľkú objednávku tak vyhodím error
-        if (_person.TypVelkostiNakladu != Constants.TypVelkostiNakladu.Velka)
+        if (_person.TypVelkostiNakladu != Constants.TypVelkostiNakladu.Veľká)
         {
             throw new InvalidOperationException($"[EventPrevzatieObjednavky] - v čase {_core.SimulationTime} zákazník {_person.ID} nemá veľkú objednávku!");
         }
@@ -33,7 +33,7 @@ public class EventPrevzatieObjednavky : SimulationEvent<Person, DataStructure>
         
         // uvolním oblužné miesto
         _person.ObsluzneMiesto.Uvolni();
-        _person.StavZakaznika = Constants.StavZakaznika.OdisielZPredajne;
+        _person.StavZakaznika = Constants.StavZakaznika.OdišielZPredajne;
         runCore.StatPriemernyCasVObchode.AddValue(_core.SimulationTime - _person.TimeOfArrival);
         
         // planovanie začiatku obsluhy

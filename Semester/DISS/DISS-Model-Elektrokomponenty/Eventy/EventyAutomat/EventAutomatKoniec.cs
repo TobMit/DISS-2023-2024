@@ -60,7 +60,7 @@ public class EventAutomatKoniec : SimulationEvent<Person, DataStructure>
             }
         }
         // to isté pre opačný typ zákazníka
-        else if (_person.TypZakaznika == Constants.TypZakaznika.Basic || _person.TypZakaznika == Constants.TypZakaznika.Zmluvny)
+        else if (_person.TypZakaznika == Constants.TypZakaznika.Basic || _person.TypZakaznika == Constants.TypZakaznika.Zmluvný)
         {
             var obsluzneMiesto = runCore.ObsluzneMiestoManager.GetVolneOstatne();
             // ak je obsluzne miesto volne tak vytvoríme event pre obsluzne miesto

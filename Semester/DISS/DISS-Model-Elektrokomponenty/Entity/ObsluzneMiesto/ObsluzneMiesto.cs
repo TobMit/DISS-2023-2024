@@ -34,7 +34,7 @@ public class ObsluzneMiesto
             throw new InvalidOperationException($"[Obsluzne miesto {ID}] - už je obsluhovaný človek {Person.ID}");
         }
         Person = pPerson;
-        Person.StavZakaznika = Constants.StavZakaznika.ObsluznomMiestoZadavaObjednavku;
+        Person.StavZakaznika = Constants.StavZakaznika.ObslužnomMieste_ZadávaObjednávku;
         Obsadena = true;
         PriemerneVytazenieOM.AddValue(_core.SimulationTime, true);
     }
@@ -64,10 +64,10 @@ public class ObsluzneMiesto
         {
             return $"OM {ID}: \n\t- Voľné\n\t- Pracovník: nečinný";
         }
-        else if (Person?.StavZakaznika > Constants.StavZakaznika.ObsluznomMiestoCakaNaTovar)
+        else if (Person?.StavZakaznika > Constants.StavZakaznika.ObslužnomMieste_ČakáNaTovar)
         {
             return $"OM {ID}: \n\t- Obsadená Person: {Person?.ID} (veľký tovar) \n\t- Predavač: voľný";
         }
-        return $"OM {ID}: \n\t- Stojí Person: {Person?.ID} \n\t- Predavač: {(Person?.StavZakaznika == Constants.StavZakaznika.ObsluznomMiestoZadavaObjednavku ? "zadáva objednávku" : "vybavuje objednávku")}";
+        return $"OM {ID}: \n\t- Stojí Person: {Person?.ID} \n\t- Predavač: {(Person?.StavZakaznika == Constants.StavZakaznika.ObslužnomMieste_ZadávaObjednávku ? "zadáva objednávku" : "vybavuje objednávku")}";
     }
 }

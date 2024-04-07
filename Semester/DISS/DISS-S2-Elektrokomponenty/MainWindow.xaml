@@ -103,7 +103,7 @@
 
             <Label
                 Style="{StaticResource CustomLabelStyle}"
-                Content="Zmena rýchlosti simlácie"
+                Content="Zmena rýchlosti simulácie"
                 Margin="0,10,0,0"
                 FontSize="20"
                 Visibility="{Binding ReplicationDetial}"
@@ -201,7 +201,7 @@
 
                                 <Label
                                     Style="{StaticResource CustomLabelStyle}"
-                                    Content="Priemerny čas v systéme:"
+                                    Content="Priemerný čas v systéme:"
                                     FontSize="15" />
                                 <TextBlock
                                     Text="{Binding PriemernyCasVObchode}"
@@ -212,7 +212,7 @@
 
                                 <Label
                                     Style="{StaticResource CustomLabelStyle}"
-                                    Content="Priemerny odchod posleného zákazníka:"
+                                    Content="Priemerný odchod posleného zákazníka:"
                                     FontSize="15" />
                                 <TextBlock
                                     Text="{Binding PriemernyOdchodPoslednehoZakaznika}"
@@ -223,7 +223,7 @@
 
                                 <Label
                                     Style="{StaticResource CustomLabelStyle}"
-                                    Content="95% IS pre prierny čas v systéme:"
+                                    Content="95% IS pre prierný čas v systéme:"
                                     FontSize="15" />
                                 <TextBlock
                                     Text="{Binding IntervalSpolahlivsti}"
@@ -234,7 +234,7 @@
 
                                 <Label
                                     Style="{StaticResource CustomLabelStyle}"
-                                    Content="Priemerný počet zázakníkov:"
+                                    Content="Priemerný počet zákazníkov:"
                                     FontSize="15" />
                                 <TextBlock
                                     Text="{Binding PriemernyPocetZakaznikov}"
@@ -245,7 +245,7 @@
 
                                 <Label
                                     Style="{StaticResource CustomLabelStyle}"
-                                    Content="Priemerný počet obslúžených:"
+                                    Content="Priemerný počet obslúžených zákazníkov:"
                                     FontSize="15" />
                                 <TextBlock
                                     Text="{Binding PriemernyPocetObsluzenychZakaznikov}"
@@ -256,7 +256,7 @@
 
                                 <Label
                                     Style="{StaticResource CustomLabelStyle}"
-                                    Content="Priemerny čas pred automatom:"
+                                    Content="Priemerný čas pred automatom:"
                                     FontSize="15" />
                                 <TextBlock
                                     Text="{Binding PriemernyCasPredAutomatom}"
@@ -270,7 +270,7 @@
                                 Margin="10">
                                 <Label
                                     Style="{StaticResource CustomLabelStyle}"
-                                    Content="Priemerna dĺžka pred Automatom:"
+                                    Content="Priemerná dĺžka pred Automatom:"
                                     FontSize="15" />
                                 <TextBlock
                                     Text="{Binding PriemernaDlzkaRaduPredAutomatom}"
@@ -281,7 +281,7 @@
 
                                 <Label
                                     Style="{StaticResource CustomLabelStyle}"
-                                    Content="Priemerne vyťaženie Automatu:"
+                                    Content="Priemerné vyťaženie Automatu:"
                                     FontSize="15" />
                                 <TextBlock
                                     Text="{Binding PriemerneVytazenieAutomatu}"
@@ -292,7 +292,7 @@
 
                                 <Label
                                     Style="{StaticResource CustomLabelStyle}"
-                                    Content="Priemera dlžka fronu v predajni [basic], [zmluvny], [online]:"
+                                    Content="Priemerná dĺžka frontu v predajni [basic], [zmluvný], [online]:"
                                     FontSize="15" />
                                 <TextBlock
                                     Text="{Binding PriemerneDlzkyRadovPredObsluhov}"
@@ -304,7 +304,7 @@
 
                                 <Label
                                     Style="{StaticResource CustomLabelStyle}"
-                                    Content="Priemere vyťaženie obslužných miest pre neonline zákazníkov:"
+                                    Content="Priemerné vyťaženie obslužných miest pre neonline zákazníkov:"
                                     FontSize="15" />
                                 <TextBlock
                                     Text="{Binding PriemerneVytazenieObsluhyOstatne}"
@@ -316,7 +316,7 @@
 
                                 <Label
                                     Style="{StaticResource CustomLabelStyle}"
-                                    Content="Priemere vyťaženie obslužných miest pre online zákazníkov:"
+                                    Content="Priemerné vyťaženie obslužných miest pre online zákazníkov:"
                                     FontSize="15" />
                                 <TextBlock
                                     Text="{Binding PriemerneVytazenieObsluhyOnline}"
@@ -328,7 +328,7 @@
 
                                 <Label
                                     Style="{StaticResource CustomLabelStyle}"
-                                    Content="Priemere vyťaženie pokladní:"
+                                    Content="Priemerné vyťaženie pokladní:"
                                     FontSize="15" />
                                 <TextBlock
                                     Text="{Binding PriemerneVytazeniePokladni}"
@@ -340,7 +340,7 @@
 
                                 <Label
                                     Style="{StaticResource CustomLabelStyle}"
-                                    Content="Priemera dlžka frontou pokladní:"
+                                    Content="Priemerná dĺžka frontu na pokladniach:"
                                     FontSize="15" />
                                 <TextBlock
                                     Text="{Binding PriemerneDlzkyRadovPredPokladnami}"
@@ -434,7 +434,7 @@
 
                                     <Label
                                         Style="{StaticResource CustomLabelStyle}"
-                                        Content="Dlžka frontu online zákazníci:"
+                                        Content="Dĺžka frontu online zákazníkov:"
                                         FontSize="15" />
                                     <TextBlock
                                         Text="{Binding RadaPredObsluznimiMiestamiOnline}"
@@ -446,7 +446,7 @@
                                 <StackPanel Grid.Column="1">
                                     <Label
                                         Style="{StaticResource CustomLabelStyle}"
-                                        Content="Dlžka frontu basic zákazníci:"
+                                        Content="Dĺžka frontu basic zákazníkov:"
                                         FontSize="15" />
                                     <TextBlock
                                         Text="{Binding RadaPredObsluznimiMiestamiBasic}"
@@ -457,7 +457,7 @@
 
                                     <Label
                                         Style="{StaticResource CustomLabelStyle}"
-                                        Content="Dlžka frontu zmluvny zákazníci:"
+                                        Content="Dĺžka frontu zmluvných zákazníkov:"
                                         FontSize="15" />
                                     <TextBlock
                                         Text="{Binding RadaPredObsluznimiMiestamiZmluvny}"

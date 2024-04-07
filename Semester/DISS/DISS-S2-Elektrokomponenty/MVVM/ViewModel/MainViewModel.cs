@@ -591,14 +591,14 @@ public class MainViewModel : ObservableObjects
                 },
                 new LineSeries
                 {
-                    Title = "5 Pokladne",
+                    Title = "5 Pokladní",
                     Values = new ChartValues<double>{},
                     Fill = Brushes.Transparent,
                     //PointGeometry = null
                 },
                 new LineSeries
                 {
-                    Title = "6 Pokladni",
+                    Title = "6 Pokladní",
                     Values = new ChartValues<double>{},
                     Fill = Brushes.Transparent,
                     //PointGeometry = null

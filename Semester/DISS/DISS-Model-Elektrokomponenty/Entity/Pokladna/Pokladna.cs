@@ -22,7 +22,7 @@ public class Pokladna
         Queue = new();
         ID = id;
         Person = null;
-        Name = $"Pokladna {ID}.";
+        Name = $"Pokladňa {ID}.";
         PriemernaDlzkaRadu = new ();
         PriemerneVytazeniePredajne = new ();
         _core = pCore;
@@ -47,7 +47,7 @@ public class Pokladna
     public void ObsadPokladnu(Person person)
     {
         Person = person;
-        Person.StavZakaznika = Constants.StavZakaznika.PokladnaPlati;
+        Person.StavZakaznika = Constants.StavZakaznika.PokladňaPlatí;
         Obsadena = true;
         PriemerneVytazeniePredajne.AddValue(_core.SimulationTime, true);
     }
@@ -70,8 +70,8 @@ public class Pokladna
     {
         if (Person is null)
         {
-            return $"Pokladna {ID}: \n\t- Voľná\n\t- Predavač: nečinný\n\t- Rada: {Queue.Count}";
+            return $"Pokladňa {ID}: \n\t- Voľná\n\t- Predavač: nečinný\n\t- Rada: {Queue.Count}";
         }
-        return $"Pokladna {ID}: \n\t- Stojí Person: {Person?.ID} \n\t- Predavač: vybavuje pladbu\n\t- Rada: {Queue.Count}";
+        return $"Pokladňa {ID}: \n\t- Stojí Person: {Person?.ID} \n\t- Predavač: vybavuje pladbu\n\t- Rada: {Queue.Count}";
     }
 }
