@@ -439,6 +439,7 @@ public class MainViewModel : ObservableObjects
         set
         {
             _behZavisloti = value;
+            AktualnaReplikacia = "-/-";
             SetVidetelnostBehuZavislosti();
             OnPropertyChanged();
         }
@@ -532,6 +533,7 @@ public class MainViewModel : ObservableObjects
 
     private void StartModel()
     {
+        StopModel(); // ak beží jadro a ja znovu naštartujem tak stopnem pôvodné.
         int pocetReplikacii = 3;
         int pocetObsluznychMiest = 3;
         int pocetPokladni = 1;
@@ -565,6 +567,7 @@ public class MainViewModel : ObservableObjects
 
         if (BehZavisloti)
         {
+            AktualnaReplikacia = "-/-";
             // vyresetovanie štatistiky
             SeriesCollection = new SeriesCollection
             {
