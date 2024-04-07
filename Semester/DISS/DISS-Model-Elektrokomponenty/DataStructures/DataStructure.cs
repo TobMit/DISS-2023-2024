@@ -34,6 +34,7 @@ public class DataStructure : EventArgs
     public string PriemerneVytazeniePokladni { get; set; }
     public string PriemerneVytazenieObsluhyOnline { get; set; }
     public string PriemerneVytazenieObsluhyOstatne { get; set; }
+    public string IntervalSpolahlivstiCasuVsysteme { get; set; }
 
     public double BehZavislostiPriemernyPocetZakaznikovPredAutomatom { get; set; }
 

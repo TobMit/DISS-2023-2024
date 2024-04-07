@@ -66,6 +66,7 @@ public class Core : EventSimulationCore<Person, DataStructure>
     private List<Average> _globPriemerneVytazeniePokladni;
     private List<Average> _globPriemerneVytaznieObsluhyOnline;
     private List<Average> _globPriemerneVytaznieObsluhyOstatne;
+    private IntervalSpolahlivosti _globIntervalSpolahlivostiCasuVSysteme;
 
     public Core(int numberOfReplications, int cutFirst, int pPocetObsluznychMiest, int pPocetPokladni) : base(
         numberOfReplications, cutFirst)
@@ -104,7 +105,7 @@ public class Core : EventSimulationCore<Person, DataStructure>
         }
         _globPriemerneVytaznieObsluhyOnline = new(ObsluzneMiestoManager.ListObsluznychOnlineMiest.Count);
         _globPriemerneVytaznieObsluhyOstatne = new(ObsluzneMiestoManager.ListObsluznychOstatnyMiest.Count);
-        
+        _globIntervalSpolahlivostiCasuVSysteme = new();
     }
 
     public override void BeforeAllReplications()
@@ -198,6 +199,8 @@ public class Core : EventSimulationCore<Person, DataStructure>
         {
             _globPriemerneVytaznieObsluhyOstatne[i].AddValue(ObsluzneMiestoManager.ListObsluznychOstatnyMiest[i].PriemerneVytazenieOM.Calucate(SimulationTime));
         }
+        _globIntervalSpolahlivostiCasuVSysteme.AddValue(StatPriemernyCasVObchode.Calucate());
+        
         if (BehZavislosti)
         {
             if (_currentReplication < _cutFirst)
@@ -261,6 +264,9 @@ public class Core : EventSimulationCore<Person, DataStructure>
             sbPriemerneVytazenieObsluhyOstatne.Append($"[{Double.Round(stat.Calucate(),4)*100:0.00}%],");
         }
         Console.WriteLine($"Priemerne vytazenie obsluhy ostatne: {sbPriemerneVytazenieObsluhyOstatne.Remove(sbPriemerneVytazenieObsluhyOstatne.Length - 1, 1)}");
+        var interval = _globIntervalSpolahlivostiCasuVSysteme.Calculate();
+        Console.WriteLine($"Interval spolahlivosti casu v systeme: [{interval.dolnaHranica} - {interval.hornaHranica}]");
+        
         if (BehZavislosti)
         {
             Tick();
@@ -441,6 +447,15 @@ public class Core : EventSimulationCore<Person, DataStructure>
                 }
             }
             _eventData.PriemerneVytazenieObsluhyOstatne = sbPriemerneVytazenieObsluhyOstatne.Remove(sbPriemerneVytazenieObsluhyOstatne.Length - 1, 1).ToString();
+            if (_globIntervalSpolahlivostiCasuVSysteme.Count >= 2)
+            {
+                var interval = _globIntervalSpolahlivostiCasuVSysteme.Calculate();
+                _eventData.IntervalSpolahlivstiCasuVsysteme = $"{Double.Round(interval.dolnaHranica,3)/60:0.000} - {Double.Round(interval.hornaHranica,3)/60:0.000} / {TimeSpan.FromSeconds(interval.dolnaHranica).ToString(@"hh\:mm\:ss")} - {TimeSpan.FromSeconds(interval.hornaHranica).ToString(@"hh\:mm\:ss")}";
+            }
+            else
+            {
+                _eventData.IntervalSpolahlivstiCasuVsysteme = "[-/-] - [-/-] / [-/-] - [-/-]";
+            }
         }
     }
 }

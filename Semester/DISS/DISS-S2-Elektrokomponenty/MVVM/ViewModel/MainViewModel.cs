@@ -51,6 +51,7 @@ public class MainViewModel : ObservableObjects
     private string _priemerneVytazeniePokladni;
     private string _priemerneVytazenieObsluhyOnline;
     private string _priemerneVytazenieObsluhyOstatne;
+    private string _intervalSpolahlivosti;
     private ObservableCollection<PersonModel> _peoples;
     private bool _slowDown;
     private Visibility _replicationDetailVisibility;
@@ -350,6 +351,19 @@ public class MainViewModel : ObservableObjects
         }
     }
     
+    public string IntervalSpolahlivsti
+    {
+        get => _intervalSpolahlivosti;
+        set
+        {
+            if (String.Compare(value, _intervalSpolahlivosti, StringComparison.Ordinal) != 0)
+            {
+                _intervalSpolahlivosti = value;
+                OnPropertyChanged();
+            }
+        }
+    }
+    
     public ObservableCollection<PersonModel> Peoples
     {
         get => _peoples;
@@ -493,6 +507,7 @@ public class MainViewModel : ObservableObjects
         PriemerneVytazeniePokladni = "[-/-]...";
         PriemerneVytazenieObsluhyOnline = "[-/-]...";
         PriemerneVytazenieObsluhyOstatne = "[-/-]";
+        IntervalSpolahlivsti = "[-/-] - [-/-] / [-/-] - [-/-]";
 
         RadaPredAutomatom = "-/-";
         RadaPredObsluznimiMiestamiOnline = "-/-";
@@ -895,6 +910,7 @@ public class MainViewModel : ObservableObjects
                 PriemerneVytazeniePokladni = e.PriemerneVytazeniePokladni;
                 PriemerneVytazenieObsluhyOnline = e.PriemerneVytazenieObsluhyOnline;
                 PriemerneVytazenieObsluhyOstatne = e.PriemerneVytazenieObsluhyOstatne;
+                IntervalSpolahlivsti = e.IntervalSpolahlivstiCasuVsysteme;
             }
         });
     }

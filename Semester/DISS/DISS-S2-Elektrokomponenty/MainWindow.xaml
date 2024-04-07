@@ -226,7 +226,7 @@
                                     Content="95% IS pre prierny čas v systéme:"
                                     FontSize="15" />
                                 <TextBlock
-                                    Text="22000 - 26000 / 22:00 - 30:00"
+                                    Text="{Binding IntervalSpolahlivsti}"
                                     Margin="0,0,0,8"
                                     Foreground="White"
                                     FontSize="20"
