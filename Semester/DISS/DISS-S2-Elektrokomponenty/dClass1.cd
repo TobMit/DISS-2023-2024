@@ -1,0 +1,241 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="DISS_S2_Elektroomponenty.Core.ObservableObjects">
+    <Position X="17.25" Y="0.5" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAIAAAAAAAgAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Core\ObservableObjects.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="DISS_S2_Elektroomponenty.Core.RelayCommand" BaseTypeListCollapsed="true">
+    <Position X="23.75" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAEACAAQAAECAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Core\RelayCommand.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="DISS_S2_Elektroomponenty.MVVM.Model.AutomatModel">
+    <Position X="19" Y="3" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAAAACAAAAAAAAAAAEAAAAAAAAAAAAACAAAAAA=</HashCode>
+      <FileName>MVVM\Model\AutomatModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DISS_S2_Elektroomponenty.MVVM.Model.ObsluzneMiestoModel">
+    <Position X="13.75" Y="3" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAIAAAAgAAAAAAAAAAAAUAAAAAAAAAAAAACAAAAAA=</HashCode>
+      <FileName>MVVM\Model\ObsluzneMiestoModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DISS_S2_Elektroomponenty.MVVM.Model.PersonModel">
+    <Position X="17.25" Y="3" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAIQAAAAAAgAgAAAAAAEIgAAAAAAABAEAIgAAEAAA=</HashCode>
+      <FileName>MVVM\Model\PersonModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DISS_S2_Elektroomponenty.MVVM.Model.PokladnaModel">
+    <Position X="20.75" Y="3" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAIAAAAgAAAAAAAAAAAAUAAAAAAAAAAAAACAAAAAA=</HashCode>
+      <FileName>MVVM\Model\PokladnaModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DISS_S2_Elektroomponenty.MVVM.ViewModel.MainViewModel">
+    <Position X="15.5" Y="3" Width="1.5" />
+    <Compartments>
+      <Compartment Name="Fields" Collapsed="true" />
+      <Compartment Name="Properties" Collapsed="true" />
+    </Compartments>
+    <TypeIdentifier>
+      <HashCode>BgAyaCVAUUCIAikQ5bFACBAwSoGxMAIFRDnRMQJBahM=</HashCode>
+      <FileName>MVVM\ViewModel\MainViewModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DISS_S2_Elektroomponenty.MainWindow" BaseTypeListCollapsed="true">
+    <Position X="25.5" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAACAAAAAAAAAAAAAAAAAAAAAAAAAAAAAgAAAAAAA=</HashCode>
+      <FileName>MainWindow.xaml.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="DISS.Random.Continous.Empiric">
+    <Position X="19" Y="13.5" Width="1.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="DISS.Random.Continous.Uniform">
+    <Position X="13.5" Y="13" Width="1.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="DISS.Random.Discrete.Empiric">
+    <Position X="20.75" Y="13.5" Width="1.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="DISS.Random.Discrete.Uniform">
+    <Position X="13.5" Y="11.25" Width="1.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="DISS.Random.Other.Deterministic&lt;T&gt;">
+    <Position X="15.25" Y="13" Width="1.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="DISS.Random.Other.Exponential">
+    <Position X="17" Y="11.25" Width="1.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="DISS.Random.Other.Triangular">
+    <Position X="15.25" Y="11.25" Width="1.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="DISS.Random.EmpiricBase&lt;T&gt;">
+    <Position X="19.75" Y="11.25" Width="1.5" />
+    <NestedTypes>
+      <Class Name="DISS.Random.EmpiricBase&lt;T&gt;.EmpiricData&lt;T&gt;" Collapsed="true">
+        <TypeIdentifier />
+      </Class>
+      <Class Name="DISS.Random.EmpiricBase&lt;T&gt;.EmpiricDataWithSeed&lt;T&gt;" Collapsed="true">
+        <TypeIdentifier />
+      </Class>
+    </NestedTypes>
+    <TypeIdentifier />
+  </Class>
+  <Class Name="DISS.Random.ExtendedRandom&lt;T&gt;">
+    <Position X="17.75" Y="8.25" Width="1.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="DISS_MonteCarloCore.Core.MonteCarloCore">
+    <Position X="6" Y="1.75" Width="1.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="DISS_EventSimulationCore.EventSimulationCore&lt;T, TEventDataStructure&gt;">
+    <Position X="8.25" Y="1.75" Width="1.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="DISS_EventSimulationCore.EventSlowDown&lt;T, TEvent&gt;">
+    <Position X="30.5" Y="10.25" Width="1.75" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="DISS_EventSimulationCore.SimulationEvent&lt;T, TEvent&gt;">
+    <Position X="35" Y="7.25" Width="2" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="DISS_HelperClasses.Statistic.Average">
+    <Position X="35.25" Y="1.5" Width="1.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="DISS_HelperClasses.Statistic.IntervalSpolahlivosti">
+    <Position X="35" Y="4.25" Width="1.75" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="DISS_HelperClasses.Statistic.WeightedAverage">
+    <Position X="37" Y="4.25" Width="1.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="DISS_HelperClasses.Statistic.WorkLoadAverage">
+    <Position X="32.75" Y="4.25" Width="2" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="DISS_HelperClasses.Pair&lt;TFirst, TSecond&gt;">
+    <Position X="25.5" Y="4.5" Width="1.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="DISS_Model_Elektrokomponenty.DataStructures.DataStructure">
+    <Position X="43.75" Y="4.25" Width="1.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="DISS_Model_Elektrokomponenty.Entity.ObsluzneMiesto">
+    <Position X="45.5" Y="4.25" Width="1.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="DISS_Model_Elektrokomponenty.Entity.ObsluzneMiestoManager">
+    <Position X="47.25" Y="4.25" Width="1.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="DISS_Model_Elektrokomponenty.Entity.Automat">
+    <Position X="47.25" Y="7.25" Width="1.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="DISS_Model_Elektrokomponenty.Entity.Person">
+    <Position X="49" Y="4.25" Width="1.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="DISS_Model_Elektrokomponenty.Entity.RadaPredObsluznymMiestom">
+    <Position X="49" Y="8" Width="1.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="DISS_Model_Elektrokomponenty.Entity.Pokladna.Pokladna">
+    <Position X="45.5" Y="7.5" Width="1.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="DISS_Model_Elektrokomponenty.Entity.Pokladna.PokladnaManager">
+    <Position X="45.5" Y="11.25" Width="1.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="DISS_Model_Elektrokomponenty.Eventy.EventPladby.EventPladbaKoniec">
+    <Position X="37.5" Y="10.25" Width="2.25" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="DISS_Model_Elektrokomponenty.Eventy.EventPladby.EventPladbaZaciatok">
+    <Position X="40" Y="10.25" Width="2.25" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="DISS_Model_Elektrokomponenty.Eventy.EventyAutomat.EventAutomatKoniec">
+    <Position X="30.5" Y="12.25" Width="1.75" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="DISS_Model_Elektrokomponenty.Eventy.EventyAutomat.EventAutomatZaciatok">
+    <Position X="32.5" Y="12.25" Width="2" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="DISS_Model_Elektrokomponenty.Eventy.EventyObsluha.EventKoniecDiktovania">
+    <Position X="34.75" Y="12.25" Width="2.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="DISS_Model_Elektrokomponenty.Eventy.EventyObsluha.EventObsluhaKoniec">
+    <Position X="37.5" Y="12.25" Width="2.25" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="DISS_Model_Elektrokomponenty.Eventy.EventyObsluha.EventObsluhaZaciatok">
+    <Position X="40" Y="12.25" Width="2.25" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="DISS_Model_Elektrokomponenty.Eventy.EventPrevzatieObjednavky">
+    <Position X="32.5" Y="10.25" Width="2" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="DISS_Model_Elektrokomponenty.Eventy.EventPrichod">
+    <Position X="34.75" Y="10.25" Width="2.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="DISS_Model_Elektrokomponenty.RNG.RNGPickPokladna">
+    <Position X="17" Y="13" Width="1.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="DISS_Model_Elektrokomponenty.Constants">
+    <Position X="23.75" Y="5.25" Width="1.5" />
+    <NestedTypes>
+      <Class Name="DISS_Model_Elektrokomponenty.Constants.TypZakaznika" Collapsed="true">
+        <TypeIdentifier />
+      </Class>
+      <Class Name="DISS_Model_Elektrokomponenty.Constants.TypVelkostiNakladu" Collapsed="true">
+        <TypeIdentifier />
+      </Class>
+      <Class Name="DISS_Model_Elektrokomponenty.Constants.TypNarocnostiTovaru" Collapsed="true">
+        <TypeIdentifier />
+      </Class>
+      <Class Name="DISS_Model_Elektrokomponenty.Constants.StavZakaznika" Collapsed="true">
+        <TypeIdentifier />
+      </Class>
+    </NestedTypes>
+    <TypeIdentifier />
+  </Class>
+  <Class Name="DISS_Model_Elektrokomponenty.Core">
+    <Position X="10.25" Y="1.75" Width="1.5" />
+    <TypeIdentifier />
+  </Class>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>
