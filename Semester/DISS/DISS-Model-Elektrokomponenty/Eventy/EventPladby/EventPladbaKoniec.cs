@@ -39,11 +39,17 @@ public class EventPladbaKoniec : SimulationEvent<Person, DataStructure>
         _pokladna.UvolniPokladnu();
         
         // Ak má zakazni veľu objednávku naplánujem vyzdvyhnutie
-        if (_person.TypVelkostiNakladu == Constants.TypVelkostiNakladu.Velka)
+        if (_person.TypVelkostiNakladu == Constants.TypVelkostiNakladu.Veľká)
         {
-            _person.StavZakaznika = Constants.StavZakaznika.ObsluzneMiestoVraciaSaPreVelkyTovar;
+            _person.StavZakaznika = Constants.StavZakaznika.ObslužnéMiestoVraciaSaPreVeľkýTovar;
             var newVyzvihnutie = runCore.RndTrvanieVyzdvyhnutieVelkehoTovaru.Next() + _core.SimulationTime;
             _core.TimeLine.Enqueue(new EventPrevzatieObjednavky(runCore, newVyzvihnutie, _person), newVyzvihnutie);
+        }
+        else if (_person.TypVelkostiNakladu == Constants.TypVelkostiNakladu.Normálna)
+        {
+            // ak nie je tak je koniec pladby a zákazník odzcádza
+            _person.StavZakaznika = Constants.StavZakaznika.OdišielZPredajne;
+            runCore.StatPriemernyCasVObchode.AddValue(_core.SimulationTime - _person.TimeOfArrival);
         }
         
         // ak je v rade daľší človek naplánujem začiatok pladby
@@ -54,9 +60,6 @@ public class EventPladbaKoniec : SimulationEvent<Person, DataStructure>
             _pokladna.ObsadPokladnu(person);
             _core.TimeLine.Enqueue(new EventPladbaZaciatok(runCore, _core.SimulationTime, person, _pokladna), _core.SimulationTime);
         }
-        // ak nie je tak je koniec pladby a zákazník odzcádza
-        _person.StavZakaznika = Constants.StavZakaznika.OdisielZPredajne;
-        runCore.StatPriemernyCasVObchode.AddValue(_core.SimulationTime - _person.TimeOfArrival);
     }
     
 }
