@@ -23,21 +23,21 @@ public class EventObsluhaKoniec : SimulationEvent<Person, DataStructure>
     {
         Core runCore = (Core)_core;
         if (_core._eventData != null) _core._eventData.NewData = true;
-        // ak je obslužne miesto prázdne hodíme error
+        // ak je obslužné miesto prázdne hodíme error
         if (!_obsluzneMiesto.Obsadena)
         {
             throw new InvalidOperationException(
                 $"[EventObsluhaKoniec] - v čase {_core.SimulationTime} obslužné miesto {_obsluzneMiesto.ID} nie je obsadené!");
         }
 
-        // ak je obslužne miesto obsadené iným človekom
+        // ak je obslužné miesto obsadené iným človekom
         if (_obsluzneMiesto.Person.ID != _person.ID)
         {
             throw new InvalidOperationException(
-                $"[EventObsluhaKoniec] - v čase {_core.SimulationTime} obslužuje sa iný človek ({_obsluzneMiesto.Person.ID}) ako mal byť obsluhovaný ({_person.ID})!");
+                $"[EventObsluhaKoniec] - v čase {_core.SimulationTime} sa obsluhuje sa iný človek ({_obsluzneMiesto.Person.ID}) ako mal byť obsluhovaný ({_person.ID})!");
         }
 
-        // uvolnime obslužné miesto ak je veľkosť tovaru normálna
+        // uvoľnime obslužné miesto ak je veľkosť tovaru normálna
         if (_person.TypVelkostiNakladu == Constants.TypVelkostiNakladu.Normálna)
         {
             _obsluzneMiesto.Uvolni();
@@ -67,16 +67,16 @@ public class EventObsluhaKoniec : SimulationEvent<Person, DataStructure>
         }
         else
         {
-            // ak je veľký náklad tak neuvoľnujem pokľadňu
+            // ak je veľký náklad tak neuvoľňujem pokladňu
             _person.ObsluzneMiesto = _obsluzneMiesto;
         }
 
-        // ak je prázdny rad tak priradíme človeka pokadni
+        // ak je prázdny rad tak priradíme človeka pokladni
         var pokladna = runCore.PokladnaManager.GetVolnaPokladnaPrazdnyRad(runCore);
 
         if (pokladna is not null)
         {
-            // je pokladňa voľná naplánujem event začiatok pladby
+            // je pokladňa voľná naplánujem event začiatok platby
             pokladna.ObsadPokladnu(_person);
             _core.TimeLine.Enqueue(new EventPladbaZaciatok(runCore, _core.SimulationTime, _person, pokladna),
                 _core.SimulationTime);

@@ -2,6 +2,9 @@ using DISS_HelperClasses.Statistic;
 
 namespace DISS_Model_Elektrokomponenty.Entity;
 
+/// <summary>
+/// Automat ktorý vydáva lístky
+/// </summary>
 public class Automat
 {
     public int CelkovyPocet { get; private set; }
@@ -22,6 +25,10 @@ public class Automat
         StatVytazenieAutomatu = new();
     }
     
+    /// <summary>
+    /// Obslúži osobu na automate
+    /// </summary>
+    /// <param name="person">Osoba na automate</param>
     public void Obsluz(Person person)
     {
         Person = person;
@@ -30,6 +37,9 @@ public class Automat
         StatVytazenieAutomatu.AddValue(_core.SimulationTime, true);
     }
     
+    /// <summary>
+    /// Uvolni automat
+    /// </summary>
     public void Uvolni()
     {
         Obsadeny = false;
@@ -37,6 +47,9 @@ public class Automat
         StatVytazenieAutomatu.AddValue(_core.SimulationTime, false);
     }
 
+    /// <summary>
+    /// Vyčistí automat
+    /// </summary>
     public void Clear()
     {
         CelkovyPocet = 0;

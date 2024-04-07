@@ -34,11 +34,11 @@ public class RNGPickPokladna : ExtendedRandom<double>
     
     public override double Next()
     {
-        throw new InvalidOperationException("[RNGPickPokladna] - toto sa nepouziva");
+        throw new InvalidOperationException("[RNGPickPokladňa] - toto sa nepoužíva");
     }
     
     /// <summary>
-    /// Vráti náhodné čislo podľa počtu pokladní
+    /// Vráti náhodné číslo podľa počtu pokladní
     /// </summary>
     /// <param name="pocetPokladni">počet pokladní</param>
     /// <returns></returns>

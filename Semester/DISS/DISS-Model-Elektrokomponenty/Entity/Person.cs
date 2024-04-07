@@ -1,10 +1,13 @@
 namespace DISS_Model_Elektrokomponenty.Entity;
 
+/// <summary>
+/// Zákazník v systéme
+/// </summary>
 public class Person
 {
     public int ID { get; set; }
     /// <summary>
-    /// Kedy sa zákazník spavnol v systéme
+    /// Kedy sa zákazník vytvoril v systéme
     /// </summary>
     public double VstupDoPredajne { get; set; }
     public double VstupDoRadyPredAutomatom { get; set; }
@@ -77,7 +80,7 @@ public class Person
             TypVelkostiNakladu = Constants.TypVelkostiNakladu.Normálna;
         }
     }
-
+    
     public Person(Person person)
     {
         ID = person.ID;

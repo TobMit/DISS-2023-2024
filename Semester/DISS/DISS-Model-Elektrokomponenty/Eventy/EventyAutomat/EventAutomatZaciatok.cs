@@ -19,7 +19,7 @@ public class EventAutomatZaciatok : SimulationEvent<Person, DataStructure>
         // Automat musí byť obsadený
         if (!runCore.Automat.Obsadeny)
         {
-            throw new InvalidOperationException($"[EventAutomatZaciatok] - v čase {_core.SimulationTime} automat nie je obsadený človekom!");
+            throw new InvalidOperationException($"[EventAutomatZačiatok] - v čase {_core.SimulationTime} automat nie je obsadený človekom!");
         }
         
         // obslúžime zákazníka

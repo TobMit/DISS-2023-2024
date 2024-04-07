@@ -1,7 +1,7 @@
 namespace DISS.Random.Continous;
 
 /// <summary>
-/// Empirické spojité rozdlelenie
+/// Empirické spojité rozdelenie
 /// </summary>
 public class Empiric : EmpiricBase<double>
 {

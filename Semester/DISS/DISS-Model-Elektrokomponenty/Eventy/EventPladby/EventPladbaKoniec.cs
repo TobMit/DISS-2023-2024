@@ -23,22 +23,22 @@ public class EventPladbaKoniec : SimulationEvent<Person, DataStructure>
     {
         Core runCore = (Core)_core;
         if (_core._eventData != null) _core._eventData.NewData = true;
-        // ak nie je pokladňa obsadená hodim error
+        // ak nie je pokladňa obsadená vyhodím error
         if (!_pokladna.Obsadena)
         {
-            throw new InvalidOperationException($"[EventPladbaKoniec] - v čase {_core.SimulationTime} pokladňa {_pokladna.ID} nie je obsadená!");
+            throw new InvalidOperationException($"[EventPlatbaKoniec] - v čase {_core.SimulationTime} pokladňa {_pokladna.ID} nie je obsadená!");
         }
         
         // ak je obsadená nesprávnym človekom
         if (_pokladna.Person.ID != _person.ID)
         {
-            throw new InvalidOperationException($"[EventPladbaKoniec] - v čase {_core.SimulationTime} pokladňa {_pokladna.ID} je obsadená iným človekom ({_pokladna.Person.ID}) ako mala byť obsadená ({_person.ID})!");
+            throw new InvalidOperationException($"[EventPlatbaKoniec] - v čase {_core.SimulationTime} pokladňa {_pokladna.ID} je obsadená iným človekom ({_pokladna.Person.ID}) ako mala byť obsadená ({_person.ID})!");
         }
         
-        // uvolním pokladňu
+        // uvoľním pokladňu
         _pokladna.UvolniPokladnu();
         
-        // Ak má zakazni veľu objednávku naplánujem vyzdvyhnutie
+        // Ak má zákazník veľkú objednávku naplánujem vyzdvihnutie
         if (_person.TypVelkostiNakladu == Constants.TypVelkostiNakladu.Veľká)
         {
             _person.StavZakaznika = Constants.StavZakaznika.ObslužnéMiestoVraciaSaPreVeľkýTovar;
@@ -47,12 +47,12 @@ public class EventPladbaKoniec : SimulationEvent<Person, DataStructure>
         }
         else if (_person.TypVelkostiNakladu == Constants.TypVelkostiNakladu.Normálna)
         {
-            // ak nie je tak je koniec pladby a zákazník odzcádza
+            // ak nie je tak je koniec platby a zákazník odchádza
             _person.StavZakaznika = Constants.StavZakaznika.OdišielZPredajne;
             runCore.StatPriemernyCasVObchode.AddValue(_core.SimulationTime - _person.TimeOfArrival);
         }
         
-        // ak je v rade daľší človek naplánujem začiatok pladby
+        // ak je v rade ďalší človek naplánujem začiatok platby
         if (_pokladna.Queue.Count >= 1)
         {
             var person = _pokladna.Queue.Dequeue();

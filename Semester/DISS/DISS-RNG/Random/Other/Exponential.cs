@@ -2,7 +2,7 @@ namespace DISS.Random.Other;
 
 
 /// <summary>
-/// Exponencialne rozdelenie pravdepodobnosti
+/// Exponenciálne rozdelenie pravdepodobnosti
 /// </summary>
 public class Exponential : ExtendedRandom<double>
 {

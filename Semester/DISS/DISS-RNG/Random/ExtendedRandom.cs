@@ -1,9 +1,9 @@
 namespace DISS.Random;
 
 /// <summary>
-/// Abstraktná trieda pre generátory náhodných čisel
+/// Abstraktná trieda pre generátory náhodných čísel
 /// </summary>
-/// <typeparam name="T">Parameter je tu preto, lebo niekedy môžubyť double a inokedy int</typeparam>
+/// <typeparam name="T">Parameter je tu preto, lebo niekedy môžu byť double a inokedy int</typeparam>
 public abstract class ExtendedRandom<T>
 { 
     protected int Seed { get; set; }
@@ -25,9 +25,9 @@ public abstract class ExtendedRandom<T>
     }
     
     /// <summary>
-    /// Daľšie náhodné číslo
+    /// Ďalšie náhodné číslo
     /// </summary>
-    /// <returns>Vráti daľšie náhodné čislo z rozdelenia</returns>
+    /// <returns>Vráti ďalšie náhodné číslo z rozdelenia</returns>
     public abstract T Next();
 
     /// <summary>

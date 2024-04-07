@@ -13,7 +13,6 @@ public class EventSlowDown <T, TEvent> : SimulationEvent<T, TEvent> where TEvent
 
         if (_core.SlowDown)
         {
-            //var newTime = 1 + (_core.SlowDownSpeed - 0) * (3600 - 1) / (1 - 0);
             var newTime = _core.SlowDownSpeed / _core.POCET_UPDATOV_ZA_SEKUNDU;
             newTime += EventTime;
             if (newTime < _core.END_OF_SIMULATION_TIME)
@@ -21,7 +20,7 @@ public class EventSlowDown <T, TEvent> : SimulationEvent<T, TEvent> where TEvent
                 _core.TimeLine.Enqueue(new EventSlowDown<T, TEvent>(_core, newTime),newTime);
             }
             
-            //ak sú dáta tak ich dám dispacherovy
+            //ak sú dáta tak ich dám dispacherovi
             if (_core._eventData is not null)
             {
                 _core.OnUpdateData(_core._eventData);

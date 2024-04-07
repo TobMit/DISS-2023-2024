@@ -11,7 +11,7 @@ public class Uniform : ExtendedRandom<int>
     /// <summary>
     /// Vytvorí generátor diskrétneho rovnomerného rozdelenia
     /// </summary>
-    /// <param name="pMin">minimalna hodnota</param>
+    /// <param name="pMin">minimálna hodnota</param>
     /// <param name="pMax">maximálna hodnota</param>
     public Uniform(int pMin, int pMax)
     {
@@ -22,7 +22,7 @@ public class Uniform : ExtendedRandom<int>
     /// <summary>
     /// Vytvorí generátor diskrétneho rovnomerného rozdelenia
     /// </summary>
-    /// <param name="pMin">minimalna hodnota</param>
+    /// <param name="pMin">minimálna hodnota</param>
     /// <param name="pMax">maximálna hodnota</param>
     /// <param name="seed">Seed ktorý sa použije na generovanie</param>
     public Uniform(int pMin, int pMax, int seed): base(seed)

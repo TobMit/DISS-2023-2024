@@ -22,22 +22,22 @@ public class EventPrevzatieObjednavky : SimulationEvent<Person, DataStructure>
         // ak zákazník nemá veľkú objednávku tak vyhodím error
         if (_person.TypVelkostiNakladu != Constants.TypVelkostiNakladu.Veľká)
         {
-            throw new InvalidOperationException($"[EventPrevzatieObjednavky] - v čase {_core.SimulationTime} zákazník {_person.ID} nemá veľkú objednávku!");
+            throw new InvalidOperationException($"[EventPrevzatieObjednávky] - v čase {_core.SimulationTime} zákazník {_person.ID} nemá veľkú objednávku!");
         }
         
         // ak zákazník nemá obslužné miesto hodím error
         if (_person.ObsluzneMiesto == null)
         {
-            throw new InvalidOperationException($"[EventPrevzatieObjednavky] - v čase {_core.SimulationTime} zákazník {_person.ID} nemá obslužné miesto!");
+            throw new InvalidOperationException($"[EventPrevzatieObjednávky] - v čase {_core.SimulationTime} zákazník {_person.ID} nemá obslužné miesto!");
         }
         
-        // uvolním oblužné miesto
+        // uvoľním obslužné miesto
         _person.ObsluzneMiesto.Uvolni();
         _person.StavZakaznika = Constants.StavZakaznika.OdišielZPredajne;
         runCore.StatPriemernyCasVObchode.AddValue(_core.SimulationTime - _person.TimeOfArrival);
         
-        // planovanie začiatku obsluhy
-        // ak bol zákazník online a v rade pre online sú ludia, tak naplánujem začiatok obsluhy
+        // plánovanie začiatku obsluhy
+        // ak bol zákazník online a v rade pre online sú ľudia, tak naplánujem začiatok obsluhy
         ObsluzneMiesto? tmpObsluzneMiesto = runCore.ObsluzneMiestoManager.GetVolneOnline();
         
         while (runCore.RadaPredObsluznymMiestom.CountOnline >= 1 && tmpObsluzneMiesto is not null)

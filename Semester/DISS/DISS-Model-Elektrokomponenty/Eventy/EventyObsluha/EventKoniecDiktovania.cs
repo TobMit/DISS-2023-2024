@@ -28,10 +28,10 @@ public class EventKoniecDiktovania : SimulationEvent<Person, DataStructure>
             throw new InvalidOperationException($"[EventKoniecDiktovania] - v čase {_core.SimulationTime} obslužné miesto {_obsluzneMiesto.ID} nie je obsadené!");
         }
         
-        // ak je obslužne miesto obsadené iným človekom
+        // ak je obslužné miesto obsadené iným človekom
         if (_obsluzneMiesto.Person.ID != _person.ID)
         {
-            throw new InvalidOperationException($"[EventKoniecDiktovania] - v čase {_core.SimulationTime} obslužuje sa iný človek ({_obsluzneMiesto.Person.ID}) ako mal byť obsluhovaný ({_person.ID})!");
+            throw new InvalidOperationException($"[EventKoniecDiktovania] - v čase {_core.SimulationTime} sa obsluhuje iný človek ({_obsluzneMiesto.Person.ID}) ako mal byť obsluhovaný ({_person.ID})!");
         }
 
         _person.StavZakaznika = Constants.StavZakaznika.ObslužnomMieste_ČakáNaTovar;

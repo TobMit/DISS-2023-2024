@@ -56,7 +56,7 @@ namespace DISS_S2_Elektroomponenty.MVVM.Model
         {
             Obsadena = false;
             Obsah = "-/-";
-            Name = "Pokladna -/-";
+            Name = "Pokladňa -/-";
         }
         public void Update(Pokladna pPokladna)
         {

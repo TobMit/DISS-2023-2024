@@ -20,7 +20,7 @@ public class Average
     /// <summary>
     /// Pridá hodnotu to priemeru
     /// </summary>
-    /// <param name="pValue">pripočitávaná hodnota</param>
+    /// <param name="pValue">pripočítavaná hodnota</param>
     public virtual void AddValue(double pValue)
     {
         Count++;
@@ -28,7 +28,7 @@ public class Average
     }
 
     /// <summary>
-    /// Prepočíta na základe aktuálnych údajov v šturktúre
+    /// Prepočíta na základe aktuálnych údajov v triede
     /// </summary>
     /// <returns>Vypočítanú hodnotu</returns>
     public virtual double Calucate()

@@ -55,7 +55,7 @@ namespace DISS_S2_Elektroomponenty.MVVM.Model
         {
             Obsadena = false;
             Obsah = "-/-";
-            Name = "Obsluzne miesto -/-";
+            Name = "Obslužné miesto -/-";
         }
 
         public void Update(ObsluzneMiesto pObsluzneMiesto)

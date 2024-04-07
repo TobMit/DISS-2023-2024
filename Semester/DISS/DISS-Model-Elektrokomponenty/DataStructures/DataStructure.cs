@@ -7,7 +7,7 @@ public class DataStructure : EventArgs
 {
     /// <summary>
     /// True - ak beží simulácia v plnej rýchlosti
-    /// Fasle - ak beží simulácia v pomalom režime
+    /// False - ak beží simulácia v pomalom režime
     /// </summary>
     public bool ShallowUpdate { get; set; }
     public bool NewData { get; set; }

@@ -12,7 +12,7 @@ public class WorkLoadAverage : Average
 
     public override double Calucate()
     {
-        throw new InvalidOperationException("Táto funkcia nieje podporovaná pre vážený priemer");
+        throw new InvalidOperationException("Táto funkcia nieje podporovaná výpočet vyťaženia");
     }
 
     public double Calucate(double totalTime)
@@ -37,7 +37,7 @@ public class WorkLoadAverage : Average
     
     public override void AddValue(double pValue)
     {
-        //_listOfData.Add(pValue);
+        throw new InvalidOperationException("Táto funkcia nieje podporovaná výpočet vyťaženia");
     }
 
     public override void Clear()

@@ -22,17 +22,16 @@ public class EventObsluhaZaciatok : SimulationEvent<Person, DataStructure>
     {
         Core runCore = (Core)_core;
         if (_core._eventData != null) _core._eventData.NewData = true;
-        // ak nie je obsluzne miesto obsadené tak hodíme error
+        // ak nie je obslužné miesto obsadené tak hodíme error
         if (!_obsluzneMiesto.Obsadena)
         {
-            throw new InvalidOperationException($"[EventObsluhaZaciatok] - v čase {_core.SimulationTime} obsluzne miesto {_obsluzneMiesto.ID} nie je obsadené!");
+            throw new InvalidOperationException($"[EventObsluhaZačiatok] - v čase {_core.SimulationTime} obslužné miesto {_obsluzneMiesto.ID} nie je obsadené!");
         }
         
         // Event začiatok automatu
         // skontrolujeme či sa nachádza niekto v rade pred automatom a či je automat prázdny ak áno vytvárame event začiatku automatu
         if (runCore.RadaPredAutomatom.Count >= 1 && !runCore.Automat.Obsadeny)
         {
-            // runCore.StatPriemednaDlzakaRaduAutomatu.AddValue(EventTime, runCore.RadaPredAutomatom.Count);
             var person = runCore.RadaPredAutomatom.Dequeue();
             runCore.StatPriemednaDlzakaRaduAutomatu.AddValue(EventTime, runCore.RadaPredAutomatom.Count);
             runCore.Automat.Obsluz(person);
@@ -57,7 +56,7 @@ public class EventObsluhaZaciatok : SimulationEvent<Person, DataStructure>
         // ak nastala iná situácia hodím error
         else
         {
-            throw new InvalidOperationException($"[EventObsluhaZaciatok] - v čase {_core.SimulationTime} nastala neznáma situácia!");
+            throw new InvalidOperationException($"[EventObsluhaZačiatok] - v čase {_core.SimulationTime} nastala neznáma situácia!");
         }
     }
 }

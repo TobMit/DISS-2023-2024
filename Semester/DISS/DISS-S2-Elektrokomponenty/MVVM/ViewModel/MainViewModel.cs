@@ -853,7 +853,7 @@ public class MainViewModel : ObservableObjects
     {
         Application.Current.Dispatcher.Invoke(() =>
         {
-            // pri pomalom behu update cas aj keď nie je zadna aktiviata -> plynulejsi beh
+            // pri pomalom behu update čas aj keď nie je žiadna aktivita -> plynulejší beh
             if (e.ShallowUpdate)
             {
                 SimulationTime = e.SimulationTime;
@@ -869,7 +869,7 @@ public class MainViewModel : ObservableObjects
                         Peoples = new();
                     }
 
-                    // nahradím novým listom
+                    // nahradím novým listom keď je nový zoznam kratší ako predchádzajúci
                     if (Peoples.Count > e.People.Count)
                     {
                         Peoples = new();

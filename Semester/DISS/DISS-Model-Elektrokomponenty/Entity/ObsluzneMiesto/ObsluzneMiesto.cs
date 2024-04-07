@@ -2,6 +2,9 @@ using DISS_HelperClasses.Statistic;
 
 namespace DISS_Model_Elektrokomponenty.Entity;
 
+/// <summary>
+/// Obslužné miesto pre zákazníka
+/// </summary>
 public class ObsluzneMiesto
 {
     public Person? Person { get; set; }
@@ -31,7 +34,7 @@ public class ObsluzneMiesto
     {
         if (Person is not null)
         {
-            throw new InvalidOperationException($"[Obsluzne miesto {ID}] - už je obsluhovaný človek {Person.ID}");
+            throw new InvalidOperationException($"[Obslužné miesto {ID}] - už je obsluhovaný človek {Person.ID}");
         }
         Person = pPerson;
         Person.StavZakaznika = Constants.StavZakaznika.ObslužnomMieste_ZadávaObjednávku;
@@ -40,14 +43,14 @@ public class ObsluzneMiesto
     }
     
     /// <summary>
-    /// Uvolni miesto keď je obsluha dokončená, v prípade veľkého nákladu keď je dokončená pladba
+    /// Uvolni miesto keď je obsluha dokončená, v prípade veľkého nákladu keď je dokončená platba
     /// </summary>
     /// <exception cref="InvalidOperationException">Ak je miesto už voľné</exception>
     public void Uvolni()
     {
         if (Person is null)
         {
-            throw new InvalidOperationException($"[Obsluzne miesto {ID}] - je už volné");
+            throw new InvalidOperationException($"[Obslužné miesto {ID}] - je už volné");
         }
         Person = null;
         Obsadena = false;
@@ -55,9 +58,9 @@ public class ObsluzneMiesto
     }
     
     /// <summary>
-    /// Informacie na vypis
+    /// Informácie na UI
     /// </summary>
-    /// <returns>Informacie na vypis</returns>
+    /// <returns>Informácie na UI</returns>
     public override string ToString()
     {
         if (Person is null )

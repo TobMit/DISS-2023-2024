@@ -2,6 +2,9 @@ using DISS_HelperClasses.Statistic;
 
 namespace DISS_Model_Elektrokomponenty.Entity;
 
+/// <summary>
+/// Rada pred obslužným miestom pre zákazníkov všetkých druhov
+/// </summary>
 public class RadaPredObsluznymMiestom
 {
     /// <summary>
@@ -45,7 +48,7 @@ public class RadaPredObsluznymMiestom
     /// Pridanie do frontu ľudí
     /// </summary>
     /// <param name="pPerson">Človek pridaný do frontu</param>
-    /// <exception cref="InvalidOperationException">Ak sa pridá človek s nepsrávnym typom, čo by nemalo nastať</exception>
+    /// <exception cref="InvalidOperationException">Ak sa pridá človek s neprávnym typom, čo by nemalo nastať</exception>
     public void Enqueue(Person pPerson)
     {
         var person = pPerson;
@@ -67,16 +70,16 @@ public class RadaPredObsluznymMiestom
             default:
                 // nemala by nikdy nastať
                 throw new InvalidOperationException(
-                    $"[RadaPredObsluznymMiestom - Enqueue] - Nesprávny typ zákazníka: {pPerson.TypZakaznika}");
+                    $"[RadaPredObslužnýmMiestom - Enqueue] - Nesprávny typ zákazníka: {pPerson.TypZakaznika}");
         }
     }
 
     /// <summary>
-    /// Vráti zákaznika z rady
+    /// Vráti zákazníka z rady
     /// </summary>
     /// <param name="online">ak chceme online zákazníka tak ho vráti z radu</param>
-    /// <returns>Zákaznika ktorý čaká</returns>
-    /// <exception cref="ArgumentException">Ak sa berie z prázdného frontu</exception>
+    /// <returns>Zákazníka ktorý čaká</returns>
+    /// <exception cref="ArgumentException">Ak sa berie z prázdneho frontu</exception>
     public Person Dequeue(bool online = false)
     {
         if (online)
@@ -84,7 +87,7 @@ public class RadaPredObsluznymMiestom
             if (!OnlineZakaznikInRow)
             {
                 throw new ArgumentException(
-                    "[RadaPredObsluznymMiestom - Dequeue online] - V rade už nie je žiaden online zákazník");
+                    "[RadaPredObslužnýmMiestom - Dequeue online] - V rade už nie je žiaden online zákazník");
             }
             PriemernaDlzkaOnline.AddValue(_core.SimulationTime, _onlinePersons.Count-1);
             return _onlinePersons.Dequeue();
@@ -103,7 +106,7 @@ public class RadaPredObsluznymMiestom
         }
 
         throw new ArgumentException(
-            "[RadaPredObsluznymMiestom - Dequeue basic/zmluvny] - V rade už nie je žiaden zákazník");
+            "[RadaPredObslužnýmMiestom - Dequeue basic/zmluvný] - V rade už nie je žiaden zákazník");
     }
 
     /// <summary>

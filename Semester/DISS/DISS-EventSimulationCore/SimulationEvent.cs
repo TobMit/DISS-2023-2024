@@ -3,7 +3,7 @@ namespace DISS_EventSimulationCore;
 /// <summary>
 /// Udalosť v simulácií
 /// </summary>
-/// <typeparam name="T">sú triedy zákzaníkov</typeparam>
+/// <typeparam name="T">sú triedy zákazníkov</typeparam>
 /// <typeparam name="TEvent">Je typ eventu</typeparam>
 public abstract class SimulationEvent<T, TEvent> where TEvent : EventArgs 
 {
@@ -16,5 +16,8 @@ public abstract class SimulationEvent<T, TEvent> where TEvent : EventArgs
         EventTime = eventTime;
     }
 
+    /// <summary>
+    /// Vykonanie eventu
+    /// </summary>
     public abstract void Execuete();
 }

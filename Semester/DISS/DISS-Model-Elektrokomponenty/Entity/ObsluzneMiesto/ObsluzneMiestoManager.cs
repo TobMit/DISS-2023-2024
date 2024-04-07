@@ -1,7 +1,7 @@
 namespace DISS_Model_Elektrokomponenty.Entity;
 
 /// <summary>
-/// Manažér obslúžnych miest
+/// Manažér obslužných miest
 /// </summary>
 public class ObsluzneMiestoManager
 {
@@ -46,9 +46,9 @@ public class ObsluzneMiestoManager
     }
 
     /// <summary>
-    /// Vráti voľne obsluzne miesto pre online zákzaníkov
+    /// Vráti voľne obslužné miesto pre online zákazníkov
     /// </summary>
-    /// <returns>Ak je volne vrati Obsluzne miesto inak null</returns>
+    /// <returns>Ak je volne vráti obslužné miesto inak null</returns>
     public ObsluzneMiesto? GetVolneOnline()
     {
         foreach (ObsluzneMiesto miesto in ListObsluznychOnlineMiest)
@@ -63,9 +63,9 @@ public class ObsluzneMiestoManager
     }
 
     /// <summary>
-    /// Vráti voľne obsluzne miesto pre ostatných zákazníkov
+    /// Vráti voľne obslužné miesto pre ostatných zákazníkov
     /// </summary>
-    /// <returns>Ak je volne vrati Obsluzne miesto inak null</returns>
+    /// <returns>Ak je volne vráti obslužné miesto inak null</returns>
     public ObsluzneMiesto? GetVolneOstatne()
     {
         foreach (ObsluzneMiesto miesto in ListObsluznychOstatnyMiest)

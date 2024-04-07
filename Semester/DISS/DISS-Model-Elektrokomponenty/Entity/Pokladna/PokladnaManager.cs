@@ -1,5 +1,8 @@
 namespace DISS_Model_Elektrokomponenty.Entity.Pokladna;
 
+/// <summary>
+/// Manažér pokladní
+/// </summary>
 public class PokladnaManager
 {
     public List<Pokladna> ListPokladni { get; private set; }
@@ -22,9 +25,9 @@ public class PokladnaManager
     }
 
     /// <summary>
-    /// Vráti volnu pokdľadňu ak nie nikto obsluhovaný a je voľný rad ak je voľných viac vyberie náhodne
+    /// Vráti voľnú pokladňu ak nie nikto obsluhovaný a je voľný rad ak je voľných viac vyberie náhodne
     /// </summary>
-    /// <returns>Pokladnu ak splna poziadavky inak null</returns>
+    /// <returns>Pokladňu ak splna požiadavky inak null</returns>
     public Pokladna? GetVolnaPokladnaPrazdnyRad(Core core)
     {
         // vytvorí list kde je rad 0 a pokladňa nie je obsadená
@@ -42,9 +45,9 @@ public class PokladnaManager
     }
 
     /// <summary>
-    /// Priradí zákaznika do najkratšej rady, a keď majú viaceré rovnaké dĺžky tak náhodne vyberie jednu
+    /// Priradí zákazníka do najkratšej rady, a keď majú viaceré rovnaké dĺžky tak náhodne vyberie jednu
     /// </summary>
-    /// <param name="person">Clovek ktorý sa pridáva do rady</param>
+    /// <param name="person">Človek ktorý sa pridáva do rady</param>
     /// <param name="core">Jadro simulácie</param>
     public void PriradZakaznikaDoRady(Person person, Core core)
     {
@@ -63,7 +66,7 @@ public class PokladnaManager
     }
 
     /// <summary>
-    /// Vybcistí pokladne
+    /// Vyčistí pokladne
     /// </summary>
     public void Clear()
     {
@@ -72,9 +75,9 @@ public class PokladnaManager
     }
 
     /// <summary>
-    /// Informacie na vypis
+    /// Informácie na UI
     /// </summary>
-    /// <returns>Informacie na vypis</returns>
+    /// <returns>Informácie na UI</returns>
     public List<Pokladna> GetInfoNaUI()
     {
         return ListPokladni;

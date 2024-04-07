@@ -2,6 +2,9 @@ using DISS_HelperClasses.Statistic;
 
 namespace DISS_Model_Elektrokomponenty.Entity.Pokladna;
 
+/// <summary>
+/// Pokladňa pre zákazníka
+/// </summary>
 public class Pokladna
 {
     private Core _core;
@@ -29,7 +32,7 @@ public class Pokladna
     }
 
     /// <summary>
-    /// Vycistenie pokladne
+    /// Vyčistenie pokladne
     /// </summary>
     public void Clear()
     {
@@ -43,7 +46,7 @@ public class Pokladna
     /// <summary>
     /// Obsadenie pokladne
     /// </summary>
-    /// <param name="person">Človek ktorý obsádza pokladňu</param>
+    /// <param name="person">Človek ktorý obsadí pokladňu</param>
     public void ObsadPokladnu(Person person)
     {
         Person = person;
@@ -63,15 +66,15 @@ public class Pokladna
     }
     
     /// <summary>
-    /// Informacie na vypis
+    /// Informácie na UI
     /// </summary>
-    /// <returns>Informacie na vypis</returns>
+    /// <returns>Informácie na UI</returns>
     public override string ToString()
     {
         if (Person is null)
         {
             return $"Pokladňa {ID}: \n\t- Voľná\n\t- Predavač: nečinný\n\t- Rada: {Queue.Count}";
         }
-        return $"Pokladňa {ID}: \n\t- Stojí Person: {Person?.ID} \n\t- Predavač: vybavuje pladbu\n\t- Rada: {Queue.Count}";
+        return $"Pokladňa {ID}: \n\t- Stojí Person: {Person?.ID} \n\t- Predavač: vybavuje platbu\n\t- Rada: {Queue.Count}";
     }
 }

@@ -2,7 +2,7 @@ namespace DISS.Random.Discrete;
 
 /// <summary>
 /// Empirické diskrétne rozdelenie
-/// <remarks>Pozor intervali sú tu uzavreté</remarks>
+/// <remarks>Pozor intervaly sú tu uzavreté</remarks>
 /// </summary>
 public class Empiric : EmpiricBase<int>
 {

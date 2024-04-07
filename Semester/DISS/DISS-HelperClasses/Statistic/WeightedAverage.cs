@@ -38,7 +38,7 @@ public class WeightedAverage : Average
     
     public override void AddValue(double pValue)
     {
-        //_listOfData.Add(pValue);
+        throw new InvalidOperationException("Táto funkcia nieje podporovaná pre vážený priemer");
     }
 
     public override void Clear()

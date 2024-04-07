@@ -5,8 +5,8 @@ namespace DISS_EventSimulationCore;
 /// <summary>
 /// Simulačné jadro pre eventovú simuláciu
 /// </summary>
-/// <typeparam name="T">sú triedy zákzaníkov</typeparam>
-/// <typeparam name="TEventDataStructure">Dátova štruktúra ktorá sa vracia v evente</typeparam>
+/// <typeparam name="T">sú triedy zákazníkov</typeparam>
+/// <typeparam name="TEventDataStructure">Dátová štruktúra ktorá sa vracia v evente</typeparam>
 public abstract class EventSimulationCore<T, TEventDataStructure> : MonteCarloCore where TEventDataStructure : EventArgs
 {
     public int POCET_UPDATOV_ZA_SEKUNDU = 5;
@@ -44,14 +44,14 @@ public abstract class EventSimulationCore<T, TEventDataStructure> : MonteCarloCo
             if (tmpEvent.EventTime < SimulationTime)
             {
                 throw new ApplicationException(
-                    "[Event Sim Core] - Čas v evente je nižší ako simulačný čas. Toto sa nemalo stať");
+                    "[EventSimCore] - Čas v evente je nižší ako simulačný čas. Toto sa nemalo stať");
             }
             // čas sa musí posúvať pred eventom
             SimulationTime = tmpEvent.EventTime;
 
             tmpEvent.Execuete();
 
-            // uplny update po každom evente
+            // update po každom evente
             if (SlowDown)
             {
                 Tick();
@@ -61,7 +61,6 @@ public abstract class EventSimulationCore<T, TEventDataStructure> : MonteCarloCo
             if (SlowDown && !generateSlowDownEvent)
             {
                 generateSlowDownEvent = true;
-                //var newTime = 1 + (SlowDownSpeed - 0) * (3600 - 1) / (1 - 0);
                 var newTime = SlowDownSpeed / POCET_UPDATOV_ZA_SEKUNDU;
                 newTime += SimulationTime;
                 TimeLine.Enqueue(new EventSlowDown<T, TEventDataStructure>(this, newTime), newTime);

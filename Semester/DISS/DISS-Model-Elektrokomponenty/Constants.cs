@@ -9,12 +9,6 @@ public class Constants
         Online = 2
     }
     
-    public enum TypPladby
-    {
-        Hotovost = 0,
-        Karta = 1
-    }
-
     public enum TypVelkostiNakladu
     {
         Normálna = 0,
@@ -49,7 +43,7 @@ public class Constants
     public static double END_ARRIVAL_SIMULATION_TIME = 8*60*60; // 17:00 -> 8H -> 6*60*60s
     public static double END_SIMULATION_TIME = 8*60*60 + 30*60; // 17:30 -> 8:30H -> 6*60*60s + 30*60s
 
-
+/*
     public static string StavZakaznikaToString(StavZakaznika stavZakaznika)
     {
         switch (stavZakaznika)
@@ -75,5 +69,5 @@ public class Constants
             default:
                 return "Neznámy stav";
         }
-    }
+    }*/
 }

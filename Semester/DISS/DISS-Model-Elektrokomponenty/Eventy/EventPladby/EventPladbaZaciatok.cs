@@ -23,14 +23,14 @@ public class EventPladbaZaciatok : SimulationEvent<Person, DataStructure>
     {
         Core runCore = (Core)_core;
         if (_core._eventData != null) _core._eventData.NewData = true;
-        // ak nie je pokladňa obsadená hodim error
+        // ak nie je pokladňa obsadená vyhodím error
         if (!_pokladna.Obsadena)
         {
-            throw new InvalidOperationException($"[EventPladbaKoniec] - v čase {_core.SimulationTime} pokladňa {_pokladna.ID} nie je obsadená!");
+            throw new InvalidOperationException($"[EventPlatbaKoniec] - v čase {_core.SimulationTime} pokladňa {_pokladna.ID} nie je obsadená!");
         }
         
         // naplánujem koniec pladby
-        var newKoniecPladby = runCore.RndTrvaniePladba.Next() + _core.SimulationTime;
-        _core.TimeLine.Enqueue(new EventPladbaKoniec(runCore, newKoniecPladby, _person, _pokladna), newKoniecPladby);
+        var newKoniecPlatby = runCore.RndTrvaniePladba.Next() + _core.SimulationTime;
+        _core.TimeLine.Enqueue(new EventPladbaKoniec(runCore, newKoniecPlatby, _person, _pokladna), newKoniecPlatby);
     }
 }
