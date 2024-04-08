@@ -15,7 +15,7 @@ public class EventSlowDown <T, TEvent> : SimulationEvent<T, TEvent> where TEvent
         {
             var newTime = _core.SlowDownSpeed / _core.POCET_UPDATOV_ZA_SEKUNDU;
             newTime += EventTime;
-            if (newTime < _core.END_OF_SIMULATION_TIME)
+            if (_core.TimeLine.Count != 0)
             {
                 _core.TimeLine.Enqueue(new EventSlowDown<T, TEvent>(_core, newTime),newTime);
             }
