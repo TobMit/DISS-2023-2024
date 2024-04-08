@@ -46,7 +46,7 @@ public class ObsluzneMiesto
     /// Uvolni miesto keď je obsluha dokončená, v prípade veľkého nákladu keď je dokončená platba
     /// </summary>
     /// <exception cref="InvalidOperationException">Ak je miesto už voľné</exception>
-    public void Uvolni()
+    public void Uvolni(bool pZaznamenaJStatistiku = true)
     {
         if (Person is null)
         {
@@ -54,6 +54,14 @@ public class ObsluzneMiesto
         }
         Person = null;
         Obsadena = false;
+        if (pZaznamenaJStatistiku)
+        {
+            PriemerneVytazenieOM.AddValue(_core.SimulationTime, false);
+        }
+    }
+
+    public void UvolniPredavaca()
+    {
         PriemerneVytazenieOM.AddValue(_core.SimulationTime, false);
     }
     

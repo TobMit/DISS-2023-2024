@@ -241,14 +241,14 @@ public class Core : EventSimulationCore<Person, DataStructure>
             $"Priemerný odchod posledného zákazníka: {Double.Round(_globPriemernyOdchodPoslednehoZakaznika.Calucate(), 4)} / {TimeSpan.FromSeconds(Constants.START_DAY + _globPriemernyOdchodPoslednehoZakaznika.Calucate()).ToString(@"hh\:mm\:ss")}");
         Console.WriteLine($"Priemerný počet zákazníkov: {Double.Round(_globPriemernyPocetZakaznikov.Calucate(), 4)}");
         Console.WriteLine($"Priemerný počet obslužných zákazníkov: {Double.Round(_globPriemernyPocetObsluzenychZakaznikov.Calucate(), 4)}");
-        Console.WriteLine($"Priemerne vyťaženie automatu: {Double.Round(_globPriemerneVytazenieAutomatu.Calucate(), 4)*100}%");
+        Console.WriteLine($"Priemerne vyťaženie automatu: {Double.Round(_globPriemerneVytazenieAutomatu.Calucate(), 4)*100:0.00}%");
         Console.WriteLine($"Priemerná dĺžka radu pred obsluhou basic/zmluvný/online: {Double.Round(_globPriemernaDlzkaRaduPredObsluhouBasic.Calucate(), 4)}/{Double.Round(_globPriemernaDlzkaRaduPredObsluhouZmluvny.Calucate(), 4)}/{Double.Round(_globPriemernaDlzkaRaduPredObsluhouOnline.Calucate(), 4)}");
         StringBuilder sbPriemernaDlzkaRadu = new();
         StringBuilder sbPriemerneVytazeniePokladne = new();
         for (int i = 0; i < _pocetPokladni; i++)
         {
             sbPriemernaDlzkaRadu.Append($"[{Double.Round(_globPriemerneDlzkyRadovPredPokladnami[i].Calucate(), 4)}],");
-            sbPriemerneVytazeniePokladne.Append($"[{Double.Round(_globPriemerneVytazeniePokladni[i].Calucate(), 4)*100}%],");
+            sbPriemerneVytazeniePokladne.Append($"[{Double.Round(_globPriemerneVytazeniePokladni[i].Calucate(), 4)*100:0.00}%],");
         }
         Console.WriteLine($"Priemerne dĺžky radov pred pokladňami: {sbPriemernaDlzkaRadu.Remove(sbPriemernaDlzkaRadu.Length - 1, 1)}");
         Console.WriteLine($"Priemerne vyťaženie pokladni: {sbPriemerneVytazeniePokladne.Remove(sbPriemerneVytazeniePokladne.Length - 1, 1)}");
@@ -265,7 +265,7 @@ public class Core : EventSimulationCore<Person, DataStructure>
         }
         Console.WriteLine($"Priemerne vyťaženie obsluhy ostatne: {sbPriemerneVytazenieObsluhyOstatne.Remove(sbPriemerneVytazenieObsluhyOstatne.Length - 1, 1)}");
         var interval = _globIntervalSpolahlivostiCasuVSysteme.Calculate();
-        Console.WriteLine($"Interval spoľahlivosti času v systéme: [{interval.dolnaHranica} - {interval.hornaHranica}]");
+        Console.WriteLine($"Interval spoľahlivosti času v systéme: {Double.Round(interval.dolnaHranica, 4)} - {Double.Round(interval.hornaHranica, 4)} / {TimeSpan.FromSeconds(interval.dolnaHranica).ToString(@"hh\:mm\:ss")} - {TimeSpan.FromSeconds(interval.hornaHranica).ToString(@"hh\:mm\:ss")}");
         
         if (BehZavislosti)
         {

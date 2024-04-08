@@ -69,6 +69,7 @@ public class EventObsluhaKoniec : SimulationEvent<Person, DataStructure>
         {
             // ak je veľký náklad tak neuvoľňujem pokladňu
             _person.ObsluzneMiesto = _obsluzneMiesto;
+            _obsluzneMiesto.UvolniPredavaca();
         }
 
         // ak je prázdny rad tak priradíme človeka pokladni

@@ -32,7 +32,7 @@ public class EventPrevzatieObjednavky : SimulationEvent<Person, DataStructure>
         }
         
         // uvoľním obslužné miesto
-        _person.ObsluzneMiesto.Uvolni();
+        _person.ObsluzneMiesto.Uvolni(false);
         _person.StavZakaznika = Constants.StavZakaznika.OdišielZPredajne;
         runCore.StatPriemernyCasVObchode.AddValue(_core.SimulationTime - _person.TimeOfArrival);
         
