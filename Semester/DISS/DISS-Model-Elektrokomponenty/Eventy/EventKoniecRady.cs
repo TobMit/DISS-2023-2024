@@ -13,6 +13,7 @@ public class EventKoniecRady : SimulationEvent<Person, DataStructure>
     public override void Execuete()
     {
         Core runCore = (Core)_core;
+        if (_core._eventData != null) _core._eventData.NewData = true;
         // ak je po, tak ľudia pred automatom odídu
         runCore.Automat.PocetObsluzenych = runCore.Automat.CelkovyPocet - runCore.RadaPredAutomatom.Count;
         while (runCore.RadaPredAutomatom.Count >= 1)
