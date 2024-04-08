@@ -213,7 +213,7 @@
 
                                 <Label
                                     Style="{StaticResource CustomLabelStyle}"
-                                    Content="Priemerný odchod posleného zákazníka:"
+                                    Content="Priemerný odchod posledného zákazníka:"
                                     FontSize="15" />
                                 <TextBlock
                                     Text="{Binding PriemernyOdchodPoslednehoZakaznika}"
