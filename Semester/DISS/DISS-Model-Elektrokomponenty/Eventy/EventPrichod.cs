@@ -59,15 +59,5 @@ public class EventPrichod : SimulationEvent<Person, DataStructure>
             EventPrichod newEvent = new EventPrichod(_core, newArrival);
             _core.TimeLine.Enqueue(newEvent, newArrival);
         }
-        else
-        {
-            // ak je po, tak ľudia pred automatom odídu
-            runCore.Automat.PocetObsluzenych = runCore.Automat.CelkovyPocet - runCore.RadaPredAutomatom.Count;
-            while (runCore.RadaPredAutomatom.Count >= 1)
-            {
-                var leavePerson = runCore.RadaPredAutomatom.Dequeue();
-                leavePerson.StavZakaznika = Constants.StavZakaznika.OdišielZPredajne;
-            }
-        }
     }
 }

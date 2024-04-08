@@ -172,6 +172,8 @@ public class Core : EventSimulationCore<Person, DataStructure>
         // rozbehnutie modelu
         var newArrival = RndPrichodZakaznika.Next() + SimulationTime;
         TimeLine.Enqueue(new EventPrichod(this, newArrival), newArrival);
+        // naplánujeme koniec rady pred automatom
+        TimeLine.Enqueue(new EventKoniecRady(this, Constants.END_ARRIVAL_SIMULATION_TIME), Constants.END_ARRIVAL_SIMULATION_TIME);
     }
 
     public override void AfterReplication()
@@ -233,7 +235,7 @@ public class Core : EventSimulationCore<Person, DataStructure>
     public override void AfterAllReplications()
     {
         Console.WriteLine(
-            $"Priemerný cas v obchode: {Double.Round(_globPriemernyCasVObchode.Calucate(), 4)}s / {TimeSpan.FromSeconds(_globPriemernyCasVObchode.Calucate()).ToString(@"hh\:mm\:ss")}");
+            $"Priemerný čas v obchode: {Double.Round(_globPriemernyCasVObchode.Calucate(), 4)}s / {TimeSpan.FromSeconds(_globPriemernyCasVObchode.Calucate()).ToString(@"hh\:mm\:ss")}");
         Console.WriteLine(
             $"Čas strávený pred automatom: {Double.Round(_globCasStravenyPredAutomatom.Calucate(), 4)}s / {TimeSpan.FromSeconds(_globCasStravenyPredAutomatom.Calucate()).ToString(@"hh\:mm\:ss")}");
         Console.WriteLine($"Priemerná dĺžka radu pred automatom: {Double.Round(_globPriemernaDlzkaRadu.Calucate(), 4)}");
