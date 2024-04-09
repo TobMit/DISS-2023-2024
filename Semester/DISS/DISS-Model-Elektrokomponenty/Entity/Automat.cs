@@ -66,10 +66,20 @@ public class Automat
     
     public override string ToString()
     {
+        double vytaznie = 0;
+        if (StatVytazenieAutomatu.Count > 2)
+        {
+            vytaznie = StatVytazenieAutomatu.Calucate(_core.SimulationTime) * 100;
+        }
+        double ldzkaRadu = 0;
+        if (_core.StatPriemednaDlzakaRaduAutomatu.Count > 0)
+        {
+            ldzkaRadu = _core.StatPriemednaDlzakaRaduAutomatu.Calucate(_core.SimulationTime);
+        }
         if (Person is null)
         {
-            return $"Automat: \n\t- Voľný";
+            return $"Automat: \n\t- Voľný \n\t- Vyťaženie: {vytaznie:0.00}%\n\t- Dĺžka radu: {ldzkaRadu:0.00}";
         }
-        return $"Automat: \n\t- Stojí Person: {Person?.ID}";
+        return $"Automat: \n\t- Stojí Person: {Person?.ID}\n\t- Vyťaženie: {vytaznie:0.00}%\n\t- Dĺžka radu: {ldzkaRadu:0.00}";
     }
 }

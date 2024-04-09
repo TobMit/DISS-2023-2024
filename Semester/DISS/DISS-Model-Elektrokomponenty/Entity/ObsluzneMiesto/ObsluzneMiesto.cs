@@ -71,14 +71,19 @@ public class ObsluzneMiesto
     /// <returns>Informácie na UI</returns>
     public override string ToString()
     {
+        double vytaznie = 0;
+        if (PriemerneVytazenieOM.Count > 2)
+        {
+            vytaznie = PriemerneVytazenieOM.Calucate(_core.SimulationTime) * 100;
+        }
         if (Person is null )
         {
-            return $"OM {ID}: \n\t- Voľné\n\t- Pracovník: nečinný";
+            return $"OM {ID}: \n\t- Voľné\n\t- Pracovník: nečinný\n\t- Vyťaženie: {vytaznie:0.00}%";
         }
         else if (Person?.StavZakaznika > Constants.StavZakaznika.ObslužnomMieste_ČakáNaTovar)
         {
-            return $"OM {ID}: \n\t- Obsadená Person: {Person?.ID} (veľký tovar) \n\t- Predavač: voľný";
+            return $"OM {ID}: \n\t- Obsadená Person: {Person?.ID} (veľký tovar) \n\t- Predavač: voľný\n\t- Vyťaženie: {vytaznie:0.00}%";
         }
-        return $"OM {ID}: \n\t- Stojí Person: {Person?.ID} \n\t- Predavač: {(Person?.StavZakaznika == Constants.StavZakaznika.ObslužnomMieste_ZadávaObjednávku ? "zadáva objednávku" : "vybavuje objednávku")}";
+        return $"OM {ID}: \n\t- Stojí Person: {Person?.ID} \n\t- Predavač: {(Person?.StavZakaznika == Constants.StavZakaznika.ObslužnomMieste_ZadávaObjednávku ? "zadáva objednávku" : "vybavuje objednávku")}\n\t- Vyťaženie: {vytaznie:0.00}%";
     }
 }

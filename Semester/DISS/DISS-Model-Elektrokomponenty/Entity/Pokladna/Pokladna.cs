@@ -71,10 +71,15 @@ public class Pokladna
     /// <returns>Informácie na UI</returns>
     public override string ToString()
     {
+        double vytaznie = 0;
+        if (PriemerneVytazeniePredajne.Count > 2)
+        {
+            vytaznie = PriemerneVytazeniePredajne.Calucate(_core.SimulationTime) * 100;
+        }
         if (Person is null)
         {
-            return $"Pokladňa {ID}: \n\t- Voľná\n\t- Predavač: nečinný\n\t- Rada: {Queue.Count}";
+            return $"Pokladňa {ID}: \n\t- Voľná\n\t- Predavač: nečinný\n\t- Rada: {Queue.Count}\n\t- Vyťaženie: {vytaznie:0.00}%";
         }
-        return $"Pokladňa {ID}: \n\t- Stojí Person: {Person?.ID} \n\t- Predavač: vybavuje platbu\n\t- Rada: {Queue.Count}";
+        return $"Pokladňa {ID}: \n\t- Stojí Person: {Person?.ID} \n\t- Predavač: vybavuje platbu\n\t- Rada: {Queue.Count}\n\t- Vyťaženie: {vytaznie:0.00}%";
     }
 }
