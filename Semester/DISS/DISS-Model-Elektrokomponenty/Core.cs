@@ -174,6 +174,10 @@ public class Core : EventSimulationCore<Person, DataStructure>
         TimeLine.Enqueue(new EventPrichod(this, newArrival), newArrival);
         // naplánujeme koniec rady pred automatom
         TimeLine.Enqueue(new EventKoniecRady(this, Constants.END_ARRIVAL_SIMULATION_TIME), Constants.END_ARRIVAL_SIMULATION_TIME);
+        
+        // o 12 sa prida nová pokladna
+        var newPokladna = 3 * 60 * 60;
+        TimeLine.Enqueue(new EventNoveOM(this, newPokladna), newPokladna);
     }
 
     public override void AfterReplication()
@@ -195,6 +199,10 @@ public class Core : EventSimulationCore<Person, DataStructure>
         }
         for (int i = 0; i < ObsluzneMiestoManager.ListObsluznychOnlineMiest.Count; i++)
         {
+            if (i > _globPriemerneVytaznieObsluhyOnline.Count - 1)
+            {
+                _globPriemerneVytaznieObsluhyOnline.Add(new());
+            }
             _globPriemerneVytaznieObsluhyOnline[i].AddValue(ObsluzneMiestoManager.ListObsluznychOnlineMiest[i].PriemerneVytazenieOM.Calucate(SimulationTime));
         }
         for (int i = 0; i < ObsluzneMiestoManager.ListObsluznychOstatnyMiest.Count; i++)
@@ -426,6 +434,10 @@ public class Core : EventSimulationCore<Person, DataStructure>
             StringBuilder sbPriemerneVytazenieObsluhyOnline = new();
             for (int i = 0; i < ObsluzneMiestoManager.ListObsluznychOnlineMiest.Count; i++)
             {
+                if (i > _globPriemerneVytaznieObsluhyOnline.Count - 1)
+                {
+                    _globPriemerneVytaznieObsluhyOnline.Add(new());
+                }
                 if (_globPriemerneVytaznieObsluhyOnline[i].Count <= 0 )
                 {
                     sbPriemerneVytazenieObsluhyOnline.Append("[-/-],");

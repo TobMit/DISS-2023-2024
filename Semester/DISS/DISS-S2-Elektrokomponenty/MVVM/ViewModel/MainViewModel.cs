@@ -890,6 +890,10 @@ public class MainViewModel : ObservableObjects
                     RadaPredObsluznimiMiestamiOnline = e.RadaPredObsluznimiMiestamiOnline;
                     RadaPredObsluznimiMiestamiBasic = e.RadaPredObsluznimiMiestamiBasic;
                     RadaPredObsluznimiMiestamiZmluvny = e.RadaPredObsluznimiMiestamiZmluvny;
+                    if (ObsluzneMiestos.Count < e.ObsluzneMiestos.Count)
+                    {
+                        ObsluzneMiestos.Add(new());
+                    }
                     for (int i = 0; i < e.ObsluzneMiestos.Count; i++)
                     {
                         ObsluzneMiestos[i].Update(e.ObsluzneMiestos[i]);
