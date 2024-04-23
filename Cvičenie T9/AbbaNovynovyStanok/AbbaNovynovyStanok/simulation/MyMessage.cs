@@ -4,6 +4,7 @@ namespace AbbaNovynovyStanok.simulation
 {
 	public class MyMessage : MessageForm
 	{
+		public double ZaciatokCakania { get; set; }
 		public MyMessage(Simulation sim) :
 			base(sim)
 		{
@@ -13,14 +14,15 @@ namespace AbbaNovynovyStanok.simulation
 			base(original)
 		{
 			// copy() is called in superclass
+			ZaciatokCakania = original.ZaciatokCakania;
 		}
 
-		override public MessageForm CreateCopy()
+		public override MessageForm CreateCopy()
 		{
 			return new MyMessage(this);
 		}
 
-		override protected void Copy(MessageForm message)
+		protected override void Copy(MessageForm message)
 		{
 			base.Copy(message);
 			MyMessage original = (MyMessage)message;

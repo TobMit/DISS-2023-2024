@@ -6,6 +6,6 @@ class Program
     static void Main(string[] args)
     {
         MySimulation simulation = new();
-        simulation.Simulate(1000,10);
+        simulation.Simulate(10,10);
     }
 }

@@ -36,6 +36,18 @@ namespace managers
 			}
 		}
 
+		//meta! sender="AgentModelu", id="20", type="Notice"
+		public void ProcessOdchodZakaznika(MessageForm message)
+		{
+		}
+
+		//meta! sender="AgentModelu", id="23", type="Notice"
+		public void ProcessInicializacia(MessageForm message)
+		{
+			message.Addressee = ((AgentOkolia)MyAgent).AsistentPrichodov;
+			StartContinualAssistant(message);
+		}
+
 		//meta! userInfo="Generated code: do not modify", tag="begin"
 		public void Init()
 		{
@@ -45,6 +57,14 @@ namespace managers
 		{
 			switch (message.Code)
 			{
+			case Mc.Inicializacia:
+				ProcessInicializacia(message);
+			break;
+
+			case Mc.OdchodZakaznika:
+				ProcessOdchodZakaznika(message);
+			break;
+
 			case Mc.Finish:
 				ProcessFinish(message);
 			break;

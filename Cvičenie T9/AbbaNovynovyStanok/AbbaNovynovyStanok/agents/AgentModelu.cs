@@ -1,3 +1,4 @@
+using AbbaNovynovyStanok.simulation;
 using simulation;
 using managers;
 using continualAssistants;
@@ -14,10 +15,15 @@ namespace agents
 			Init();
 		}
 
-		override public void PrepareReplication()
+		public override void PrepareReplication()
 		{
 			base.PrepareReplication();
-			// Setup component for the next replication
+			var message = new MyMessage(MySim)
+			{
+				Addressee = this,
+				Code = Mc.Inicializacia
+			};
+			MyManager.Notice(message);
 		}
 
 		//meta! userInfo="Generated code: do not modify", tag="begin"

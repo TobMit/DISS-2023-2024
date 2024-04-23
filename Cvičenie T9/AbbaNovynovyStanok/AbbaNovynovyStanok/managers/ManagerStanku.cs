@@ -50,12 +50,12 @@ namespace managers
 		{
 			switch (message.Code)
 			{
-			case Mc.Obsluha:
-				ProcessObsluha(message);
-			break;
-
 			case Mc.Finish:
 				ProcessFinish(message);
+			break;
+
+			case Mc.Obsluha:
+				ProcessObsluha(message);
 			break;
 
 			default:

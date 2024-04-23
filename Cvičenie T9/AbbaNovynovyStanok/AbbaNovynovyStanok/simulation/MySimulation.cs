@@ -6,6 +6,16 @@ namespace AbbaNovynovyStanok.simulation
 {
 	public class MySimulation : Simulation
 	{
+		
+		public ExponentialGenerator GeneratorCasovPrichodov { get; set; }
+		public ExponentialGenerator GeneratorCasovObsluhy { get; set; }
+
+		public double PriemernyCasCakania { get; set; }
+		public double KumulativnyCasCakania { get; set; }
+		public int KumulativnyPocetCakajucich { get; set; }
+
+		private Random generatorNasad;
+		
 		public MySimulation()
 		{
 			Init();
@@ -16,24 +26,33 @@ namespace AbbaNovynovyStanok.simulation
 			base.PrepareSimulation();
 			// Create global statistcis
 			Console.WriteLine("test");
+			PriemernyCasCakania = 0.0;
+			generatorNasad = new Random();
+
+			GeneratorCasovPrichodov = new ExponentialGenerator(generatorNasad.Next(), 100);
+			GeneratorCasovObsluhy = new ExponentialGenerator(generatorNasad.Next(), 45);
+			Console.Clear();
+			Console.WriteLine("Simulating...");
 		}
 
 		protected override void PrepareReplication()
 		{
 			base.PrepareReplication();
 			// Reset entities, queues, local statistics, etc...
+			KumulativnyCasCakania = 0;
+			KumulativnyPocetCakajucich = 0;
 		}
 
 		protected override void ReplicationFinished()
 		{
-			// Collect local statistics into global, update UI, etc...
+			PriemernyCasCakania += KumulativnyCasCakania / KumulativnyPocetCakajucich;
+			
+			Console.WriteLine("R" + CurrentReplication + ": Celkový priemerný čas čakania: {0:0.00000}", PriemernyCasCakania / (1 + CurrentReplication));
 			base.ReplicationFinished();
-			Console.WriteLine("run");
 		}
 
 		protected override void SimulationFinished()
 		{
-			// Dysplay simulation results
 			base.SimulationFinished();
 		}
 

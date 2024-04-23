@@ -2,23 +2,6 @@
 <ABAsim>
   <Agents>
     <Agent>
-      <SimId>4</SimId>
-      <InternalId>4</InternalId>
-      <Name>AgentStanku</Name>
-      <Bounds>916,685,180,180</Bounds>
-      <Reasoner>ManagerStanku</Reasoner>
-      <ReasonerBounds>74,25,32,25</ReasonerBounds>
-      <UsePetriNet>false</UsePetriNet>
-      <Components>
-        <Process>
-          <SimId>1002</SimId>
-          <InternalId>14</InternalId>
-          <Name>ProcesObsluhy</Name>
-          <Bounds>70,105,35,18</Bounds>
-        </Process>
-      </Components>
-    </Agent>
-    <Agent>
       <SimId>1</SimId>
       <InternalId>1</InternalId>
       <Name>AgentModelu</Name>
@@ -44,8 +27,33 @@
         </Scheduler>
       </Components>
     </Agent>
+    <Agent>
+      <SimId>4</SimId>
+      <InternalId>4</InternalId>
+      <Name>AgentStanku</Name>
+      <Bounds>948,778,180,180</Bounds>
+      <Reasoner>ManagerStanku</Reasoner>
+      <ReasonerBounds>74,25,32,25</ReasonerBounds>
+      <UsePetriNet>false</UsePetriNet>
+      <Components>
+        <Process>
+          <SimId>1002</SimId>
+          <InternalId>14</InternalId>
+          <Name>ProcesObsluhy</Name>
+          <Bounds>72,104,35,18</Bounds>
+        </Process>
+      </Components>
+    </Agent>
   </Agents>
   <Messages>
+    <Message>
+      <SimId>1003</SimId>
+      <InternalId>20</InternalId>
+      <Name>OdchodZakaznika</Name>
+      <Type>Notice</Type>
+      <Source>1</Source>
+      <Destination>3</Destination>
+    </Message>
     <Message>
       <InternalId>6</InternalId>
       <Type>Parent</Type>
@@ -57,6 +65,14 @@
       <Type>Parent</Type>
       <Source>4</Source>
       <Destination>1</Destination>
+    </Message>
+    <Message>
+      <SimId>1005</SimId>
+      <InternalId>23</InternalId>
+      <Name>Inicializacia</Name>
+      <Type>Notice</Type>
+      <Source>1</Source>
+      <Destination>3</Destination>
     </Message>
     <Message>
       <SimId>1001</SimId>
@@ -87,5 +103,5 @@
       <Destination>14</Destination>
     </Message>
   </Messages>
-  <IID>16</IID>
+  <IID>24</IID>
 </ABAsim>

@@ -24,6 +24,8 @@ namespace agents
 		{
 			new ManagerOkolia(SimId.ManagerOkolia, MySim, this);
 			new PlanovacPrichodov(SimId.PlanovacPrichodov, MySim, this);
+			AddOwnMessage(Mc.OdchodZakaznika);
+			AddOwnMessage(Mc.Inicializacia);
 		}
 		//meta! tag="end"
 	}
