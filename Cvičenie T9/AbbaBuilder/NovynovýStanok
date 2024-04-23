@@ -95,8 +95,8 @@
       <InternalId>27</InternalId>
       <Name>NoticeKoniecObsluhy</Name>
       <Type>Notice</Type>
-      <Source>4</Source>
-      <Destination>1</Destination>
+      <Source>1</Source>
+      <Destination>4</Destination>
     </Message>
     <Message>
       <InternalId>12</InternalId>
@@ -119,5 +119,5 @@
       <Destination>14</Destination>
     </Message>
   </Messages>
-  <IID>32</IID>
+  <IID>33</IID>
 </ABAsim>

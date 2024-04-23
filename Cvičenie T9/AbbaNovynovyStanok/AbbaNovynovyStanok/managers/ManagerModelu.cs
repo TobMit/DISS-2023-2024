@@ -1,3 +1,4 @@
+using AbbaNovynovyStanok.simulation;
 using OSPABA;
 using simulation;
 using agents;
@@ -26,12 +27,17 @@ namespace managers
 		//meta! sender="AgentOkolia", id="8", type="Notice"
 		public void ProcessPrichodZakaznika(MessageForm message)
 		{
-			Console.WriteLine("ManagerModelu: ProcessPrichodZakaznika");
+			// Console.WriteLine("ManagerModelu: ProcessPrichodZakaznika");
+			var sprava = (MyMessage)message.CreateCopy();
+			sprava.Addressee = MySim.FindAgent(SimId.AgentStanku);
+			sprava.Code = Mc.Obsluha;
+			Request(sprava);
 		}
 
 		//meta! sender="AgentStanku", id="9", type="Response"
 		public void ProcessObsluha(MessageForm message)
 		{
+			// Console.WriteLine("ManagerModelu: ProcessObsluha");
 		}
 
 		//meta! userInfo="Process messages defined in code", id="0"
@@ -42,9 +48,14 @@ namespace managers
 			}
 		}
 
-		//meta! sender="AgentStanku", id="27", type="Notice"
+		//meta! sender="AgentStanku", id="35", type="Notice"
 		public void ProcessNoticeKoniecObsluhy(MessageForm message)
 		{
+			// Console.WriteLine("ManagerModelu: ProcessNoticeKoniecObsluhy");
+			var sprava = (MyMessage)message.CreateCopy();
+			sprava.Addressee = MySim.FindAgent(SimId.AgentOkolia);
+			sprava.Code = Mc.OdchodZakaznika;
+			Notice(sprava);
 		}
 
 		//meta! userInfo="Generated code: do not modify", tag="begin"

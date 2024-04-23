@@ -40,12 +40,13 @@ namespace managers
 		//meta! sender="AgentModelu", id="20", type="Notice"
 		public void ProcessOdchodZakaznika(MessageForm message)
 		{
+			// Console.WriteLine("ManagerOkolia: ProcessOdchodZakaznika");
 		}
 
 		//meta! sender="AgentModelu", id="23", type="Notice"
 		public void ProcessInicializacia(MessageForm message)
 		{
-			Console.WriteLine("ManagerOkolia: ProcessInicializacia");
+			// Console.WriteLine("ManagerOkolia: ProcessInicializacia");
 			var messageCopy = (MyMessage)message.CreateCopy();
 			message.Addressee = MyAgent.FindAssistant(SimId.PlanovacPrichodov);
 			StartContinualAssistant(message);
@@ -54,7 +55,7 @@ namespace managers
 		//meta! sender="AgentModelu", id="30", type="Notice"
 		public void ProcessNoticeNovyZakaznik(MessageForm message)
 		{
-			Console.WriteLine("ManagerOkolia: ProcessNoticeNovyZakaznik");
+			// Console.WriteLine("ManagerOkolia: ProcessNoticeNovyZakaznik");
 			var sprava = (MyMessage)message.CreateCopy();
 			sprava.Addressee = MySim.FindAgent(SimId.AgentModelu);
 			sprava.Code = Mc.PrichodZakaznika;

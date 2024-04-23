@@ -13,7 +13,7 @@ namespace agents
 			Init();
 		}
 
-		override public void PrepareReplication()
+		public override void PrepareReplication()
 		{
 			base.PrepareReplication();
 			// Setup component for the next replication
@@ -24,6 +24,7 @@ namespace agents
 		{
 			new ManagerStanku(SimId.ManagerStanku, MySim, this);
 			new ProcesObsluhy(SimId.ProcesObsluhy, MySim, this);
+			AddOwnMessage(Mc.NoticeKoniecObsluhy);
 			AddOwnMessage(Mc.Obsluha);
 		}
 		//meta! tag="end"

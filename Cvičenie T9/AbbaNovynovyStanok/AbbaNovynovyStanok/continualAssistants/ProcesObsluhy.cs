@@ -1,3 +1,4 @@
+using AbbaNovynovyStanok.simulation;
 using OSPABA;
 using simulation;
 using agents;
@@ -20,6 +21,10 @@ namespace continualAssistants
 		//meta! sender="AgentStanku", id="15", type="Start"
 		public void ProcessStart(MessageForm message)
 		{
+			// Console.WriteLine("ProcesObsluhy: ProcessStart");
+			var sprava = (MyMessage)message.CreateCopy();
+			sprava.Code = Mc.NoticeKoniecObsluhy;
+			Hold(((MySimulation)MySim).GeneratorCasovObsluhy.Next(), sprava);
 		}
 
 		//meta! userInfo="Process messages defined in code", id="0"
@@ -30,6 +35,14 @@ namespace continualAssistants
 			}
 		}
 
+		//meta! sender="AgentStanku", id="34", type="Notice"
+		public void ProcessNoticeKoniecObsluhy(MessageForm message)
+		{
+			// Console.WriteLine("ProcesObsluhy: ProcessNoticeKoniecObsluhy");
+			message.Addressee = MyAgent;
+			AssistantFinished(message);
+		}
+
 		//meta! userInfo="Generated code: do not modify", tag="begin"
 		override public void ProcessMessage(MessageForm message)
 		{
@@ -37,6 +50,10 @@ namespace continualAssistants
 			{
 			case Mc.Start:
 				ProcessStart(message);
+			break;
+
+			case Mc.NoticeKoniecObsluhy:
+				ProcessNoticeKoniecObsluhy(message);
 			break;
 
 			default:
