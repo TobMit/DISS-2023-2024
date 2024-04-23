@@ -25,7 +25,6 @@ namespace AbbaNovynovyStanok.simulation
 		{
 			base.PrepareSimulation();
 			// Create global statistcis
-			Console.WriteLine("test");
 			PriemernyCasCakania = 0.0;
 			generatorNasad = new Random();
 

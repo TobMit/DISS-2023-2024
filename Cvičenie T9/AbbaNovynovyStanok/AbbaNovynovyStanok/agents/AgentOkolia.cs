@@ -26,6 +26,7 @@ namespace agents
 			new PlanovacPrichodov(SimId.PlanovacPrichodov, MySim, this);
 			AddOwnMessage(Mc.OdchodZakaznika);
 			AddOwnMessage(Mc.Inicializacia);
+			AddOwnMessage(Mc.NoticeNovyZakaznik);
 		}
 		//meta! tag="end"
 	}

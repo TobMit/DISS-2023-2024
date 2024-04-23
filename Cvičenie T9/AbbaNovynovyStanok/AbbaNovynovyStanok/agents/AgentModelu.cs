@@ -31,6 +31,7 @@ namespace agents
 		{
 			new ManagerModelu(SimId.ManagerModelu, MySim, this);
 			AddOwnMessage(Mc.PrichodZakaznika);
+			AddOwnMessage(Mc.NoticeKoniecObsluhy);
 			AddOwnMessage(Mc.Obsluha);
 		}
 		//meta! tag="end"

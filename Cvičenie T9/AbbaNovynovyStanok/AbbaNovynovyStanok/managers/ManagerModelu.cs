@@ -26,6 +26,7 @@ namespace managers
 		//meta! sender="AgentOkolia", id="8", type="Notice"
 		public void ProcessPrichodZakaznika(MessageForm message)
 		{
+			Console.WriteLine("ManagerModelu: ProcessPrichodZakaznika");
 		}
 
 		//meta! sender="AgentStanku", id="9", type="Response"
@@ -41,6 +42,11 @@ namespace managers
 			}
 		}
 
+		//meta! sender="AgentStanku", id="27", type="Notice"
+		public void ProcessNoticeKoniecObsluhy(MessageForm message)
+		{
+		}
+
 		//meta! userInfo="Generated code: do not modify", tag="begin"
 		public void Init()
 		{
@@ -52,6 +58,10 @@ namespace managers
 			{
 			case Mc.PrichodZakaznika:
 				ProcessPrichodZakaznika(message);
+			break;
+
+			case Mc.NoticeKoniecObsluhy:
+				ProcessNoticeKoniecObsluhy(message);
 			break;
 
 			case Mc.Obsluha:

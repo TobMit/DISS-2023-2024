@@ -1,3 +1,4 @@
+using AbbaNovynovyStanok.simulation;
 using OSPABA;
 using simulation;
 using agents;
@@ -20,6 +21,10 @@ namespace continualAssistants
 		//meta! sender="AgentOkolia", id="12", type="Start"
 		public void ProcessStart(MessageForm message)
 		{
+			Console.WriteLine("PlanovacPrichodov: ProcessStart");
+			var sprava = (MyMessage)message.CreateCopy();
+			sprava.Code = Mc.NoticeNovyZakaznik;
+			Hold(((MySimulation)MySim).GeneratorCasovPrichodov.Next(),sprava);
 		}
 
 		//meta! userInfo="Process messages defined in code", id="0"
@@ -27,6 +32,12 @@ namespace continualAssistants
 		{
 			switch (message.Code)
 			{
+				case Mc.NoticeNovyZakaznik:
+					Console.WriteLine("PlanovacPrichodov: NoticeNovyZakaznik");
+					var sprava = (MyMessage)message.CreateCopy();
+					sprava.Addressee = MyAgent;
+					Notice(sprava);
+					break;
 			}
 		}
 

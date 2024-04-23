@@ -1,3 +1,4 @@
+using AbbaNovynovyStanok.simulation;
 using OSPABA;
 using simulation;
 using agents;
@@ -44,8 +45,23 @@ namespace managers
 		//meta! sender="AgentModelu", id="23", type="Notice"
 		public void ProcessInicializacia(MessageForm message)
 		{
-			message.Addressee = ((AgentOkolia)MyAgent).AsistentPrichodov;
+			Console.WriteLine("ManagerOkolia: ProcessInicializacia");
+			var messageCopy = (MyMessage)message.CreateCopy();
+			message.Addressee = MyAgent.FindAssistant(SimId.PlanovacPrichodov);
 			StartContinualAssistant(message);
+		}
+
+		//meta! sender="AgentModelu", id="30", type="Notice"
+		public void ProcessNoticeNovyZakaznik(MessageForm message)
+		{
+			Console.WriteLine("ManagerOkolia: ProcessNoticeNovyZakaznik");
+			var sprava = (MyMessage)message.CreateCopy();
+			sprava.Addressee = MySim.FindAgent(SimId.AgentModelu);
+			sprava.Code = Mc.PrichodZakaznika;
+			Notice(new MyMessage(sprava));
+			
+			sprava.Addressee = MyAgent.FindAssistant(SimId.PlanovacPrichodov);
+			StartContinualAssistant(new MyMessage(sprava));
 		}
 
 		//meta! userInfo="Generated code: do not modify", tag="begin"
@@ -57,16 +73,20 @@ namespace managers
 		{
 			switch (message.Code)
 			{
-			case Mc.Inicializacia:
-				ProcessInicializacia(message);
-			break;
-
 			case Mc.OdchodZakaznika:
 				ProcessOdchodZakaznika(message);
 			break;
 
 			case Mc.Finish:
 				ProcessFinish(message);
+			break;
+
+			case Mc.NoticeNovyZakaznik:
+				ProcessNoticeNovyZakaznik(message);
+			break;
+
+			case Mc.Inicializacia:
+				ProcessInicializacia(message);
 			break;
 
 			default:

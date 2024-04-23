@@ -2,15 +2,6 @@
 <ABAsim>
   <Agents>
     <Agent>
-      <SimId>1</SimId>
-      <InternalId>1</InternalId>
-      <Name>AgentModelu</Name>
-      <Bounds>626,174,180,180</Bounds>
-      <Reasoner>ManagerModelu</Reasoner>
-      <ReasonerBounds>74,25,32,25</ReasonerBounds>
-      <UsePetriNet>false</UsePetriNet>
-    </Agent>
-    <Agent>
       <SimId>3</SimId>
       <InternalId>3</InternalId>
       <Name>AgentOkolia</Name>
@@ -26,6 +17,15 @@
           <Bounds>70,101,35,13</Bounds>
         </Scheduler>
       </Components>
+    </Agent>
+    <Agent>
+      <SimId>1</SimId>
+      <InternalId>1</InternalId>
+      <Name>AgentModelu</Name>
+      <Bounds>626,174,180,180</Bounds>
+      <Reasoner>ManagerModelu</Reasoner>
+      <ReasonerBounds>74,25,32,25</ReasonerBounds>
+      <UsePetriNet>false</UsePetriNet>
     </Agent>
     <Agent>
       <SimId>4</SimId>
@@ -91,10 +91,26 @@
       <Destination>4</Destination>
     </Message>
     <Message>
+      <SimId>1006</SimId>
+      <InternalId>27</InternalId>
+      <Name>NoticeKoniecObsluhy</Name>
+      <Type>Notice</Type>
+      <Source>4</Source>
+      <Destination>1</Destination>
+    </Message>
+    <Message>
       <InternalId>12</InternalId>
       <Type>StartFinish</Type>
       <Source>3</Source>
       <Destination>11</Destination>
+    </Message>
+    <Message>
+      <SimId>1007</SimId>
+      <InternalId>30</InternalId>
+      <Name>NoticeNovyZakaznik</Name>
+      <Type>Notice</Type>
+      <Source>1</Source>
+      <Destination>3</Destination>
     </Message>
     <Message>
       <InternalId>15</InternalId>
@@ -103,5 +119,5 @@
       <Destination>14</Destination>
     </Message>
   </Messages>
-  <IID>24</IID>
+  <IID>32</IID>
 </ABAsim>

@@ -8,6 +8,8 @@ namespace simulation
 		public const int Inicializacia = 1005;
 		public const int PrichodZakaznika = 1001;
 		public const int Obsluha = 1002;
+		public const int NoticeKoniecObsluhy = 1006;
+		public const int NoticeNovyZakaznik = 1007;
 		//meta! tag="end"
 
 		// 1..1000 range reserved for user
