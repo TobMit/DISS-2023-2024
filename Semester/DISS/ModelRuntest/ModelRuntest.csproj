@@ -12,4 +12,10 @@
       <ProjectReference Include="..\DISS-Model-Elektrokomponenty\DISS-Model-Elektrokomponenty.csproj" />
     </ItemGroup>
 
+    <ItemGroup>
+      <Reference Include="ABACore">
+        <HintPath>..\DISS-Model-AgentElektrokomponenty\CoreLib\ABACore.dll</HintPath>
+      </Reference>
+    </ItemGroup>
+
 </Project>
