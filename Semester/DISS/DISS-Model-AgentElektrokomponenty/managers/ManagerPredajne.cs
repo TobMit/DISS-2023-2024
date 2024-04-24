@@ -1,0 +1,145 @@
+using OSPABA;
+using simulation;
+using agents;
+using continualAssistants;
+using instantAssistants;
+namespace managers
+{
+	//meta! id="9"
+	public class ManagerPredajne : Manager
+	{
+		public ManagerPredajne(int id, Simulation mySim, Agent myAgent) :
+			base(id, mySim, myAgent)
+		{
+			Init();
+		}
+
+		override public void PrepareReplication()
+		{
+			base.PrepareReplication();
+			// Setup component for the next replication
+
+			if (PetriNet != null)
+			{
+				PetriNet.Clear();
+			}
+		}
+
+		//meta! sender="AgentModelu", id="27", type="Notice"
+		public void ProcessInit(MessageForm message)
+		{
+		}
+
+		//meta! sender="AgentModelu", id="28", type="Request"
+		public void ProcessVstupDoPredajne(MessageForm message)
+		{
+		}
+
+		//meta! sender="AgentPokladni", id="59", type="Notice"
+		public void ProcessNoticePrestavkaKoniecAgentPokladni(MessageForm message)
+		{
+		}
+
+		//meta! sender="AgentObsluzneMiesto", id="67", type="Notice"
+		public void ProcessNoticePrestavkaKoniecAgentObsluzneMiesto(MessageForm message)
+		{
+		}
+
+		//meta! sender="AgentObsluzneMiesto", id="43", type="Notice"
+		public void ProcessNoticeUvolnenieZakaznika(MessageForm message)
+		{
+		}
+
+		//meta! sender="AgentPokladni", id="48", type="Notice"
+		public void ProcessNoticeUvolneniePredajni(MessageForm message)
+		{
+		}
+
+		//meta! sender="AgentAutomatu", id="35", type="Notice"
+		public void ProcessNoticeKoniecObsluhy(MessageForm message)
+		{
+		}
+
+		//meta! sender="AgentObsluzneMiesto", id="41", type="Response"
+		public void ProcessPridelenieZakaznikaOM(MessageForm message)
+		{
+		}
+
+		//meta! sender="AgentPokladni", id="47", type="Response"
+		public void ProcessPridelenieZakaznikaPredajni(MessageForm message)
+		{
+		}
+
+		//meta! userInfo="Process messages defined in code", id="0"
+		public void ProcessDefault(MessageForm message)
+		{
+			switch (message.Code)
+			{
+			}
+		}
+
+		//meta! userInfo="Generated code: do not modify", tag="begin"
+		public void Init()
+		{
+		}
+
+		override public void ProcessMessage(MessageForm message)
+		{
+			switch (message.Code)
+			{
+			case Mc.NoticeUvolneniePredajni:
+				ProcessNoticeUvolneniePredajni(message);
+			break;
+
+			case Mc.Init:
+				ProcessInit(message);
+			break;
+
+			case Mc.NoticeKoniecObsluhy:
+				ProcessNoticeKoniecObsluhy(message);
+			break;
+
+			case Mc.PridelenieZakaznikaOM:
+				ProcessPridelenieZakaznikaOM(message);
+			break;
+
+			case Mc.NoticePrestavkaKoniec:
+				switch (message.Sender.Id)
+				{
+				case SimId.AgentPokladni:
+					ProcessNoticePrestavkaKoniecAgentPokladni(message);
+				break;
+
+				case SimId.AgentObsluzneMiesto:
+					ProcessNoticePrestavkaKoniecAgentObsluzneMiesto(message);
+				break;
+				}
+			break;
+
+			case Mc.NoticeUvolnenieZakaznika:
+				ProcessNoticeUvolnenieZakaznika(message);
+			break;
+
+			case Mc.VstupDoPredajne:
+				ProcessVstupDoPredajne(message);
+			break;
+
+			case Mc.PridelenieZakaznikaPredajni:
+				ProcessPridelenieZakaznikaPredajni(message);
+			break;
+
+			default:
+				ProcessDefault(message);
+			break;
+			}
+		}
+		//meta! tag="end"
+		public new AgentPredajne MyAgent
+		{
+			get
+			{
+				return (AgentPredajne)base.MyAgent;
+			}
+		}
+	}
+}

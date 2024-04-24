@@ -12,4 +12,17 @@
       <ProjectReference Include="..\DISS-RNG\DISS-RNG.csproj" />
     </ItemGroup>
 
+    <ItemGroup>
+      <None Remove="CoreLib\ABACore.dll" />
+      <Resource Include="CoreLib\ABACore.dll">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </Resource>
+    </ItemGroup>
+
+    <ItemGroup>
+      <Reference Include="ABACore">
+        <HintPath>CoreLib\ABACore.dll</HintPath>
+      </Reference>
+    </ItemGroup>
+
 </Project>
