@@ -13,7 +13,7 @@ namespace simulation
 
         public double TimeOfArrival { get; private set; }
 
-        public Constants.TypZakaznika TypZakaznika { get; private set; }
+        public Constants.TypZakaznika TypZakaznika { get; set; }
         public Constants.TypNarocnostiTovaru TypNarocnostiTovaru { get; private set; }
         public Constants.TypVelkostiNakladu TypVelkostiNakladu { get; private set; }
         public Constants.StavZakaznika StavZakaznika { get; set; }

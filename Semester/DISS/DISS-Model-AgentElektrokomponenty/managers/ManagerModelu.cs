@@ -33,6 +33,8 @@ namespace managers
 		//meta! sender="AgentOkolia", id="18", type="Notice"
 		public void ProcessNoticePrichodZakaznika(MessageForm message)
 		{
+			Constants.Log($"ManagerModelu ({TimeSpan.FromSeconds(MySim.CurrentTime + Constants.START_DAY).ToString(@"hh\:mm\:ss")}): ProcessNoticePrichodZakaznika", Constants.LogType.ManagerLog);
+			((MySimulation)MySim).testPocetLudi++;
 		}
 
 		//meta! userInfo="Process messages defined in code", id="0"

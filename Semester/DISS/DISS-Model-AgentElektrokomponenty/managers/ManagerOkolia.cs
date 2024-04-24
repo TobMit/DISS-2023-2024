@@ -28,6 +28,10 @@ namespace managers
 		//meta! sender="AgentModelu", id="19", type="Notice"
 		public void ProcessInit(MessageForm message)
 		{
+			Constants.Log("ManagerOkolia: ProcessInit", Constants.LogType.ManagerLog);
+			var sprava = (MyMessage)message.CreateCopy();
+			sprava.Addressee = MyAgent.FindAssistant(SimId.PlanovacPrichodovBasic);
+			StartContinualAssistant(sprava);
 		}
 
 		//meta! sender="AgentModelu", id="17", type="Notice"
@@ -55,6 +59,17 @@ namespace managers
 		{
 			switch (message.Code)
 			{
+				case Mc.NoticeNovyBasic:
+					Constants.Log("ManagerOkolia: ProcessDefault: NoticeNovyBasic", Constants.LogType.ManagerLog);
+					var sprava = (MyMessage)message.CreateCopy();
+					sprava.Addressee = MySim.FindAgent(SimId.AgentModelu);
+					sprava.Code = Mc.NoticePrichodZakaznika;
+					sprava.TypZakaznika = Constants.TypZakaznika.Basic;
+					Notice(new MyMessage(sprava));
+					
+					sprava.Addressee = MyAgent.FindAssistant(SimId.PlanovacPrichodovBasic);
+					StartContinualAssistant(new MyMessage(sprava));
+					break;
 			}
 		}
 

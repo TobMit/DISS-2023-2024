@@ -15,7 +15,8 @@ class Program
         */
         //S3 - Agentová simulácia
         MySimulation core = new();
-        core.Simulate(10,Constants.END_SIMULATION_TIME);
+        Constants.DEBUG = false;
+        core.Simulate(10_000,Constants.END_SIMULATION_TIME);
         
     }
 }

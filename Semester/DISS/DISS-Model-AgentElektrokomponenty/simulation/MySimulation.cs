@@ -1,3 +1,4 @@
+using System.Security.AccessControl;
 using OSPABA;
 using agents;
 using DISS.Random;
@@ -31,6 +32,10 @@ namespace simulation
         public Empiric RndTrvaniePripravaHard;
         public DISS.Random.Discrete.Empiric RndTrvaniePladba;
         public Uniform RndTrvanieVyzdvyhnutieVelkehoTovaru;
+
+        public int testPocetLudi { get; set; }
+        
+        public OSPStat.Stat CelkovyPocetLudi { get; set; }
 
         public MySimulation()
         {
@@ -66,24 +71,30 @@ namespace simulation
             RndTrvaniePladba = new(listPladba, ExtendedRandom<double>.NextSeed());
             RndTrvanieVyzdvyhnutieVelkehoTovaru = new(30.0, 70.0, ExtendedRandom<double>.NextSeed());
             // Create global statistcis
+            CelkovyPocetLudi = new OSPStat.Stat();
         }
 
         protected override void PrepareReplication()
         {
             base.PrepareReplication();
             // Reset entities, queues, local statistics, etc...
+            testPocetLudi = 0;
+            CelkovyPocetLudi.Clear();
         }
 
         protected override void ReplicationFinished()
         {
             // Collect local statistics into global, update UI, etc...
             base.ReplicationFinished();
+            Constants.Log($"CelkovyPocetLudi: {testPocetLudi}");
+            CelkovyPocetLudi.AddSample(testPocetLudi);
         }
 
         protected override void SimulationFinished()
         {
             // Dysplay simulation results
             base.SimulationFinished();
+            Console.WriteLine($"CelkovyPocetLudi: {CelkovyPocetLudi.Mean()}");
         }
 
         //meta! userInfo="Generated code: do not modify", tag="begin"
