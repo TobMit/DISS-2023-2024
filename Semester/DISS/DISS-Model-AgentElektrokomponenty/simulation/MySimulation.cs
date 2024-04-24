@@ -1,9 +1,12 @@
 using System.Security.AccessControl;
 using OSPABA;
 using agents;
+using DISS_HelperClasses.Statistic;
+using DISS_Model_AgentElektrokomponenty.Entity;
 using DISS.Random;
 using DISS.Random.Continous;
 using DISS.Random.Other;
+using OSPStat;
 
 
 namespace simulation
@@ -15,7 +18,7 @@ namespace simulation
         private int _pocetObsluznychMiest;
         private int _pocetPokladni;
 
-        public List<MyMessage> Persons;
+        public List<Person> Persons;
 
         // RNG
         //public RNGPickPokladna RndPickPokladna; todo reslove
@@ -33,15 +36,22 @@ namespace simulation
         public DISS.Random.Discrete.Empiric RndTrvaniePladba;
         public Uniform RndTrvanieVyzdvyhnutieVelkehoTovaru;
 
-        public int testPocetLudi { get; set; }
-        public int testPocetLudiBasic { get; set; }
-        public int testPocetLudiZmluvny { get; set; }
-        public int testPocetLudiOnline { get; set; }
+        public int CelkovyPocetZakaznikov { get; set; }
         
-        public OSPStat.Stat CelkovyPocetLudi { get; set; }
-        public OSPStat.Stat CelkovyPocetLudiBasic { get; set; }
-        public OSPStat.Stat CelkovyPocetLudiZmluvny { get; set; }
-        public OSPStat.Stat CelkovyPocetLudiOnline { get; set; }
+        private Stat _globPriemernyCasVObchode;
+        private Stat _globCasStravenyPredAutomatom;
+        private Stat _globPriemernaDlzkaRadu;
+        private Stat _globPriemernyOdchodPoslednehoZakaznika;
+        private Stat _globPriemernyPocetZakaznikov;
+        private Stat _globPriemernyPocetObsluzenychZakaznikov;
+        private Stat _globPriemerneVytazenieAutomatu;
+        private Stat _globPriemernaDlzkaRaduPredObsluhouBasic;
+        private Stat _globPriemernaDlzkaRaduPredObsluhouZmluvny;
+        private Stat _globPriemernaDlzkaRaduPredObsluhouOnline;
+        private List<Stat> _globPriemerneDlzkyRadovPredPokladnami;
+        private List<Stat> _globPriemerneVytazeniePokladni;
+        private List<Stat> _globPriemerneVytaznieObsluhyOnline;
+        private List<Stat> _globPriemerneVytaznieObsluhyOstatne;
 
         public MySimulation()
         {
@@ -51,6 +61,9 @@ namespace simulation
         protected override void PrepareSimulation()
         {
             base.PrepareSimulation();
+            // Init Other
+            Persons = new();
+            
             //RndPickPokladna = new(ExtendedRandom<double>.NextSeed(), _pocetPokladni);
             // (60*60) / 30 lebo je to 30 zákazníkov za hodinu ale systém beží v sekundách tak preto ten prepočet
             RndPrichodZakaznikaBasic = new(((60.0 * 60.0) / 15.0), ExtendedRandom<double>.NextSeed());
@@ -76,48 +89,33 @@ namespace simulation
             listPladba.Add(new(180, 360, 0.6, ExtendedRandom<double>.NextSeed()));
             RndTrvaniePladba = new(listPladba, ExtendedRandom<double>.NextSeed());
             RndTrvanieVyzdvyhnutieVelkehoTovaru = new(30.0, 70.0, ExtendedRandom<double>.NextSeed());
+            
             // Create global statistcis
-            CelkovyPocetLudi = new OSPStat.Stat();
-            CelkovyPocetLudiBasic = new OSPStat.Stat();
-            CelkovyPocetLudiZmluvny = new OSPStat.Stat();
-            CelkovyPocetLudiOnline = new OSPStat.Stat();
+            _globPriemernyPocetZakaznikov = new();
         }
 
         protected override void PrepareReplication()
         {
             base.PrepareReplication();
             // Reset entities, queues, local statistics, etc...
-            testPocetLudi = 0;
-            testPocetLudiBasic = 0;
-            testPocetLudiZmluvny = 0;
-            CelkovyPocetLudi.Clear();
-            CelkovyPocetLudiBasic.Clear();
-            CelkovyPocetLudiZmluvny.Clear();
-            CelkovyPocetLudiOnline.Clear();
+            Persons.Clear();
+            
+            CelkovyPocetZakaznikov = 0;
+            
         }
 
         protected override void ReplicationFinished()
         {
             // Collect local statistics into global, update UI, etc...
+            _globPriemernyPocetZakaznikov.AddSample(CelkovyPocetZakaznikov);
             base.ReplicationFinished();
-            Constants.Log($"CelkovyPocetLudi: {testPocetLudi}");
-            Constants.Log($"CelkovyPocetLudiBasic: {testPocetLudiBasic}");
-            Constants.Log($"CelkovyPocetLudiZmluvny: {testPocetLudiZmluvny}");
-            Constants.Log($"CelkovyPocetLudiOnline: {testPocetLudiOnline}");
-            CelkovyPocetLudi.AddSample(testPocetLudi);
-            CelkovyPocetLudiBasic.AddSample(testPocetLudiBasic);
-            CelkovyPocetLudiZmluvny.AddSample(testPocetLudiZmluvny);
-            CelkovyPocetLudiOnline.AddSample(testPocetLudiOnline);
         }
 
         protected override void SimulationFinished()
         {
-            // Dysplay simulation results
+            // Display simulation results
             base.SimulationFinished();
-            Console.WriteLine($"CelkovyPocetLudi: {CelkovyPocetLudi.Mean()}");
-            Console.WriteLine($"CelkovyPocetLudiBasic: {CelkovyPocetLudiBasic.Mean()}");
-            Console.WriteLine($"CelkovyPocetLudiZmluvny: {CelkovyPocetLudiZmluvny.Mean()}");
-            Console.WriteLine($"CelkovyPocetLudiOnline: {CelkovyPocetLudiOnline.Mean()}");
+            Console.WriteLine($"Priemerný počet zákazníkov: {_globPriemernyPocetZakaznikov.Mean()}");
         }
 
 		//meta! userInfo="Generated code: do not modify", tag="begin"

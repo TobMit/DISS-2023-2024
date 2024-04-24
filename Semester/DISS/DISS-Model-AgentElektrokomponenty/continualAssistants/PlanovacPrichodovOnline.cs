@@ -20,6 +20,14 @@ namespace continualAssistants
 		//meta! sender="AgentOkolia", id="78", type="Start"
 		public void ProcessStart(MessageForm message)
 		{
+			Constants.Log("PlanovacPrichodovOnline: ProcessStart", Constants.LogType.ContinualAssistantLog);
+			var sprava = (MyMessage)message.CreateCopy();
+			sprava.Code = Mc.NoticeNovyOnline;
+			var newTime = ((MySimulation)MySim).RndPrichodZakaznikaOnline.Next();
+			if (newTime + MySim.CurrentTime < Constants.END_ARRIVAL_SIMULATION_TIME)
+			{
+				Hold(newTime, sprava);	
+			}
 		}
 
 		//meta! userInfo="Process messages defined in code", id="0"
@@ -33,6 +41,10 @@ namespace continualAssistants
 		//meta! sender="AgentOkolia", id="86", type="Notice"
 		public void ProcessNoticeNovyOnline(MessageForm message)
 		{
+			Constants.Log("PlanovacPrichodovOnline: ProcessNoticeNovyOnline", Constants.LogType.ContinualAssistantLog);
+			var sprava = (MyMessage)message.CreateCopy();
+			sprava.Addressee = MyAgent;
+			Notice(sprava);
 		}
 
 		//meta! userInfo="Generated code: do not modify", tag="begin"

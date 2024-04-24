@@ -16,7 +16,8 @@ namespace agents
         public override void PrepareReplication()
         {
             base.PrepareReplication();
-            // Setup component for the next replication
+            // Setup component for the next replicatio
+            Constants.Log("AgentModelu: PrepareReplication", Constants.LogType.AgentLog);
             var message = new MyMessage(MySim)
             {
                 Addressee = this,
