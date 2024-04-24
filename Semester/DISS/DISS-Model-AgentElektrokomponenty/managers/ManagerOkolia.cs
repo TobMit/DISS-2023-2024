@@ -66,45 +66,47 @@ namespace managers
 		{
 			Person tmpPerson = new();
 			((MySimulation)MySim).Persons.Add(tmpPerson);
+			var sprava = (MyMessage)message.CreateCopy();
+			
 			switch (message.Code)
 			{
 				case Mc.NoticeNovyBasic:
 					Constants.Log("ManagerOkolia: ProcessDefault: NoticeNovyBasic", Constants.LogType.ManagerLog);
-					var spravaBasic = (MyMessage)message.CreateCopy();
-					spravaBasic.Addressee = MySim.FindAgent(SimId.AgentModelu);
-					spravaBasic.Code = Mc.NoticePrichodZakaznika;
+					sprava.Addressee = MySim.FindAgent(SimId.AgentModelu);
+					sprava.Code = Mc.NoticePrichodZakaznika;
 					tmpPerson.TypZakaznika = Constants.TypZakaznika.Basic;
-					spravaBasic.Zakaznik = tmpPerson;
-					Notice(new MyMessage(spravaBasic));
+					sprava.Zakaznik = tmpPerson;
+					Notice(new MyMessage(sprava));
 					
-					spravaBasic.Addressee = MyAgent.FindAssistant(SimId.PlanovacPrichodovBasic);
-					StartContinualAssistant(new MyMessage(spravaBasic));
+					sprava.Addressee = MyAgent.FindAssistant(SimId.PlanovacPrichodovBasic);
 					break;
 				
 				case Mc.NoticeNovyZmluvny:
 					Constants.Log("ManagerOkolia: ProcessDefault: NoticeNovyBasic", Constants.LogType.ManagerLog);
-					var spravaZmluvny = (MyMessage)message.CreateCopy();
-					spravaZmluvny.Addressee = MySim.FindAgent(SimId.AgentModelu);
-					spravaZmluvny.Code = Mc.NoticePrichodZakaznika;
+					sprava.Addressee = MySim.FindAgent(SimId.AgentModelu);
+					sprava.Code = Mc.NoticePrichodZakaznika;
 					tmpPerson.TypZakaznika = Constants.TypZakaznika.Zmluvný;
-					spravaZmluvny.Zakaznik = tmpPerson;
-					Notice(new MyMessage(spravaZmluvny));
+					sprava.Zakaznik = tmpPerson;
+					Notice(new MyMessage(sprava));
 					
-					spravaZmluvny.Addressee = MyAgent.FindAssistant(SimId.PlanovacPrichodovZmluvny);
-					StartContinualAssistant(new MyMessage(spravaZmluvny));
+					sprava.Addressee = MyAgent.FindAssistant(SimId.PlanovacPrichodovZmluvny);
 					break;
 				case Mc.NoticeNovyOnline:
 					Constants.Log("ManagerOkolia: ProcessDefault: NoticeNovyBasic", Constants.LogType.ManagerLog);
-					var spravaOnline = (MyMessage)message.CreateCopy();
-					spravaOnline.Addressee = MySim.FindAgent(SimId.AgentModelu);
-					spravaOnline.Code = Mc.NoticePrichodZakaznika;
+					sprava.Addressee = MySim.FindAgent(SimId.AgentModelu);
+					sprava.Code = Mc.NoticePrichodZakaznika;
 					tmpPerson.TypZakaznika = Constants.TypZakaznika.Online;
-					spravaOnline.Zakaznik = tmpPerson;
-					Notice(new MyMessage(spravaOnline));
+					sprava.Zakaznik = tmpPerson;
+					Notice(new MyMessage(sprava));
 					
-					spravaOnline.Addressee = MyAgent.FindAssistant(SimId.PlanovacPrichodovOnline);
-					StartContinualAssistant(new MyMessage(spravaOnline));
+					sprava.Addressee = MyAgent.FindAssistant(SimId.PlanovacPrichodovOnline);
 					break;
+			}
+			
+			// Ak nie sme v debugu tak sa budu generovať viacerý zákazníci
+			if (!Constants.DEBUG)
+			{
+				StartContinualAssistant(new MyMessage(sprava));
 			}
 		}
 

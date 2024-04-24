@@ -33,7 +33,8 @@ namespace managers
 		//meta! sender="AgentOkolia", id="18", type="Notice"
 		public void ProcessNoticePrichodZakaznika(MessageForm message)
 		{
-			Constants.Log($"ManagerModelu ({TimeSpan.FromSeconds(MySim.CurrentTime + Constants.START_DAY).ToString(@"hh\:mm\:ss")}): ProcessNoticePrichodZakaznika", Constants.LogType.ManagerLog);
+			var sprava = (MyMessage)message.CreateCopy();
+			Constants.Log($"ManagerModelu ({TimeSpan.FromSeconds(MySim.CurrentTime + Constants.START_DAY).ToString(@"hh\:mm\:ss")}): ProcessNoticePrichodZakaznika typu: {sprava.Zakaznik.TypZakaznika}", Constants.LogType.ManagerLog);
 			((MySimulation)MySim).CelkovyPocetZakaznikov++;
 			
 		}
