@@ -23,6 +23,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ModelRuntest", "ModelRuntes
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DISS-S2-Elektrokomponenty", "DISS-S2-Elektrokomponenty\DISS-S2-Elektrokomponenty.csproj", "{68CF0D73-D8ED-4BFA-AAB8-2E182E3D762F}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DISS-Model-AgentElektrokomponenty", "DISS-Model-AgentElektrokomponenty\DISS-Model-AgentElektrokomponenty.csproj", "{EA930B22-DC68-40FF-A8A1-40D74886E221}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -69,6 +71,10 @@ Global
 		{68CF0D73-D8ED-4BFA-AAB8-2E182E3D762F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{68CF0D73-D8ED-4BFA-AAB8-2E182E3D762F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{68CF0D73-D8ED-4BFA-AAB8-2E182E3D762F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EA930B22-DC68-40FF-A8A1-40D74886E221}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EA930B22-DC68-40FF-A8A1-40D74886E221}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EA930B22-DC68-40FF-A8A1-40D74886E221}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EA930B22-DC68-40FF-A8A1-40D74886E221}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
