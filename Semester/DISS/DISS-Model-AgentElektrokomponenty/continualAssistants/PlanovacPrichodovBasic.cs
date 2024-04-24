@@ -32,6 +32,7 @@ namespace continualAssistants
 			Constants.Log("PlanovacPrichodovBasic: ProcessStart", Constants.LogType.ContinualAssistantLog);
 			var sprava = (MyMessage)message.CreateCopy();
 			sprava.Code = Mc.NoticeNovyBasic;
+			sprava.TypZakaznika = Constants.TypZakaznika.Basic;
 			var newTime = ((MySimulation)MySim).RndPrichodZakaznikaBasic.Next();
 			if (newTime + MySim.CurrentTime <= Constants.END_ARRIVAL_SIMULATION_TIME)
 			{

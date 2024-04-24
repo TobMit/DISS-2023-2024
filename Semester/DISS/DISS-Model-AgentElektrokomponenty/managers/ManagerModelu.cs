@@ -35,6 +35,15 @@ namespace managers
 		{
 			Constants.Log($"ManagerModelu ({TimeSpan.FromSeconds(MySim.CurrentTime + Constants.START_DAY).ToString(@"hh\:mm\:ss")}): ProcessNoticePrichodZakaznika", Constants.LogType.ManagerLog);
 			((MySimulation)MySim).testPocetLudi++;
+			switch (((MyMessage)message).TypZakaznika)
+			{
+				case Constants.TypZakaznika.Basic:
+					((MySimulation)MySim).testPocetLudiBasic++;
+					break;
+				case Constants.TypZakaznika.Zmluvný:
+					((MySimulation)MySim).testPocetLudiZmluvny++;
+					break;
+			}
 		}
 
 		//meta! userInfo="Process messages defined in code", id="0"

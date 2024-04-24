@@ -64,7 +64,6 @@ namespace managers
 					var sprava = (MyMessage)message.CreateCopy();
 					sprava.Addressee = MySim.FindAgent(SimId.AgentModelu);
 					sprava.Code = Mc.NoticePrichodZakaznika;
-					sprava.TypZakaznika = Constants.TypZakaznika.Basic;
 					Notice(new MyMessage(sprava));
 					
 					sprava.Addressee = MyAgent.FindAssistant(SimId.PlanovacPrichodovBasic);

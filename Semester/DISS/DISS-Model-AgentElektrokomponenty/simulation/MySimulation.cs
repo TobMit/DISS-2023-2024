@@ -34,8 +34,14 @@ namespace simulation
         public Uniform RndTrvanieVyzdvyhnutieVelkehoTovaru;
 
         public int testPocetLudi { get; set; }
+        public int testPocetLudiBasic { get; set; }
+        public int testPocetLudiZmluvny { get; set; }
+        public int testPocetLudiOnline { get; set; }
         
         public OSPStat.Stat CelkovyPocetLudi { get; set; }
+        public OSPStat.Stat CelkovyPocetLudiBasic { get; set; }
+        public OSPStat.Stat CelkovyPocetLudiZmluvny { get; set; }
+        public OSPStat.Stat CelkovyPocetLudiOnline { get; set; }
 
         public MySimulation()
         {
@@ -72,6 +78,9 @@ namespace simulation
             RndTrvanieVyzdvyhnutieVelkehoTovaru = new(30.0, 70.0, ExtendedRandom<double>.NextSeed());
             // Create global statistcis
             CelkovyPocetLudi = new OSPStat.Stat();
+            CelkovyPocetLudiBasic = new OSPStat.Stat();
+            CelkovyPocetLudiZmluvny = new OSPStat.Stat();
+            CelkovyPocetLudiOnline = new OSPStat.Stat();
         }
 
         protected override void PrepareReplication()
@@ -79,7 +88,12 @@ namespace simulation
             base.PrepareReplication();
             // Reset entities, queues, local statistics, etc...
             testPocetLudi = 0;
+            testPocetLudiBasic = 0;
+            testPocetLudiZmluvny = 0;
             CelkovyPocetLudi.Clear();
+            CelkovyPocetLudiBasic.Clear();
+            CelkovyPocetLudiZmluvny.Clear();
+            CelkovyPocetLudiOnline.Clear();
         }
 
         protected override void ReplicationFinished()
@@ -87,7 +101,13 @@ namespace simulation
             // Collect local statistics into global, update UI, etc...
             base.ReplicationFinished();
             Constants.Log($"CelkovyPocetLudi: {testPocetLudi}");
+            Constants.Log($"CelkovyPocetLudiBasic: {testPocetLudiBasic}");
+            Constants.Log($"CelkovyPocetLudiZmluvny: {testPocetLudiZmluvny}");
+            Constants.Log($"CelkovyPocetLudiOnline: {testPocetLudiOnline}");
             CelkovyPocetLudi.AddSample(testPocetLudi);
+            CelkovyPocetLudiBasic.AddSample(testPocetLudiBasic);
+            CelkovyPocetLudiZmluvny.AddSample(testPocetLudiZmluvny);
+            CelkovyPocetLudiOnline.AddSample(testPocetLudiOnline);
         }
 
         protected override void SimulationFinished()
@@ -95,6 +115,9 @@ namespace simulation
             // Dysplay simulation results
             base.SimulationFinished();
             Console.WriteLine($"CelkovyPocetLudi: {CelkovyPocetLudi.Mean()}");
+            Console.WriteLine($"CelkovyPocetLudiBasic: {CelkovyPocetLudiBasic.Mean()}");
+            Console.WriteLine($"CelkovyPocetLudiZmluvny: {CelkovyPocetLudiZmluvny.Mean()}");
+            Console.WriteLine($"CelkovyPocetLudiOnline: {CelkovyPocetLudiOnline.Mean()}");
         }
 
         //meta! userInfo="Generated code: do not modify", tag="begin"
