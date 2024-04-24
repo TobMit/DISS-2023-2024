@@ -30,11 +30,20 @@ namespace continualAssistants
 			}
 		}
 
+		//meta! sender="AgentOkolia", id="86", type="Notice"
+		public void ProcessNoticeNovyOnline(MessageForm message)
+		{
+		}
+
 		//meta! userInfo="Generated code: do not modify", tag="begin"
 		override public void ProcessMessage(MessageForm message)
 		{
 			switch (message.Code)
 			{
+			case Mc.NoticeNovyOnline:
+				ProcessNoticeNovyOnline(message);
+			break;
+
 			case Mc.Start:
 				ProcessStart(message);
 			break;

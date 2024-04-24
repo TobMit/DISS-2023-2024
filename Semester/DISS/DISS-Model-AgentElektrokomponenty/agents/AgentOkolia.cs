@@ -30,6 +30,8 @@ namespace agents
 			AddOwnMessage(Mc.Init);
 			AddOwnMessage(Mc.NoticeNovyBasic);
 			AddOwnMessage(Mc.NoticeOdchodZakaznika);
+			AddOwnMessage(Mc.NoticeNovyOnline);
+			AddOwnMessage(Mc.NoticeNovyZmluvny);
 		}
 		//meta! tag="end"
 	}

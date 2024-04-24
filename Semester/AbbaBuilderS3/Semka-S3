@@ -227,6 +227,22 @@
       <Destination>2</Destination>
     </Message>
     <Message>
+      <SimId>1032</SimId>
+      <InternalId>85</InternalId>
+      <Name>NoticeNovyZmluvny</Name>
+      <Type>Notice</Type>
+      <Source>2</Source>
+      <Destination>75</Destination>
+    </Message>
+    <Message>
+      <SimId>1033</SimId>
+      <InternalId>86</InternalId>
+      <Name>NoticeNovyOnline</Name>
+      <Type>Notice</Type>
+      <Source>2</Source>
+      <Destination>77</Destination>
+    </Message>
+    <Message>
       <SimId>1009</SimId>
       <InternalId>27</InternalId>
       <Name>init</Name>
@@ -379,5 +395,5 @@
       <Destination>61</Destination>
     </Message>
   </Messages>
-  <IID>83</IID>
+  <IID>87</IID>
 </ABAsim>

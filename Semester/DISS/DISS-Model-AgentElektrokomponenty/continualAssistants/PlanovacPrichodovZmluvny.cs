@@ -30,6 +30,11 @@ namespace continualAssistants
 			}
 		}
 
+		//meta! sender="AgentOkolia", id="85", type="Notice"
+		public void ProcessNoticeNovyZmluvny(MessageForm message)
+		{
+		}
+
 		//meta! userInfo="Generated code: do not modify", tag="begin"
 		override public void ProcessMessage(MessageForm message)
 		{
@@ -37,6 +42,10 @@ namespace continualAssistants
 			{
 			case Mc.Start:
 				ProcessStart(message);
+			break;
+
+			case Mc.NoticeNovyZmluvny:
+				ProcessNoticeNovyZmluvny(message);
 			break;
 
 			default:

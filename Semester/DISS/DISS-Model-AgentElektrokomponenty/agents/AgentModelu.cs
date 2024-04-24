@@ -25,13 +25,13 @@ namespace agents
             MyManager.Notice(message);
         }
 
-        //meta! userInfo="Generated code: do not modify", tag="begin"
-        private void Init()
-        {
-            new ManagerModelu(SimId.ManagerModelu, MySim, this);
-            AddOwnMessage(Mc.VstupDoPredajne);
-            AddOwnMessage(Mc.NoticePrichodZakaznika);
-        }
-        //meta! tag="end"
+		//meta! userInfo="Generated code: do not modify", tag="begin"
+		private void Init()
+		{
+			new ManagerModelu(SimId.ManagerModelu, MySim, this);
+			AddOwnMessage(Mc.VstupDoPredajne);
+			AddOwnMessage(Mc.NoticePrichodZakaznika);
+		}
+		//meta! tag="end"
     }
 }

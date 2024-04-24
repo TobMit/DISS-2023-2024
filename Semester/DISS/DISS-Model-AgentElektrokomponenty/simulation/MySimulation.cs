@@ -120,24 +120,28 @@ namespace simulation
             Console.WriteLine($"CelkovyPocetLudiOnline: {CelkovyPocetLudiOnline.Mean()}");
         }
 
-        //meta! userInfo="Generated code: do not modify", tag="begin"
-        private void Init()
-        {
-            AgentModelu = new AgentModelu(SimId.AgentModelu, this, null);
-            AgentOkolia = new AgentOkolia(SimId.AgentOkolia, this, AgentModelu);
-            AgentPredajne = new AgentPredajne(SimId.AgentPredajne, this, AgentModelu);
-            AgentPokladni = new AgentPokladni(SimId.AgentPokladni, this, AgentPredajne);
-            AgentAutomatu = new AgentAutomatu(SimId.AgentAutomatu, this, AgentPredajne);
-            AgentObsluzneMiesto = new AgentObsluzneMiesto(SimId.AgentObsluzneMiesto, this, AgentPredajne);
-        }
-
-        public AgentModelu AgentModelu { get; set; }
-        public AgentOkolia AgentOkolia { get; set; }
-        public AgentPredajne AgentPredajne { get; set; }
-        public AgentPokladni AgentPokladni { get; set; }
-        public AgentAutomatu AgentAutomatu { get; set; }
-
-        public AgentObsluzneMiesto AgentObsluzneMiesto { get; set; }
-        //meta! tag="end"
+		//meta! userInfo="Generated code: do not modify", tag="begin"
+		private void Init()
+		{
+			AgentModelu = new AgentModelu(SimId.AgentModelu, this, null);
+			AgentOkolia = new AgentOkolia(SimId.AgentOkolia, this, AgentModelu);
+			AgentPredajne = new AgentPredajne(SimId.AgentPredajne, this, AgentModelu);
+			AgentPokladni = new AgentPokladni(SimId.AgentPokladni, this, AgentPredajne);
+			AgentAutomatu = new AgentAutomatu(SimId.AgentAutomatu, this, AgentPredajne);
+			AgentObsluzneMiesto = new AgentObsluzneMiesto(SimId.AgentObsluzneMiesto, this, AgentPredajne);
+		}
+		public AgentModelu AgentModelu
+		{ get; set; }
+		public AgentOkolia AgentOkolia
+		{ get; set; }
+		public AgentPredajne AgentPredajne
+		{ get; set; }
+		public AgentPokladni AgentPokladni
+		{ get; set; }
+		public AgentAutomatu AgentAutomatu
+		{ get; set; }
+		public AgentObsluzneMiesto AgentObsluzneMiesto
+		{ get; set; }
+		//meta! tag="end"
     }
 }
