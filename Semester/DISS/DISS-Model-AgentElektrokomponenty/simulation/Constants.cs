@@ -43,4 +43,41 @@ public class Constants
     public static double END_ARRIVAL_SIMULATION_TIME = 8*60*60; // 17:00 -> 8H -> 6*60*60s
     public static double END_SIMULATION_TIME = 8*60*60 + 30*60; // 17:30 -> 8:30H -> 6*60*60s + 30*60s
 
+    public static bool DEBUG = false;
+    
+    public static void Log(string message, LogType logType = LogType.DefaultLog)
+    {
+        if (DEBUG)
+        {
+            switch (logType)
+            {
+                case LogType.DefaultLog:
+                    break;
+                case LogType.AgentLog:
+                    Console.ForegroundColor = ConsoleColor.Green;
+                    break;
+                case LogType.ManagerLog:
+                    Console.ForegroundColor = ConsoleColor.Blue;
+                    break;
+                case LogType.ContinualAssistantLog:
+                    Console.ForegroundColor = ConsoleColor.Yellow;
+                    break;
+                case LogType.InstantAssistantLog:
+                    Console.ForegroundColor = ConsoleColor.Magenta;
+                    break;
+            }
+            Console.WriteLine(message);
+            Console.ResetColor();
+        }
+    }
+    
+    public enum LogType
+    {
+        DefaultLog,
+        AgentLog,
+        ManagerLog,
+        ContinualAssistantLog,
+        InstantAssistantLog
+        
+    }
 }
