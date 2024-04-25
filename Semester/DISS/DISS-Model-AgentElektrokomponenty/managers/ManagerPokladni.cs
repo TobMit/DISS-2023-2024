@@ -67,6 +67,14 @@ namespace managers
 		{
 			switch (message.Code)
 			{
+			case Mc.Init:
+				ProcessInit(message);
+			break;
+
+			case Mc.PridelenieZakaznikaPredajni:
+				ProcessPridelenieZakaznikaPredajni(message);
+			break;
+
 			case Mc.Finish:
 				switch (message.Sender.Id)
 				{
@@ -82,14 +90,6 @@ namespace managers
 
 			case Mc.NoticePrestavkaZaciatok:
 				ProcessNoticePrestavkaZaciatok(message);
-			break;
-
-			case Mc.Init:
-				ProcessInit(message);
-			break;
-
-			case Mc.PridelenieZakaznikaPredajni:
-				ProcessPridelenieZakaznikaPredajni(message);
 			break;
 
 			default:

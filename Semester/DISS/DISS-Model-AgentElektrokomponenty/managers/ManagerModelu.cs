@@ -25,7 +25,7 @@ namespace managers
 			}
 		}
 
-		//meta! sender="AgentPredajne", id="28", type="Response"
+		//meta! userInfo="Removed from model"
 		public void ProcessVstupDoPredajne(MessageForm message)
 		{
 		}
@@ -58,10 +58,6 @@ namespace managers
 			{
 			case Mc.NoticePrichodZakaznika:
 				ProcessNoticePrichodZakaznika(message);
-			break;
-
-			case Mc.VstupDoPredajne:
-				ProcessVstupDoPredajne(message);
 			break;
 
 			default:

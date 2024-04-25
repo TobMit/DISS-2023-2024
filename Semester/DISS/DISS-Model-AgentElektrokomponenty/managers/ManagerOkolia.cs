@@ -119,6 +119,14 @@ namespace managers
 		{
 			switch (message.Code)
 			{
+			case Mc.NoticeOdchodZakaznika:
+				ProcessNoticeOdchodZakaznika(message);
+			break;
+
+			case Mc.Init:
+				ProcessInit(message);
+			break;
+
 			case Mc.Finish:
 				switch (message.Sender.Id)
 				{
@@ -134,14 +142,6 @@ namespace managers
 					ProcessFinishPlanovacPrichodovBasic(message);
 				break;
 				}
-			break;
-
-			case Mc.NoticeOdchodZakaznika:
-				ProcessNoticeOdchodZakaznika(message);
-			break;
-
-			case Mc.Init:
-				ProcessInit(message);
 			break;
 
 			default:

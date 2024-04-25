@@ -30,7 +30,6 @@ namespace agents
 		private void Init()
 		{
 			new ManagerModelu(SimId.ManagerModelu, MySim, this);
-			AddOwnMessage(Mc.VstupDoPredajne);
 			AddOwnMessage(Mc.NoticePrichodZakaznika);
 		}
 		//meta! tag="end"

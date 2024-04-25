@@ -2,66 +2,6 @@
 <ABAsim>
   <Agents>
     <Agent>
-      <SimId>6</SimId>
-      <InternalId>25</InternalId>
-      <Name>AgentAutomatu</Name>
-      <Bounds>1395,1325,180,180</Bounds>
-      <Reasoner>ManagerAutomatu</Reasoner>
-      <ReasonerBounds>74,25,32,25</ReasonerBounds>
-      <UsePetriNet>false</UsePetriNet>
-      <Components>
-        <Process>
-          <SimId>1003</SimId>
-          <InternalId>32</InternalId>
-          <Name>ProcessObsluhaAutomatu</Name>
-          <Bounds>39,108,35,18</Bounds>
-        </Process>
-        <Scheduler>
-          <SimId>1005</SimId>
-          <InternalId>54</InternalId>
-          <Name>SchedulerZatvorenieAutomatu</Name>
-          <Bounds>102,118,35,13</Bounds>
-        </Scheduler>
-      </Components>
-    </Agent>
-    <Agent>
-      <SimId>1</SimId>
-      <InternalId>1</InternalId>
-      <Name>AgentModelu</Name>
-      <Bounds>668,229,180,180</Bounds>
-      <Reasoner>ManagerModelu</Reasoner>
-      <UsePetriNet>false</UsePetriNet>
-    </Agent>
-    <Agent>
-      <SimId>9</SimId>
-      <InternalId>44</InternalId>
-      <Name>AgentPokladni</Name>
-      <Bounds>1791,630,180,180</Bounds>
-      <Reasoner>ManagerPokladni</Reasoner>
-      <ReasonerBounds>74,25,32,25</ReasonerBounds>
-      <UsePetriNet>false</UsePetriNet>
-      <Components>
-        <Scheduler>
-          <SimId>1006</SimId>
-          <InternalId>56</InternalId>
-          <Name>SchedulerPrestavkaPokladne</Name>
-          <Bounds>131,104,35,13</Bounds>
-        </Scheduler>
-        <Query>
-          <SimId>1009</SimId>
-          <InternalId>69</InternalId>
-          <Name>QueryPridelPokladnu</Name>
-          <Bounds>37,127,35,13</Bounds>
-        </Query>
-        <Process>
-          <SimId>1004</SimId>
-          <InternalId>52</InternalId>
-          <Name>ProcessObsluhyPokladni</Name>
-          <Bounds>77,127,35,18</Bounds>
-        </Process>
-      </Components>
-    </Agent>
-    <Agent>
       <SimId>2</SimId>
       <InternalId>2</InternalId>
       <Name>AgentOkolia</Name>
@@ -91,6 +31,66 @@
       </Components>
     </Agent>
     <Agent>
+      <SimId>6</SimId>
+      <InternalId>25</InternalId>
+      <Name>AgentAutomatu</Name>
+      <Bounds>1395,1325,180,180</Bounds>
+      <Reasoner>ManagerAutomatu</Reasoner>
+      <ReasonerBounds>74,25,32,25</ReasonerBounds>
+      <UsePetriNet>false</UsePetriNet>
+      <Components>
+        <Process>
+          <SimId>1003</SimId>
+          <InternalId>32</InternalId>
+          <Name>ProcessObsluhaAutomatu</Name>
+          <Bounds>39,108,35,18</Bounds>
+        </Process>
+        <Scheduler>
+          <SimId>1005</SimId>
+          <InternalId>54</InternalId>
+          <Name>SchedulerZatvorenieAutomatu</Name>
+          <Bounds>102,118,35,13</Bounds>
+        </Scheduler>
+      </Components>
+    </Agent>
+    <Agent>
+      <SimId>9</SimId>
+      <InternalId>44</InternalId>
+      <Name>AgentPokladni</Name>
+      <Bounds>1791,630,180,180</Bounds>
+      <Reasoner>ManagerPokladni</Reasoner>
+      <ReasonerBounds>74,25,32,25</ReasonerBounds>
+      <UsePetriNet>false</UsePetriNet>
+      <Components>
+        <Scheduler>
+          <SimId>1006</SimId>
+          <InternalId>56</InternalId>
+          <Name>SchedulerPrestavkaPokladne</Name>
+          <Bounds>131,104,35,13</Bounds>
+        </Scheduler>
+        <Process>
+          <SimId>1004</SimId>
+          <InternalId>52</InternalId>
+          <Name>ProcessObsluhyPokladni</Name>
+          <Bounds>77,127,35,18</Bounds>
+        </Process>
+        <Query>
+          <SimId>1009</SimId>
+          <InternalId>69</InternalId>
+          <Name>QueryPridelPokladnu</Name>
+          <Bounds>37,127,35,13</Bounds>
+        </Query>
+      </Components>
+    </Agent>
+    <Agent>
+      <SimId>1</SimId>
+      <InternalId>1</InternalId>
+      <Name>AgentModelu</Name>
+      <Bounds>668,229,180,180</Bounds>
+      <Reasoner>ManagerModelu</Reasoner>
+      <UsePetriNet>false</UsePetriNet>
+    </Agent>
+    <Agent>
       <SimId>8</SimId>
       <InternalId>36</InternalId>
       <Name>AgentObsluzneMiesto</Name>
@@ -99,6 +99,12 @@
       <ReasonerBounds>74,25,32,25</ReasonerBounds>
       <UsePetriNet>false</UsePetriNet>
       <Components>
+        <Scheduler>
+          <SimId>1008</SimId>
+          <InternalId>63</InternalId>
+          <Name>SchedulerPrestavkaOM</Name>
+          <Bounds>108,111,35,13</Bounds>
+        </Scheduler>
         <Process>
           <SimId>1007</SimId>
           <InternalId>61</InternalId>
@@ -111,12 +117,6 @@
           <Name>QueryPridelenieOM</Name>
           <Bounds>15,90,35,13</Bounds>
         </Query>
-        <Scheduler>
-          <SimId>1008</SimId>
-          <InternalId>63</InternalId>
-          <Name>SchedulerPrestavkaOM</Name>
-          <Bounds>108,111,35,13</Bounds>
-        </Scheduler>
       </Components>
     </Agent>
     <Agent>
@@ -254,7 +254,7 @@
       <SimId>1010</SimId>
       <InternalId>28</InternalId>
       <Name>VstupDoPredajne</Name>
-      <Type>RequestResponse</Type>
+      <Type>Notice</Type>
       <Source>1</Source>
       <Destination>9</Destination>
     </Message>
@@ -395,5 +395,5 @@
       <Destination>61</Destination>
     </Message>
   </Messages>
-  <IID>88</IID>
+  <IID>89</IID>
 </ABAsim>

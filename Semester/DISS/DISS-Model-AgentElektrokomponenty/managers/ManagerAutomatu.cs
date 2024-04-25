@@ -57,21 +57,21 @@ namespace managers
 		{
 			switch (message.Code)
 			{
+			case Mc.NoticeZaciatokObsluhy:
+				ProcessNoticeZaciatokObsluhy(message);
+			break;
+
 			case Mc.Finish:
 				switch (message.Sender.Id)
 				{
-				case SimId.ProcessObsluhaAutomatu:
-					ProcessFinishProcessObsluhaAutomatu(message);
-				break;
-
 				case SimId.SchedulerZatvorenieAutomatu:
 					ProcessFinishSchedulerZatvorenieAutomatu(message);
 				break;
-				}
-			break;
 
-			case Mc.NoticeZaciatokObsluhy:
-				ProcessNoticeZaciatokObsluhy(message);
+				case SimId.ProcessObsluhaAutomatu:
+					ProcessFinishProcessObsluhaAutomatu(message);
+				break;
+				}
 			break;
 
 			default:

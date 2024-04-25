@@ -24,12 +24,12 @@ namespace agents
 		private void Init()
 		{
 			new ManagerPredajne(SimId.ManagerPredajne, MySim, this);
-			AddOwnMessage(Mc.Init);
 			AddOwnMessage(Mc.VstupDoPredajne);
-			AddOwnMessage(Mc.NoticePrestavkaKoniec);
+			AddOwnMessage(Mc.Init);
 			AddOwnMessage(Mc.NoticeUvolnenieZakaznika);
-			AddOwnMessage(Mc.NoticeUvolneniePredajni);
+			AddOwnMessage(Mc.NoticePrestavkaKoniec);
 			AddOwnMessage(Mc.NoticeKoniecObsluhy);
+			AddOwnMessage(Mc.NoticeUvolneniePredajni);
 			AddOwnMessage(Mc.PridelenieZakaznikaOM);
 			AddOwnMessage(Mc.PridelenieZakaznikaPredajni);
 		}

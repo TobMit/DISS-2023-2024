@@ -30,7 +30,7 @@ namespace managers
 		{
 		}
 
-		//meta! sender="AgentModelu", id="28", type="Request"
+		//meta! sender="AgentModelu", id="28", type="Notice"
 		public void ProcessVstupDoPredajne(MessageForm message)
 		{
 		}
@@ -87,20 +87,16 @@ namespace managers
 		{
 			switch (message.Code)
 			{
-			case Mc.NoticeUvolneniePredajni:
-				ProcessNoticeUvolneniePredajni(message);
-			break;
-
-			case Mc.Init:
-				ProcessInit(message);
-			break;
-
 			case Mc.NoticeKoniecObsluhy:
 				ProcessNoticeKoniecObsluhy(message);
 			break;
 
 			case Mc.PridelenieZakaznikaOM:
 				ProcessPridelenieZakaznikaOM(message);
+			break;
+
+			case Mc.NoticeUvolnenieZakaznika:
+				ProcessNoticeUvolnenieZakaznika(message);
 			break;
 
 			case Mc.NoticePrestavkaKoniec:
@@ -116,16 +112,20 @@ namespace managers
 				}
 			break;
 
-			case Mc.NoticeUvolnenieZakaznika:
-				ProcessNoticeUvolnenieZakaznika(message);
+			case Mc.NoticeUvolneniePredajni:
+				ProcessNoticeUvolneniePredajni(message);
+			break;
+
+			case Mc.PridelenieZakaznikaPredajni:
+				ProcessPridelenieZakaznikaPredajni(message);
 			break;
 
 			case Mc.VstupDoPredajne:
 				ProcessVstupDoPredajne(message);
 			break;
 
-			case Mc.PridelenieZakaznikaPredajni:
-				ProcessPridelenieZakaznikaPredajni(message);
+			case Mc.Init:
+				ProcessInit(message);
 			break;
 
 			default:
