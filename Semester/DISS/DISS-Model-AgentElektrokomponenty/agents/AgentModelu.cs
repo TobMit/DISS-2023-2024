@@ -20,10 +20,12 @@ namespace agents
             Constants.Log("AgentModelu: PrepareReplication", Constants.LogType.AgentLog);
             var message = new MyMessage(MySim)
             {
-                Addressee = this,
+                Addressee = MySim.FindAgent(SimId.AgentOkolia),
                 Code = Mc.Init
             };
-            MyManager.Notice(message);
+            MyManager.Notice(new MyMessage(message));
+            message.Addressee = MySim.FindAgent(SimId.AgentPredajne);
+            MyManager.Notice(new MyMessage(message));
         }
 
 		//meta! userInfo="Generated code: do not modify", tag="begin"

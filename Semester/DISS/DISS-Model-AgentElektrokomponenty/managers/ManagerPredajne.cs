@@ -28,6 +28,7 @@ namespace managers
 		//meta! sender="AgentModelu", id="27", type="Notice"
 		public void ProcessInit(MessageForm message)
 		{
+			Constants.Log("ManagerPredajne: ProcessInit", Constants.LogType.ManagerLog);
 		}
 
 		//meta! sender="AgentModelu", id="28", type="Notice"
