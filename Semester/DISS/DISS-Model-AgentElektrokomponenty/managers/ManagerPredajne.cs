@@ -29,11 +29,14 @@ namespace managers
 		public void ProcessInit(MessageForm message)
 		{
 			Constants.Log("ManagerPredajne: ProcessInit", Constants.LogType.ManagerLog);
+			//todo add more init to other agents
 		}
 
 		//meta! sender="AgentModelu", id="28", type="Notice"
 		public void ProcessVstupDoPredajne(MessageForm message)
 		{
+			var sprava = (MyMessage)message.CreateCopy();
+			Constants.Log($"ManagerPredajne: ProcessVstupDoPredajne zakaznik ID {sprava.Zakaznik.ID}", Constants.LogType.ManagerLog);
 		}
 
 		//meta! sender="AgentPokladni", id="59", type="Notice"
