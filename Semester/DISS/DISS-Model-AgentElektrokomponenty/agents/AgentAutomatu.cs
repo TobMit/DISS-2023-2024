@@ -26,6 +26,8 @@ namespace agents
 			new ManagerAutomatu(SimId.ManagerAutomatu, MySim, this);
 			new ProcessObsluhaAutomatu(SimId.ProcessObsluhaAutomatu, MySim, this);
 			new SchedulerZatvorenieAutomatu(SimId.SchedulerZatvorenieAutomatu, MySim, this);
+			AddOwnMessage(Mc.Init);
+			AddOwnMessage(Mc.NoticeZatvorenieAutomatu);
 			AddOwnMessage(Mc.NoticeZaciatokObsluhy);
 		}
 		//meta! tag="end"

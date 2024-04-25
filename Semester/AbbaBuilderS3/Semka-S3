@@ -49,7 +49,7 @@
           <SimId>1005</SimId>
           <InternalId>54</InternalId>
           <Name>SchedulerZatvorenieAutomatu</Name>
-          <Bounds>102,118,35,13</Bounds>
+          <Bounds>107,111,35,13</Bounds>
         </Scheduler>
       </Components>
     </Agent>
@@ -86,7 +86,7 @@
       <SimId>1</SimId>
       <InternalId>1</InternalId>
       <Name>AgentModelu</Name>
-      <Bounds>668,229,180,180</Bounds>
+      <Bounds>668,218,180,180</Bounds>
       <Reasoner>ManagerModelu</Reasoner>
       <UsePetriNet>false</UsePetriNet>
     </Agent>
@@ -123,7 +123,7 @@
       <SimId>4</SimId>
       <InternalId>9</InternalId>
       <Name>AgentPredajne</Name>
-      <Bounds>1086,857,180,180</Bounds>
+      <Bounds>1051,804,180,180</Bounds>
       <Reasoner>ManagerPredajne</Reasoner>
       <ReasonerBounds>74,25,32,25</ReasonerBounds>
       <UsePetriNet>false</UsePetriNet>
@@ -251,6 +251,14 @@
       <Destination>9</Destination>
     </Message>
     <Message>
+      <SimId>1034</SimId>
+      <InternalId>91</InternalId>
+      <Name>init</Name>
+      <Type>Notice</Type>
+      <Source>9</Source>
+      <Destination>25</Destination>
+    </Message>
+    <Message>
       <SimId>1010</SimId>
       <InternalId>28</InternalId>
       <Name>VstupDoPredajne</Name>
@@ -263,6 +271,14 @@
       <Type>Parent</Type>
       <Source>25</Source>
       <Destination>9</Destination>
+    </Message>
+    <Message>
+      <SimId>1035</SimId>
+      <InternalId>94</InternalId>
+      <Name>NoticeZatvorenieAutomatu</Name>
+      <Type>Notice</Type>
+      <Source>54</Source>
+      <Destination>25</Destination>
     </Message>
     <Message>
       <InternalId>33</InternalId>
@@ -395,5 +411,5 @@
       <Destination>61</Destination>
     </Message>
   </Messages>
-  <IID>89</IID>
+  <IID>95</IID>
 </ABAsim>

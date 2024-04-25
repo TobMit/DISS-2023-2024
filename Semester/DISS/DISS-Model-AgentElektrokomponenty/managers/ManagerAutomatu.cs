@@ -48,6 +48,16 @@ namespace managers
 			}
 		}
 
+		//meta! sender="AgentPredajne", id="91", type="Notice"
+		public void ProcessInit(MessageForm message)
+		{
+		}
+
+		//meta! sender="SchedulerZatvorenieAutomatu", id="94", type="Notice"
+		public void ProcessNoticeZatvorenieAutomatu(MessageForm message)
+		{
+		}
+
 		//meta! userInfo="Generated code: do not modify", tag="begin"
 		public void Init()
 		{
@@ -57,6 +67,10 @@ namespace managers
 		{
 			switch (message.Code)
 			{
+			case Mc.Init:
+				ProcessInit(message);
+			break;
+
 			case Mc.NoticeZaciatokObsluhy:
 				ProcessNoticeZaciatokObsluhy(message);
 			break;
@@ -72,6 +86,10 @@ namespace managers
 					ProcessFinishProcessObsluhaAutomatu(message);
 				break;
 				}
+			break;
+
+			case Mc.NoticeZatvorenieAutomatu:
+				ProcessNoticeZatvorenieAutomatu(message);
 			break;
 
 			default:
