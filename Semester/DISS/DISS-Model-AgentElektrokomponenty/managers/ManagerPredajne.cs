@@ -29,6 +29,9 @@ namespace managers
 		public void ProcessInit(MessageForm message)
 		{
 			Constants.Log("ManagerPredajne: ProcessInit", Constants.LogType.ManagerLog);
+			var sprava = (MyMessage)message.CreateCopy();
+			sprava.Addressee = MySim.FindAgent(SimId.AgentAutomatu);
+			Notice(new MyMessage(sprava));
 			//todo add more init to other agents
 		}
 

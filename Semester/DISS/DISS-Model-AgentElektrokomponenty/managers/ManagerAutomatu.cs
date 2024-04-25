@@ -8,6 +8,8 @@ namespace managers
 	//meta! id="25"
 	public class ManagerAutomatu : Manager
 	{
+		//Id of the people in AgentAutomat
+		public int Id { get; set; }
 		public ManagerAutomatu(int id, Simulation mySim, Agent myAgent) :
 			base(id, mySim, myAgent)
 		{
@@ -33,6 +35,7 @@ namespace managers
 		//meta! sender="SchedulerZatvorenieAutomatu", id="55", type="Finish"
 		public void ProcessFinishSchedulerZatvorenieAutomatu(MessageForm message)
 		{
+			Constants.Log($"ManagerAutomatu {TimeSpan.FromSeconds(MySim.CurrentTime + Constants.START_DAY).ToString(@"hh\:mm\:ss")}: ProcessFinishSchedulerZatvorenieAutomatu", Constants.LogType.ManagerLog);
 		}
 
 		//meta! sender="AgentPredajne", id="34", type="Notice"
@@ -51,11 +54,17 @@ namespace managers
 		//meta! sender="AgentPredajne", id="91", type="Notice"
 		public void ProcessInit(MessageForm message)
 		{
+			Constants.Log("ManagerAutomatu: ProcessInit", Constants.LogType.ManagerLog);
+			Id = 0;
+			var sprava = (MyMessage)message.CreateCopy();
+			sprava.Addressee = MyAgent.FindAssistant(SimId.SchedulerZatvorenieAutomatu);
+			StartContinualAssistant(sprava);
 		}
 
 		//meta! sender="SchedulerZatvorenieAutomatu", id="94", type="Notice"
 		public void ProcessNoticeZatvorenieAutomatu(MessageForm message)
 		{
+			Constants.Log($"ManagerAutomatu {TimeSpan.FromSeconds(MySim.CurrentTime + Constants.START_DAY).ToString(@"hh\:mm\:ss")}: ProcessNoticeZatvorenieAutomatu", Constants.LogType.ManagerLog);
 		}
 
 		//meta! userInfo="Generated code: do not modify", tag="begin"
