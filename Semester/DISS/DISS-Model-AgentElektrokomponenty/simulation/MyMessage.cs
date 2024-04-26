@@ -7,6 +7,8 @@ namespace simulation
     public class MyMessage : MessageForm
     {
         public Person Zakaznik { get; set; }
+
+        public int PocetLudiVOM { get; set; }
         /// <summary>
         /// Jednoduchá správa
         /// </summary>
@@ -22,6 +24,8 @@ namespace simulation
             {
                 Zakaznik = pZakaznik;
             }
+
+            PocetLudiVOM = 0;
         }
 
         public MyMessage(MyMessage original) :
@@ -41,6 +45,7 @@ namespace simulation
             MyMessage original = (MyMessage)message;
             // Copy attributes
             Zakaznik = original.Zakaznik;
+            PocetLudiVOM = original.PocetLudiVOM;   
         }
     }
 }

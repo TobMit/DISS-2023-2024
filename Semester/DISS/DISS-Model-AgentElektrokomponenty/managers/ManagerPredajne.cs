@@ -40,9 +40,9 @@ namespace managers
 		{
 			var sprava = (MyMessage)message.CreateCopy();
 			Constants.Log($"ManagerPredajne: ProcessVstupDoPredajne zakaznik ID {sprava.Zakaznik.ID}", Constants.LogType.ManagerLog);
-			sprava.Addressee = MySim.FindAgent(SimId.AgentAutomatu);
-			sprava.Code = Mc.NoticeZaciatokObsluhy;
-			Notice(sprava);
+			sprava.Addressee = MySim.FindAgent(SimId.AgentObsluzneMiesto);
+			sprava.Code = Mc.PocetMiestVRade;
+			Request(sprava);
 		}
 
 		//meta! sender="AgentPokladni", id="59", type="Notice"
@@ -91,6 +91,11 @@ namespace managers
 		//meta! sender="AgentObsluzneMiesto", id="97", type="Response"
 		public void ProcessPocetMiestVRade(MessageForm message)
 		{
+			var sprava = (MyMessage)message.CreateCopy();
+			Constants.Log($"ManagerPredajne: Zakaznik: {sprava.Zakaznik.ID} ProcessPocetMiestVRade", Constants.LogType.ManagerLog);
+			sprava.Addressee = MySim.FindAgent(SimId.AgentAutomatu);
+			sprava.Code = Mc.NoticeZaciatokObsluhy;
+			Notice(sprava);
 		}
 
 		//meta! userInfo="Generated code: do not modify", tag="begin"

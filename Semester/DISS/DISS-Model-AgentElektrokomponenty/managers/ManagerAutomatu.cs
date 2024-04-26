@@ -82,6 +82,12 @@ namespace managers
 				sprava.Zakaznik.StavZakaznika = Constants.StavZakaznika.RadPredAutomatom;
 				Front.Enqueue(sprava);
 			}
+			else if (sprava.PocetLudiVOM >= Constants.RADA_PRED_OBSLUZNYM_MIESTOM)
+			{
+				Constants.Log($"ManagerAutomatu {TimeSpan.FromSeconds(MySim.CurrentTime + Constants.START_DAY).ToString(@"hh\:mm\:ss")}: Pridané do frontu", Constants.LogType.ManagerLog);
+				sprava.Zakaznik.StavZakaznika = Constants.StavZakaznika.RadPredAutomatom;
+				Front.Enqueue(sprava);
+			}
 			else
 			{
 				//todo vyriešiť ak je počet ľudí viac ako 9 tak ide do rady

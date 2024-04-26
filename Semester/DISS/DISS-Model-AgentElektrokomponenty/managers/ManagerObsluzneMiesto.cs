@@ -66,6 +66,10 @@ namespace managers
 		//meta! sender="AgentPredajne", id="97", type="Request"
 		public void ProcessPocetMiestVRade(MessageForm message)
 		{
+			Constants.Log("ManagerObsluzneMiesto: ProcessPocetMiestVRade", Constants.LogType.ManagerLog);
+			var sprava = (MyMessage)message;
+			sprava.PocetLudiVOM = 0; //todo actual logic
+			Response(sprava);
 		}
 
 		//meta! userInfo="Generated code: do not modify", tag="begin"
