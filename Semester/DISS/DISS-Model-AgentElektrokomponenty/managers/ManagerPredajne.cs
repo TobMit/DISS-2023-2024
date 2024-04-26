@@ -68,6 +68,8 @@ namespace managers
 		//meta! sender="AgentAutomatu", id="35", type="Notice"
 		public void ProcessNoticeKoniecObsluhy(MessageForm message)
 		{
+			var sprava = (MyMessage)message.CreateCopy();
+			Constants.Log($"ManagerPredajne: Zakaznik: {sprava.Zakaznik.ID} ProcessNoticeKoniecObsluhy", Constants.LogType.ManagerLog);
 		}
 
 		//meta! sender="AgentObsluzneMiesto", id="41", type="Response"

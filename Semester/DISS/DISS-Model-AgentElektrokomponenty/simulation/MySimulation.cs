@@ -40,6 +40,7 @@ namespace simulation
         public int CelkovyPocetZakaznikov { get; set; }
         public Stat StatCasStravenyPredAutomatom;
         public Stat StatPriemernyCasVObchode;
+        public WStat StatPriemernaDlzkaRaduPredAutomatom;
         
         // Globálne štatistiky
         private Stat _globPriemernyCasVObchode;
@@ -97,10 +98,12 @@ namespace simulation
             // štatistiky
             StatCasStravenyPredAutomatom = new ();
             StatPriemernyCasVObchode = new ();
+            StatPriemernaDlzkaRaduPredAutomatom = new(this);
             
             // Create global statistcis
             _globPriemernyPocetZakaznikov = new();
             _globCasStravenyPredAutomatom = new();
+            _globPriemernaDlzkaRadu = new();
         }
 
         protected override void PrepareReplication()
@@ -112,6 +115,7 @@ namespace simulation
             CelkovyPocetZakaznikov = 0;
             StatCasStravenyPredAutomatom.Clear();
             StatPriemernyCasVObchode.Clear();
+            StatPriemernaDlzkaRaduPredAutomatom.Clear();
             
         }
 
@@ -120,6 +124,7 @@ namespace simulation
             // Collect local statistics into global, update UI, etc...
             _globPriemernyPocetZakaznikov.AddSample(CelkovyPocetZakaznikov);
             _globCasStravenyPredAutomatom.AddSample(StatCasStravenyPredAutomatom.Mean());
+            _globPriemernaDlzkaRadu.AddSample(StatPriemernaDlzkaRaduPredAutomatom.Mean());
             base.ReplicationFinished();
         }
 
@@ -130,6 +135,7 @@ namespace simulation
             Console.WriteLine($"Priemerný počet zákazníkov: {_globPriemernyPocetZakaznikov.Mean()}");
             Console.WriteLine(
 	            $"Čas strávený pred automatom: {Double.Round(_globCasStravenyPredAutomatom.Mean(), 4)}s / {TimeSpan.FromSeconds(_globCasStravenyPredAutomatom.Mean()).ToString(@"hh\:mm\:ss")}");
+            Console.WriteLine($"Priemerná dĺžka radu pred automatom: {Double.Round(_globPriemernaDlzkaRadu.Mean(), 4)}");
 
         }
 

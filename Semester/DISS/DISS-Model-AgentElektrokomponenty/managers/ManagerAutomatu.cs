@@ -4,6 +4,7 @@ using agents;
 using continualAssistants;
 using instantAssistants;
 using OSPDataStruct;
+using OSPStat;
 
 namespace managers
 {
@@ -21,11 +22,11 @@ namespace managers
 			Init();
 		}
 
-		override public void PrepareReplication()
+		public override void PrepareReplication()
 		{
 			base.PrepareReplication();
 			// Setup component for the next replication
-			Front = new();
+			Front = new(((MySimulation)MySim).StatPriemernaDlzkaRaduPredAutomatom);
 			if (PetriNet != null)
 			{
 				PetriNet.Clear();
@@ -48,6 +49,10 @@ namespace managers
 			{
 				Obsluhuje = false;
 			}
+
+			sprava.Addressee = MySim.FindAgent(SimId.AgentPredajne);
+			sprava.Code = Mc.NoticeKoniecObsluhy;
+			Notice(sprava);
 		}
 
 		//meta! sender="SchedulerZatvorenieAutomatu", id="55", type="Finish"
