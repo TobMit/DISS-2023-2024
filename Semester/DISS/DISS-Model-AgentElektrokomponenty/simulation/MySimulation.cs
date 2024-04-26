@@ -41,6 +41,7 @@ namespace simulation
         public Stat StatCasStravenyPredAutomatom;
         public Stat StatPriemernyCasVObchode;
         public WStat StatPriemernaDlzkaRaduPredAutomatom;
+        public WStat StatVyuzitieAutomatu;
         
         // Globálne štatistiky
         private Stat _globPriemernyCasVObchode;
@@ -99,11 +100,15 @@ namespace simulation
             StatCasStravenyPredAutomatom = new ();
             StatPriemernyCasVObchode = new ();
             StatPriemernaDlzkaRaduPredAutomatom = new(this);
+            StatVyuzitieAutomatu = new(this);
+            
             
             // Create global statistcis
             _globPriemernyPocetZakaznikov = new();
             _globCasStravenyPredAutomatom = new();
             _globPriemernaDlzkaRadu = new();
+            _globPriemerneVytazenieAutomatu = new();
+            
         }
 
         protected override void PrepareReplication()
@@ -116,7 +121,7 @@ namespace simulation
             StatCasStravenyPredAutomatom.Clear();
             StatPriemernyCasVObchode.Clear();
             StatPriemernaDlzkaRaduPredAutomatom.Clear();
-            
+            StatVyuzitieAutomatu.Clear();
         }
 
         protected override void ReplicationFinished()
@@ -125,6 +130,7 @@ namespace simulation
             _globPriemernyPocetZakaznikov.AddSample(CelkovyPocetZakaznikov);
             _globCasStravenyPredAutomatom.AddSample(StatCasStravenyPredAutomatom.Mean());
             _globPriemernaDlzkaRadu.AddSample(StatPriemernaDlzkaRaduPredAutomatom.Mean());
+            _globPriemerneVytazenieAutomatu.AddSample(StatVyuzitieAutomatu.Mean());
             base.ReplicationFinished();
         }
 
@@ -136,6 +142,7 @@ namespace simulation
             Console.WriteLine(
 	            $"Čas strávený pred automatom: {Double.Round(_globCasStravenyPredAutomatom.Mean(), 4)}s / {TimeSpan.FromSeconds(_globCasStravenyPredAutomatom.Mean()).ToString(@"hh\:mm\:ss")}");
             Console.WriteLine($"Priemerná dĺžka radu pred automatom: {Double.Round(_globPriemernaDlzkaRadu.Mean(), 4)}");
+            Console.WriteLine($"Priemerne vyťaženie automatu: {Double.Round(_globPriemerneVytazenieAutomatu.Mean(), 4)*100:0.00}%");
 
         }
 

@@ -48,6 +48,7 @@ namespace managers
 			else
 			{
 				Obsluhuje = false;
+				((MySimulation)MySim).StatVyuzitieAutomatu.AddSample(0);
 			}
 
 			sprava.Addressee = MySim.FindAgent(SimId.AgentPredajne);
@@ -100,6 +101,7 @@ namespace managers
 				StartContinualAssistant(sprava);
 				Obsluhuje = true;
 				((MySimulation)MySim).StatCasStravenyPredAutomatom.AddSample(MySim.CurrentTime - sprava.Zakaznik.TimeOfArrival);
+				((MySimulation)MySim).StatVyuzitieAutomatu.AddSample(1);
 			}
 		}
 
