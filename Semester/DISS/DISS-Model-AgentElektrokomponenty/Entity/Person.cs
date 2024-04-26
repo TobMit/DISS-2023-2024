@@ -18,7 +18,7 @@ public class Person
     public double VstupDoRadyPredObsluhov { get; set; }
     public double VstupDoRadyPredPokladnov { get; set; }
 
-    public double TimeOfArrival { get; private set; }
+    public double TimeOfArrival { get; set; }
     
     public Constants.TypZakaznika TypZakaznika { get; set; }
     public Constants.TypNarocnostiTovaru TypNarocnostiTovaru { get; private set; }

@@ -35,14 +35,32 @@ namespace managers
 		//meta! sender="ProcessObsluhaAutomatu", id="33", type="Finish"
 		public void ProcessFinishProcessObsluhaAutomatu(MessageForm message)
 		{
-			Constants.Log("ManagerAutomatu: ProcessFinishProcessObsluhaAutomatu", Constants.LogType.ManagerLog);
+			var sprava = (MyMessage)message.CreateCopy();
+			Constants.Log($"ManagerAutomatu {TimeSpan.FromSeconds(MySim.CurrentTime + Constants.START_DAY).ToString(@"hh\:mm\:ss")}: Zakaznik {sprava.Zakaznik.ID} ProcessFinishProcessObsluhaAutomatu", Constants.LogType.ManagerLog);
+			if (!Front.IsEmpty())
+			{
+				var newSprava = new MyMessage(Front.Dequeue());
+				((MySimulation)MySim).StatCasStravenyPredAutomatom.AddSample(MySim.CurrentTime - newSprava.Zakaznik.TimeOfArrival);
+				newSprava.Addressee = MyAgent.FindAssistant(SimId.ProcessObsluhaAutomatu);
+				StartContinualAssistant(newSprava);
+			}
+			else
+			{
+				Obsluhuje = false;
+			}
 		}
 
 		//meta! sender="SchedulerZatvorenieAutomatu", id="55", type="Finish"
 		public void ProcessFinishSchedulerZatvorenieAutomatu(MessageForm message)
 		{
 			Constants.Log($"ManagerAutomatu {TimeSpan.FromSeconds(MySim.CurrentTime + Constants.START_DAY).ToString(@"hh\:mm\:ss")}: ProcessFinishSchedulerZatvorenieAutomatu", Constants.LogType.ManagerLog);
+			
 			//todo add logics + statistics
+			while (!Front.IsEmpty())
+			{
+				var sprava = Front.Dequeue();
+				sprava.Zakaznik.StavZakaznika = Constants.StavZakaznika.OdišielZPredajne;
+			}
 		}
 
 		//meta! sender="AgentPredajne", id="34", type="Notice"
@@ -51,13 +69,16 @@ namespace managers
 			Constants.Log("ManagerAutomatu: ProcessNoticeZaciatokObsluhy", Constants.LogType.ManagerLog);
 			var sprava = (MyMessage)message.CreateCopy();
 			sprava.Zakaznik.ID = Id++;
+			sprava.Zakaznik.TimeOfArrival = MySim.CurrentTime; //todo add other paramters of person
 			if (Front.Count > 0)
 			{
+				Constants.Log($"ManagerAutomatu {TimeSpan.FromSeconds(MySim.CurrentTime + Constants.START_DAY).ToString(@"hh\:mm\:ss")}: Pridané do frontu", Constants.LogType.ManagerLog);
 				sprava.Zakaznik.StavZakaznika = Constants.StavZakaznika.RadPredAutomatom;
 				Front.Enqueue(sprava);
 			}
 			else if (Obsluhuje)
 			{
+				Constants.Log($"ManagerAutomatu {TimeSpan.FromSeconds(MySim.CurrentTime + Constants.START_DAY).ToString(@"hh\:mm\:ss")}: Pridané do frontu", Constants.LogType.ManagerLog);
 				sprava.Zakaznik.StavZakaznika = Constants.StavZakaznika.RadPredAutomatom;
 				Front.Enqueue(sprava);
 			}

@@ -128,7 +128,9 @@ namespace simulation
             // Display simulation results
             base.SimulationFinished();
             Console.WriteLine($"Priemerný počet zákazníkov: {_globPriemernyPocetZakaznikov.Mean()}");
-            Console.WriteLine($"Priemerný čas strávený pred automatom: {_globCasStravenyPredAutomatom.Mean()}");
+            Console.WriteLine(
+	            $"Čas strávený pred automatom: {Double.Round(_globCasStravenyPredAutomatom.Mean(), 4)}s / {TimeSpan.FromSeconds(_globCasStravenyPredAutomatom.Mean()).ToString(@"hh\:mm\:ss")}");
+
         }
 
 		//meta! userInfo="Generated code: do not modify", tag="begin"
