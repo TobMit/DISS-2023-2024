@@ -34,7 +34,7 @@
       <SimId>6</SimId>
       <InternalId>25</InternalId>
       <Name>AgentAutomatu</Name>
-      <Bounds>1395,1325,180,180</Bounds>
+      <Bounds>1391,1325,180,180</Bounds>
       <Reasoner>ManagerAutomatu</Reasoner>
       <ReasonerBounds>74,25,32,25</ReasonerBounds>
       <UsePetriNet>false</UsePetriNet>
@@ -115,7 +115,7 @@
           <SimId>1010</SimId>
           <InternalId>71</InternalId>
           <Name>QueryPridelenieOM</Name>
-          <Bounds>15,90,35,13</Bounds>
+          <Bounds>33,114,35,13</Bounds>
         </Query>
       </Components>
     </Agent>
@@ -165,16 +165,16 @@
       <Destination>69</Destination>
     </Message>
     <Message>
-      <InternalId>72</InternalId>
-      <Type>Execute</Type>
-      <Source>36</Source>
-      <Destination>71</Destination>
-    </Message>
-    <Message>
       <InternalId>8</InternalId>
       <Type>StartFinish</Type>
       <Source>2</Source>
       <Destination>7</Destination>
+    </Message>
+    <Message>
+      <InternalId>72</InternalId>
+      <Type>Execute</Type>
+      <Source>36</Source>
+      <Destination>71</Destination>
     </Message>
     <Message>
       <InternalId>11</InternalId>
@@ -287,11 +287,27 @@
       <Destination>32</Destination>
     </Message>
     <Message>
+      <SimId>1036</SimId>
+      <InternalId>97</InternalId>
+      <Name>PocetMiestVRade</Name>
+      <Type>RequestResponse</Type>
+      <Source>9</Source>
+      <Destination>36</Destination>
+    </Message>
+    <Message>
       <SimId>1011</SimId>
       <InternalId>34</InternalId>
       <Name>NoticeZaciatokObsluhy</Name>
       <Type>Notice</Type>
       <Source>9</Source>
+      <Destination>25</Destination>
+    </Message>
+    <Message>
+      <SimId>1037</SimId>
+      <InternalId>98</InternalId>
+      <Name>NoticeKoniecObsluhy</Name>
+      <Type>Notice</Type>
+      <Source>32</Source>
       <Destination>25</Destination>
     </Message>
     <Message>
@@ -411,5 +427,5 @@
       <Destination>61</Destination>
     </Message>
   </Messages>
-  <IID>95</IID>
+  <IID>100</IID>
 </ABAsim>

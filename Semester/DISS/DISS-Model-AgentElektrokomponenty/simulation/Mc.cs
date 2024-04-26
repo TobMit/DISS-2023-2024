@@ -14,8 +14,9 @@ namespace simulation
 		public const int NoticeNovyOnline = 1033;
 		public const int VstupDoPredajne = 1010;
 		public const int NoticeZatvorenieAutomatu = 1035;
+		public const int PocetMiestVRade = 1036;
 		public const int NoticeZaciatokObsluhy = 1011;
-		public const int NoticeKoniecObsluhy = 1012;
+		public const int NoticeKoniecObsluhy = 1037;
 		public const int PridelenieZakaznikaOM = 1016;
 		public const int NoticeUvolnenieZakaznika = 1018;
 		public const int PridelenieZakaznikaPredajni = 1020;

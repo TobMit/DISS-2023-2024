@@ -88,6 +88,11 @@ namespace managers
 			}
 		}
 
+		//meta! sender="AgentObsluzneMiesto", id="97", type="Response"
+		public void ProcessPocetMiestVRade(MessageForm message)
+		{
+		}
+
 		//meta! userInfo="Generated code: do not modify", tag="begin"
 		public void Init()
 		{
@@ -97,16 +102,20 @@ namespace managers
 		{
 			switch (message.Code)
 			{
-			case Mc.NoticeKoniecObsluhy:
-				ProcessNoticeKoniecObsluhy(message);
-			break;
-
 			case Mc.PridelenieZakaznikaOM:
 				ProcessPridelenieZakaznikaOM(message);
 			break;
 
+			case Mc.NoticeKoniecObsluhy:
+				ProcessNoticeKoniecObsluhy(message);
+			break;
+
 			case Mc.NoticeUvolnenieZakaznika:
 				ProcessNoticeUvolnenieZakaznika(message);
+			break;
+
+			case Mc.PocetMiestVRade:
+				ProcessPocetMiestVRade(message);
 			break;
 
 			case Mc.NoticePrestavkaKoniec:

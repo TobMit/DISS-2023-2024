@@ -97,6 +97,11 @@ namespace managers
 			Constants.Log($"ManagerAutomatu {TimeSpan.FromSeconds(MySim.CurrentTime + Constants.START_DAY).ToString(@"hh\:mm\:ss")}: ProcessNoticeZatvorenieAutomatu", Constants.LogType.ManagerLog);
 		}
 
+		//meta! sender="ProcessObsluhaAutomatu", id="98", type="Notice"
+		public void ProcessNoticeKoniecObsluhy(MessageForm message)
+		{
+		}
+
 		//meta! userInfo="Generated code: do not modify", tag="begin"
 		public void Init()
 		{
@@ -125,6 +130,10 @@ namespace managers
 					ProcessFinishProcessObsluhaAutomatu(message);
 				break;
 				}
+			break;
+
+			case Mc.NoticeKoniecObsluhy:
+				ProcessNoticeKoniecObsluhy(message);
 			break;
 
 			case Mc.NoticeZatvorenieAutomatu:

@@ -27,6 +27,7 @@ namespace agents
 			new SchedulerPrestavkaOM(SimId.SchedulerPrestavkaOM, MySim, this);
 			new ProcessOM(SimId.ProcessOM, MySim, this);
 			new QueryPridelenieOM(SimId.QueryPridelenieOM, MySim, this);
+			AddOwnMessage(Mc.PocetMiestVRade);
 			AddOwnMessage(Mc.Init);
 			AddOwnMessage(Mc.PridelenieZakaznikaOM);
 			AddOwnMessage(Mc.NoticeUvolnenieOM);

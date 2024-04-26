@@ -63,6 +63,11 @@ namespace managers
 			}
 		}
 
+		//meta! sender="AgentPredajne", id="97", type="Request"
+		public void ProcessPocetMiestVRade(MessageForm message)
+		{
+		}
+
 		//meta! userInfo="Generated code: do not modify", tag="begin"
 		public void Init()
 		{
@@ -95,6 +100,10 @@ namespace managers
 
 			case Mc.NoticePrestavkaZaciatok:
 				ProcessNoticePrestavkaZaciatok(message);
+			break;
+
+			case Mc.PocetMiestVRade:
+				ProcessPocetMiestVRade(message);
 			break;
 
 			case Mc.Init:

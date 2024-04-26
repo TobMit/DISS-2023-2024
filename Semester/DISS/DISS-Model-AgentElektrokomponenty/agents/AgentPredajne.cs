@@ -24,6 +24,7 @@ namespace agents
 		private void Init()
 		{
 			new ManagerPredajne(SimId.ManagerPredajne, MySim, this);
+			AddOwnMessage(Mc.PocetMiestVRade);
 			AddOwnMessage(Mc.VstupDoPredajne);
 			AddOwnMessage(Mc.Init);
 			AddOwnMessage(Mc.NoticeUvolnenieZakaznika);
