@@ -40,6 +40,9 @@ namespace managers
 		{
 			var sprava = (MyMessage)message.CreateCopy();
 			Constants.Log($"ManagerPredajne: ProcessVstupDoPredajne zakaznik ID {sprava.Zakaznik.ID}", Constants.LogType.ManagerLog);
+			sprava.Addressee = MySim.FindAgent(SimId.AgentAutomatu);
+			sprava.Code = Mc.NoticeZaciatokObsluhy;
+			Notice(sprava);
 		}
 
 		//meta! sender="AgentPokladni", id="59", type="Notice"

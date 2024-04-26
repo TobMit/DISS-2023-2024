@@ -36,8 +36,12 @@ namespace simulation
         public DISS.Random.Discrete.Empiric RndTrvaniePladba;
         public Uniform RndTrvanieVyzdvyhnutieVelkehoTovaru;
 
+        // štatistiky
         public int CelkovyPocetZakaznikov { get; set; }
+        public Stat StatCasStravenyPredAutomatom;
+        public Stat StatPriemernyCasVObchode;
         
+        // Globálne štatistiky
         private Stat _globPriemernyCasVObchode;
         private Stat _globCasStravenyPredAutomatom;
         private Stat _globPriemernaDlzkaRadu;
@@ -90,8 +94,13 @@ namespace simulation
             RndTrvaniePladba = new(listPladba, ExtendedRandom<double>.NextSeed());
             RndTrvanieVyzdvyhnutieVelkehoTovaru = new(30.0, 70.0, ExtendedRandom<double>.NextSeed());
             
+            // štatistiky
+            StatCasStravenyPredAutomatom = new ();
+            StatPriemernyCasVObchode = new ();
+            
             // Create global statistcis
             _globPriemernyPocetZakaznikov = new();
+            _globCasStravenyPredAutomatom = new();
         }
 
         protected override void PrepareReplication()
@@ -101,6 +110,8 @@ namespace simulation
             Persons.Clear();
             
             CelkovyPocetZakaznikov = 0;
+            StatCasStravenyPredAutomatom.Clear();
+            StatPriemernyCasVObchode.Clear();
             
         }
 
@@ -108,6 +119,7 @@ namespace simulation
         {
             // Collect local statistics into global, update UI, etc...
             _globPriemernyPocetZakaznikov.AddSample(CelkovyPocetZakaznikov);
+            _globCasStravenyPredAutomatom.AddSample(StatCasStravenyPredAutomatom.Mean());
             base.ReplicationFinished();
         }
 
@@ -116,6 +128,7 @@ namespace simulation
             // Display simulation results
             base.SimulationFinished();
             Console.WriteLine($"Priemerný počet zákazníkov: {_globPriemernyPocetZakaznikov.Mean()}");
+            Console.WriteLine($"Priemerný čas strávený pred automatom: {_globCasStravenyPredAutomatom.Mean()}");
         }
 
 		//meta! userInfo="Generated code: do not modify", tag="begin"
