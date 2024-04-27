@@ -2,18 +2,39 @@ using OSPABA;
 using simulation;
 using agents;
 using continualAssistants;
+using DISS_Model_AgentElektrokomponenty.Entity;
 using instantAssistants;
 namespace managers
 {
 	//meta! id="36"
 	public class ManagerObsluzneMiesto : Manager
 	{
+		
+		public List<ObsluzneMiesto> ListObsluhaOnline { get; private set; }
+		public List<ObsluzneMiesto> ListObsluhaOstatne { get; private set; }
+		
 		public ManagerObsluzneMiesto(int id, Simulation mySim, Agent myAgent) :
 			base(id, mySim, myAgent)
 		{
 			Init();
+			ListObsluhaOnline = new();
+			ListObsluhaOstatne = new();
+			InitObsluzneMiesta();
 		}
 
+		public void InitObsluzneMiesta()
+		{
+			var core = (MySimulation)MySim;
+			for (int i = 0; i < ((MySimulation)MySim).PocetObsluhyOnline; i++)
+			{
+				ListObsluhaOnline.Add(new(null, i, core.ListStatVytazenieObsluhOnline[i], true));
+			}
+
+			for (int i = 0; i < ((MySimulation)MySim).PocetObsluhyOstatne; i++)
+			{
+				ListObsluhaOstatne.Add(new(null, i, core.ListStatVytazenieObsluhOstane[i]));
+			}
+		}
 		override public void PrepareReplication()
 		{
 			base.PrepareReplication();
@@ -23,6 +44,36 @@ namespace managers
 			{
 				PetriNet.Clear();
 			}
+
+			ListObsluhaOnline.ForEach(miesto => miesto.Clear());
+			ListObsluhaOstatne.ForEach(miesto => miesto.Clear());
+		}
+		
+		/// <summary>
+		/// Vráti voľne obslužné miesto pre online zákazníkov
+		/// </summary>
+		/// <returns>Ak je volne vráti obslužné miesto inak null</returns>
+		public ObsluzneMiesto? GetVolneOnline()
+		{
+			return ListObsluhaOnline.FirstOrDefault(miesto => !miesto.Obsadena);
+		}
+
+		/// <summary>
+		/// Vráti voľne obslužné miesto pre ostatných zákazníkov
+		/// </summary>
+		/// <returns>Ak je volne vráti obslužné miesto inak null</returns>
+		public ObsluzneMiesto? GetVolneOstatne()
+		{
+			return ListObsluhaOstatne.FirstOrDefault(miesto => !miesto.Obsadena);
+		}
+		
+		/// <summary>
+		/// Informácie na obrazovku
+		/// </summary>
+		/// <returns>Vráti informácie na obrazovku</returns>
+		public List<ObsluzneMiesto> GetInfoNaUI()
+		{
+			return ListObsluhaOnline.Concat(ListObsluhaOstatne).ToList();
 		}
 
 		//meta! sender="AgentPredajne", id="39", type="Notice"

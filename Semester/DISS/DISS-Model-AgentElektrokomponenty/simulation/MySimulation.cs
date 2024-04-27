@@ -1,4 +1,5 @@
 using System.Security.AccessControl;
+using System.Text;
 using OSPABA;
 using agents;
 using DISS_HelperClasses.Statistic;
@@ -15,8 +16,10 @@ namespace simulation
     {
         public bool BehZavislosti { get; set; }
 
-        private int _pocetObsluznychMiest;
-        private int _pocetPokladni;
+        public int PocetObsluznychMiest { private get; set; }
+        public int PocetObsluhyOnline { get => PocetObsluznychMiest / 3;  }
+        public int PocetObsluhyOstatne { get => PocetObsluznychMiest - PocetObsluhyOnline;  }
+        public int PocetPokladni { get; set; }
 
         public List<Person> Persons;
 
@@ -42,7 +45,9 @@ namespace simulation
         public Stat StatPriemernyCasVObchode;
         public WStat StatPriemernaDlzkaRaduPredAutomatom;
         public WStat StatVyuzitieAutomatu;
-        
+        public List<WStat> ListStatVytazenieObsluhOnline;
+        public List<WStat> ListStatVytazenieObsluhOstane;
+
         // Globálne štatistiky
         private Stat _globPriemernyCasVObchode;
         private Stat _globCasStravenyPredAutomatom;
@@ -69,7 +74,7 @@ namespace simulation
             base.PrepareSimulation();
             // Init Other
             Persons = new();
-            
+
             //RndPickPokladna = new(ExtendedRandom<double>.NextSeed(), _pocetPokladni);
             // (60*60) / 30 lebo je to 30 zákazníkov za hodinu ale systém beží v sekundách tak preto ten prepočet
             RndPrichodZakaznikaBasic = new(((60.0 * 60.0) / 15.0), ExtendedRandom<double>.NextSeed());
@@ -95,20 +100,38 @@ namespace simulation
             listPladba.Add(new(180, 360, 0.6, ExtendedRandom<double>.NextSeed()));
             RndTrvaniePladba = new(listPladba, ExtendedRandom<double>.NextSeed());
             RndTrvanieVyzdvyhnutieVelkehoTovaru = new(30.0, 70.0, ExtendedRandom<double>.NextSeed());
-            
+
             // štatistiky
-            StatCasStravenyPredAutomatom = new ();
-            StatPriemernyCasVObchode = new ();
+            StatCasStravenyPredAutomatom = new();
+            StatPriemernyCasVObchode = new();
             StatPriemernaDlzkaRaduPredAutomatom = new(this);
             StatVyuzitieAutomatu = new(this);
-            
-            
+            ListStatVytazenieObsluhOnline = new();
+            for (int i = 0; i < PocetObsluhyOnline; i++)
+            {
+	            ListStatVytazenieObsluhOnline.Add(new(this));
+            }
+            ListStatVytazenieObsluhOstane = new();
+            for (int i = 0; i < PocetObsluhyOstatne; i++)
+            {
+	            ListStatVytazenieObsluhOstane.Add(new(this));
+            }
+
             // Create global statistcis
             _globPriemernyPocetZakaznikov = new();
             _globCasStravenyPredAutomatom = new();
             _globPriemernaDlzkaRadu = new();
             _globPriemerneVytazenieAutomatu = new();
-            
+            _globPriemerneVytaznieObsluhyOnline = new();
+            for (int i = 0; i < PocetObsluhyOnline; i++)
+            {
+	            _globPriemerneVytaznieObsluhyOnline.Add(new());
+            }
+            _globPriemerneVytaznieObsluhyOstatne = new();
+            for (int i = 0; i < PocetObsluhyOstatne; i++)
+            {
+	            _globPriemerneVytaznieObsluhyOstatne.Add(new());
+            }
         }
 
         protected override void PrepareReplication()
@@ -116,12 +139,14 @@ namespace simulation
             base.PrepareReplication();
             // Reset entities, queues, local statistics, etc...
             Persons.Clear();
-            
+
             CelkovyPocetZakaznikov = 0;
             StatCasStravenyPredAutomatom.Clear();
             StatPriemernyCasVObchode.Clear();
             StatPriemernaDlzkaRaduPredAutomatom.Clear();
             StatVyuzitieAutomatu.Clear();
+            ListStatVytazenieObsluhOnline.ForEach(stat => stat.Clear());
+            ListStatVytazenieObsluhOstane.ForEach(stat => stat.Clear());
         }
 
         protected override void ReplicationFinished()
@@ -131,6 +156,14 @@ namespace simulation
             _globCasStravenyPredAutomatom.AddSample(StatCasStravenyPredAutomatom.Mean());
             _globPriemernaDlzkaRadu.AddSample(StatPriemernaDlzkaRaduPredAutomatom.Mean());
             _globPriemerneVytazenieAutomatu.AddSample(StatVyuzitieAutomatu.Mean());
+            for (int i = 0; i < PocetObsluhyOnline; i++)
+            {
+	            _globPriemerneVytaznieObsluhyOnline[i].AddSample(ListStatVytazenieObsluhOnline[i].Mean());
+            }
+            for (int i = 0; i < PocetObsluhyOstatne; i++)
+            {
+	            _globPriemerneVytaznieObsluhyOstatne[i].AddSample(ListStatVytazenieObsluhOstane[i].Mean());
+            }
             base.ReplicationFinished();
         }
 
@@ -140,9 +173,23 @@ namespace simulation
             base.SimulationFinished();
             Console.WriteLine($"Priemerný počet zákazníkov: {_globPriemernyPocetZakaznikov.Mean()}");
             Console.WriteLine(
-	            $"Čas strávený pred automatom: {Double.Round(_globCasStravenyPredAutomatom.Mean(), 4)}s / {TimeSpan.FromSeconds(_globCasStravenyPredAutomatom.Mean()).ToString(@"hh\:mm\:ss")}");
-            Console.WriteLine($"Priemerná dĺžka radu pred automatom: {Double.Round(_globPriemernaDlzkaRadu.Mean(), 4)}");
-            Console.WriteLine($"Priemerne vyťaženie automatu: {Double.Round(_globPriemerneVytazenieAutomatu.Mean(), 4)*100:0.00}%");
+                $"Čas strávený pred automatom: {Double.Round(_globCasStravenyPredAutomatom.Mean(), 4)}s / {TimeSpan.FromSeconds(_globCasStravenyPredAutomatom.Mean()).ToString(@"hh\:mm\:ss")}");
+            Console.WriteLine(
+                $"Priemerná dĺžka radu pred automatom: {Double.Round(_globPriemernaDlzkaRadu.Mean(), 4)}");
+            Console.WriteLine(
+                $"Priemerne vyťaženie automatu: {Double.Round(_globPriemerneVytazenieAutomatu.Mean(), 4) * 100:0.00}%");
+            StringBuilder sbPriemerneVytazenieObsluhyOnline = new();
+            foreach (var stat in _globPriemerneVytaznieObsluhyOnline)
+            {
+	            sbPriemerneVytazenieObsluhyOnline.Append($"[{Double.Round(stat.Mean(),4)*100:0.00}%],");
+            }
+            Console.WriteLine($"Priemerne vyťaženie obsluhy online: {sbPriemerneVytazenieObsluhyOnline.Remove(sbPriemerneVytazenieObsluhyOnline.Length - 1, 1)}");
+            StringBuilder sbPriemerneVytazenieObsluhyOstatne = new();
+            foreach (var stat in _globPriemerneVytaznieObsluhyOstatne)
+            {
+	            sbPriemerneVytazenieObsluhyOstatne.Append($"[{Double.Round(stat.Mean(),4)*100:0.00}%],");
+            }
+            Console.WriteLine($"Priemerne vyťaženie obsluhy ostatne: {sbPriemerneVytazenieObsluhyOstatne.Remove(sbPriemerneVytazenieObsluhyOstatne.Length - 1, 1)}");
 
         }
 
