@@ -98,7 +98,6 @@ namespace managers
 			}
 			else
 			{
-				//todo vyriešiť ak je počet ľudí viac ako 9 tak ide do rady
 				sprava.Addressee = MyAgent.FindAssistant(SimId.ProcessObsluhaAutomatu);
 				StartContinualAssistant(sprava);
 				Obsluhuje = true;

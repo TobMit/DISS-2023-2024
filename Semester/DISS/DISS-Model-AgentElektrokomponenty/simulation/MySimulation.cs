@@ -47,6 +47,9 @@ namespace simulation
         public WStat StatVyuzitieAutomatu;
         public List<WStat> ListStatVytazenieObsluhOnline;
         public List<WStat> ListStatVytazenieObsluhOstane;
+        public WStat StatPriemernaDlzkaRaduPredObsluhouBasic;
+        public WStat StatPriemernaDlzkaRaduPredObsluhouZmluvny;
+        public WStat StatPriemernaDlzkaRaduPredObsluhouOnline;
 
         // Globálne štatistiky
         private Stat _globPriemernyCasVObchode;
@@ -116,6 +119,9 @@ namespace simulation
             {
 	            ListStatVytazenieObsluhOstane.Add(new(this));
             }
+            StatPriemernaDlzkaRaduPredObsluhouBasic = new(this);
+            StatPriemernaDlzkaRaduPredObsluhouZmluvny = new(this);
+            StatPriemernaDlzkaRaduPredObsluhouOnline = new(this);
 
             // Create global statistcis
             _globPriemernyPocetZakaznikov = new();
@@ -132,6 +138,9 @@ namespace simulation
             {
 	            _globPriemerneVytaznieObsluhyOstatne.Add(new());
             }
+            _globPriemernaDlzkaRaduPredObsluhouBasic = new();
+            _globPriemernaDlzkaRaduPredObsluhouZmluvny = new();
+            _globPriemernaDlzkaRaduPredObsluhouOnline = new();
         }
 
         protected override void PrepareReplication()
@@ -147,6 +156,9 @@ namespace simulation
             StatVyuzitieAutomatu.Clear();
             ListStatVytazenieObsluhOnline.ForEach(stat => stat.Clear());
             ListStatVytazenieObsluhOstane.ForEach(stat => stat.Clear());
+            StatPriemernaDlzkaRaduPredObsluhouBasic.Clear();
+            StatPriemernaDlzkaRaduPredObsluhouZmluvny.Clear();
+            StatPriemernaDlzkaRaduPredObsluhouOnline.Clear();
         }
 
         protected override void ReplicationFinished()
@@ -164,6 +176,9 @@ namespace simulation
             {
 	            _globPriemerneVytaznieObsluhyOstatne[i].AddSample(ListStatVytazenieObsluhOstane[i].Mean());
             }
+            _globPriemernaDlzkaRaduPredObsluhouBasic.AddSample(StatPriemernaDlzkaRaduPredObsluhouBasic.Mean());
+            _globPriemernaDlzkaRaduPredObsluhouZmluvny.AddSample(StatPriemernaDlzkaRaduPredObsluhouZmluvny.Mean());
+            _globPriemernaDlzkaRaduPredObsluhouOnline.AddSample(StatPriemernaDlzkaRaduPredObsluhouOnline.Mean());
             base.ReplicationFinished();
         }
 
@@ -190,7 +205,7 @@ namespace simulation
 	            sbPriemerneVytazenieObsluhyOstatne.Append($"[{Double.Round(stat.Mean(),4)*100:0.00}%],");
             }
             Console.WriteLine($"Priemerne vyťaženie obsluhy ostatne: {sbPriemerneVytazenieObsluhyOstatne.Remove(sbPriemerneVytazenieObsluhyOstatne.Length - 1, 1)}");
-
+            Console.WriteLine($"Priemerná dĺžka radu pred obsluhou basic/zmluvný/online: {Double.Round(_globPriemernaDlzkaRaduPredObsluhouBasic.Mean(), 4)}/{Double.Round(_globPriemernaDlzkaRaduPredObsluhouZmluvny.Mean(), 4)}/{Double.Round(_globPriemernaDlzkaRaduPredObsluhouOnline.Mean(), 4)}");
         }
 
 		//meta! userInfo="Generated code: do not modify", tag="begin"
