@@ -24,6 +24,7 @@ namespace continualAssistants
 			Constants.Log($"ProcessObsluhaAutomatu {TimeSpan.FromSeconds(MySim.CurrentTime + Constants.START_DAY).ToString(@"hh\:mm\:ss")}: Zakaznik {sprava.Zakaznik.ID} ProcessStart", Constants.LogType.ContinualAssistantLog);
 			//sprava.Addressee = MySim.FindAgent(SimId.AgentPredajne);
 			sprava.Code = Mc.NoticeKoniecObsluhy;
+			sprava.Zakaznik.StavZakaznika = Constants.StavZakaznika.ObsluhujeAutomat;
 			Hold(((MySimulation)MySim).RndTrvanieAutomatu.Next(), sprava);
 		}
 

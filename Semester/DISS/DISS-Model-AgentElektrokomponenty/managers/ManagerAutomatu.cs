@@ -75,7 +75,9 @@ namespace managers
 			Constants.Log("ManagerAutomatu: ProcessNoticeZaciatokObsluhy", Constants.LogType.ManagerLog);
 			var sprava = (MyMessage)message.CreateCopy();
 			sprava.Zakaznik.ID = Id++;
-			sprava.Zakaznik.TimeOfArrival = MySim.CurrentTime; //todo add other paramters of person
+			sprava.Zakaznik.TimeOfArrival = MySim.CurrentTime; 
+			sprava.Zakaznik.SetTypNarocnostiTovaru(((MySimulation)MySim).RndTypNarocnostTovaru.Next());
+			sprava.Zakaznik.SetTypVelkostiNakladu(((MySimulation)MySim).RndTypVelkostiNakladu.Next());
 			if (Front.Count > 0)
 			{
 				Constants.Log($"ManagerAutomatu {TimeSpan.FromSeconds(MySim.CurrentTime + Constants.START_DAY).ToString(@"hh\:mm\:ss")}: Pridané do frontu", Constants.LogType.ManagerLog);
@@ -129,6 +131,7 @@ namespace managers
 		public void ProcessNoticeZatvorenieAutomatu(MessageForm message)
 		{
 			Constants.Log($"ManagerAutomatu {TimeSpan.FromSeconds(MySim.CurrentTime + Constants.START_DAY).ToString(@"hh\:mm\:ss")}: ProcessNoticeZatvorenieAutomatu", Constants.LogType.ManagerLog);
+			//todo add logic
 		}
 
 		//meta! sender="ProcessObsluhaAutomatu", id="98", type="Notice"
