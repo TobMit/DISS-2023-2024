@@ -222,45 +222,45 @@ namespace managers
 		{
 			switch (message.Code)
 			{
+			case Mc.NoticeUvolnenieOm:
+				ProcessNoticeUvolnenieOm(message);
+			break;
+
 			case Mc.Finish:
 				switch (message.Sender.Id)
 				{
-				case SimId.ProcessOMOnlinePripravaTovaru:
-					ProcessFinishProcessOMOnlinePripravaTovaru(message);
-				break;
-
 				case SimId.ProcessOMDiktovanie:
 					ProcessFinishProcessOMDiktovanie(message);
 				break;
 
-				case SimId.ProcessOMPripravaTovaru:
-					ProcessFinishProcessOMPripravaTovaru(message);
+				case SimId.ProcessOMOnlinePripravaTovaru:
+					ProcessFinishProcessOMOnlinePripravaTovaru(message);
 				break;
 
 				case SimId.SchedulerPrestavkaOM:
 					ProcessFinishSchedulerPrestavkaOM(message);
 				break;
+
+				case SimId.ProcessOMPripravaTovaru:
+					ProcessFinishProcessOMPripravaTovaru(message);
+				break;
 				}
-			break;
-
-			case Mc.PocetMiestVRade:
-				ProcessPocetMiestVRade(message);
-			break;
-
-			case Mc.NoticeUvolnenieOm:
-				ProcessNoticeUvolnenieOm(message);
 			break;
 
 			case Mc.Init:
 				ProcessInit(message);
 			break;
 
+			case Mc.NoticeZaciatokObsluhyOm:
+				ProcessNoticeZaciatokObsluhyOm(message);
+			break;
+
 			case Mc.NoticePrestavkaZaciatok:
 				ProcessNoticePrestavkaZaciatok(message);
 			break;
 
-			case Mc.NoticeZaciatokObsluhyOm:
-				ProcessNoticeZaciatokObsluhyOm(message);
+			case Mc.PocetMiestVRade:
+				ProcessPocetMiestVRade(message);
 			break;
 
 			default:

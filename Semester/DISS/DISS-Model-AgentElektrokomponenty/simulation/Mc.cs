@@ -19,9 +19,9 @@ namespace simulation
 		public const int NoticeKoniecObsluhy = 1037;
 		public const int NoticeZaciatokObsluhyOm = 1038;
 		public const int NoticeKoniecObsluhyOm = 1039;
-		public const int PridelenieZakaznikaPredajni = 1020;
-		public const int NoticeUvolneniePredajni = 1021;
 		public const int NoticeUvolnenieOm = 1022;
+		public const int NoticeZaciatokPokladne = 1040;
+		public const int NoticeKoniecPokladne = 1041;
 		//meta! tag="end"
 
 		// 1..1000 range reserved for user

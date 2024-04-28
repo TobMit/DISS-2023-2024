@@ -30,7 +30,7 @@ namespace managers
 		{
 		}
 
-		//meta! sender="AgentPredajne", id="47", type="Request"
+		//meta! userInfo="Removed from model"
 		public void ProcessPridelenieZakaznikaPredajni(MessageForm message)
 		{
 		}
@@ -58,6 +58,11 @@ namespace managers
 			}
 		}
 
+		//meta! sender="AgentPredajne", id="114", type="Notice"
+		public void ProcessNoticeZaciatokPokladne(MessageForm message)
+		{
+		}
+
 		//meta! userInfo="Generated code: do not modify", tag="begin"
 		public void Init()
 		{
@@ -67,16 +72,12 @@ namespace managers
 		{
 			switch (message.Code)
 			{
-			case Mc.NoticePrestavkaZaciatok:
-				ProcessNoticePrestavkaZaciatok(message);
-			break;
-
-			case Mc.PridelenieZakaznikaPredajni:
-				ProcessPridelenieZakaznikaPredajni(message);
-			break;
-
 			case Mc.Init:
 				ProcessInit(message);
+			break;
+
+			case Mc.NoticePrestavkaZaciatok:
+				ProcessNoticePrestavkaZaciatok(message);
 			break;
 
 			case Mc.Finish:
@@ -90,6 +91,10 @@ namespace managers
 					ProcessFinishSchedulerPrestavkaPokladne(message);
 				break;
 				}
+			break;
+
+			case Mc.NoticeZaciatokPokladne:
+				ProcessNoticeZaciatokPokladne(message);
 			break;
 
 			default:

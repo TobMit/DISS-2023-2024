@@ -30,8 +30,7 @@ namespace agents
 			AddOwnMessage(Mc.NoticePrestavkaKoniec);
 			AddOwnMessage(Mc.NoticeKoniecObsluhyOm);
 			AddOwnMessage(Mc.NoticeKoniecObsluhy);
-			AddOwnMessage(Mc.NoticeUvolneniePredajni);
-			AddOwnMessage(Mc.PridelenieZakaznikaPredajni);
+			AddOwnMessage(Mc.NoticeKoniecPokladne);
 		}
 		//meta! tag="end"
 	}

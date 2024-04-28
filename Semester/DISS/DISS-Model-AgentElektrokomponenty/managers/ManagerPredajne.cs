@@ -55,7 +55,7 @@ namespace managers
 		{
 		}
 
-		//meta! sender="AgentPokladni", id="48", type="Notice"
+		//meta! userInfo="Removed from model"
 		public void ProcessNoticeUvolneniePredajni(MessageForm message)
 		{
 		}
@@ -71,7 +71,7 @@ namespace managers
 		}
 
 
-		//meta! sender="AgentPokladni", id="47", type="Response"
+		//meta! userInfo="Removed from model"
 		public void ProcessPridelenieZakaznikaPredajni(MessageForm message)
 		{
 		}
@@ -96,6 +96,11 @@ namespace managers
 
 		//meta! sender="AgentObsluzneMiesto", id="104", type="Notice"
 		public void ProcessNoticeKoniecObsluhyOm(MessageForm message)
+		{
+		}
+
+		//meta! sender="AgentPokladni", id="115", type="Notice"
+		public void ProcessNoticeKoniecPokladne(MessageForm message)
 		{
 		}
 
@@ -129,24 +134,20 @@ namespace managers
 				ProcessNoticeKoniecObsluhy(message);
 			break;
 
-			case Mc.PocetMiestVRade:
-				ProcessPocetMiestVRade(message);
-			break;
-
 			case Mc.NoticeKoniecObsluhyOm:
 				ProcessNoticeKoniecObsluhyOm(message);
 			break;
 
-			case Mc.NoticeUvolneniePredajni:
-				ProcessNoticeUvolneniePredajni(message);
-			break;
-
-			case Mc.PridelenieZakaznikaPredajni:
-				ProcessPridelenieZakaznikaPredajni(message);
+			case Mc.PocetMiestVRade:
+				ProcessPocetMiestVRade(message);
 			break;
 
 			case Mc.Init:
 				ProcessInit(message);
+			break;
+
+			case Mc.NoticeKoniecPokladne:
+				ProcessNoticeKoniecPokladne(message);
 			break;
 
 			default:
