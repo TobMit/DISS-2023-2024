@@ -55,24 +55,6 @@ namespace managers
         }
 
         /// <summary>
-        /// Vráti voľne obslužné miesto pre online zákazníkov
-        /// </summary>
-        /// <returns>Ak je volne vráti obslužné miesto inak null</returns>
-        public ObsluzneMiesto? GetVolneOnline()
-        {
-            return ListObsluhaOnline.FirstOrDefault(miesto => !miesto.Obsadena);
-        }
-
-        /// <summary>
-        /// Vráti voľne obslužné miesto pre ostatných zákazníkov
-        /// </summary>
-        /// <returns>Ak je volne vráti obslužné miesto inak null</returns>
-        public ObsluzneMiesto? GetVolneOstatne()
-        {
-            return ListObsluhaOstatne.FirstOrDefault(miesto => !miesto.Obsadena);
-        }
-
-        /// <summary>
         /// Informácie na obrazovku
         /// </summary>
         /// <returns>Vráti informácie na obrazovku</returns>
@@ -84,6 +66,7 @@ namespace managers
 		//meta! sender="AgentPredajne", id="39", type="Notice"
 		public void ProcessInit(MessageForm message)
         {
+	        //todo ak sa bude tu štartovať pristávka tak sa musí sem pridať
         }
 		
 
@@ -95,6 +78,10 @@ namespace managers
 		//meta! sender="ProcessOMDiktovanie", id="62", type="Finish"
 		public void ProcessFinishProcessOMDiktovanie(MessageForm message)
         {
+	        var sprava = (MyMessage)message.CreateCopy();
+	        Constants.Log($"ManagerObsluzneMiesto: ProcessFinishProcessOMDiktovanie Zakaznik ID {sprava.Zakaznik.ID}", Constants.LogType.ManagerLog);
+	        sprava.Addressee = MyAgent.FindAssistant(SimId.ProcessOMPripravaTovaru);
+	        StartContinualAssistant(sprava);
         }
 
 		//meta! sender="AgentPredajne", id="49", type="Notice"
@@ -120,23 +107,53 @@ namespace managers
         {
             Constants.Log("ManagerObsluzneMiesto: ProcessPocetMiestVRade", Constants.LogType.ManagerLog);
             var sprava = (MyMessage)message;
-            sprava.PocetLudiVOM = 0; //todo actual logic
+            sprava.PocetLudiVOM = _radaPredObsluznymMiestom.Count;
             Response(sprava);
         }
 
 		//meta! sender="AgentPredajne", id="103", type="Notice"
 		public void ProcessNoticeZaciatokObsluhyOm(MessageForm message)
 		{
+			var sprava = (MyMessage)message.CreateCopy();
+			Constants.Log($"ManagerObsluzneMiesto: Zakaznik ID {sprava.Zakaznik.ID} ProcessNoticeZaciatokObsluhyOm", Constants.LogType.ManagerLog);
+			if (_radaPredObsluznymMiestom.Count >= 1)
+			{
+				_radaPredObsluznymMiestom.Enqueue(sprava);
+			}
+			sprava.Addressee = MyAgent.FindAssistant(SimId.ActionPridelenieOm);
+			Execute(sprava);
+			if (sprava.ObsluzneMiesto is not null)
+			{
+				if (sprava.Zakaznik.TypZakaznika == Constants.TypZakaznika.Online)
+				{
+					sprava.Addressee = MyAgent.FindAssistant(SimId.ProcessOMOnlinePripravaTovaru);
+				}
+				else
+				{
+					sprava.Addressee = MyAgent.FindAssistant(SimId.ProcessOMDiktovanie);
+				}
+				StartContinualAssistant(sprava);
+			}
+			else
+			{
+				_radaPredObsluznymMiestom.Enqueue(sprava);
+			}
 		}
 
 		//meta! sender="ProcessOMOnlinePripravaTovaru", id="109", type="Finish"
 		public void ProcessFinishProcessOMOnlinePripravaTovaru(MessageForm message)
 		{
+			var sprava = (MyMessage)message.CreateCopy();
+			Constants.Log($"ManagerObsluzneMiesto: ProcessFinishProcessOMOnlinePripravaTovaru Zakaznik ID {sprava.Zakaznik.ID}", Constants.LogType.ManagerLog);
+			//todo finish logic (repeat process and push zakaznik out to the pokladne
 		}
 
 		//meta! sender="ProcessOMPripravaTovaru", id="107", type="Finish"
 		public void ProcessFinishProcessOMPripravaTovaru(MessageForm message)
 		{
+			var sprava = (MyMessage)message.CreateCopy();
+			Constants.Log($"ManagerObsluzneMiesto: Zakaznik ID {sprava.Zakaznik.ID} ProcessFinishProcessOMPripravaTovaru", Constants.LogType.ManagerLog);
+			//todo finish logic (repeat process and push zakaznik out to the pokladne
 		}
 
 		//meta! userInfo="Generated code: do not modify", tag="begin"

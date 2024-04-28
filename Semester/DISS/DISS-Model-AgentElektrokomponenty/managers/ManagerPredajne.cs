@@ -65,7 +65,8 @@ namespace managers
 		{
 			var sprava = (MyMessage)message.CreateCopy();
 			Constants.Log($"ManagerPredajne: Zakaznik: {sprava.Zakaznik.ID} ProcessNoticeKoniecObsluhy", Constants.LogType.ManagerLog);
-			sprava.Code = Mc.NoticeZaciatokObsluhyOM;
+			sprava.Addressee = MySim.FindAgent(SimId.AgentObsluzneMiesto);
+			sprava.Code = Mc.NoticeZaciatokObsluhyOm;
 			Notice(sprava);
 		}
 

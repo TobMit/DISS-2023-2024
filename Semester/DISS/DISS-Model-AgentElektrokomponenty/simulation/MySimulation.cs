@@ -67,8 +67,20 @@ namespace simulation
         private List<Stat> _globPriemerneVytaznieObsluhyOnline;
         private List<Stat> _globPriemerneVytaznieObsluhyOstatne;
 
-        public MySimulation()
+        public MySimulation(int pocetObsluznychMiest, int pocetPokladni)
         {
+	        PocetObsluznychMiest = pocetObsluznychMiest;
+	        PocetPokladni = pocetPokladni;
+	        ListStatVytazenieObsluhOnline = new();
+	        for (int i = 0; i < PocetObsluhyOnline; i++)
+	        {
+		        ListStatVytazenieObsluhOnline.Add(new(this));
+	        }
+	        ListStatVytazenieObsluhOstane = new();
+	        for (int i = 0; i < PocetObsluhyOstatne; i++)
+	        {
+		        ListStatVytazenieObsluhOstane.Add(new(this));
+	        }
             Init();
         }
 
@@ -109,16 +121,6 @@ namespace simulation
             StatPriemernyCasVObchode = new();
             StatPriemernaDlzkaRaduPredAutomatom = new(this);
             StatVyuzitieAutomatu = new(this);
-            ListStatVytazenieObsluhOnline = new();
-            for (int i = 0; i < PocetObsluhyOnline; i++)
-            {
-	            ListStatVytazenieObsluhOnline.Add(new(this));
-            }
-            ListStatVytazenieObsluhOstane = new();
-            for (int i = 0; i < PocetObsluhyOstatne; i++)
-            {
-	            ListStatVytazenieObsluhOstane.Add(new(this));
-            }
             StatPriemernaDlzkaRaduPredObsluhouBasic = new(this);
             StatPriemernaDlzkaRaduPredObsluhouZmluvny = new(this);
             StatPriemernaDlzkaRaduPredObsluhouOnline = new(this);

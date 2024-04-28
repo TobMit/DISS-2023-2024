@@ -20,6 +20,11 @@ namespace continualAssistants
 		//meta! sender="AgentObsluzneMiesto", id="62", type="Start"
 		public void ProcessStart(MessageForm message)
 		{
+			var sprava = (MyMessage)message.CreateCopy();
+			Constants.Log($"ProcessOMDiktovanie ({TimeSpan.FromSeconds(MySim.CurrentTime + Constants.START_DAY).ToString(@"hh\:mm\:ss")}): Zakaznik {sprava.Zakaznik.ID} ProcessStart", Constants.LogType.ContinualAssistantLog);
+			sprava.Code = Mc.Finish;
+			sprava.ObsluzneMiesto.Obsluz(sprava.Zakaznik);
+			Hold(((MySimulation)MySim).RndTrvanieDiktovania.Next(), sprava);
 		}
 
 		//meta! userInfo="Process messages defined in code", id="0"
@@ -27,6 +32,12 @@ namespace continualAssistants
 		{
 			switch (message.Code)
 			{
+				case Mc.Finish:
+					var sprava = (MyMessage)message;
+					Constants.Log($"ProcessOMDiktovanie {TimeSpan.FromSeconds(MySim.CurrentTime + Constants.START_DAY).ToString(@"hh\:mm\:ss")}: Zakaznik {sprava.Zakaznik.ID} KoniecObsluhy", Constants.LogType.ContinualAssistantLog);
+					message.Addressee = MyAgent;
+					AssistantFinished(message);
+					break;
 			}
 		}
 
