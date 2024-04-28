@@ -45,7 +45,7 @@ namespace continualAssistants
 			switch (message.Code)
 			{
 				case Mc.Finish:
-					var sprava = (MyMessage)message;
+					var sprava = (MyMessage)message.CreateCopy();
 					Constants.Log($"ProcessOMPripravaTovaru {TimeSpan.FromSeconds(MySim.CurrentTime + Constants.START_DAY).ToString(@"hh\:mm\:ss")}: Zakaznik {sprava.Zakaznik.ID} KoniecObsluhy", Constants.LogType.ContinualAssistantLog);
 					message.Addressee = MyAgent;
 					AssistantFinished(message);

@@ -53,6 +53,24 @@ namespace managers
             ListObsluhaOnline.ForEach(miesto => miesto.Clear());
             ListObsluhaOstatne.ForEach(miesto => miesto.Clear());
         }
+        
+        /// <summary>
+        /// Vráti voľne obslužné miesto pre online zákazníkov
+        /// </summary>
+        /// <returns>Ak je volne vráti obslužné miesto inak null</returns>
+        public ObsluzneMiesto? GetVolneOnline()
+        {
+	        return ListObsluhaOnline.FirstOrDefault(miesto => !miesto.Obsadena);
+        }
+
+        /// <summary>
+        /// Vráti voľne obslužné miesto pre ostatných zákazníkov
+        /// </summary>
+        /// <returns>Ak je volne vráti obslužné miesto inak null</returns>
+        public ObsluzneMiesto? GetVolneOstatne()
+        {
+	        return ListObsluhaOstatne.FirstOrDefault(miesto => !miesto.Obsadena);
+        }
 
         /// <summary>
         /// Informácie na obrazovku
@@ -132,6 +150,7 @@ namespace managers
 				{
 					sprava.Addressee = MyAgent.FindAssistant(SimId.ProcessOMDiktovanie);
 				}
+				sprava.ObsluzneMiesto.Obsluz(sprava.Zakaznik);
 				StartContinualAssistant(sprava);
 			}
 			else
@@ -145,7 +164,7 @@ namespace managers
 		{
 			var sprava = (MyMessage)message.CreateCopy();
 			Constants.Log($"ManagerObsluzneMiesto: ProcessFinishProcessOMOnlinePripravaTovaru Zakaznik ID {sprava.Zakaznik.ID}", Constants.LogType.ManagerLog);
-			//todo finish logic (repeat process and push zakaznik out to the pokladne
+			KoniecObsluhy(sprava);
 		}
 
 		//meta! sender="ProcessOMPripravaTovaru", id="107", type="Finish"
@@ -153,7 +172,45 @@ namespace managers
 		{
 			var sprava = (MyMessage)message.CreateCopy();
 			Constants.Log($"ManagerObsluzneMiesto: Zakaznik ID {sprava.Zakaznik.ID} ProcessFinishProcessOMPripravaTovaru", Constants.LogType.ManagerLog);
-			//todo finish logic (repeat process and push zakaznik out to the pokladne
+			KoniecObsluhy(sprava);
+		}
+
+		public void KoniecObsluhy(MyMessage sprava)
+		{
+			if (sprava.Zakaznik.TypVelkostiNakladu == Constants.TypVelkostiNakladu.Normálna)
+			{
+				sprava.ObsluzneMiesto.Uvolni();
+				ObsluzneMiesto? tmpObsluzneMiesto = GetVolneOnline();
+				while (_radaPredObsluznymMiestom.CountOnline >= 1 && tmpObsluzneMiesto is not null)
+				{
+					var spraveNew = (MyMessage)_radaPredObsluznymMiestom.Dequeue(true).CreateCopy();
+					spraveNew.ObsluzneMiesto = tmpObsluzneMiesto;
+					spraveNew.Addressee = MyAgent.FindAssistant(SimId.ProcessOMOnlinePripravaTovaru);
+					tmpObsluzneMiesto.Obsluz(spraveNew.Zakaznik);
+					StartContinualAssistant(spraveNew);
+					tmpObsluzneMiesto = GetVolneOnline();
+				}
+				// to iste aj pre ostatné
+				tmpObsluzneMiesto = GetVolneOstatne();
+				while (_radaPredObsluznymMiestom.CountOstatne >= 1 && tmpObsluzneMiesto is not null)
+				{
+					var spraveNew = (MyMessage)_radaPredObsluznymMiestom.Dequeue().CreateCopy();
+					spraveNew.ObsluzneMiesto = tmpObsluzneMiesto;
+					spraveNew.Addressee = MyAgent.FindAssistant(SimId.ProcessOMDiktovanie);
+					tmpObsluzneMiesto.Obsluz(spraveNew.Zakaznik);
+					StartContinualAssistant(spraveNew);
+					tmpObsluzneMiesto = GetVolneOstatne();
+				}
+			}
+			else
+			{
+				sprava.ObsluzneMiesto.UvolniPredavaca();
+				sprava.Zakaznik.ObsluzneMiesto = sprava.ObsluzneMiesto;
+			}
+
+			sprava.Addressee = MySim.FindAgent(SimId.AgentPredajne);
+			sprava.Code = Mc.NoticeKoniecObsluhyOm;
+			Notice(sprava);
 		}
 
 		//meta! userInfo="Generated code: do not modify", tag="begin"

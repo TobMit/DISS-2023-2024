@@ -81,6 +81,9 @@ namespace simulation
 	        {
 		        ListStatVytazenieObsluhOstane.Add(new(this));
 	        }
+	        StatPriemernaDlzkaRaduPredObsluhouBasic = new(this);
+	        StatPriemernaDlzkaRaduPredObsluhouZmluvny = new(this);
+	        StatPriemernaDlzkaRaduPredObsluhouOnline = new(this);
             Init();
         }
 
@@ -121,9 +124,6 @@ namespace simulation
             StatPriemernyCasVObchode = new();
             StatPriemernaDlzkaRaduPredAutomatom = new(this);
             StatVyuzitieAutomatu = new(this);
-            StatPriemernaDlzkaRaduPredObsluhouBasic = new(this);
-            StatPriemernaDlzkaRaduPredObsluhouZmluvny = new(this);
-            StatPriemernaDlzkaRaduPredObsluhouOnline = new(this);
 
             // Create global statistcis
             _globPriemernyPocetZakaznikov = new();

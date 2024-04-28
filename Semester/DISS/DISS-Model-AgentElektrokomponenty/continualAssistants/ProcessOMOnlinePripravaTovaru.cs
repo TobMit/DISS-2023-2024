@@ -23,7 +23,7 @@ namespace continualAssistants
 			var sprava = (MyMessage)message.CreateCopy();
 			Constants.Log($"ProcessOMOnlinePripravaTovaru ({TimeSpan.FromSeconds(MySim.CurrentTime + Constants.START_DAY).ToString(@"hh\:mm\:ss")}): Zakaznik {sprava.Zakaznik.ID} ProcessStart", Constants.LogType.ContinualAssistantLog);
 			sprava.Code = Mc.Finish;
-			sprava.ObsluzneMiesto.Obsluz(sprava.Zakaznik);
+			//sprava.ObsluzneMiesto.Obsluz(sprava.Zakaznik);
 			Hold(((MySimulation)MySim).RndTrvanieDiktovania.Next(), sprava);
 		}
 
@@ -33,7 +33,7 @@ namespace continualAssistants
 			switch (message.Code)
 			{
 				case Mc.Finish:
-					var sprava = (MyMessage)message;
+					var sprava = (MyMessage)message.CreateCopy();
 					Constants.Log($"ProcessOMOninePripravaTovaru {TimeSpan.FromSeconds(MySim.CurrentTime + Constants.START_DAY).ToString(@"hh\:mm\:ss")}: Zakaznik {sprava.Zakaznik.ID} KoniecObsluhy", Constants.LogType.ContinualAssistantLog);
 					message.Addressee = MyAgent;
 					AssistantFinished(message);

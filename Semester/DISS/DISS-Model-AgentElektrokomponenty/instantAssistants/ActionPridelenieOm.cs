@@ -21,7 +21,6 @@ namespace instantAssistants
 		/// <returns>Ak je volne vráti obslužné miesto inak null</returns>
 		public ObsluzneMiesto? GetVolneOnline()
 		{
-			var tmp = ((ManagerObsluzneMiesto)MyAgent.MyManager).ListObsluhaOnline;
 			return ((ManagerObsluzneMiesto)MyAgent.MyManager).ListObsluhaOnline.FirstOrDefault(miesto => !miesto.Obsadena);
 		}
 
