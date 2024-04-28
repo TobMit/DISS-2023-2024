@@ -64,9 +64,13 @@ namespace managers
 			//todo add logics + statistics
 			while (!Front.IsEmpty())
 			{
-				var sprava = Front.Dequeue();
-				sprava.Zakaznik.StavZakaznika = Constants.StavZakaznika.OdišielZPredajne;
+				var spravaNew = Front.Dequeue();
+				spravaNew.Zakaznik.StavZakaznika = Constants.StavZakaznika.OdišielZPredajne;
 			}
+			
+			var sprava = (MyMessage)message.CreateCopy();
+			sprava.Code = Mc.NoticeKoniecObsluhy;
+			sprava.Addressee = MySim.FindAgent(SimId.AgentPredajne);
 		}
 
 		//meta! sender="AgentPredajne", id="34", type="Notice"

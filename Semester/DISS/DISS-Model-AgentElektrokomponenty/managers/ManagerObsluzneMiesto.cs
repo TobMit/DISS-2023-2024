@@ -85,11 +85,7 @@ namespace managers
 		public void ProcessInit(MessageForm message)
         {
         }
-
-		//meta! userInfo="Removed from model"
-        public void ProcessPridelenieZakaznikaOM(MessageForm message)
-        {
-        }
+		
 
 		//meta! sender="SchedulerPrestavkaOM", id="64", type="Finish"
 		public void ProcessFinishSchedulerPrestavkaOM(MessageForm message)

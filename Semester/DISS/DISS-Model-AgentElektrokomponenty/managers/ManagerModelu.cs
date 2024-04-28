@@ -25,11 +25,6 @@ namespace managers
 			}
 		}
 
-		//meta! userInfo="Removed from model"
-		public void ProcessVstupDoPredajne(MessageForm message)
-		{
-		}
-
 		//meta! sender="AgentOkolia", id="18", type="Notice"
 		public void ProcessNoticePrichodZakaznika(MessageForm message)
 		{

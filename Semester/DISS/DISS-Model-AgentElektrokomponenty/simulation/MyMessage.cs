@@ -8,6 +8,8 @@ namespace simulation
     {
         public Person Zakaznik { get; set; }
 
+        public ObsluzneMiesto? ObsluzneMiesto { get; set; }
+
         public int PocetLudiVOM { get; set; }
         /// <summary>
         /// Jednoduchá správa
@@ -45,7 +47,8 @@ namespace simulation
             MyMessage original = (MyMessage)message;
             // Copy attributes
             Zakaznik = original.Zakaznik;
-            PocetLudiVOM = original.PocetLudiVOM;   
+            PocetLudiVOM = original.PocetLudiVOM;
+            ObsluzneMiesto = original.ObsluzneMiesto;
         }
     }
 }

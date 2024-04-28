@@ -55,11 +55,6 @@ namespace managers
 		{
 		}
 
-		//meta! userInfo="Removed from model"
-		public void ProcessNoticeUvolnenieZakaznika(MessageForm message)
-		{
-		}
-
 		//meta! sender="AgentPokladni", id="48", type="Notice"
 		public void ProcessNoticeUvolneniePredajni(MessageForm message)
 		{
@@ -70,12 +65,10 @@ namespace managers
 		{
 			var sprava = (MyMessage)message.CreateCopy();
 			Constants.Log($"ManagerPredajne: Zakaznik: {sprava.Zakaznik.ID} ProcessNoticeKoniecObsluhy", Constants.LogType.ManagerLog);
+			sprava.Code = Mc.NoticeZaciatokObsluhyOM;
+			Notice(sprava);
 		}
 
-		//meta! userInfo="Removed from model"
-		public void ProcessPridelenieZakaznikaOM(MessageForm message)
-		{
-		}
 
 		//meta! sender="AgentPokladni", id="47", type="Response"
 		public void ProcessPridelenieZakaznikaPredajni(MessageForm message)

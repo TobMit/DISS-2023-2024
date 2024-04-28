@@ -1,6 +1,8 @@
 using OSPABA;
 using simulation;
 using agents;
+using Action = OSPABA.Action;
+
 namespace instantAssistants
 {
 	//meta! id="110"
