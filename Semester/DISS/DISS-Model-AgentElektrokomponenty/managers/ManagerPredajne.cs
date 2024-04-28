@@ -55,7 +55,7 @@ namespace managers
 		{
 		}
 
-		//meta! sender="AgentObsluzneMiesto", id="43", type="Notice"
+		//meta! userInfo="Removed from model"
 		public void ProcessNoticeUvolnenieZakaznika(MessageForm message)
 		{
 		}
@@ -72,7 +72,7 @@ namespace managers
 			Constants.Log($"ManagerPredajne: Zakaznik: {sprava.Zakaznik.ID} ProcessNoticeKoniecObsluhy", Constants.LogType.ManagerLog);
 		}
 
-		//meta! sender="AgentObsluzneMiesto", id="41", type="Response"
+		//meta! userInfo="Removed from model"
 		public void ProcessPridelenieZakaznikaOM(MessageForm message)
 		{
 		}
@@ -100,6 +100,11 @@ namespace managers
 			Notice(sprava);
 		}
 
+		//meta! sender="AgentObsluzneMiesto", id="104", type="Notice"
+		public void ProcessNoticeKoniecObsluhyOM(MessageForm message)
+		{
+		}
+
 		//meta! userInfo="Generated code: do not modify", tag="begin"
 		public void Init()
 		{
@@ -109,20 +114,8 @@ namespace managers
 		{
 			switch (message.Code)
 			{
-			case Mc.PridelenieZakaznikaOM:
-				ProcessPridelenieZakaznikaOM(message);
-			break;
-
-			case Mc.NoticeKoniecObsluhy:
-				ProcessNoticeKoniecObsluhy(message);
-			break;
-
-			case Mc.NoticeUvolnenieZakaznika:
-				ProcessNoticeUvolnenieZakaznika(message);
-			break;
-
-			case Mc.PocetMiestVRade:
-				ProcessPocetMiestVRade(message);
+			case Mc.VstupDoPredajne:
+				ProcessVstupDoPredajne(message);
 			break;
 
 			case Mc.NoticePrestavkaKoniec:
@@ -138,16 +131,24 @@ namespace managers
 				}
 			break;
 
+			case Mc.NoticeKoniecObsluhy:
+				ProcessNoticeKoniecObsluhy(message);
+			break;
+
+			case Mc.PocetMiestVRade:
+				ProcessPocetMiestVRade(message);
+			break;
+
+			case Mc.NoticeKoniecObsluhyOM:
+				ProcessNoticeKoniecObsluhyOM(message);
+			break;
+
 			case Mc.NoticeUvolneniePredajni:
 				ProcessNoticeUvolneniePredajni(message);
 			break;
 
 			case Mc.PridelenieZakaznikaPredajni:
 				ProcessPridelenieZakaznikaPredajni(message);
-			break;
-
-			case Mc.VstupDoPredajne:
-				ProcessVstupDoPredajne(message);
 			break;
 
 			case Mc.Init:

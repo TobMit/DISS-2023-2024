@@ -27,11 +27,10 @@ namespace agents
 			AddOwnMessage(Mc.PocetMiestVRade);
 			AddOwnMessage(Mc.VstupDoPredajne);
 			AddOwnMessage(Mc.Init);
-			AddOwnMessage(Mc.NoticeUvolnenieZakaznika);
 			AddOwnMessage(Mc.NoticePrestavkaKoniec);
+			AddOwnMessage(Mc.NoticeKoniecObsluhyOM);
 			AddOwnMessage(Mc.NoticeKoniecObsluhy);
 			AddOwnMessage(Mc.NoticeUvolneniePredajni);
-			AddOwnMessage(Mc.PridelenieZakaznikaOM);
 			AddOwnMessage(Mc.PridelenieZakaznikaPredajni);
 		}
 		//meta! tag="end"

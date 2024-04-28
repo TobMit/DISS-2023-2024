@@ -3,10 +3,10 @@ using simulation;
 using agents;
 namespace continualAssistants
 {
-	//meta! id="61"
-	public class ProcessOM : Process
+	//meta! id="106"
+	public class ProcessOMPripravaTovaru : Process
 	{
-		public ProcessOM(int id, Simulation mySim, CommonAgent myAgent) :
+		public ProcessOMPripravaTovaru(int id, Simulation mySim, CommonAgent myAgent) :
 			base(id, mySim, myAgent)
 		{
 		}
@@ -17,7 +17,7 @@ namespace continualAssistants
 			// Setup component for the next replication
 		}
 
-		//meta! sender="AgentObsluzneMiesto", id="62", type="Start"
+		//meta! sender="AgentObsluzneMiesto", id="107", type="Start"
 		public void ProcessStart(MessageForm message)
 		{
 		}

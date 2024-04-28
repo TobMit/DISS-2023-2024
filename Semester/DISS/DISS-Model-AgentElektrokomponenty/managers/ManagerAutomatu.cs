@@ -151,8 +151,12 @@ namespace managers
 				ProcessInit(message);
 			break;
 
-			case Mc.NoticeZaciatokObsluhy:
-				ProcessNoticeZaciatokObsluhy(message);
+			case Mc.NoticeKoniecObsluhy:
+				ProcessNoticeKoniecObsluhy(message);
+			break;
+
+			case Mc.NoticeZatvorenieAutomatu:
+				ProcessNoticeZatvorenieAutomatu(message);
 			break;
 
 			case Mc.Finish:
@@ -168,12 +172,8 @@ namespace managers
 				}
 			break;
 
-			case Mc.NoticeKoniecObsluhy:
-				ProcessNoticeKoniecObsluhy(message);
-			break;
-
-			case Mc.NoticeZatvorenieAutomatu:
-				ProcessNoticeZatvorenieAutomatu(message);
+			case Mc.NoticeZaciatokObsluhy:
+				ProcessNoticeZaciatokObsluhy(message);
 			break;
 
 			default:

@@ -123,25 +123,25 @@ namespace managers
 				ProcessNoticeOdchodZakaznika(message);
 			break;
 
-			case Mc.Init:
-				ProcessInit(message);
-			break;
-
 			case Mc.Finish:
 				switch (message.Sender.Id)
 				{
-				case SimId.PlanovacPrichodovOnline:
-					ProcessFinishPlanovacPrichodovOnline(message);
+				case SimId.PlanovacPrichodovBasic:
+					ProcessFinishPlanovacPrichodovBasic(message);
 				break;
 
 				case SimId.PlanovacPrichodovZmluvny:
 					ProcessFinishPlanovacPrichodovZmluvny(message);
 				break;
 
-				case SimId.PlanovacPrichodovBasic:
-					ProcessFinishPlanovacPrichodovBasic(message);
+				case SimId.PlanovacPrichodovOnline:
+					ProcessFinishPlanovacPrichodovOnline(message);
 				break;
 				}
+			break;
+
+			case Mc.Init:
+				ProcessInit(message);
 			break;
 
 			default:

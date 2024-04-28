@@ -19,13 +19,15 @@ namespace simulation
 		public const int ProcessObsluhaAutomatu = 1003;
 		public const int QueryPridelPokladnu = 1009;
 		public const int PlanovacPrichodovBasic = 1001;
-		public const int QueryPridelenieOM = 1010;
+		public const int ProcessOMPripravaTovaru = 1013;
 		public const int PlanovacPrichodovZmluvny = 1011;
+		public const int ProcessOMOnlinePripravaTovaru = 1014;
 		public const int PlanovacPrichodovOnline = 1012;
+		public const int ActionPrideleniePokladne = 1015;
 		public const int ProcessObsluhyPokladni = 1004;
 		public const int SchedulerZatvorenieAutomatu = 1005;
 		public const int SchedulerPrestavkaPokladne = 1006;
-		public const int ProcessOM = 1007;
+		public const int ProcessOMDiktovanie = 1007;
 		public const int SchedulerPrestavkaOM = 1008;
 		//meta! tag="end"
 	}

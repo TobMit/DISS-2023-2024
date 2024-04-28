@@ -17,8 +17,8 @@ namespace simulation
 		public const int PocetMiestVRade = 1036;
 		public const int NoticeZaciatokObsluhy = 1011;
 		public const int NoticeKoniecObsluhy = 1037;
-		public const int PridelenieZakaznikaOM = 1016;
-		public const int NoticeUvolnenieZakaznika = 1018;
+		public const int NoticeZaciatokObsluhyOM = 1038;
+		public const int NoticeKoniecObsluhyOM = 1039;
 		public const int PridelenieZakaznikaPredajni = 1020;
 		public const int NoticeUvolneniePredajni = 1021;
 		public const int NoticeUvolnenieOM = 1022;

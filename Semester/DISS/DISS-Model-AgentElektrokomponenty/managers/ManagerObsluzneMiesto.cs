@@ -81,52 +81,67 @@ namespace managers
             return ListObsluhaOnline.Concat(ListObsluhaOstatne).ToList();
         }
 
-        //meta! sender="AgentPredajne", id="39", type="Notice"
-        public void ProcessInit(MessageForm message)
+		//meta! sender="AgentPredajne", id="39", type="Notice"
+		public void ProcessInit(MessageForm message)
         {
         }
 
-        //meta! sender="AgentPredajne", id="41", type="Request"
+		//meta! userInfo="Removed from model"
         public void ProcessPridelenieZakaznikaOM(MessageForm message)
         {
         }
 
-        //meta! sender="SchedulerPrestavkaOM", id="64", type="Finish"
-        public void ProcessFinishSchedulerPrestavkaOM(MessageForm message)
+		//meta! sender="SchedulerPrestavkaOM", id="64", type="Finish"
+		public void ProcessFinishSchedulerPrestavkaOM(MessageForm message)
         {
         }
 
-        //meta! sender="ProcessOM", id="62", type="Finish"
-        public void ProcessFinishProcessOM(MessageForm message)
+		//meta! sender="ProcessOMDiktovanie", id="62", type="Finish"
+		public void ProcessFinishProcessOMDiktovanie(MessageForm message)
         {
         }
 
-        //meta! sender="AgentPredajne", id="49", type="Notice"
-        public void ProcessNoticeUvolnenieOM(MessageForm message)
+		//meta! sender="AgentPredajne", id="49", type="Notice"
+		public void ProcessNoticeUvolnenieOM(MessageForm message)
         {
         }
 
-        //meta! sender="AgentPredajne", id="65", type="Notice"
-        public void ProcessNoticePrestavkaZaciatok(MessageForm message)
+		//meta! sender="AgentPredajne", id="65", type="Notice"
+		public void ProcessNoticePrestavkaZaciatok(MessageForm message)
         {
         }
 
-        //meta! userInfo="Process messages defined in code", id="0"
-        public void ProcessDefault(MessageForm message)
+		//meta! userInfo="Process messages defined in code", id="0"
+		public void ProcessDefault(MessageForm message)
         {
             switch (message.Code)
             {
             }
         }
 
-        //meta! sender="AgentPredajne", id="97", type="Request"
-        public void ProcessPocetMiestVRade(MessageForm message)
+		//meta! sender="AgentPredajne", id="97", type="Request"
+		public void ProcessPocetMiestVRade(MessageForm message)
         {
             Constants.Log("ManagerObsluzneMiesto: ProcessPocetMiestVRade", Constants.LogType.ManagerLog);
             var sprava = (MyMessage)message;
             sprava.PocetLudiVOM = 0; //todo actual logic
             Response(sprava);
         }
+
+		//meta! sender="AgentPredajne", id="103", type="Notice"
+		public void ProcessNoticeZaciatokObsluhyOM(MessageForm message)
+		{
+		}
+
+		//meta! sender="ProcessOMOnlinePripravaTovaru", id="109", type="Finish"
+		public void ProcessFinishProcessOMOnlinePripravaTovaru(MessageForm message)
+		{
+		}
+
+		//meta! sender="ProcessOMPripravaTovaru", id="107", type="Finish"
+		public void ProcessFinishProcessOMPripravaTovaru(MessageForm message)
+		{
+		}
 
 		//meta! userInfo="Generated code: do not modify", tag="begin"
 		public void Init()
@@ -140,34 +155,42 @@ namespace managers
 			case Mc.Finish:
 				switch (message.Sender.Id)
 				{
+				case SimId.ProcessOMOnlinePripravaTovaru:
+					ProcessFinishProcessOMOnlinePripravaTovaru(message);
+				break;
+
+				case SimId.ProcessOMDiktovanie:
+					ProcessFinishProcessOMDiktovanie(message);
+				break;
+
+				case SimId.ProcessOMPripravaTovaru:
+					ProcessFinishProcessOMPripravaTovaru(message);
+				break;
+
 				case SimId.SchedulerPrestavkaOM:
 					ProcessFinishSchedulerPrestavkaOM(message);
 				break;
-
-				case SimId.ProcessOM:
-					ProcessFinishProcessOM(message);
-				break;
 				}
-			break;
-
-			case Mc.NoticeUvolnenieOM:
-				ProcessNoticeUvolnenieOM(message);
-			break;
-
-			case Mc.PridelenieZakaznikaOM:
-				ProcessPridelenieZakaznikaOM(message);
-			break;
-
-			case Mc.NoticePrestavkaZaciatok:
-				ProcessNoticePrestavkaZaciatok(message);
 			break;
 
 			case Mc.PocetMiestVRade:
 				ProcessPocetMiestVRade(message);
 			break;
 
+			case Mc.NoticeUvolnenieOM:
+				ProcessNoticeUvolnenieOM(message);
+			break;
+
 			case Mc.Init:
 				ProcessInit(message);
+			break;
+
+			case Mc.NoticePrestavkaZaciatok:
+				ProcessNoticePrestavkaZaciatok(message);
+			break;
+
+			case Mc.NoticeZaciatokObsluhyOM:
+				ProcessNoticeZaciatokObsluhyOM(message);
 			break;
 
 			default:
