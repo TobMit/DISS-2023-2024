@@ -94,7 +94,7 @@ namespace managers
 		}
 
 		//meta! sender="AgentObsluzneMiesto", id="104", type="Notice"
-		public void ProcessNoticeKoniecObsluhyOM(MessageForm message)
+		public void ProcessNoticeKoniecObsluhyOm(MessageForm message)
 		{
 		}
 
@@ -132,8 +132,8 @@ namespace managers
 				ProcessPocetMiestVRade(message);
 			break;
 
-			case Mc.NoticeKoniecObsluhyOM:
-				ProcessNoticeKoniecObsluhyOM(message);
+			case Mc.NoticeKoniecObsluhyOm:
+				ProcessNoticeKoniecObsluhyOm(message);
 			break;
 
 			case Mc.NoticeUvolneniePredajni:

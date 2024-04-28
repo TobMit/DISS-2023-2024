@@ -98,7 +98,7 @@ namespace managers
         }
 
 		//meta! sender="AgentPredajne", id="49", type="Notice"
-		public void ProcessNoticeUvolnenieOM(MessageForm message)
+		public void ProcessNoticeUvolnenieOm(MessageForm message)
         {
         }
 
@@ -125,7 +125,7 @@ namespace managers
         }
 
 		//meta! sender="AgentPredajne", id="103", type="Notice"
-		public void ProcessNoticeZaciatokObsluhyOM(MessageForm message)
+		public void ProcessNoticeZaciatokObsluhyOm(MessageForm message)
 		{
 		}
 
@@ -173,8 +173,8 @@ namespace managers
 				ProcessPocetMiestVRade(message);
 			break;
 
-			case Mc.NoticeUvolnenieOM:
-				ProcessNoticeUvolnenieOM(message);
+			case Mc.NoticeUvolnenieOm:
+				ProcessNoticeUvolnenieOm(message);
 			break;
 
 			case Mc.Init:
@@ -185,8 +185,8 @@ namespace managers
 				ProcessNoticePrestavkaZaciatok(message);
 			break;
 
-			case Mc.NoticeZaciatokObsluhyOM:
-				ProcessNoticeZaciatokObsluhyOM(message);
+			case Mc.NoticeZaciatokObsluhyOm:
+				ProcessNoticeZaciatokObsluhyOm(message);
 			break;
 
 			default:

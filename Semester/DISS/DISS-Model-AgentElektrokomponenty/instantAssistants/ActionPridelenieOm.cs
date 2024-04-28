@@ -6,9 +6,9 @@ using Action = OSPABA.Action;
 namespace instantAssistants
 {
 	//meta! id="110"
-	public class ActionPrideleniePokladne : Action
+	public class ActionPridelenieOm : Action
 	{
-		public ActionPrideleniePokladne(int id, Simulation mySim, CommonAgent myAgent) :
+		public ActionPridelenieOm(int id, Simulation mySim, CommonAgent myAgent) :
 			base(id, mySim, myAgent)
 		{
 		}

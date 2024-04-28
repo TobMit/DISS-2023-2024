@@ -28,7 +28,7 @@ namespace agents
 			AddOwnMessage(Mc.VstupDoPredajne);
 			AddOwnMessage(Mc.Init);
 			AddOwnMessage(Mc.NoticePrestavkaKoniec);
-			AddOwnMessage(Mc.NoticeKoniecObsluhyOM);
+			AddOwnMessage(Mc.NoticeKoniecObsluhyOm);
 			AddOwnMessage(Mc.NoticeKoniecObsluhy);
 			AddOwnMessage(Mc.NoticeUvolneniePredajni);
 			AddOwnMessage(Mc.PridelenieZakaznikaPredajni);

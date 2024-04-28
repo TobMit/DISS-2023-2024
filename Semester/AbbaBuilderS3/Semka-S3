@@ -20,25 +20,25 @@
           <SimId>1008</SimId>
           <InternalId>63</InternalId>
           <Name>SchedulerPrestavkaOM</Name>
-          <Bounds>129,65,35,13</Bounds>
+          <Bounds>132,84,35,13</Bounds>
         </Scheduler>
         <Action>
           <SimId>1015</SimId>
           <InternalId>110</InternalId>
-          <Name>ActionPrideleniePokladne</Name>
+          <Name>ActionPridelenieOm</Name>
           <Bounds>7,89,35,18</Bounds>
         </Action>
         <Process>
           <SimId>1013</SimId>
           <InternalId>106</InternalId>
           <Name>ProcessOMPripravaTovaru</Name>
-          <Bounds>68,130,35,18</Bounds>
+          <Bounds>68,124,35,18</Bounds>
         </Process>
         <Process>
           <SimId>1014</SimId>
           <InternalId>108</InternalId>
           <Name>ProcessOMOnlinePripravaTovaru</Name>
-          <Bounds>110,130,35,18</Bounds>
+          <Bounds>110,124,35,18</Bounds>
         </Process>
       </Components>
     </Agent>
@@ -46,7 +46,7 @@
       <SimId>6</SimId>
       <InternalId>25</InternalId>
       <Name>AgentAutomatu</Name>
-      <Bounds>1391,1325,180,180</Bounds>
+      <Bounds>1388,1325,180,180</Bounds>
       <Reasoner>ManagerAutomatu</Reasoner>
       <ReasonerBounds>74,25,32,25</ReasonerBounds>
       <UsePetriNet>false</UsePetriNet>
@@ -341,7 +341,7 @@
     <Message>
       <SimId>1038</SimId>
       <InternalId>103</InternalId>
-      <Name>NoticeZaciatokObsluhyOM</Name>
+      <Name>NoticeZaciatokObsluhyOm</Name>
       <Type>Notice</Type>
       <Source>9</Source>
       <Destination>36</Destination>
@@ -349,7 +349,7 @@
     <Message>
       <SimId>1039</SimId>
       <InternalId>104</InternalId>
-      <Name>NoticeKoniecObsluhyOM</Name>
+      <Name>NoticeKoniecObsluhyOm</Name>
       <Type>Notice</Type>
       <Source>36</Source>
       <Destination>9</Destination>
@@ -405,7 +405,7 @@
     <Message>
       <SimId>1022</SimId>
       <InternalId>49</InternalId>
-      <Name>NoticeUvolnenieOM</Name>
+      <Name>NoticeUvolnenieOm</Name>
       <Type>Notice</Type>
       <Source>9</Source>
       <Destination>36</Destination>
@@ -451,5 +451,5 @@
       <Destination>61</Destination>
     </Message>
   </Messages>
-  <IID>112</IID>
+  <IID>113</IID>
 </ABAsim>

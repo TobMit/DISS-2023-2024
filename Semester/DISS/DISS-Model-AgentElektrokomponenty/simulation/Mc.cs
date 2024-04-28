@@ -17,11 +17,11 @@ namespace simulation
 		public const int PocetMiestVRade = 1036;
 		public const int NoticeZaciatokObsluhy = 1011;
 		public const int NoticeKoniecObsluhy = 1037;
-		public const int NoticeZaciatokObsluhyOM = 1038;
-		public const int NoticeKoniecObsluhyOM = 1039;
+		public const int NoticeZaciatokObsluhyOm = 1038;
+		public const int NoticeKoniecObsluhyOm = 1039;
 		public const int PridelenieZakaznikaPredajni = 1020;
 		public const int NoticeUvolneniePredajni = 1021;
-		public const int NoticeUvolnenieOM = 1022;
+		public const int NoticeUvolnenieOm = 1022;
 		//meta! tag="end"
 
 		// 1..1000 range reserved for user
