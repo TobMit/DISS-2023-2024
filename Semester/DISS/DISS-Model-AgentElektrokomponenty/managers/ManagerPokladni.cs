@@ -8,10 +8,21 @@ namespace managers
 	//meta! id="44"
 	public class ManagerPokladni : Manager
 	{
+		public List<Pokladna> ListPokladni { get; private set; }
 		public ManagerPokladni(int id, Simulation mySim, Agent myAgent) :
 			base(id, mySim, myAgent)
 		{
 			Init();
+		}
+		
+		public void InitPokladne()
+		{
+			var core = (MySimulation)MySim;
+			for (int i = 0; i < core.PocetPokladni; i++)
+			{
+				ListPokladni.Add(new(i, core.ListStatPriemerneDlzkyRadovPredPokladnami[i], 
+					core.ListStatPriemerneVytazeniePokladni[i]));
+			}
 		}
 
 		override public void PrepareReplication()
@@ -23,21 +34,83 @@ namespace managers
 			{
 				PetriNet.Clear();
 			}
+			ListPokladni = new();
+			InitPokladne();
 		}
 
+		/// <summary>
+		/// Vráti voľnú pokladňu ak nie nikto obsluhovaný a je voľný rad ak je voľných viac vyberie náhodne
+		/// </summary>
+		/// <returns>Pokladňu ak splna požiadavky inak null</returns>
+		public Pokladna? GetVolnaPokladnaPrazdnyRad()
+		{
+			// vytvorí list kde je rad 0 a pokladňa nie je obsadená
+			var listPokladni = ListPokladni
+				.Where(p => !p.Obsadena && p.Queue.Count == 0)
+				.OrderBy(g => g.ID)
+				.ToList();
+
+			if (listPokladni.Count > 0)
+			{
+				return listPokladni[((MySimulation)MySim).RndPickPokladna.Next(listPokladni.Count)];
+			}
+
+			return null;
+		}
+
+		/// <summary>
+		/// Priradí zákazníka do najkratšej rady, a keď majú viaceré rovnaké dĺžky tak náhodne vyberie jednu
+		/// </summary>
+		/// <param name="person">Človek ktorý sa pridáva do rady</param>
+		/// <param name="core">Jadro simulácie</param>
+		public void PriradZakaznikaDoRady(MyMessage person)
+		{
+			// spraví list pokladní s najkratšími radami
+			var listPokladni = ListPokladni.GroupBy(c => c.Queue.Count)
+				.OrderBy(g => g.Key)
+				.FirstOrDefault();
+
+			if (listPokladni is not null)
+			{
+				var list = listPokladni.ToList();
+				var pokladna = list[((MySimulation)MySim).RndPickPokladna.Next(list.Count)];
+				pokladna.Queue.Enqueue(person);
+				person.Zakaznik.StavZakaznika = Constants.StavZakaznika.PokladňaČakáVRade;
+			}
+		}
+		
+		/// <summary>
+		/// Informácie na UI
+		/// </summary>
+		/// <returns>Informácie na UI</returns>
+		public List<Pokladna> GetInfoNaUI()
+		{
+			return ListPokladni;
+		}
+		
 		//meta! sender="AgentPredajne", id="46", type="Notice"
 		public void ProcessInit(MessageForm message)
 		{
 		}
-
-		//meta! userInfo="Removed from model"
-		public void ProcessPridelenieZakaznikaPredajni(MessageForm message)
-		{
-		}
+		
 
 		//meta! sender="ProcessObsluhyPokladni", id="53", type="Finish"
 		public void ProcessFinishProcessObsluhyPokladni(MessageForm message)
 		{
+			var sprava = (MyMessage)message.CreateCopy();
+			Constants.Log($"ManagerPokladni: Zakaznik {sprava.Zakaznik.ID} ProcessFinishProcessObsluhyPokladni", Constants.LogType.ManagerLog);
+			sprava.Pokladna.UvolniPokladnu();
+			if (sprava.Pokladna.Queue.Count > 0)
+			{
+				var newSprava = (MyMessage)sprava.CreateCopy();
+				sprava.Pokladna.ObsadPokladnu(newSprava.Zakaznik);
+				newSprava.Addressee = MyAgent.FindAssistant(SimId.ProcessObsluhyPokladni);
+				newSprava.Pokladna = sprava.Pokladna;
+				StartContinualAssistant(sprava);
+			}
+			sprava.Code = Mc.NoticeKoniecPokladne;
+			sprava.Addressee = MySim.FindAgent(SimId.AgentPredajne);
+			Notice(sprava);
 		}
 
 		//meta! sender="SchedulerPrestavkaPokladne", id="57", type="Finish"
@@ -61,6 +134,20 @@ namespace managers
 		//meta! sender="AgentPredajne", id="114", type="Notice"
 		public void ProcessNoticeZaciatokPokladne(MessageForm message)
 		{
+			var sprava = (MyMessage)message.CreateCopy();
+			Constants.Log($"ManagerPokladni: Zakaznik {sprava.Zakaznik.ID} ProcessNoticeZaciatokPokladne", Constants.LogType.ManagerLog);
+			var pokladna = GetVolnaPokladnaPrazdnyRad();
+			if (pokladna is not null)
+			{
+				pokladna.ObsadPokladnu(sprava.Zakaznik);
+				sprava.Addressee = MyAgent.FindAssistant(SimId.ProcessObsluhyPokladni);
+				sprava.Pokladna = pokladna;
+				StartContinualAssistant(sprava);
+			}
+			else
+			{
+				PriradZakaznikaDoRady(sprava);
+			}
 		}
 
 		//meta! userInfo="Generated code: do not modify", tag="begin"

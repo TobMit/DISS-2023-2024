@@ -88,7 +88,7 @@ namespace managers
 		public void ProcessPocetMiestVRade(MessageForm message)
 		{
 			var sprava = (MyMessage)message.CreateCopy();
-			Constants.Log($"ManagerPredajne: Zakaznik: {sprava.Zakaznik.ID} ProcessPocetMiestVRade", Constants.LogType.ManagerLog);
+			Constants.Log($"ManagerPredajne: Zakaznik {sprava.Zakaznik.ID} ProcessPocetMiestVRade", Constants.LogType.ManagerLog);
 			sprava.Addressee = MySim.FindAgent(SimId.AgentAutomatu);
 			sprava.Code = Mc.NoticeZaciatokObsluhy;
 			Notice(sprava);
@@ -97,11 +97,27 @@ namespace managers
 		//meta! sender="AgentObsluzneMiesto", id="104", type="Notice"
 		public void ProcessNoticeKoniecObsluhyOm(MessageForm message)
 		{
+			var sprava = (MyMessage)message.CreateCopy();
+			Constants.Log($"ManagerPredajne: Zakaznik {sprava.Zakaznik.ID} ProcessNoticeKoniecObsluhyOm", Constants.LogType.ManagerLog);
+			sprava.Addressee = MySim.FindAgent(SimId.AgentPokladni);
+			sprava.Code = Mc.NoticeZaciatokPokladne;
+			Notice(sprava);
 		}
 
 		//meta! sender="AgentPokladni", id="115", type="Notice"
 		public void ProcessNoticeKoniecPokladne(MessageForm message)
 		{
+			var sprava = (MyMessage)message.CreateCopy();
+			Constants.Log($"ManagerPredajne: Zakaznik {sprava.Zakaznik.ID} ProcessNoticeKoniecPokladne", Constants.LogType.ManagerLog);
+			if (sprava.Zakaznik.TypVelkostiNakladu == Constants.TypVelkostiNakladu.Normálna)
+			{
+				sprava.Zakaznik.StavZakaznika = Constants.StavZakaznika.OdišielZPredajne;
+				// todo add odchod z predajne
+			}
+			else
+			{
+				// todo add logic to the uvolnenie pokladne + pridať StavZákazníka
+			}
 		}
 
 		//meta! userInfo="Generated code: do not modify", tag="begin"

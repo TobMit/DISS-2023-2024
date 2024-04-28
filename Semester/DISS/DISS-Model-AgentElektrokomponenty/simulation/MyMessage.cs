@@ -9,6 +9,7 @@ namespace simulation
         public Person Zakaznik { get; set; }
 
         public ObsluzneMiesto? ObsluzneMiesto { get; set; }
+        public Pokladna? Pokladna { get; set; }
 
         public int PocetLudiVOM { get; set; }
         /// <summary>
@@ -49,6 +50,7 @@ namespace simulation
             Zakaznik = original.Zakaznik;
             PocetLudiVOM = original.PocetLudiVOM;
             ObsluzneMiesto = original.ObsluzneMiesto;
+            Pokladna = original.Pokladna;
         }
     }
 }

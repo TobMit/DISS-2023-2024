@@ -20,6 +20,10 @@ namespace continualAssistants
 		//meta! sender="AgentPokladni", id="53", type="Start"
 		public void ProcessStart(MessageForm message)
 		{
+			var sprava = (MyMessage)message.CreateCopy();
+			Constants.Log($"ProcessObsluhyPokladni: Zakaznik {sprava.Zakaznik.ID} ProcessStart", Constants.LogType.ContinualAssistantLog);
+			sprava.Code = Mc.Finish;
+			Hold(((MySimulation)MySim).RndTrvaniePladba.Next(), sprava);
 		}
 
 		//meta! userInfo="Process messages defined in code", id="0"
@@ -27,6 +31,11 @@ namespace continualAssistants
 		{
 			switch (message.Code)
 			{
+				case Mc.Finish:
+					var sprava = (MyMessage)message.CreateCopy();
+					Constants.Log($"ProcessObsluhyPokladni: Zakaznik {sprava.Zakaznik.ID} ProcessFinish", Constants.LogType.ContinualAssistantLog);
+					AssistantFinished(sprava);
+					break;
 			}
 		}
 

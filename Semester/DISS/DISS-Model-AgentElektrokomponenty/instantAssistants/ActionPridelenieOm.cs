@@ -36,7 +36,7 @@ namespace instantAssistants
 		public override void Execute(MessageForm message)
 		{
 			var sprava = (MyMessage)message;
-			Constants.Log("ActionPridelenieOm: Execute", Constants.LogType.InstantAssistantLog);
+			Constants.Log($"ActionPridelenieOm: Zakaznik {sprava.Zakaznik.ID} Execute", Constants.LogType.InstantAssistantLog);
 			ObsluzneMiesto? obsluzneMiesto;
 			if (sprava.Zakaznik.TypZakaznika == Constants.TypZakaznika.Online)
 			{

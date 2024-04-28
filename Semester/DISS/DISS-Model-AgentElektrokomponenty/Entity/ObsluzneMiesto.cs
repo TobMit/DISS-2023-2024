@@ -80,7 +80,7 @@ public class ObsluzneMiesto
     public override string ToString()
     {
         double vytaznie = 0;
-        if (_priemerneVytazenieOM.SampleSize> 0)
+        if (_priemerneVytazenieOM.SampleSize > 0)
         {
             vytaznie = _priemerneVytazenieOM.Mean() * 100;
         }

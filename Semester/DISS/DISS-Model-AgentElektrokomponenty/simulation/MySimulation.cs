@@ -24,7 +24,7 @@ namespace simulation
         public List<Person> Persons;
 
         // RNG
-        //public RNGPickPokladna RndPickPokladna; todo reslove
+        public RNGPickPokladna RndPickPokladna;
         public Exponential RndPrichodZakaznikaBasic;
         public Exponential RndPrichodZakaznikaZmluvny;
         public Exponential RndPrichodZakaznikaOnline;
@@ -50,6 +50,8 @@ namespace simulation
         public WStat StatPriemernaDlzkaRaduPredObsluhouBasic;
         public WStat StatPriemernaDlzkaRaduPredObsluhouZmluvny;
         public WStat StatPriemernaDlzkaRaduPredObsluhouOnline;
+        public List<WStat> ListStatPriemerneDlzkyRadovPredPokladnami;
+        public List<WStat> ListStatPriemerneVytazeniePokladni;
 
         // Globálne štatistiky
         private Stat _globPriemernyCasVObchode;
@@ -84,6 +86,13 @@ namespace simulation
 	        StatPriemernaDlzkaRaduPredObsluhouBasic = new(this);
 	        StatPriemernaDlzkaRaduPredObsluhouZmluvny = new(this);
 	        StatPriemernaDlzkaRaduPredObsluhouOnline = new(this);
+	        ListStatPriemerneDlzkyRadovPredPokladnami = new();
+	        ListStatPriemerneVytazeniePokladni = new();
+	        for (int i = 0; i < PocetPokladni; i++)
+	        {
+		        ListStatPriemerneDlzkyRadovPredPokladnami.Add(new(this));
+		        ListStatPriemerneVytazeniePokladni.Add(new(this));
+	        }
             Init();
         }
 
@@ -93,7 +102,7 @@ namespace simulation
             // Init Other
             Persons = new();
 
-            //RndPickPokladna = new(ExtendedRandom<double>.NextSeed(), _pocetPokladni);
+            RndPickPokladna = new(ExtendedRandom<double>.NextSeed(), PocetPokladni);
             // (60*60) / 30 lebo je to 30 zákazníkov za hodinu ale systém beží v sekundách tak preto ten prepočet
             RndPrichodZakaznikaBasic = new(((60.0 * 60.0) / 15.0), ExtendedRandom<double>.NextSeed());
             RndPrichodZakaznikaZmluvny = new(((60.0 * 60.0) / 5.0), ExtendedRandom<double>.NextSeed());
@@ -143,6 +152,13 @@ namespace simulation
             _globPriemernaDlzkaRaduPredObsluhouBasic = new();
             _globPriemernaDlzkaRaduPredObsluhouZmluvny = new();
             _globPriemernaDlzkaRaduPredObsluhouOnline = new();
+            _globPriemerneDlzkyRadovPredPokladnami = new();
+            _globPriemerneVytazeniePokladni = new();
+            for (int i = 0; i < PocetPokladni; i++)
+            {
+	            _globPriemerneDlzkyRadovPredPokladnami.Add(new());
+	            _globPriemerneVytazeniePokladni.Add(new());
+            }
         }
 
         protected override void PrepareReplication()
@@ -161,6 +177,8 @@ namespace simulation
             StatPriemernaDlzkaRaduPredObsluhouBasic.Clear();
             StatPriemernaDlzkaRaduPredObsluhouZmluvny.Clear();
             StatPriemernaDlzkaRaduPredObsluhouOnline.Clear();
+            ListStatPriemerneDlzkyRadovPredPokladnami.ForEach(stat => stat.Clear());
+            ListStatPriemerneVytazeniePokladni.ForEach(stat => stat.Clear());
         }
 
         protected override void ReplicationFinished()
@@ -181,6 +199,11 @@ namespace simulation
             _globPriemernaDlzkaRaduPredObsluhouBasic.AddSample(StatPriemernaDlzkaRaduPredObsluhouBasic.Mean());
             _globPriemernaDlzkaRaduPredObsluhouZmluvny.AddSample(StatPriemernaDlzkaRaduPredObsluhouZmluvny.Mean());
             _globPriemernaDlzkaRaduPredObsluhouOnline.AddSample(StatPriemernaDlzkaRaduPredObsluhouOnline.Mean());
+            for (int i = 0; i < PocetPokladni; i++)
+            {
+	            _globPriemerneDlzkyRadovPredPokladnami[i].AddSample(ListStatPriemerneDlzkyRadovPredPokladnami[i].Mean());
+	            _globPriemerneVytazeniePokladni[i].AddSample(ListStatPriemerneVytazeniePokladni[i].Mean());
+            }
             base.ReplicationFinished();
         }
 
@@ -208,6 +231,16 @@ namespace simulation
             }
             Console.WriteLine($"Priemerne vyťaženie obsluhy ostatne: {sbPriemerneVytazenieObsluhyOstatne.Remove(sbPriemerneVytazenieObsluhyOstatne.Length - 1, 1)}");
             Console.WriteLine($"Priemerná dĺžka radu pred obsluhou basic/zmluvný/online: {Double.Round(_globPriemernaDlzkaRaduPredObsluhouBasic.Mean(), 4)}/{Double.Round(_globPriemernaDlzkaRaduPredObsluhouZmluvny.Mean(), 4)}/{Double.Round(_globPriemernaDlzkaRaduPredObsluhouOnline.Mean(), 4)}");
+            StringBuilder sbPriemernaDlzkaRadu = new();
+            StringBuilder sbPriemerneVytazeniePokladne = new();
+            for (int i = 0; i < PocetPokladni; i++)
+            {
+	            sbPriemernaDlzkaRadu.Append($"[{Double.Round(_globPriemerneDlzkyRadovPredPokladnami[i].Mean(), 4)}],");
+	            sbPriemerneVytazeniePokladne.Append($"[{Double.Round(_globPriemerneVytazeniePokladni[i].Mean(), 4)*100:0.00}%],");
+            }
+            Console.WriteLine($"Priemerne dĺžky radov pred pokladňami: {sbPriemernaDlzkaRadu.Remove(sbPriemernaDlzkaRadu.Length - 1, 1)}");
+            Console.WriteLine($"Priemerne vyťaženie pokladni: {sbPriemerneVytazeniePokladne.Remove(sbPriemerneVytazeniePokladne.Length - 1, 1)}");
+
         }
 
 		//meta! userInfo="Generated code: do not modify", tag="begin"
