@@ -104,7 +104,7 @@ namespace managers
 			}
 			
 			// Ak nie sme v debugu tak sa budu generovať viacerý zákazníci
-			if (!Constants.DEBUG)
+			//if (!Constants.DEBUG)
 			{
 				StartContinualAssistant(new MyMessage(sprava));
 			}

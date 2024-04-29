@@ -221,8 +221,32 @@ namespace managers
 		public void ProcessFinishProcessVyzdvihnutieTovaru(MessageForm message)
 		{
 			var sprava = (MyMessage)message.CreateCopy();
-			Constants.Log($"ManagerObsluzneMiesto: Zakaznik ID {sprava.Zakaznik.ID} ProcessFinishProcessVyzdvihnutieTovaru", Constants.LogType.ManagerLog);
-			// todo add znovu nastartovanie obsluhy a odchod zakaznika
+			Constants.Log($"ManagerObsluzneMiesto: Zakaznik {sprava.Zakaznik.ID} ProcessFinishProcessVyzdvihnutieTovaru", Constants.LogType.ManagerLog);
+			sprava.Addressee = MySim.FindAgent(SimId.AgentPredajne);
+			sprava.Code = Mc.NoticeKoniecObsluhyOm;
+			Notice(sprava);
+			
+			ObsluzneMiesto? tmpObsluzneMiesto = GetVolneOnline();
+			while (_radaPredObsluznymMiestom.CountOnline >= 1 && tmpObsluzneMiesto is not null)
+			{
+				var spraveNew = (MyMessage)_radaPredObsluznymMiestom.Dequeue(true).CreateCopy();
+				spraveNew.ObsluzneMiesto = tmpObsluzneMiesto;
+				spraveNew.Addressee = MyAgent.FindAssistant(SimId.ProcessOMOnlinePripravaTovaru);
+				tmpObsluzneMiesto.Obsluz(spraveNew.Zakaznik);
+				StartContinualAssistant(spraveNew);
+				tmpObsluzneMiesto = GetVolneOnline();
+			}
+			// to iste aj pre ostatné
+			tmpObsluzneMiesto = GetVolneOstatne();
+			while (_radaPredObsluznymMiestom.CountOstatne >= 1 && tmpObsluzneMiesto is not null)
+			{
+				var spraveNew = (MyMessage)_radaPredObsluznymMiestom.Dequeue().CreateCopy();
+				spraveNew.ObsluzneMiesto = tmpObsluzneMiesto;
+				spraveNew.Addressee = MyAgent.FindAssistant(SimId.ProcessOMDiktovanie);
+				tmpObsluzneMiesto.Obsluz(spraveNew.Zakaznik);
+				StartContinualAssistant(spraveNew);
+				tmpObsluzneMiesto = GetVolneOstatne();
+			}
 		}
 
 		//meta! userInfo="Generated code: do not modify", tag="begin"

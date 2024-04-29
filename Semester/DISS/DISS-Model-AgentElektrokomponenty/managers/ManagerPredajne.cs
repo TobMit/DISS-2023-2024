@@ -88,9 +88,18 @@ namespace managers
 		{
 			var sprava = (MyMessage)message.CreateCopy();
 			Constants.Log($"ManagerPredajne: Zakaznik {sprava.Zakaznik.ID} ProcessNoticeKoniecObsluhyOm", Constants.LogType.ManagerLog);
-			sprava.Addressee = MySim.FindAgent(SimId.AgentPokladni);
-			sprava.Code = Mc.NoticeZaciatokPokladne;
-			Notice(sprava);
+			if (sprava.TovarVydvihnty)
+			{
+				// todo pridať logiku
+				((MySimulation)MySim).PocetObsluzenychZakaznikov++;
+				sprava.Zakaznik.StavZakaznika = Constants.StavZakaznika.OdišielZPredajne;
+			}
+			else
+			{
+				sprava.Addressee = MySim.FindAgent(SimId.AgentPokladni);
+				sprava.Code = Mc.NoticeZaciatokPokladne;
+				Notice(sprava);
+			}
 		}
 
 		//meta! sender="AgentPokladni", id="115", type="Notice"
@@ -101,6 +110,7 @@ namespace managers
 			if (sprava.Zakaznik.TypVelkostiNakladu == Constants.TypVelkostiNakladu.Normálna)
 			{
 				sprava.Zakaznik.StavZakaznika = Constants.StavZakaznika.OdišielZPredajne;
+				((MySimulation)MySim).PocetObsluzenychZakaznikov++;
 				// todo add odchod z predajne
 			}
 			else

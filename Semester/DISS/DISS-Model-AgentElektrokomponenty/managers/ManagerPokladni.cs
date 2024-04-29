@@ -102,7 +102,7 @@ namespace managers
 			sprava.Pokladna.UvolniPokladnu();
 			if (sprava.Pokladna.Queue.Count > 0)
 			{
-				var newSprava = (MyMessage)sprava.CreateCopy();
+				var newSprava = sprava.Pokladna.Queue.Dequeue();
 				sprava.Pokladna.ObsadPokladnu(newSprava.Zakaznik);
 				newSprava.Addressee = MyAgent.FindAssistant(SimId.ProcessObsluhyPokladni);
 				newSprava.Pokladna = sprava.Pokladna;

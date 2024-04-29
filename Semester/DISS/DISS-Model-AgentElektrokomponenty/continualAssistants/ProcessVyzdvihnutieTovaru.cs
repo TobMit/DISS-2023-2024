@@ -37,6 +37,7 @@ namespace continualAssistants
 					Constants.Log($"ProcessVyzdvihnutieTovaru: Zakaznik {sprava.Zakaznik.ID} ProcessFinish", Constants.LogType.ContinualAssistantLog);
 					sprava.ObsluzneMiesto.Uvolni(false); // keď počítam vyťaženie človeka tak je tuto false lebo človek už je voľný
 					sprava.Addressee = MyAgent;
+					sprava.TovarVydvihnty = true;
 					AssistantFinished(sprava);
 					break;
 			}

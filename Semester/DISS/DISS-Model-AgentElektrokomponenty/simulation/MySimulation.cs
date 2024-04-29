@@ -52,6 +52,7 @@ namespace simulation
         public WStat StatPriemernaDlzkaRaduPredObsluhouOnline;
         public List<WStat> ListStatPriemerneDlzkyRadovPredPokladnami;
         public List<WStat> ListStatPriemerneVytazeniePokladni;
+        public int PocetObsluzenychZakaznikov { get; set; }
 
         // Globálne štatistiky
         private Stat _globPriemernyCasVObchode;
@@ -159,6 +160,8 @@ namespace simulation
 	            _globPriemerneDlzkyRadovPredPokladnami.Add(new());
 	            _globPriemerneVytazeniePokladni.Add(new());
             }
+
+            _globPriemernyPocetObsluzenychZakaznikov = new();
         }
 
         protected override void PrepareReplication()
@@ -179,6 +182,7 @@ namespace simulation
             StatPriemernaDlzkaRaduPredObsluhouOnline.Clear();
             ListStatPriemerneDlzkyRadovPredPokladnami.ForEach(stat => stat.Clear());
             ListStatPriemerneVytazeniePokladni.ForEach(stat => stat.Clear());
+            PocetObsluzenychZakaznikov = 0;
         }
 
         protected override void ReplicationFinished()
@@ -204,6 +208,7 @@ namespace simulation
 	            _globPriemerneDlzkyRadovPredPokladnami[i].AddSample(ListStatPriemerneDlzkyRadovPredPokladnami[i].Mean());
 	            _globPriemerneVytazeniePokladni[i].AddSample(ListStatPriemerneVytazeniePokladni[i].Mean());
             }
+            _globPriemernyPocetObsluzenychZakaznikov.AddSample(PocetObsluzenychZakaznikov);
             base.ReplicationFinished();
         }
 
@@ -240,6 +245,7 @@ namespace simulation
             }
             Console.WriteLine($"Priemerne dĺžky radov pred pokladňami: {sbPriemernaDlzkaRadu.Remove(sbPriemernaDlzkaRadu.Length - 1, 1)}");
             Console.WriteLine($"Priemerne vyťaženie pokladni: {sbPriemerneVytazeniePokladne.Remove(sbPriemerneVytazeniePokladne.Length - 1, 1)}");
+            Console.WriteLine($"Priemerný počet obslužných zákazníkov: {Double.Round(_globPriemernyPocetObsluzenychZakaznikov.Mean(), 4)}");
 
         }
 

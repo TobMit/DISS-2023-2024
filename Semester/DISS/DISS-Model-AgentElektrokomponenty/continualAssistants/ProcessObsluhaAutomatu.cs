@@ -26,6 +26,8 @@ namespace continualAssistants
 			sprava.Code = Mc.NoticeKoniecObsluhy;
 			sprava.Zakaznik.StavZakaznika = Constants.StavZakaznika.ObsluhujeAutomat;
 			Hold(((MySimulation)MySim).RndTrvanieAutomatu.Next(), sprava);
+			
+			
 		}
 
 		//meta! userInfo="Process messages defined in code", id="0"
