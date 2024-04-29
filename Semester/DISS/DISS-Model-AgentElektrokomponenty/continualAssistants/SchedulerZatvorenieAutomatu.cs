@@ -20,8 +20,8 @@ namespace continualAssistants
 		//meta! sender="AgentAutomatu", id="55", type="Start"
 		public void ProcessStart(MessageForm message)
 		{
-			Constants.Log("SchedulerZatvorenieAutomatu: ProcessStart", Constants.LogType.ContinualAssistantLog);
 			var sprava = (MyMessage)message.CreateCopy();
+			Constants.Log("SchedulerZatvorenieAutomatu", MySim.CurrentTime, sprava.Zakaznik,"ProcessStart", Constants.LogType.ContinualAssistantLog);
 			//sprava.Addressee = MyAgent;
 			sprava.Code = Mc.NoticeZatvorenieAutomatu;
 			Hold(Constants.END_ARRIVAL_SIMULATION_TIME, sprava);
@@ -34,7 +34,8 @@ namespace continualAssistants
 			switch (message.Code)
 			{
 				case Mc.NoticeZatvorenieAutomatu:
-					Constants.Log("SchedulerZatvorenieAutomatu: NoticeZatvorenieAutomatu", Constants.LogType.ContinualAssistantLog);
+					var sprava = (MyMessage)message;
+					Constants.Log("SchedulerZatvorenieAutomatu", MySim.CurrentTime, sprava.Zakaznik,"NoticeZatvorenieAutomatu", Constants.LogType.ContinualAssistantLog);
 					Notice(new MyMessage((MyMessage)message));
 					break;
 			}

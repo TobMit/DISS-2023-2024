@@ -21,10 +21,10 @@ namespace continualAssistants
 		public void ProcessStart(MessageForm message)
 		{
 			var sprava = (MyMessage)message.CreateCopy();
-			Constants.Log($"ProcessOMOnlinePripravaTovaru ({TimeSpan.FromSeconds(MySim.CurrentTime + Constants.START_DAY).ToString(@"hh\:mm\:ss")}): Zakaznik {sprava.Zakaznik.ID} ProcessStart", Constants.LogType.ContinualAssistantLog);
+			Constants.Log("ProcessOMOnlinePripravaTovaru", MySim.CurrentTime, sprava.Zakaznik,"ProcessStart", Constants.LogType.ContinualAssistantLog);
 			sprava.Code = Mc.Finish;
 			//sprava.ObsluzneMiesto.Obsluz(sprava.Zakaznik);
-			Hold(((MySimulation)MySim).RndTrvanieDiktovania.Next(), sprava);
+			Hold(((MySimulation)MySim).RndTrvanieOnlinePripravaTovaru.Next(), sprava);
 		}
 
 		//meta! userInfo="Process messages defined in code", id="0"
@@ -34,7 +34,7 @@ namespace continualAssistants
 			{
 				case Mc.Finish:
 					var sprava = (MyMessage)message.CreateCopy();
-					Constants.Log($"ProcessOMOninePripravaTovaru {TimeSpan.FromSeconds(MySim.CurrentTime + Constants.START_DAY).ToString(@"hh\:mm\:ss")}: Zakaznik {sprava.Zakaznik.ID} KoniecObsluhy", Constants.LogType.ContinualAssistantLog);
+					Constants.Log("ProcessOMOnlinePripravaTovaru", MySim.CurrentTime, sprava.Zakaznik,"KoniecObsluhy", Constants.LogType.ContinualAssistantLog);
 					message.Addressee = MyAgent;
 					AssistantFinished(message);
 					break;

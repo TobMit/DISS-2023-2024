@@ -20,8 +20,8 @@ namespace continualAssistants
 		//meta! sender="AgentOkolia", id="80", type="Notice"
 		public void ProcessNoticeNovyBasic(MessageForm message)
 		{
-			Constants.Log("PlanovacPrichodovBasic: ProcessNoticeNovyBasic", Constants.LogType.ContinualAssistantLog);
 			var sprava = (MyMessage)message.CreateCopy();
+			Constants.Log("PlanovacPrichodovBasic", MySim.CurrentTime, sprava.Zakaznik,"ProcessNoticeNovyBasic", Constants.LogType.ContinualAssistantLog);
 			sprava.Addressee = MyAgent;
 			Notice(sprava);
 		}
@@ -29,8 +29,8 @@ namespace continualAssistants
 		//meta! sender="AgentOkolia", id="8", type="Start"
 		public void ProcessStart(MessageForm message)
 		{
-			Constants.Log("PlanovacPrichodovBasic: ProcessStart", Constants.LogType.ContinualAssistantLog);
 			var sprava = (MyMessage)message.CreateCopy();
+			Constants.Log("PlanovacPrichodovBasic", MySim.CurrentTime, sprava.Zakaznik,"ProcessStart", Constants.LogType.ContinualAssistantLog);
 			sprava.Code = Mc.NoticeNovyBasic;
 			var newTime = ((MySimulation)MySim).RndPrichodZakaznikaBasic.Next();
 			if (newTime + MySim.CurrentTime < Constants.END_ARRIVAL_SIMULATION_TIME)

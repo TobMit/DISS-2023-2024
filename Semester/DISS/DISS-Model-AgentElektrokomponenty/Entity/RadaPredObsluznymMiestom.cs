@@ -47,6 +47,7 @@ public class RadaPredObsluznymMiestom
     {
         var person = pSprava.Zakaznik;
         person.StavZakaznika = Constants.StavZakaznika.ČakáVObchode;
+        Constants.Log("RadaPredObsluznymMiestom", pSprava.DeliveryTime, person, "Enqueue", Constants.LogType.InstantAssistantLog);
         switch (person.TypZakaznika)
         {
             case Constants.TypZakaznika.Basic:
@@ -80,17 +81,23 @@ public class RadaPredObsluznymMiestom
                 throw new ArgumentException(
                     "[RadaPredObslužnýmMiestom - Dequeue online] - V rade už nie je žiaden online zákazník");
             }
-            return _onlinePersons.Dequeue();
+            var _online = _onlinePersons.Dequeue();
+            Constants.Log("RadaPredObsluznymMiestom", _online.DeliveryTime, _online.Zakaznik, "Dequeue - online", Constants.LogType.InstantAssistantLog);
+            return _online;
         }
 
         if (_zmluvnyPersons.Count > 0)
         {
-            return _zmluvnyPersons.Dequeue();
+            var zmluvny = _zmluvnyPersons.Dequeue();
+            Constants.Log("RadaPredObsluznymMiestom", zmluvny.DeliveryTime, zmluvny.Zakaznik, "Dequeue - zmluvny", Constants.LogType.InstantAssistantLog);
+            return zmluvny;
         }
 
         if (_basicPersons.Count > 0)
         {
-            return _basicPersons.Dequeue();
+            var basic = _basicPersons.Dequeue();
+            Constants.Log("RadaPredObsluznymMiestom", basic.DeliveryTime, basic.Zakaznik, "Dequeue - basic", Constants.LogType.InstantAssistantLog);
+            return basic;
         }
 
         throw new ArgumentException(

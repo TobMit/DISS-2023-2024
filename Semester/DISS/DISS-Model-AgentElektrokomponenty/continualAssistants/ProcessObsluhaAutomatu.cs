@@ -21,7 +21,7 @@ namespace continualAssistants
 		public void ProcessStart(MessageForm message)
 		{
 			var sprava = (MyMessage)message.CreateCopy();
-			Constants.Log($"ProcessObsluhaAutomatu {TimeSpan.FromSeconds(MySim.CurrentTime + Constants.START_DAY).ToString(@"hh\:mm\:ss")}: Zakaznik {sprava.Zakaznik.ID} ProcessStart", Constants.LogType.ContinualAssistantLog);
+			Constants.Log("ProcessObsluhaAutomatu", MySim.CurrentTime, sprava.Zakaznik,"ProcessStart", Constants.LogType.ContinualAssistantLog);
 			//sprava.Addressee = MySim.FindAgent(SimId.AgentPredajne);
 			sprava.Code = Mc.NoticeKoniecObsluhy;
 			sprava.Zakaznik.StavZakaznika = Constants.StavZakaznika.ObsluhujeAutomat;
@@ -37,7 +37,7 @@ namespace continualAssistants
 			{
 				case Mc.NoticeKoniecObsluhy:
 					var sprava = (MyMessage)message;
-					Constants.Log($"ProcessObsluhaAutomatu {TimeSpan.FromSeconds(MySim.CurrentTime + Constants.START_DAY).ToString(@"hh\:mm\:ss")}: Zakaznik {sprava.Zakaznik.ID} ProcessNoticeKoniecObsluhy", Constants.LogType.ContinualAssistantLog);
+					Constants.Log("ProcessObsluhaAutomatu", MySim.CurrentTime, sprava.Zakaznik,"ProcessNoticeKoniecObsluhy", Constants.LogType.ContinualAssistantLog);
 					message.Addressee = MyAgent;
 					AssistantFinished(message);
 					break;

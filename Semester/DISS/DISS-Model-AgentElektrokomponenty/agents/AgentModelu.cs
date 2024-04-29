@@ -17,7 +17,7 @@ namespace agents
         {
             base.PrepareReplication();
             // Setup component for the next replicatio
-            Constants.Log("AgentModelu: PrepareReplication", Constants.LogType.AgentLog);
+            Constants.Log("SchedulerZatvorenieAutomatu", MySim.CurrentTime, null,"AgentModelu: PrepareReplication", Constants.LogType.AgentLog);
             var message = new MyMessage(MySim)
             {
                 Addressee = MySim.FindAgent(SimId.AgentOkolia),

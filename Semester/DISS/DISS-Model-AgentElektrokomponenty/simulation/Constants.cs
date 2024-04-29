@@ -1,3 +1,5 @@
+using DISS_Model_AgentElektrokomponenty.Entity;
+
 namespace simulation;
 
 public class Constants
@@ -44,9 +46,21 @@ public class Constants
     public static double END_SIMULATION_TIME = 8*60*60 + 30*60; // 17:30 -> 8:30H -> 6*60*60s + 30*60s
 
     public static bool DEBUG = false;
+    public static int FILTER_ZAKAZNIK = -1;
     
-    public static void Log(string message, LogType logType = LogType.DefaultLog)
+    public static void Log(string pModul, double time, Person? pPerson, string message, LogType logType = LogType.DefaultLog)
     {
+        if (pPerson is null)
+        {
+            return;
+        }
+        if (pPerson is not null)
+        {
+            if (pPerson.ID != FILTER_ZAKAZNIK && FILTER_ZAKAZNIK != -1)
+            {
+                return;
+            }
+        }
         if (DEBUG)
         {
             switch (logType)
@@ -66,7 +80,16 @@ public class Constants
                     Console.ForegroundColor = ConsoleColor.Magenta;
                     break;
             }
-            Console.WriteLine(message);
+            if (pPerson is null)
+            {
+                Console.WriteLine($"[{pModul}] ({TimeSpan.FromSeconds(time + START_DAY).ToString(@"hh\:mm\:ss")}) {message}");
+            }
+            else
+            {
+                Console.WriteLine(
+                    $"[{pModul}] Zakaznik {pPerson.ID}: ({TimeSpan.FromSeconds(time + START_DAY).ToString(@"hh\:mm\:ss")}) {message}");
+            }
+
             Console.ResetColor();
         }
     }

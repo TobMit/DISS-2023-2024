@@ -98,11 +98,15 @@ namespace managers
 		public void ProcessFinishProcessObsluhyPokladni(MessageForm message)
 		{
 			var sprava = (MyMessage)message.CreateCopy();
-			Constants.Log($"ManagerPokladni: Zakaznik {sprava.Zakaznik.ID} ProcessFinishProcessObsluhyPokladni", Constants.LogType.ManagerLog);
+			Constants.Log("ManagerPokladni", MySim.CurrentTime, sprava.Zakaznik,"ProcessFinishProcessObsluhyPokladni", Constants.LogType.ManagerLog);
 			sprava.Pokladna.UvolniPokladnu();
 			if (sprava.Pokladna.Queue.Count > 0)
 			{
 				var newSprava = sprava.Pokladna.Queue.Dequeue();
+				if (newSprava.Pokladna is not null)
+				{
+					throw new InvalidOperationException("Zakaznik už bol boslúžený pri pokladni");
+				}
 				sprava.Pokladna.ObsadPokladnu(newSprava.Zakaznik);
 				newSprava.Addressee = MyAgent.FindAssistant(SimId.ProcessObsluhyPokladni);
 				newSprava.Pokladna = sprava.Pokladna;
@@ -135,7 +139,7 @@ namespace managers
 		public void ProcessNoticeZaciatokPokladne(MessageForm message)
 		{
 			var sprava = (MyMessage)message.CreateCopy();
-			Constants.Log($"ManagerPokladni: Zakaznik {sprava.Zakaznik.ID} ProcessNoticeZaciatokPokladne", Constants.LogType.ManagerLog);
+			Constants.Log("ManagerPokladni", MySim.CurrentTime, sprava.Zakaznik,"ProcessNoticeZaciatokPokladne", Constants.LogType.ManagerLog);
 			var pokladna = GetVolnaPokladnaPrazdnyRad();
 			if (pokladna is not null)
 			{

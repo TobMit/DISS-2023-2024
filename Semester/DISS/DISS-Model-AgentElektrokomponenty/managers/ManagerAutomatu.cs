@@ -2,6 +2,7 @@ using OSPABA;
 using simulation;
 using agents;
 using continualAssistants;
+using DISS_Model_AgentElektrokomponenty.Entity;
 using instantAssistants;
 using OSPDataStruct;
 using OSPStat;
@@ -37,9 +38,10 @@ namespace managers
 		public void ProcessFinishProcessObsluhaAutomatu(MessageForm message)
 		{
 			var sprava = (MyMessage)message.CreateCopy();
-			Constants.Log($"ManagerAutomatu {TimeSpan.FromSeconds(MySim.CurrentTime + Constants.START_DAY).ToString(@"hh\:mm\:ss")}: Zakaznik {sprava.Zakaznik.ID} ProcessFinishProcessObsluhaAutomatu", Constants.LogType.ManagerLog);
+			Constants.Log("ManagerAutomatu", MySim.CurrentTime, sprava.Zakaznik,"ProcessFinishProcessObsluhaAutomatu", Constants.LogType.ManagerLog);
 			if (!Front.IsEmpty())
 			{
+				//todo resolve pocet ludi v automate
 				var newSprava = new MyMessage(Front.Dequeue());
 				((MySimulation)MySim).StatCasStravenyPredAutomatom.AddSample(MySim.CurrentTime - newSprava.Zakaznik.TimeOfArrival);
 				newSprava.Addressee = MyAgent.FindAssistant(SimId.ProcessObsluhaAutomatu);
@@ -59,7 +61,7 @@ namespace managers
 		//meta! sender="SchedulerZatvorenieAutomatu", id="55", type="Finish"
 		public void ProcessFinishSchedulerZatvorenieAutomatu(MessageForm message)
 		{
-			Constants.Log($"ManagerAutomatu {TimeSpan.FromSeconds(MySim.CurrentTime + Constants.START_DAY).ToString(@"hh\:mm\:ss")}: ProcessFinishSchedulerZatvorenieAutomatu", Constants.LogType.ManagerLog);
+			Constants.Log("ManagerAutomatu", MySim.CurrentTime, new (),"ProcessFinishSchedulerZatvorenieAutomatu", Constants.LogType.ManagerLog);
 			
 			//todo add logics + statistics
 			while (!Front.IsEmpty())
@@ -67,36 +69,32 @@ namespace managers
 				var spravaNew = Front.Dequeue();
 				spravaNew.Zakaznik.StavZakaznika = Constants.StavZakaznika.OdišielZPredajne;
 			}
-			
-			var sprava = (MyMessage)message.CreateCopy();
-			sprava.Code = Mc.NoticeKoniecObsluhy;
-			sprava.Addressee = MySim.FindAgent(SimId.AgentPredajne);
 		}
 
 		//meta! sender="AgentPredajne", id="34", type="Notice"
 		public void ProcessNoticeZaciatokObsluhy(MessageForm message)
 		{
-			Constants.Log("ManagerAutomatu: ProcessNoticeZaciatokObsluhy", Constants.LogType.ManagerLog);
 			var sprava = (MyMessage)message.CreateCopy();
+			Constants.Log("ManagerAutomatu", MySim.CurrentTime, sprava.Zakaznik,"ProcessNoticeZaciatokObsluhy", Constants.LogType.ManagerLog);
 			sprava.Zakaznik.ID = Id++;
 			sprava.Zakaznik.TimeOfArrival = MySim.CurrentTime; 
 			sprava.Zakaznik.SetTypNarocnostiTovaru(((MySimulation)MySim).RndTypNarocnostTovaru.Next());
 			sprava.Zakaznik.SetTypVelkostiNakladu(((MySimulation)MySim).RndTypVelkostiNakladu.Next());
 			if (Front.Count > 0)
 			{
-				Constants.Log($"ManagerAutomatu {TimeSpan.FromSeconds(MySim.CurrentTime + Constants.START_DAY).ToString(@"hh\:mm\:ss")}: Pridané do frontu", Constants.LogType.ManagerLog);
+				Constants.Log("ManagerAutomatu", MySim.CurrentTime, sprava.Zakaznik,"Pridané do frontu", Constants.LogType.ManagerLog);
 				sprava.Zakaznik.StavZakaznika = Constants.StavZakaznika.RadPredAutomatom;
 				Front.Enqueue(sprava);
 			}
 			else if (Obsluhuje)
 			{
-				Constants.Log($"ManagerAutomatu {TimeSpan.FromSeconds(MySim.CurrentTime + Constants.START_DAY).ToString(@"hh\:mm\:ss")}: Pridané do frontu", Constants.LogType.ManagerLog);
+				Constants.Log("ManagerAutomatu", MySim.CurrentTime, sprava.Zakaznik,"Pridané do frontu", Constants.LogType.ManagerLog);
 				sprava.Zakaznik.StavZakaznika = Constants.StavZakaznika.RadPredAutomatom;
 				Front.Enqueue(sprava);
 			}
 			else if (sprava.PocetLudiVOM >= Constants.RADA_PRED_OBSLUZNYM_MIESTOM)
 			{
-				Constants.Log($"ManagerAutomatu {TimeSpan.FromSeconds(MySim.CurrentTime + Constants.START_DAY).ToString(@"hh\:mm\:ss")}: Pridané do frontu", Constants.LogType.ManagerLog);
+				Constants.Log("ManagerAutomatu", MySim.CurrentTime, sprava.Zakaznik,"Pridané do frontu", Constants.LogType.ManagerLog);
 				sprava.Zakaznik.StavZakaznika = Constants.StavZakaznika.RadPredAutomatom;
 				Front.Enqueue(sprava);
 			}
@@ -121,7 +119,7 @@ namespace managers
 		//meta! sender="AgentPredajne", id="91", type="Notice"
 		public void ProcessInit(MessageForm message)
 		{
-			Constants.Log("ManagerAutomatu: ProcessInit", Constants.LogType.ManagerLog);
+			Constants.Log("ManagerAutomatu", MySim.CurrentTime, null,"ProcessInit", Constants.LogType.ManagerLog);
 			Id = 0;
 			Front.Clear();
 			Obsluhuje = false;
@@ -133,7 +131,7 @@ namespace managers
 		//meta! sender="SchedulerZatvorenieAutomatu", id="94", type="Notice"
 		public void ProcessNoticeZatvorenieAutomatu(MessageForm message)
 		{
-			Constants.Log($"ManagerAutomatu {TimeSpan.FromSeconds(MySim.CurrentTime + Constants.START_DAY).ToString(@"hh\:mm\:ss")}: ProcessNoticeZatvorenieAutomatu", Constants.LogType.ManagerLog);
+			Constants.Log("ManagerAutomatu", MySim.CurrentTime, null,"ProcessNoticeZatvorenieAutomatu", Constants.LogType.ManagerLog);
 			//todo add logic
 		}
 

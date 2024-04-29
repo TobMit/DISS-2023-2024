@@ -29,7 +29,7 @@ namespace managers
 		public void ProcessNoticePrichodZakaznika(MessageForm message)
 		{
 			var sprava = (MyMessage)message.CreateCopy();
-			Constants.Log($"ManagerModelu ({TimeSpan.FromSeconds(MySim.CurrentTime + Constants.START_DAY).ToString(@"hh\:mm\:ss")}): ProcessNoticePrichodZakaznika typu: {sprava.Zakaznik.TypZakaznika}", Constants.LogType.ManagerLog);
+			Constants.Log("ManagerModelu", MySim.CurrentTime, null,$"ProcessNoticePrichodZakaznika typu: {sprava.Zakaznik.TypZakaznika}", Constants.LogType.ManagerLog);
 			((MySimulation)MySim).CelkovyPocetZakaznikov++;
 			sprava.Addressee = MySim.FindAgent(SimId.AgentPredajne);
 			sprava.Code = Mc.VstupDoPredajne;

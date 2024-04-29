@@ -97,7 +97,7 @@ namespace managers
 		public void ProcessFinishProcessOMDiktovanie(MessageForm message)
         {
 	        var sprava = (MyMessage)message.CreateCopy();
-	        Constants.Log($"ManagerObsluzneMiesto: ProcessFinishProcessOMDiktovanie Zakaznik ID {sprava.Zakaznik.ID}", Constants.LogType.ManagerLog);
+	        Constants.Log("ManagerObsluzneMiesto", MySim.CurrentTime, sprava.Zakaznik,"ProcessFinishProcessOMDiktovanie", Constants.LogType.ManagerLog);
 	        sprava.Addressee = MyAgent.FindAssistant(SimId.ProcessOMPripravaTovaru);
 	        StartContinualAssistant(sprava);
         }
@@ -106,7 +106,7 @@ namespace managers
 		public void ProcessNoticeUvolnenieOm(MessageForm message)
         {
 	        var sprava = (MyMessage)message.CreateCopy();
-	        Constants.Log($"ManagerObsluzneMiesto: Zakaznik ID {sprava.Zakaznik.ID} ProcessNoticeUvolnenieOm", Constants.LogType.ManagerLog);
+	        Constants.Log("ManagerObsluzneMiesto", MySim.CurrentTime, sprava.Zakaznik,"ProcessNoticeUvolnenieOm", Constants.LogType.ManagerLog);
 	        sprava.Addressee = MyAgent.FindAssistant(SimId.ProcessVyzdvihnutieTovaru);
 	        StartContinualAssistant(sprava);
         }
@@ -127,8 +127,8 @@ namespace managers
 		//meta! sender="AgentPredajne", id="97", type="Request"
 		public void ProcessPocetMiestVRade(MessageForm message)
         {
-            Constants.Log("ManagerObsluzneMiesto: ProcessPocetMiestVRade", Constants.LogType.ManagerLog);
-            var sprava = (MyMessage)message;
+	        var sprava = (MyMessage)message;
+	        Constants.Log("ManagerObsluzneMiesto", MySim.CurrentTime, sprava.Zakaznik,"ProcessPocetMiestVRade", Constants.LogType.ManagerLog);
             sprava.PocetLudiVOM = _radaPredObsluznymMiestom.Count;
             Response(sprava);
         }
@@ -137,10 +137,11 @@ namespace managers
 		public void ProcessNoticeZaciatokObsluhyOm(MessageForm message)
 		{
 			var sprava = (MyMessage)message.CreateCopy();
-			Constants.Log($"ManagerObsluzneMiesto: Zakaznik ID {sprava.Zakaznik.ID} ProcessNoticeZaciatokObsluhyOm", Constants.LogType.ManagerLog);
+			Constants.Log("ManagerObsluzneMiesto", MySim.CurrentTime, sprava.Zakaznik,"ProcessNoticeZaciatokObsluhyOm", Constants.LogType.ManagerLog);
 			if (_radaPredObsluznymMiestom.Count >= 1)
 			{
 				_radaPredObsluznymMiestom.Enqueue(sprava);
+				return;
 			}
 			sprava.Addressee = MyAgent.FindAssistant(SimId.ActionPridelenieOm);
 			Execute(sprava);
@@ -159,6 +160,7 @@ namespace managers
 			}
 			else
 			{
+				Constants.Log("ManagerObsluzneMiesto", MySim.CurrentTime, sprava.Zakaznik,"ProcessNoticeZaciatokObsluhyOm - Pridany do frontu", Constants.LogType.ManagerLog);
 				_radaPredObsluznymMiestom.Enqueue(sprava);
 			}
 		}
@@ -167,7 +169,7 @@ namespace managers
 		public void ProcessFinishProcessOMOnlinePripravaTovaru(MessageForm message)
 		{
 			var sprava = (MyMessage)message.CreateCopy();
-			Constants.Log($"ManagerObsluzneMiesto: ProcessFinishProcessOMOnlinePripravaTovaru Zakaznik ID {sprava.Zakaznik.ID}", Constants.LogType.ManagerLog);
+			Constants.Log("ManagerObsluzneMiesto", MySim.CurrentTime, sprava.Zakaznik,"ProcessFinishProcessOMOnlinePripravaTovaru", Constants.LogType.ManagerLog);
 			KoniecObsluhy(sprava);
 		}
 
@@ -175,7 +177,7 @@ namespace managers
 		public void ProcessFinishProcessOMPripravaTovaru(MessageForm message)
 		{
 			var sprava = (MyMessage)message.CreateCopy();
-			Constants.Log($"ManagerObsluzneMiesto: Zakaznik ID {sprava.Zakaznik.ID} ProcessFinishProcessOMPripravaTovaru", Constants.LogType.ManagerLog);
+			Constants.Log("ManagerObsluzneMiesto", MySim.CurrentTime, sprava.Zakaznik,"ProcessFinishProcessOMPripravaTovaru", Constants.LogType.ManagerLog);
 			KoniecObsluhy(sprava);
 		}
 
@@ -188,6 +190,10 @@ namespace managers
 				while (_radaPredObsluznymMiestom.CountOnline >= 1 && tmpObsluzneMiesto is not null)
 				{
 					var spraveNew = (MyMessage)_radaPredObsluznymMiestom.Dequeue(true).CreateCopy();
+					if (spraveNew.ObsluzneMiesto is not null)
+					{
+						throw new InvalidOperationException("Zákazník už bol obslúžený");
+					}
 					spraveNew.ObsluzneMiesto = tmpObsluzneMiesto;
 					spraveNew.Addressee = MyAgent.FindAssistant(SimId.ProcessOMOnlinePripravaTovaru);
 					tmpObsluzneMiesto.Obsluz(spraveNew.Zakaznik);
@@ -199,6 +205,10 @@ namespace managers
 				while (_radaPredObsluznymMiestom.CountOstatne >= 1 && tmpObsluzneMiesto is not null)
 				{
 					var spraveNew = (MyMessage)_radaPredObsluznymMiestom.Dequeue().CreateCopy();
+					if (spraveNew.ObsluzneMiesto is not null)
+					{
+						throw new InvalidOperationException("Zákazník už bol obslúžený");
+					}
 					spraveNew.ObsluzneMiesto = tmpObsluzneMiesto;
 					spraveNew.Addressee = MyAgent.FindAssistant(SimId.ProcessOMDiktovanie);
 					tmpObsluzneMiesto.Obsluz(spraveNew.Zakaznik);
@@ -221,7 +231,7 @@ namespace managers
 		public void ProcessFinishProcessVyzdvihnutieTovaru(MessageForm message)
 		{
 			var sprava = (MyMessage)message.CreateCopy();
-			Constants.Log($"ManagerObsluzneMiesto: Zakaznik {sprava.Zakaznik.ID} ProcessFinishProcessVyzdvihnutieTovaru", Constants.LogType.ManagerLog);
+			Constants.Log("ManagerObsluzneMiesto", MySim.CurrentTime, sprava.Zakaznik,"ProcessFinishProcessVyzdvihnutieTovaru", Constants.LogType.ManagerLog);
 			sprava.Addressee = MySim.FindAgent(SimId.AgentPredajne);
 			sprava.Code = Mc.NoticeKoniecObsluhyOm;
 			Notice(sprava);

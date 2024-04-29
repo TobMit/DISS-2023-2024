@@ -28,8 +28,8 @@ namespace managers
 		//meta! sender="AgentModelu", id="27", type="Notice"
 		public void ProcessInit(MessageForm message)
 		{
-			Constants.Log("ManagerPredajne: ProcessInit", Constants.LogType.ManagerLog);
 			var sprava = (MyMessage)message.CreateCopy();
+			Constants.Log("ManagerPredajne", MySim.CurrentTime, sprava.Zakaznik,"ProcessInit", Constants.LogType.ManagerLog);
 			sprava.Addressee = MySim.FindAgent(SimId.AgentAutomatu);
 			Notice(new MyMessage(sprava));
 			//todo add more init to other agents
@@ -39,7 +39,7 @@ namespace managers
 		public void ProcessVstupDoPredajne(MessageForm message)
 		{
 			var sprava = (MyMessage)message.CreateCopy();
-			Constants.Log($"ManagerPredajne: ProcessVstupDoPredajne zakaznik ID {sprava.Zakaznik.ID}", Constants.LogType.ManagerLog);
+			Constants.Log("ManagerPredajne", MySim.CurrentTime, sprava.Zakaznik,"ProcessVstupDoPredajne", Constants.LogType.ManagerLog);
 			sprava.Addressee = MySim.FindAgent(SimId.AgentObsluzneMiesto);
 			sprava.Code = Mc.PocetMiestVRade;
 			Request(sprava);
@@ -59,7 +59,7 @@ namespace managers
 		public void ProcessNoticeKoniecObsluhy(MessageForm message)
 		{
 			var sprava = (MyMessage)message.CreateCopy();
-			Constants.Log($"ManagerPredajne: Zakaznik: {sprava.Zakaznik.ID} ProcessNoticeKoniecObsluhy", Constants.LogType.ManagerLog);
+			Constants.Log("ManagerPredajne", MySim.CurrentTime, sprava.Zakaznik,"ProcessNoticeKoniecObsluhy", Constants.LogType.ManagerLog);
 			sprava.Addressee = MySim.FindAgent(SimId.AgentObsluzneMiesto);
 			sprava.Code = Mc.NoticeZaciatokObsluhyOm;
 			Notice(sprava);
@@ -77,7 +77,7 @@ namespace managers
 		public void ProcessPocetMiestVRade(MessageForm message)
 		{
 			var sprava = (MyMessage)message.CreateCopy();
-			Constants.Log($"ManagerPredajne: Zakaznik {sprava.Zakaznik.ID} ProcessPocetMiestVRade", Constants.LogType.ManagerLog);
+			Constants.Log("ManagerPredajne", MySim.CurrentTime, sprava.Zakaznik," ProcessPocetMiestVRade", Constants.LogType.ManagerLog);
 			sprava.Addressee = MySim.FindAgent(SimId.AgentAutomatu);
 			sprava.Code = Mc.NoticeZaciatokObsluhy;
 			Notice(sprava);
@@ -87,7 +87,7 @@ namespace managers
 		public void ProcessNoticeKoniecObsluhyOm(MessageForm message)
 		{
 			var sprava = (MyMessage)message.CreateCopy();
-			Constants.Log($"ManagerPredajne: Zakaznik {sprava.Zakaznik.ID} ProcessNoticeKoniecObsluhyOm", Constants.LogType.ManagerLog);
+			Constants.Log("ManagerPredajne", MySim.CurrentTime, sprava.Zakaznik,"ProcessNoticeKoniecObsluhyOm", Constants.LogType.ManagerLog);
 			if (sprava.TovarVydvihnty)
 			{
 				// todo pridať logiku
@@ -106,9 +106,13 @@ namespace managers
 		public void ProcessNoticeKoniecPokladne(MessageForm message)
 		{
 			var sprava = (MyMessage)message.CreateCopy();
-			Constants.Log($"ManagerPredajne: Zakaznik {sprava.Zakaznik.ID} ProcessNoticeKoniecPokladne", Constants.LogType.ManagerLog);
+			Constants.Log("ManagerPredajne", MySim.CurrentTime, sprava.Zakaznik,"ProcessNoticeKoniecPokladne", Constants.LogType.ManagerLog);
 			if (sprava.Zakaznik.TypVelkostiNakladu == Constants.TypVelkostiNakladu.Normálna)
 			{
+				if (sprava.Zakaznik.StavZakaznika == Constants.StavZakaznika.OdišielZPredajne)
+				{
+					throw new InvalidOperationException("Zakaznik už odišiel z predajne");
+				}
 				sprava.Zakaznik.StavZakaznika = Constants.StavZakaznika.OdišielZPredajne;
 				((MySimulation)MySim).PocetObsluzenychZakaznikov++;
 				// todo add odchod z predajne
