@@ -215,6 +215,12 @@ namespace managers
 					StartContinualAssistant(spraveNew);
 					tmpObsluzneMiesto = GetVolneOstatne();
 				}
+				Notice(new MyMessage(MySim, null)
+				{
+					Addressee = MyAgent.FindAssistant(SimId.AgentPredajne),
+					Code = Mc.NoticeUvolnenieRadu,
+					SimpleMessage = true
+				});
 			}
 			else
 			{
@@ -257,6 +263,13 @@ namespace managers
 				StartContinualAssistant(spraveNew);
 				tmpObsluzneMiesto = GetVolneOstatne();
 			}
+			
+			Notice(new MyMessage(MySim, null)
+			{
+				Addressee = MyAgent.FindAssistant(SimId.AgentPredajne),
+				Code = Mc.NoticeUvolnenieRadu,
+				SimpleMessage = true
+			});
 		}
 
 		//meta! userInfo="Generated code: do not modify", tag="begin"

@@ -139,6 +139,10 @@ namespace managers
 		//meta! sender="AgentObsluzneMiesto", id="134", type="Notice"
 		public void ProcessNoticeUvolnenieRadu(MessageForm message)
 		{
+			var sprava = (MyMessage)message.CreateCopy();
+			Constants.Log("ManagerPredajne", MySim.CurrentTime, null,"Notice - ProcessNoticeUvolnenieRadu", Constants.LogType.ManagerLog);
+			sprava.Addressee = MySim.FindAgent(SimId.AgentAutomatu);
+			Notice(sprava);
 		}
 
 		//meta! userInfo="Generated code: do not modify", tag="begin"

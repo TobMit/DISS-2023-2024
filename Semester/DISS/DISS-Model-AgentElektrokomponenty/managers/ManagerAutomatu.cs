@@ -159,6 +159,22 @@ namespace managers
 		//meta! sender="AgentPredajne", id="135", type="Notice"
 		public void ProcessNoticeUvolnenieRadu(MessageForm message)
 		{
+			var sprava = (MyMessage)message.CreateCopy();
+			Constants.Log("ManagerAutomatu", MySim.CurrentTime, null,"ProcessNoticeUvolnenieRadu", Constants.LogType.ManagerLog);
+			if (Obsluhuje)
+			{
+				return;
+			}
+			else
+			{
+				if (Front.Count > 0)
+				{
+					var newSprava = new MyMessage(Front.Dequeue());
+					((MySimulation)MySim).StatCasStravenyPredAutomatom.AddSample(MySim.CurrentTime - newSprava.Zakaznik.TimeOfArrival);
+					newSprava.Addressee = MyAgent.FindAssistant(SimId.ProcessObsluhaAutomatu);
+					StartContinualAssistant(newSprava);
+				}
+			}
 		}
 
 		//meta! userInfo="Generated code: do not modify", tag="begin"
