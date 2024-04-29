@@ -44,6 +44,14 @@ namespace managers
 		//meta! sender="AgentModelu", id="17", type="Notice"
 		public void ProcessNoticeOdchodZakaznika(MessageForm message)
 		{
+			var sprava = (MyMessage)message.CreateCopy();
+			Constants.Log("ManagerOkolia", MySim.CurrentTime, sprava.Zakaznik,"ProcessNoticeOdchodZakaznika", Constants.LogType.ManagerLog);
+			if (sprava.Zakaznik.StavZakaznika == Constants.StavZakaznika.OdišielZPredajne)
+			{
+				throw new InvalidOperationException("Zakaznik už odyšiel");
+			}
+			sprava.Zakaznik.StavZakaznika = Constants.StavZakaznika.OdišielZPredajne;
+			((MySimulation)MySim).PocetObsluzenychZakaznikov++;
 		}
 
 		//meta! sender="PlanovacPrichodovOnline", id="78", type="Finish"
@@ -98,7 +106,7 @@ namespace managers
 			var NewSprava = new MyMessage(MySim, null){Addressee = address};
 			
 			// Ak nie sme v debugu tak sa budu generovať viacerý zákazníci
-			//if (!Constants.DEBUG)
+			if (!Constants.DEBUG)
 			{
 				StartContinualAssistant(NewSprava);
 			}

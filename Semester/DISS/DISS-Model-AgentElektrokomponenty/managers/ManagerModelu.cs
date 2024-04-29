@@ -47,6 +47,10 @@ namespace managers
 		//meta! sender="AgentPredajne", id="125", type="Notice"
 		public void ProcessNoticeOdchodZakaznika(MessageForm message)
 		{
+			var sprava = (MyMessage)message.CreateCopy();
+			Constants.Log("ManagerModelu", MySim.CurrentTime, sprava.Zakaznik,"ProcessNoticeOdchodZakaznika", Constants.LogType.ManagerLog);
+			sprava.Addressee = MySim.FindAgent(SimId.AgentOkolia);
+			Notice(sprava);
 		}
 
 		//meta! userInfo="Generated code: do not modify", tag="begin"

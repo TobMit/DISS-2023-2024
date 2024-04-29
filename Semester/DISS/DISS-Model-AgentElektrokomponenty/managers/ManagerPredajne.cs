@@ -90,9 +90,9 @@ namespace managers
 			Constants.Log("ManagerPredajne", MySim.CurrentTime, sprava.Zakaznik,"ProcessNoticeKoniecObsluhyOm", Constants.LogType.ManagerLog);
 			if (sprava.TovarVydvihnty)
 			{
-				// todo pridať logiku
-				((MySimulation)MySim).PocetObsluzenychZakaznikov++;
-				sprava.Zakaznik.StavZakaznika = Constants.StavZakaznika.OdišielZPredajne;
+				sprava.Addressee = MySim.FindAgent(SimId.AgentModelu);
+				sprava.Code = Mc.NoticeOdchodZakaznika;
+				Notice(sprava);
 			}
 			else
 			{
@@ -109,13 +109,9 @@ namespace managers
 			Constants.Log("ManagerPredajne", MySim.CurrentTime, sprava.Zakaznik,"ProcessNoticeKoniecPokladne", Constants.LogType.ManagerLog);
 			if (sprava.Zakaznik.TypVelkostiNakladu == Constants.TypVelkostiNakladu.Normálna)
 			{
-				if (sprava.Zakaznik.StavZakaznika == Constants.StavZakaznika.OdišielZPredajne)
-				{
-					throw new InvalidOperationException("Zakaznik už odišiel z predajne");
-				}
-				sprava.Zakaznik.StavZakaznika = Constants.StavZakaznika.OdišielZPredajne;
-				((MySimulation)MySim).PocetObsluzenychZakaznikov++;
-				// todo add odchod z predajne
+				sprava.Addressee = MySim.FindAgent(SimId.AgentModelu);
+				sprava.Code = Mc.NoticeOdchodZakaznika;
+				Notice(sprava);
 			}
 			else
 			{
