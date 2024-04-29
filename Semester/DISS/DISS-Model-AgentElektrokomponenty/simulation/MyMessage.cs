@@ -11,11 +11,18 @@ namespace simulation
         public ObsluzneMiesto? ObsluzneMiesto { get; set; }
         public Pokladna? Pokladna { get; set; }
 
+        /// <summary>
+        /// Použité iba pri keď zákazník opúšťa OM po tom čo si bol vydzvihnuť tovar
+        /// </summary>
+        public bool TovarVydvihnty { get; set; }
+
         public int PocetLudiVOM { get; set; }
+
         /// <summary>
         /// Jednoduchá správa
         /// </summary>
         /// <param name="sim">SimCore</param>
+        /// <param name="pZakaznik">Zákazník ktorému patri správa</param>
         public MyMessage(Simulation sim, Person? pZakaznik = null) :
             base(sim)
         {
@@ -29,6 +36,7 @@ namespace simulation
             }
 
             PocetLudiVOM = 0;
+            TovarVydvihnty = false;
         }
 
         public MyMessage(MyMessage original) :
@@ -51,6 +59,7 @@ namespace simulation
             PocetLudiVOM = original.PocetLudiVOM;
             ObsluzneMiesto = original.ObsluzneMiesto;
             Pokladna = original.Pokladna;
+            TovarVydvihnty = original.TovarVydvihnty;
         }
     }
 }

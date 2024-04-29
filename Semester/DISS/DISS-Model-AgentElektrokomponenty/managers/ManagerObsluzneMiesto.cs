@@ -105,6 +105,10 @@ namespace managers
 		//meta! sender="AgentPredajne", id="49", type="Notice"
 		public void ProcessNoticeUvolnenieOm(MessageForm message)
         {
+	        var sprava = (MyMessage)message.CreateCopy();
+	        Constants.Log($"ManagerObsluzneMiesto: Zakaznik ID {sprava.Zakaznik.ID} ProcessNoticeUvolnenieOm", Constants.LogType.ManagerLog);
+	        sprava.Addressee = MyAgent.FindAssistant(SimId.ProcessVyzdvihnutieTovaru);
+	        StartContinualAssistant(sprava);
         }
 
 		//meta! sender="AgentPredajne", id="65", type="Notice"
@@ -216,6 +220,9 @@ namespace managers
 		//meta! sender="ProcessVyzdvihnutieTovaru", id="120", type="Finish"
 		public void ProcessFinishProcessVyzdvihnutieTovaru(MessageForm message)
 		{
+			var sprava = (MyMessage)message.CreateCopy();
+			Constants.Log($"ManagerObsluzneMiesto: Zakaznik ID {sprava.Zakaznik.ID} ProcessFinishProcessVyzdvihnutieTovaru", Constants.LogType.ManagerLog);
+			// todo add znovu nastartovanie obsluhy a odchod zakaznika
 		}
 
 		//meta! userInfo="Generated code: do not modify", tag="begin"

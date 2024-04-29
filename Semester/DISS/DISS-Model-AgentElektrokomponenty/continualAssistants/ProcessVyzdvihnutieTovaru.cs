@@ -11,7 +11,7 @@ namespace continualAssistants
 		{
 		}
 
-		override public void PrepareReplication()
+		public override void PrepareReplication()
 		{
 			base.PrepareReplication();
 			// Setup component for the next replication
@@ -20,6 +20,11 @@ namespace continualAssistants
 		//meta! sender="AgentObsluzneMiesto", id="120", type="Start"
 		public void ProcessStart(MessageForm message)
 		{
+			var sprava = (MyMessage)message.CreateCopy();
+			Constants.Log($"ProcessVyzdvihnutieTovaru: Zakaznik {sprava.Zakaznik.ID} ProcessStart", Constants.LogType.ContinualAssistantLog);
+			sprava.Code = Mc.Finish;
+			sprava.Zakaznik.StavZakaznika = Constants.StavZakaznika.ObslužnéMiestoVraciaSaPreVeľkýTovar;
+			Hold(((MySimulation)MySim).RndTrvanieVyzdvyhnutieVelkehoTovaru.Next(), sprava);
 		}
 
 		//meta! userInfo="Process messages defined in code", id="0"
@@ -27,6 +32,13 @@ namespace continualAssistants
 		{
 			switch (message.Code)
 			{
+				case Mc.Finish:
+					var sprava = (MyMessage)message.CreateCopy();
+					Constants.Log($"ProcessVyzdvihnutieTovaru: Zakaznik {sprava.Zakaznik.ID} ProcessFinish", Constants.LogType.ContinualAssistantLog);
+					sprava.ObsluzneMiesto.Uvolni(false); // keď počítam vyťaženie človeka tak je tuto false lebo človek už je voľný
+					sprava.Addressee = MyAgent;
+					AssistantFinished(sprava);
+					break;
 			}
 		}
 

@@ -106,7 +106,7 @@ namespace managers
 				sprava.Pokladna.ObsadPokladnu(newSprava.Zakaznik);
 				newSprava.Addressee = MyAgent.FindAssistant(SimId.ProcessObsluhyPokladni);
 				newSprava.Pokladna = sprava.Pokladna;
-				StartContinualAssistant(sprava);
+				StartContinualAssistant(newSprava);
 			}
 			sprava.Code = Mc.NoticeKoniecPokladne;
 			sprava.Addressee = MySim.FindAgent(SimId.AgentPredajne);

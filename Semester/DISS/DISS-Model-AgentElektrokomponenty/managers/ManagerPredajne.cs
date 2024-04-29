@@ -55,11 +55,6 @@ namespace managers
 		{
 		}
 
-		//meta! userInfo="Removed from model"
-		public void ProcessNoticeUvolneniePredajni(MessageForm message)
-		{
-		}
-
 		//meta! sender="AgentAutomatu", id="35", type="Notice"
 		public void ProcessNoticeKoniecObsluhy(MessageForm message)
 		{
@@ -68,12 +63,6 @@ namespace managers
 			sprava.Addressee = MySim.FindAgent(SimId.AgentObsluzneMiesto);
 			sprava.Code = Mc.NoticeZaciatokObsluhyOm;
 			Notice(sprava);
-		}
-
-
-		//meta! userInfo="Removed from model"
-		public void ProcessPridelenieZakaznikaPredajni(MessageForm message)
-		{
 		}
 
 		//meta! userInfo="Process messages defined in code", id="0"
@@ -116,7 +105,9 @@ namespace managers
 			}
 			else
 			{
-				// todo add logic to the uvolnenie pokladne + pridať StavZákazníka
+				sprava.Addressee = MySim.FindAgent(SimId.AgentObsluzneMiesto);
+				sprava.Code = Mc.NoticeUvolnenieOm;
+				Notice(sprava);
 			}
 		}
 
