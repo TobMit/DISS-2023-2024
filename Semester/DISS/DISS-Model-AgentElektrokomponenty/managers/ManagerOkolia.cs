@@ -52,6 +52,9 @@ namespace managers
 			}
 			sprava.Zakaznik.StavZakaznika = Constants.StavZakaznika.OdišielZPredajne;
 			((MySimulation)MySim).PocetObsluzenychZakaznikov++;
+			
+			//todo add priemerny odchod zo systému
+			//todo priemerny čas skončenia systému
 		}
 
 		//meta! sender="PlanovacPrichodovOnline", id="78", type="Finish"
@@ -124,10 +127,6 @@ namespace managers
 			case Mc.Finish:
 				switch (message.Sender.Id)
 				{
-				case SimId.PlanovacPrichodovBasic:
-					ProcessFinishPlanovacPrichodovBasic(message);
-				break;
-
 				case SimId.PlanovacPrichodovZmluvny:
 					ProcessFinishPlanovacPrichodovZmluvny(message);
 				break;
@@ -135,15 +134,19 @@ namespace managers
 				case SimId.PlanovacPrichodovOnline:
 					ProcessFinishPlanovacPrichodovOnline(message);
 				break;
-				}
-			break;
 
-			case Mc.Init:
-				ProcessInit(message);
+				case SimId.PlanovacPrichodovBasic:
+					ProcessFinishPlanovacPrichodovBasic(message);
+				break;
+				}
 			break;
 
 			case Mc.NoticeOdchodZakaznika:
 				ProcessNoticeOdchodZakaznika(message);
+			break;
+
+			case Mc.Init:
+				ProcessInit(message);
 			break;
 
 			default:

@@ -74,7 +74,7 @@ namespace managers
 		}
 
 		//meta! sender="AgentObsluzneMiesto", id="97", type="Response"
-		public void ProcessPocetMiestVRade(MessageForm message)
+		public void ProcessPocetMiestVRadeAgentObsluzneMiesto(MessageForm message)
 		{
 			var sprava = (MyMessage)message.CreateCopy();
 			Constants.Log("ManagerPredajne", MySim.CurrentTime, sprava.Zakaznik," ProcessPocetMiestVRade", Constants.LogType.ManagerLog);
@@ -121,6 +121,12 @@ namespace managers
 			}
 		}
 
+
+		//meta! sender="AgentAutomatu", id="132", type="Request"
+		public void ProcessPocetMiestVRadeAgentAutomatu(MessageForm message)
+		{
+		}
+
 		//meta! userInfo="Generated code: do not modify", tag="begin"
 		public void Init()
 		{
@@ -130,41 +136,50 @@ namespace managers
 		{
 			switch (message.Code)
 			{
+			case Mc.NoticeKoniecObsluhyOm:
+				ProcessNoticeKoniecObsluhyOm(message);
+			break;
+
 			case Mc.PocetMiestVRade:
-				ProcessPocetMiestVRade(message);
+				switch (message.Sender.Id)
+				{
+				case SimId.AgentObsluzneMiesto:
+					ProcessPocetMiestVRadeAgentObsluzneMiesto(message);
+				break;
+
+				case SimId.AgentAutomatu:
+					ProcessPocetMiestVRadeAgentAutomatu(message);
+				break;
+				}
 			break;
 
 			case Mc.NoticeKoniecPokladne:
 				ProcessNoticeKoniecPokladne(message);
 			break;
 
-			case Mc.Init:
-				ProcessInit(message);
-			break;
+			case Mc.NoticePrestavkaKoniec:
+				switch (message.Sender.Id)
+				{
+				case SimId.AgentPokladni:
+					ProcessNoticePrestavkaKoniecAgentPokladni(message);
+				break;
 
-			case Mc.NoticeKoniecObsluhyOm:
-				ProcessNoticeKoniecObsluhyOm(message);
-			break;
-
-			case Mc.VstupDoPredajne:
-				ProcessVstupDoPredajne(message);
+				case SimId.AgentObsluzneMiesto:
+					ProcessNoticePrestavkaKoniecAgentObsluzneMiesto(message);
+				break;
+				}
 			break;
 
 			case Mc.NoticeKoniecObsluhy:
 				ProcessNoticeKoniecObsluhy(message);
 			break;
 
-			case Mc.NoticePrestavkaKoniec:
-				switch (message.Sender.Id)
-				{
-				case SimId.AgentObsluzneMiesto:
-					ProcessNoticePrestavkaKoniecAgentObsluzneMiesto(message);
-				break;
+			case Mc.Init:
+				ProcessInit(message);
+			break;
 
-				case SimId.AgentPokladni:
-					ProcessNoticePrestavkaKoniecAgentPokladni(message);
-				break;
-				}
+			case Mc.VstupDoPredajne:
+				ProcessVstupDoPredajne(message);
 			break;
 
 			default:

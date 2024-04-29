@@ -140,6 +140,12 @@ namespace managers
 		{
 		}
 
+
+		//meta! sender="AgentPredajne", id="132", type="Response"
+		public void ProcessPocetMiestVRade(MessageForm message)
+		{
+		}
+
 		//meta! userInfo="Generated code: do not modify", tag="begin"
 		public void Init()
 		{
@@ -149,16 +155,12 @@ namespace managers
 		{
 			switch (message.Code)
 			{
-			case Mc.Init:
-				ProcessInit(message);
+			case Mc.NoticeKoniecObsluhy:
+				ProcessNoticeKoniecObsluhy(message);
 			break;
 
 			case Mc.NoticeZatvorenieAutomatu:
 				ProcessNoticeZatvorenieAutomatu(message);
-			break;
-
-			case Mc.NoticeKoniecObsluhy:
-				ProcessNoticeKoniecObsluhy(message);
 			break;
 
 			case Mc.Finish:
@@ -176,6 +178,14 @@ namespace managers
 
 			case Mc.NoticeZaciatokObsluhy:
 				ProcessNoticeZaciatokObsluhy(message);
+			break;
+
+			case Mc.Init:
+				ProcessInit(message);
+			break;
+
+			case Mc.PocetMiestVRade:
+				ProcessPocetMiestVRade(message);
 			break;
 
 			default:

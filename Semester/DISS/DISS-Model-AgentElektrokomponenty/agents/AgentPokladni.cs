@@ -24,8 +24,8 @@ namespace agents
 		private void Init()
 		{
 			new ManagerPokladni(SimId.ManagerPokladni, MySim, this);
-			new ProcessObsluhyPokladni(SimId.ProcessObsluhyPokladni, MySim, this);
 			new SchedulerPrestavkaPokladne(SimId.SchedulerPrestavkaPokladne, MySim, this);
+			new ProcessObsluhyPokladni(SimId.ProcessObsluhyPokladni, MySim, this);
 			AddOwnMessage(Mc.Init);
 			AddOwnMessage(Mc.NoticeZaciatokPokladne);
 			AddOwnMessage(Mc.NoticePrestavkaZaciatok);
