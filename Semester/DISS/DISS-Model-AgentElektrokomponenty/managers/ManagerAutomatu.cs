@@ -156,6 +156,11 @@ namespace managers
 			}
 		}
 
+		//meta! sender="AgentPredajne", id="135", type="Notice"
+		public void ProcessNoticeUvolnenieRadu(MessageForm message)
+		{
+		}
+
 		//meta! userInfo="Generated code: do not modify", tag="begin"
 		public void Init()
 		{
@@ -188,6 +193,10 @@ namespace managers
 
 			case Mc.NoticeZaciatokObsluhy:
 				ProcessNoticeZaciatokObsluhy(message);
+			break;
+
+			case Mc.NoticeUvolnenieRadu:
+				ProcessNoticeUvolnenieRadu(message);
 			break;
 
 			case Mc.Init:

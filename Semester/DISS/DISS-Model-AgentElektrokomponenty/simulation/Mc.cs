@@ -7,6 +7,7 @@ namespace simulation
 		public const int NoticePrestavkaZaciatok = 1025;
 		public const int NoticePrestavkaKoniec = 1027;
 		public const int PocetMiestVRade = 1045;
+		public const int NoticeUvolnenieRadu = 1046;
 		public const int NoticeNovyBasic = 1029;
 		public const int NoticeOdchodZakaznika = 1002;
 		public const int NoticePrichodZakaznika = 1003;

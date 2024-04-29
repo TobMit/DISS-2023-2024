@@ -179,6 +179,22 @@
       <Destination>9</Destination>
     </Message>
     <Message>
+      <SimId>1046</SimId>
+      <InternalId>134</InternalId>
+      <Name>NoticeUvolnenieRadu</Name>
+      <Type>Notice</Type>
+      <Source>36</Source>
+      <Destination>9</Destination>
+    </Message>
+    <Message>
+      <SimId>1047</SimId>
+      <InternalId>135</InternalId>
+      <Name>NoticeUvolnenieRadu</Name>
+      <Type>Notice</Type>
+      <Source>9</Source>
+      <Destination>25</Destination>
+    </Message>
+    <Message>
       <InternalId>8</InternalId>
       <Type>StartFinish</Type>
       <Source>2</Source>
@@ -467,5 +483,5 @@
       <Destination>61</Destination>
     </Message>
   </Messages>
-  <IID>133</IID>
+  <IID>136</IID>
 </ABAsim>

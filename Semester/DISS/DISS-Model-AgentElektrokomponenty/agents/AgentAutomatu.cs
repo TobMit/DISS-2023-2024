@@ -28,6 +28,7 @@ namespace agents
 			new ProcessObsluhaAutomatu(SimId.ProcessObsluhaAutomatu, MySim, this);
 			AddOwnMessage(Mc.PocetMiestVRade);
 			AddOwnMessage(Mc.Init);
+			AddOwnMessage(Mc.NoticeUvolnenieRadu);
 			AddOwnMessage(Mc.NoticeKoniecObsluhy);
 			AddOwnMessage(Mc.NoticeZatvorenieAutomatu);
 			AddOwnMessage(Mc.NoticeZaciatokObsluhy);

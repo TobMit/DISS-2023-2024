@@ -136,6 +136,11 @@ namespace managers
 			Request(message);
 		}
 
+		//meta! sender="AgentObsluzneMiesto", id="134", type="Notice"
+		public void ProcessNoticeUvolnenieRadu(MessageForm message)
+		{
+		}
+
 		//meta! userInfo="Generated code: do not modify", tag="begin"
 		public void Init()
 		{
@@ -145,6 +150,27 @@ namespace managers
 		{
 			switch (message.Code)
 			{
+			case Mc.NoticePrestavkaKoniec:
+				switch (message.Sender.Id)
+				{
+				case SimId.AgentObsluzneMiesto:
+					ProcessNoticePrestavkaKoniecAgentObsluzneMiesto(message);
+				break;
+
+				case SimId.AgentPokladni:
+					ProcessNoticePrestavkaKoniecAgentPokladni(message);
+				break;
+				}
+			break;
+
+			case Mc.Init:
+				ProcessInit(message);
+			break;
+
+			case Mc.NoticeUvolnenieRadu:
+				ProcessNoticeUvolnenieRadu(message);
+			break;
+
 			case Mc.NoticeKoniecObsluhyOm:
 				ProcessNoticeKoniecObsluhyOm(message);
 			break;
@@ -166,25 +192,8 @@ namespace managers
 				ProcessNoticeKoniecPokladne(message);
 			break;
 
-			case Mc.NoticePrestavkaKoniec:
-				switch (message.Sender.Id)
-				{
-				case SimId.AgentPokladni:
-					ProcessNoticePrestavkaKoniecAgentPokladni(message);
-				break;
-
-				case SimId.AgentObsluzneMiesto:
-					ProcessNoticePrestavkaKoniecAgentObsluzneMiesto(message);
-				break;
-				}
-			break;
-
 			case Mc.NoticeKoniecObsluhy:
 				ProcessNoticeKoniecObsluhy(message);
-			break;
-
-			case Mc.Init:
-				ProcessInit(message);
 			break;
 
 			case Mc.VstupDoPredajne:
