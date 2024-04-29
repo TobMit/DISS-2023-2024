@@ -41,11 +41,13 @@ namespace managers
 			Constants.Log("ManagerAutomatu", MySim.CurrentTime, sprava.Zakaznik,"ProcessFinishProcessObsluhaAutomatu", Constants.LogType.ManagerLog);
 			if (!Front.IsEmpty())
 			{
-				//todo resolve pocet ludi v automate
-				var newSprava = new MyMessage(Front.Dequeue());
-				((MySimulation)MySim).StatCasStravenyPredAutomatom.AddSample(MySim.CurrentTime - newSprava.Zakaznik.TimeOfArrival);
-				newSprava.Addressee = MyAgent.FindAssistant(SimId.ProcessObsluhaAutomatu);
-				StartContinualAssistant(newSprava);
+				var newSprava = new MyMessage(MySim, null)
+				{
+					Addressee = MySim.FindAgent(SimId.AgentPredajne),
+					Code = Mc.PocetMiestVRade,
+					SimpleMessage = true
+				};
+				Request(newSprava);
 			}
 			else
 			{
@@ -144,6 +146,14 @@ namespace managers
 		//meta! sender="AgentPredajne", id="132", type="Response"
 		public void ProcessPocetMiestVRade(MessageForm message)
 		{
+			var sprava = (MyMessage)message.CreateCopy();
+			if (sprava.PocetLudiVOM <= Constants.RADA_PRED_OBSLUZNYM_MIESTOM)
+			{
+				var newSprava = new MyMessage(Front.Dequeue());
+				((MySimulation)MySim).StatCasStravenyPredAutomatom.AddSample(MySim.CurrentTime - newSprava.Zakaznik.TimeOfArrival);
+				newSprava.Addressee = MyAgent.FindAssistant(SimId.ProcessObsluhaAutomatu);
+				StartContinualAssistant(newSprava);	
+			}
 		}
 
 		//meta! userInfo="Generated code: do not modify", tag="begin"

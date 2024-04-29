@@ -76,7 +76,14 @@ namespace managers
 		//meta! sender="AgentObsluzneMiesto", id="97", type="Response"
 		public void ProcessPocetMiestVRadeAgentObsluzneMiesto(MessageForm message)
 		{
-			var sprava = (MyMessage)message.CreateCopy();
+			var sprava = (MyMessage)message;
+			if (sprava.SimpleMessage)
+			{
+				Response(sprava);
+				return;
+			}
+
+			sprava = (MyMessage)message.CreateCopy();
 			Constants.Log("ManagerPredajne", MySim.CurrentTime, sprava.Zakaznik," ProcessPocetMiestVRade", Constants.LogType.ManagerLog);
 			sprava.Addressee = MySim.FindAgent(SimId.AgentAutomatu);
 			sprava.Code = Mc.NoticeZaciatokObsluhy;
@@ -125,6 +132,8 @@ namespace managers
 		//meta! sender="AgentAutomatu", id="132", type="Request"
 		public void ProcessPocetMiestVRadeAgentAutomatu(MessageForm message)
 		{
+			message.Addressee = MySim.FindAgent(SimId.AgentObsluzneMiesto);
+			Request(message);
 		}
 
 		//meta! userInfo="Generated code: do not modify", tag="begin"

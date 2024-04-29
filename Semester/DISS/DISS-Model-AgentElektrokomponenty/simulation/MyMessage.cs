@@ -7,7 +7,6 @@ namespace simulation
     public class MyMessage : MessageForm
     {
         public Person Zakaznik { get; set; }
-
         public ObsluzneMiesto? ObsluzneMiesto { get; set; }
         public Pokladna? Pokladna { get; set; }
 
@@ -17,6 +16,8 @@ namespace simulation
         public bool TovarVydvihnty { get; set; }
 
         public int PocetLudiVOM { get; set; }
+
+        public bool SimpleMessage { get; set; }
 
         /// <summary>
         /// Jednoduchá správa
@@ -37,6 +38,7 @@ namespace simulation
 
             PocetLudiVOM = 0;
             TovarVydvihnty = false;
+            SimpleMessage = false;
         }
 
         public MyMessage(MyMessage original) :
@@ -60,6 +62,7 @@ namespace simulation
             ObsluzneMiesto = original.ObsluzneMiesto;
             Pokladna = original.Pokladna;
             TovarVydvihnty = original.TovarVydvihnty;
+            SimpleMessage = original.SimpleMessage;
         }
     }
 }
