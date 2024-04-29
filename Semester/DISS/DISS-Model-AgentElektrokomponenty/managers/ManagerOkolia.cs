@@ -122,16 +122,16 @@ namespace managers
 			case Mc.Finish:
 				switch (message.Sender.Id)
 				{
+				case SimId.PlanovacPrichodovBasic:
+					ProcessFinishPlanovacPrichodovBasic(message);
+				break;
+
 				case SimId.PlanovacPrichodovZmluvny:
 					ProcessFinishPlanovacPrichodovZmluvny(message);
 				break;
 
 				case SimId.PlanovacPrichodovOnline:
 					ProcessFinishPlanovacPrichodovOnline(message);
-				break;
-
-				case SimId.PlanovacPrichodovBasic:
-					ProcessFinishPlanovacPrichodovBasic(message);
 				break;
 				}
 			break;

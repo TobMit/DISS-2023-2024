@@ -25,6 +25,7 @@ namespace simulation
 		public const int ActionPridelenieOm = 1015;
 		public const int ProcessObsluhyPokladni = 1004;
 		public const int SchedulerZatvorenieAutomatu = 1005;
+		public const int ProcessVyzdvihnutieTovaru = 1016;
 		public const int SchedulerPrestavkaPokladne = 1006;
 		public const int ProcessOMDiktovanie = 1007;
 		public const int SchedulerPrestavkaOM = 1008;

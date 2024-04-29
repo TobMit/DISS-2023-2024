@@ -151,6 +151,14 @@ namespace managers
 		{
 			switch (message.Code)
 			{
+			case Mc.Init:
+				ProcessInit(message);
+			break;
+
+			case Mc.NoticeZatvorenieAutomatu:
+				ProcessNoticeZatvorenieAutomatu(message);
+			break;
+
 			case Mc.NoticeKoniecObsluhy:
 				ProcessNoticeKoniecObsluhy(message);
 			break;
@@ -158,26 +166,18 @@ namespace managers
 			case Mc.Finish:
 				switch (message.Sender.Id)
 				{
-				case SimId.SchedulerZatvorenieAutomatu:
-					ProcessFinishSchedulerZatvorenieAutomatu(message);
-				break;
-
 				case SimId.ProcessObsluhaAutomatu:
 					ProcessFinishProcessObsluhaAutomatu(message);
+				break;
+
+				case SimId.SchedulerZatvorenieAutomatu:
+					ProcessFinishSchedulerZatvorenieAutomatu(message);
 				break;
 				}
 			break;
 
 			case Mc.NoticeZaciatokObsluhy:
 				ProcessNoticeZaciatokObsluhy(message);
-			break;
-
-			case Mc.NoticeZatvorenieAutomatu:
-				ProcessNoticeZatvorenieAutomatu(message);
-			break;
-
-			case Mc.Init:
-				ProcessInit(message);
 			break;
 
 			default:

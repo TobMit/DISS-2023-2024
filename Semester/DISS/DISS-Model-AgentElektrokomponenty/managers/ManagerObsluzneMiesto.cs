@@ -213,6 +213,11 @@ namespace managers
 			Notice(sprava);
 		}
 
+		//meta! sender="ProcessVyzdvihnutieTovaru", id="120", type="Finish"
+		public void ProcessFinishProcessVyzdvihnutieTovaru(MessageForm message)
+		{
+		}
+
 		//meta! userInfo="Generated code: do not modify", tag="begin"
 		public void Init()
 		{
@@ -222,27 +227,31 @@ namespace managers
 		{
 			switch (message.Code)
 			{
-			case Mc.NoticeUvolnenieOm:
-				ProcessNoticeUvolnenieOm(message);
+			case Mc.PocetMiestVRade:
+				ProcessPocetMiestVRade(message);
 			break;
 
 			case Mc.Finish:
 				switch (message.Sender.Id)
 				{
-				case SimId.ProcessOMDiktovanie:
-					ProcessFinishProcessOMDiktovanie(message);
+				case SimId.SchedulerPrestavkaOM:
+					ProcessFinishSchedulerPrestavkaOM(message);
 				break;
 
 				case SimId.ProcessOMOnlinePripravaTovaru:
 					ProcessFinishProcessOMOnlinePripravaTovaru(message);
 				break;
 
-				case SimId.SchedulerPrestavkaOM:
-					ProcessFinishSchedulerPrestavkaOM(message);
+				case SimId.ProcessVyzdvihnutieTovaru:
+					ProcessFinishProcessVyzdvihnutieTovaru(message);
 				break;
 
 				case SimId.ProcessOMPripravaTovaru:
 					ProcessFinishProcessOMPripravaTovaru(message);
+				break;
+
+				case SimId.ProcessOMDiktovanie:
+					ProcessFinishProcessOMDiktovanie(message);
 				break;
 				}
 			break;
@@ -251,16 +260,16 @@ namespace managers
 				ProcessInit(message);
 			break;
 
-			case Mc.NoticeZaciatokObsluhyOm:
-				ProcessNoticeZaciatokObsluhyOm(message);
-			break;
-
 			case Mc.NoticePrestavkaZaciatok:
 				ProcessNoticePrestavkaZaciatok(message);
 			break;
 
-			case Mc.PocetMiestVRade:
-				ProcessPocetMiestVRade(message);
+			case Mc.NoticeZaciatokObsluhyOm:
+				ProcessNoticeZaciatokObsluhyOm(message);
+			break;
+
+			case Mc.NoticeUvolnenieOm:
+				ProcessNoticeUvolnenieOm(message);
 			break;
 
 			default:

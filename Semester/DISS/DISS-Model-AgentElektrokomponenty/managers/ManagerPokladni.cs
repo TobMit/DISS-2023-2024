@@ -163,10 +163,6 @@ namespace managers
 				ProcessInit(message);
 			break;
 
-			case Mc.NoticePrestavkaZaciatok:
-				ProcessNoticePrestavkaZaciatok(message);
-			break;
-
 			case Mc.Finish:
 				switch (message.Sender.Id)
 				{
@@ -178,6 +174,10 @@ namespace managers
 					ProcessFinishSchedulerPrestavkaPokladne(message);
 				break;
 				}
+			break;
+
+			case Mc.NoticePrestavkaZaciatok:
+				ProcessNoticePrestavkaZaciatok(message);
 			break;
 
 			case Mc.NoticeZaciatokPokladne:

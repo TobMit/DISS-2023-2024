@@ -129,41 +129,41 @@ namespace managers
 		{
 			switch (message.Code)
 			{
-			case Mc.VstupDoPredajne:
-				ProcessVstupDoPredajne(message);
-			break;
-
-			case Mc.NoticePrestavkaKoniec:
-				switch (message.Sender.Id)
-				{
-				case SimId.AgentPokladni:
-					ProcessNoticePrestavkaKoniecAgentPokladni(message);
-				break;
-
-				case SimId.AgentObsluzneMiesto:
-					ProcessNoticePrestavkaKoniecAgentObsluzneMiesto(message);
-				break;
-				}
-			break;
-
-			case Mc.NoticeKoniecObsluhy:
-				ProcessNoticeKoniecObsluhy(message);
-			break;
-
-			case Mc.NoticeKoniecObsluhyOm:
-				ProcessNoticeKoniecObsluhyOm(message);
-			break;
-
 			case Mc.PocetMiestVRade:
 				ProcessPocetMiestVRade(message);
+			break;
+
+			case Mc.NoticeKoniecPokladne:
+				ProcessNoticeKoniecPokladne(message);
 			break;
 
 			case Mc.Init:
 				ProcessInit(message);
 			break;
 
-			case Mc.NoticeKoniecPokladne:
-				ProcessNoticeKoniecPokladne(message);
+			case Mc.NoticeKoniecObsluhyOm:
+				ProcessNoticeKoniecObsluhyOm(message);
+			break;
+
+			case Mc.VstupDoPredajne:
+				ProcessVstupDoPredajne(message);
+			break;
+
+			case Mc.NoticeKoniecObsluhy:
+				ProcessNoticeKoniecObsluhy(message);
+			break;
+
+			case Mc.NoticePrestavkaKoniec:
+				switch (message.Sender.Id)
+				{
+				case SimId.AgentObsluzneMiesto:
+					ProcessNoticePrestavkaKoniecAgentObsluzneMiesto(message);
+				break;
+
+				case SimId.AgentPokladni:
+					ProcessNoticePrestavkaKoniecAgentPokladni(message);
+				break;
+				}
 			break;
 
 			default:
