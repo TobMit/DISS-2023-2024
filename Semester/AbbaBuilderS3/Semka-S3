@@ -445,11 +445,19 @@
       <Destination>9</Destination>
     </Message>
     <Message>
+      <SimId>1042</SimId>
+      <InternalId>125</InternalId>
+      <Name>NoticeOdchodZakaznika</Name>
+      <Type>Notice</Type>
+      <Source>9</Source>
+      <Destination>1</Destination>
+    </Message>
+    <Message>
       <InternalId>62</InternalId>
       <Type>StartFinish</Type>
       <Source>36</Source>
       <Destination>61</Destination>
     </Message>
   </Messages>
-  <IID>121</IID>
+  <IID>126</IID>
 </ABAsim>

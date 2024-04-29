@@ -44,6 +44,11 @@ namespace managers
 			}
 		}
 
+		//meta! sender="AgentPredajne", id="125", type="Notice"
+		public void ProcessNoticeOdchodZakaznika(MessageForm message)
+		{
+		}
+
 		//meta! userInfo="Generated code: do not modify", tag="begin"
 		public void Init()
 		{
@@ -55,6 +60,10 @@ namespace managers
 			{
 			case Mc.NoticePrichodZakaznika:
 				ProcessNoticePrichodZakaznika(message);
+			break;
+
+			case Mc.NoticeOdchodZakaznika:
+				ProcessNoticeOdchodZakaznika(message);
 			break;
 
 			default:
