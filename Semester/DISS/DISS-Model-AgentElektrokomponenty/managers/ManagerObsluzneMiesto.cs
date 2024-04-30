@@ -10,7 +10,7 @@ namespace managers
     //meta! id="36"
     public class ManagerObsluzneMiesto : Manager
     {
-        private RadaPredObsluznymMiestom _radaPredObsluznymMiestom;
+        public RadaPredObsluznymMiestom RadaPredObsluznymMiestom;
         public List<ObsluzneMiesto> ListObsluhaOnline { get; private set; }
         public List<ObsluzneMiesto> ListObsluhaOstatne { get; private set; }
 
@@ -22,7 +22,7 @@ namespace managers
             ListObsluhaOstatne = new();
             InitObsluzneMiesta();
             var core = (MySimulation)MySim;
-            _radaPredObsluznymMiestom = new(core.StatPriemernaDlzkaRaduPredObsluhouBasic,
+            RadaPredObsluznymMiestom = new(core.StatPriemernaDlzkaRaduPredObsluhouBasic,
                 core.StatPriemernaDlzkaRaduPredObsluhouZmluvny, core.StatPriemernaDlzkaRaduPredObsluhouOnline);
         }
 
@@ -129,7 +129,7 @@ namespace managers
         {
 	        var sprava = (MyMessage)message;
 	        Constants.Log("ManagerObsluzneMiesto", MySim.CurrentTime, sprava.Zakaznik,"ProcessPocetMiestVRade", Constants.LogType.ManagerLog);
-            sprava.PocetLudiVOM = _radaPredObsluznymMiestom.Count;
+            sprava.PocetLudiVOM = RadaPredObsluznymMiestom.Count;
             Response(sprava);
         }
 
@@ -138,9 +138,9 @@ namespace managers
 		{
 			var sprava = (MyMessage)message.CreateCopy();
 			Constants.Log("ManagerObsluzneMiesto", MySim.CurrentTime, sprava.Zakaznik,"ProcessNoticeZaciatokObsluhyOm", Constants.LogType.ManagerLog);
-			if (_radaPredObsluznymMiestom.Count >= 1)
+			if (RadaPredObsluznymMiestom.Count >= 1)
 			{
-				_radaPredObsluznymMiestom.Enqueue(sprava);
+				RadaPredObsluznymMiestom.Enqueue(sprava);
 				return;
 			}
 			sprava.Addressee = MyAgent.FindAssistant(SimId.ActionPridelenieOm);
@@ -161,7 +161,7 @@ namespace managers
 			else
 			{
 				Constants.Log("ManagerObsluzneMiesto", MySim.CurrentTime, sprava.Zakaznik,"ProcessNoticeZaciatokObsluhyOm - Pridany do frontu", Constants.LogType.ManagerLog);
-				_radaPredObsluznymMiestom.Enqueue(sprava);
+				RadaPredObsluznymMiestom.Enqueue(sprava);
 			}
 		}
 
@@ -187,9 +187,9 @@ namespace managers
 			{
 				sprava.ObsluzneMiesto.Uvolni();
 				ObsluzneMiesto? tmpObsluzneMiesto = GetVolneOnline();
-				while (_radaPredObsluznymMiestom.CountOnline >= 1 && tmpObsluzneMiesto is not null)
+				while (RadaPredObsluznymMiestom.CountOnline >= 1 && tmpObsluzneMiesto is not null)
 				{
-					var spraveNew = (MyMessage)_radaPredObsluznymMiestom.Dequeue(true).CreateCopy();
+					var spraveNew = (MyMessage)RadaPredObsluznymMiestom.Dequeue(true).CreateCopy();
 					if (spraveNew.ObsluzneMiesto is not null)
 					{
 						throw new InvalidOperationException("Zákazník už bol obslúžený");
@@ -202,9 +202,9 @@ namespace managers
 				}
 				// to iste aj pre ostatné
 				tmpObsluzneMiesto = GetVolneOstatne();
-				while (_radaPredObsluznymMiestom.CountOstatne >= 1 && tmpObsluzneMiesto is not null)
+				while (RadaPredObsluznymMiestom.CountOstatne >= 1 && tmpObsluzneMiesto is not null)
 				{
-					var spraveNew = (MyMessage)_radaPredObsluznymMiestom.Dequeue().CreateCopy();
+					var spraveNew = (MyMessage)RadaPredObsluznymMiestom.Dequeue().CreateCopy();
 					if (spraveNew.ObsluzneMiesto is not null)
 					{
 						throw new InvalidOperationException("Zákazník už bol obslúžený");
@@ -243,9 +243,9 @@ namespace managers
 			Notice(sprava);
 			
 			ObsluzneMiesto? tmpObsluzneMiesto = GetVolneOnline();
-			while (_radaPredObsluznymMiestom.CountOnline >= 1 && tmpObsluzneMiesto is not null)
+			while (RadaPredObsluznymMiestom.CountOnline >= 1 && tmpObsluzneMiesto is not null)
 			{
-				var spraveNew = (MyMessage)_radaPredObsluznymMiestom.Dequeue(true).CreateCopy();
+				var spraveNew = (MyMessage)RadaPredObsluznymMiestom.Dequeue(true).CreateCopy();
 				spraveNew.ObsluzneMiesto = tmpObsluzneMiesto;
 				spraveNew.Addressee = MyAgent.FindAssistant(SimId.ProcessOMOnlinePripravaTovaru);
 				tmpObsluzneMiesto.Obsluz(spraveNew.Zakaznik);
@@ -254,9 +254,9 @@ namespace managers
 			}
 			// to iste aj pre ostatné
 			tmpObsluzneMiesto = GetVolneOstatne();
-			while (_radaPredObsluznymMiestom.CountOstatne >= 1 && tmpObsluzneMiesto is not null)
+			while (RadaPredObsluznymMiestom.CountOstatne >= 1 && tmpObsluzneMiesto is not null)
 			{
-				var spraveNew = (MyMessage)_radaPredObsluznymMiestom.Dequeue().CreateCopy();
+				var spraveNew = (MyMessage)RadaPredObsluznymMiestom.Dequeue().CreateCopy();
 				spraveNew.ObsluzneMiesto = tmpObsluzneMiesto;
 				spraveNew.Addressee = MyAgent.FindAssistant(SimId.ProcessOMDiktovanie);
 				tmpObsluzneMiesto.Obsluz(spraveNew.Zakaznik);

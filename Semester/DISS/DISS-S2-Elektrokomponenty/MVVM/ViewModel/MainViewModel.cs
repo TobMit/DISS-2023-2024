@@ -1,17 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Linq;
+using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Media;
 using System.Windows.Threading;
-using DISS_Model_Elektrokomponenty;
-using DISS_Model_Elektrokomponenty.DataStructures;
-using DISS_Model_Elektrokomponenty.Entity;
 using DISS_S2_Elektroomponenty.Core;
 using DISS_S2_Elektroomponenty.MVVM.Model;
-using LiveCharts;
-using LiveCharts.Wpf;
+using simulation;
+using DataStructure = DISS_Model_AgentElektrokomponenty.simulation.DataStructure;
 
 namespace DISS_S2_Elektroomponenty.MVVM.ViewModel;
 
@@ -29,7 +25,7 @@ public class MainViewModel : ObservableObjects
     private DISS_Model_Elektrokomponenty.Core? _behZavislotiCore4;
     private DISS_Model_Elektrokomponenty.Core? _behZavislotiCore5;
     
-    private DISS_Model_Elektrokomponenty.Core? _core;
+    private MySimulation _core;
     private string _simulationTime;
     private string _radaPredAutomatom;
     private AutomatModel _automat;
@@ -59,7 +55,7 @@ public class MainViewModel : ObservableObjects
     private bool _behZavisloti;
     private Visibility _behZavislotiVisibility;
     private Visibility _behZavislotiVisibilityOstatne;
-    private SeriesCollection? _seriesCollection;
+    //private SeriesCollection? _seriesCollection;
     private ObservableCollection<string> _lables;
 
     public RelayCommand StartCommand { get; set; }
@@ -464,7 +460,7 @@ public class MainViewModel : ObservableObjects
             OnPropertyChanged();
         }
     }
-    
+    /*
     public SeriesCollection? SeriesCollection
     {
         get { return _seriesCollection; }
@@ -474,7 +470,7 @@ public class MainViewModel : ObservableObjects
             OnPropertyChanged();
         }
     }
-    
+    */
     public ObservableCollection<string> Labels
     {
         get => _lables;
@@ -564,7 +560,7 @@ public class MainViewModel : ObservableObjects
         {
             MessageBox.Show("Zle zadaný vstup" + e.Message, "Chyba vstupu", MessageBoxButton.OK, MessageBoxImage.Error);
         }
-
+        /*
         if (BehZavisloti)
         {
             AktualnaReplikacia = "-/-";
@@ -646,7 +642,7 @@ public class MainViewModel : ObservableObjects
             _behZavislotiCore5.Run();
             return;
         }
-
+        */
         List<ObsluzneMiestoModel> tmpList = new(pocetObsluznychMiest);
         for (int i = 0; i < pocetObsluznychMiest; i++)
         {
@@ -662,23 +658,26 @@ public class MainViewModel : ObservableObjects
         Pokladne = new(tmpPokladne);
         PauseButtonText = "Pause";
 
-        _core = new DISS_Model_Elektrokomponenty.Core(pocetReplikacii, 0, pocetObsluznychMiest, pocetPokladni)
+        _core = new ( pocetObsluznychMiest, pocetPokladni)
         {
             SlowDown = _slowDown,
-            SlowDownSpeed = SliderValue
         };
         _core.DataAvailable += UpdateUI;
-        _core.Run();
+        if (SlowDown)
+        {
+            _core.SetSimSpeed(_sliderValue, 0.25);
+        }
+        Task.Run((() => _core.Simulate(10_000, Constants.END_SIMULATION_TIME)));
     }
 
     private void StopModel()
     {
         if (_core is not null)
         {
-            _core.Stop();
+            _core.StopSimulation();
             PauseButtonText = "Pause";
         }
-
+        /*
         if (_behZavislotiCore1 is not null)
         {
             _behZavislotiCore1.Stop();
@@ -698,28 +697,28 @@ public class MainViewModel : ObservableObjects
         if (_behZavislotiCore5 is not null)
         {
             _behZavislotiCore5.Stop();
-        }
+        }*/
     }
 
     private void PauseModel()
     {
         if (_core is not null)
         {
-            if (_core.IsRunning)
+            if (_core.IsRunning())
             {
-                if (_core.Pause)
+                if (_core.IsPaused())
                 {
-                    _core.Pause = false;
+                    _core.ResumeSimulation();
                     PauseButtonText = "Pause";
                 }
                 else
                 {
-                    _core.Pause = true;
+                    _core.PauseSimulation();
                     PauseButtonText = "Continue";
                 }
             }
         }
-
+        /*
         if (_behZavislotiCore1 is not null)
         {
             if (_behZavislotiCore1.IsRunning)
@@ -791,7 +790,7 @@ public class MainViewModel : ObservableObjects
                     _behZavislotiCore5.Pause = true;
                 }
             }
-        }
+        }*/
     }
 
     private void SledovanieSimulacie()
@@ -801,10 +800,12 @@ public class MainViewModel : ObservableObjects
             if (_slowDown)
             {
                 _core.SlowDown = true;
+                _core.SetSimSpeed(_sliderValue, 0.25);
             }
             else
             {
                 _core.SlowDown = false;
+                _core.SetMaxSimSpeed();
             }
         }
     }
@@ -813,7 +814,7 @@ public class MainViewModel : ObservableObjects
     {
         if (_core is not null)
         {
-            _core.SlowDownSpeed = _sliderValue;
+            _core.SetSimSpeed(_sliderValue, 0.25);
         }
     }
 
@@ -838,7 +839,7 @@ public class MainViewModel : ObservableObjects
             ReplicationDetial = Visibility.Collapsed;
             if (_core is not null)
             {
-                _core.Stop();
+                _core.StopSimulation();
             }
         }
         else
@@ -859,7 +860,7 @@ public class MainViewModel : ObservableObjects
                 SimulationTime = e.SimulationTime;
             }
 
-            if (e.NewData)
+            if (true)
             {
                 e.NewData = false;
                 if (e.ShallowUpdate)
@@ -886,7 +887,7 @@ public class MainViewModel : ObservableObjects
                         }
                     }
                     RadaPredAutomatom = e.RadaPredAutomatom;
-                    Automat.Update(e.Automat);
+                    //Automat.Update(e.Automat);
                     RadaPredObsluznimiMiestamiOnline = e.RadaPredObsluznimiMiestamiOnline;
                     RadaPredObsluznimiMiestamiBasic = e.RadaPredObsluznimiMiestamiBasic;
                     RadaPredObsluznimiMiestamiZmluvny = e.RadaPredObsluznimiMiestamiZmluvny;
@@ -901,10 +902,10 @@ public class MainViewModel : ObservableObjects
                 }
 
                 AktualnaReplikacia = e.AktuaReplikacia;
-                PriemernyCasVObchode = e.PriemernyCasVObhchode;
+                //PriemernyCasVObchode = e.PriemernyCasVObhchode;
                 PriemernyCasPredAutomatom = e.PriemernyCasPredAutomatom;
                 PriemernaDlzkaRaduPredAutomatom = e.PriemernaDlzkaraduPredAutomatom;
-                PriemernyOdchodPoslednehoZakaznika = e.PriemernyOdchodPoslednehoZakaznika;
+                //PriemernyOdchodPoslednehoZakaznika = e.PriemernyOdchodPoslednehoZakaznika;
                 PriemernyPocetZakaznikov = e.PriemernyPocetZakaznikov;
                 PriemernyPocetObsluzenychZakaznikov = e.PriemernyPocetObsluzenychZakaznikov;
                 PriemerneVytazenieAutomatu = e.PriemerneVytazenieAutomatu;
@@ -913,11 +914,11 @@ public class MainViewModel : ObservableObjects
                 PriemerneVytazeniePokladni = e.PriemerneVytazeniePokladni;
                 PriemerneVytazenieObsluhyOnline = e.PriemerneVytazenieObsluhyOnline;
                 PriemerneVytazenieObsluhyOstatne = e.PriemerneVytazenieObsluhyOstatne;
-                IntervalSpolahlivsti = e.IntervalSpolahlivstiCasuVsysteme;
+                //IntervalSpolahlivsti = e.IntervalSpolahlivstiCasuVsysteme;
             }
         });
     }
-    
+    /*
     private void BehZavislotiUpdateUi1(object? sender, DataStructure e)
     {
         Application.Current.Dispatcher.Invoke(() =>
@@ -954,7 +955,7 @@ public class MainViewModel : ObservableObjects
             SeriesCollection?[4].Values.Add(e.BehZavislostiPriemernyPocetZakaznikovPredAutomatom);
         });
     }
-
+    */
     public void OnWindowClosing()
     {
         StopModel();

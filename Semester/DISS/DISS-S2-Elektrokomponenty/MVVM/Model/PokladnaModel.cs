@@ -1,9 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using DISS_Model_Elektrokomponenty.Entity.Pokladna;
 using DISS_S2_Elektroomponenty.Core;
 
 namespace DISS_S2_Elektroomponenty.MVVM.Model

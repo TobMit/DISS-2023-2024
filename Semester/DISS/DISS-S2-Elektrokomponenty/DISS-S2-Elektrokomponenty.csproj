@@ -15,7 +15,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\DISS-Model-Elektrokomponenty\DISS-Model-Elektrokomponenty.csproj" />
+    <ProjectReference Include="..\DISS-Model-AgentElektrokomponenty\DISS-Model-AgentElektrokomponenty.csproj" />
   </ItemGroup>
 
   <ItemGroup>
@@ -32,6 +32,12 @@
 
   <ItemGroup>
     <PackageReference Include="LiveCharts.Wpf" Version="0.9.7" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="ABACore">
+      <HintPath>..\DISS-Model-AgentElektrokomponenty\CoreLib\ABACore.dll</HintPath>
+    </Reference>
   </ItemGroup>
 
 </Project>

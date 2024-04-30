@@ -9,6 +9,7 @@
 
     <ItemGroup>
       <ProjectReference Include="..\DISS-HelperClasses\DISS-HelperClasses.csproj" />
+      <ProjectReference Include="..\DISS-Model-Elektrokomponenty\DISS-Model-Elektrokomponenty.csproj" />
       <ProjectReference Include="..\DISS-RNG\DISS-RNG.csproj" />
     </ItemGroup>
 

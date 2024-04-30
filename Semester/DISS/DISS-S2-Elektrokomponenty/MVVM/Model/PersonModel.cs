@@ -1,7 +1,8 @@
-using DISS_Model_Elektrokomponenty;
-using DISS_Model_Elektrokomponenty.Entity;
-using DISS_S2_Elektroomponenty.Core;
+
 using System;
+using DISS_Model_AgentElektrokomponenty.Entity;
+using DISS_S2_Elektroomponenty.Core;
+using simulation;
 
 namespace DISS_S2_Elektroomponenty.MVVM.Model;
 

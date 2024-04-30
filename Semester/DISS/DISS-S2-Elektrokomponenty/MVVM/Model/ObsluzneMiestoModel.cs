@@ -1,9 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using DISS_Model_Elektrokomponenty.Entity;
+using DISS_Model_AgentElektrokomponenty.Entity;
 using DISS_S2_Elektroomponenty.Core;
 
 namespace DISS_S2_Elektroomponenty.MVVM.Model
