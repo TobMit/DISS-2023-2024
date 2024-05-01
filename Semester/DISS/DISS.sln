@@ -21,9 +21,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DISS-Model-Elektrokomponent
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ModelRuntest", "ModelRuntest\ModelRuntest.csproj", "{A1C0AFE9-6EFD-4CE1-AC3E-4137862B9B4C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DISS-S2-Elektrokomponenty", "DISS-S2-Elektrokomponenty\DISS-S2-Elektrokomponenty.csproj", "{68CF0D73-D8ED-4BFA-AAB8-2E182E3D762F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DISS-S2-Elektrokomponenty", "DISS-S2-Elektrokomponenty\DISS-S2-Elektrokomponenty.csproj", "{68CF0D73-D8ED-4BFA-AAB8-2E182E3D762F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DISS-Model-AgentElektrokomponenty", "DISS-Model-AgentElektrokomponenty\DISS-Model-AgentElektrokomponenty.csproj", "{EA930B22-DC68-40FF-A8A1-40D74886E221}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DISS-Model-AgentElektrokomponenty", "DISS-Model-AgentElektrokomponenty\DISS-Model-AgentElektrokomponenty.csproj", "{EA930B22-DC68-40FF-A8A1-40D74886E221}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DISS-S3-Elektrokomponenty", "DISS-S3-Elektrokomponenty\DISS-S3-Elektrokomponenty.csproj", "{C8474C09-31EF-465E-A538-8877009A00F6}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -75,6 +77,10 @@ Global
 		{EA930B22-DC68-40FF-A8A1-40D74886E221}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{EA930B22-DC68-40FF-A8A1-40D74886E221}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{EA930B22-DC68-40FF-A8A1-40D74886E221}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C8474C09-31EF-465E-A538-8877009A00F6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C8474C09-31EF-465E-A538-8877009A00F6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C8474C09-31EF-465E-A538-8877009A00F6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C8474C09-31EF-465E-A538-8877009A00F6}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
