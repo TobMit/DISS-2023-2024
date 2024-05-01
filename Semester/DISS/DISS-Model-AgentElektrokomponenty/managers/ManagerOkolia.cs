@@ -54,7 +54,7 @@ namespace managers
 			((MySimulation)MySim).PocetObsluzenychZakaznikov++;
 			
 			//todo add priemerny odchod zo systému
-			//todo priemerny čas skončenia systému
+			((MySimulation)MySim).StatPriemernyCasVObchode.AddSample(MySim.CurrentTime - sprava.Zakaznik.TimeOfArrival);
 		}
 
 		//meta! sender="PlanovacPrichodovOnline", id="78", type="Finish"

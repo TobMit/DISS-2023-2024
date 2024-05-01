@@ -162,6 +162,8 @@ namespace simulation
             }
 
             _globPriemernyPocetObsluzenychZakaznikov = new();
+            _globPriemernyCasVObchode = new();
+            _globPriemernyOdchodPoslednehoZakaznika = new();
         }
 
         protected override void PrepareReplication()
@@ -209,6 +211,8 @@ namespace simulation
 	            _globPriemerneVytazeniePokladni[i].AddSample(ListStatPriemerneVytazeniePokladni[i].Mean());
             }
             _globPriemernyPocetObsluzenychZakaznikov.AddSample(PocetObsluzenychZakaznikov);
+            _globPriemernyCasVObchode.AddSample(StatPriemernyCasVObchode.Mean());
+            _globPriemernyOdchodPoslednehoZakaznika.AddSample(CurrentTime);
             base.ReplicationFinished();
         }
 
@@ -246,6 +250,10 @@ namespace simulation
             Console.WriteLine($"Priemerne dĺžky radov pred pokladňami: {sbPriemernaDlzkaRadu.Remove(sbPriemernaDlzkaRadu.Length - 1, 1)}");
             Console.WriteLine($"Priemerne vyťaženie pokladni: {sbPriemerneVytazeniePokladne.Remove(sbPriemerneVytazeniePokladne.Length - 1, 1)}");
             Console.WriteLine($"Priemerný počet obslužných zákazníkov: {Double.Round(_globPriemernyPocetObsluzenychZakaznikov.Mean(), 4)}");
+            Console.WriteLine(
+	            $"Priemerný čas v obchode: {Double.Round(_globPriemernyCasVObchode.Mean(), 4)}s / {TimeSpan.FromSeconds(_globPriemernyCasVObchode.Mean()).ToString(@"hh\:mm\:ss")}");
+            Console.WriteLine(
+	            $"Priemerný odchod posledného zákazníka: {Double.Round(_globPriemernyOdchodPoslednehoZakaznika.Mean(), 4)} / {TimeSpan.FromSeconds(Constants.START_DAY + _globPriemernyOdchodPoslednehoZakaznika.Mean()).ToString(@"hh\:mm\:ss")}");
 
         }
 
