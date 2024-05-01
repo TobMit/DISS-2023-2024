@@ -4,9 +4,589 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:DISS_S3_Elektrokomponenty"
+        xmlns:viewModel="clr-namespace:DISS_S3_Elektrokomponenty.MVVM.ViewModel"
+        xmlns:wpf="clr-namespace:LiveCharts.Wpf;assembly=LiveCharts.Wpf"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="DISS-S2-TobiasMitala" Height="830" Width="1360"
+        WindowStartupLocation="CenterScreen"
+        Closing="MainWindow_OnClosing">
+    <Window.DataContext>
+        <viewModel:MainViewModel />
+    </Window.DataContext>
+    <Window.Background>
+        <SolidColorBrush Opacity="0.5" Color="#2A2B31" />
+    </Window.Background>
     <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="250" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+        <StackPanel Grid.Column="0"
+                    HorizontalAlignment="Left"
+                    Background="#1F2125"
+                    Width="250">
 
+            <TextBlock Text="Tobiáš Mitala"
+                       FontSize="36" FontWeight="Bold"
+                       HorizontalAlignment="Center"
+                       VerticalAlignment="Center">
+                <TextBlock.Foreground>
+                    <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+                        <GradientStop Color="#5047CA" Offset="0.0" />
+                        <GradientStop Color="LightGreen" Offset="0.5" />
+                        <GradientStop Color="#F16436" Offset="1.0" />
+                    </LinearGradientBrush>
+                </TextBlock.Foreground>
+            </TextBlock>
+
+            <Button
+                Margin="10,20,10,5"
+                Width="180"
+                Command="{Binding StartCommand}"
+                Style="{StaticResource ImageButtonStyle}">
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                    <Image Source="../Images/playIcon.png" Width="30" Height="30" />
+                    <Label VerticalAlignment="Center"
+                           Content="Start"
+                           FontWeight="Bold"
+                           Foreground="White"
+                           FontSize="20" />
+                </StackPanel>
+            </Button>
+
+            <Button
+                Margin="10,5,10,5"
+                Width="180"
+                Command="{Binding StopCommand}"
+                Style="{StaticResource ImageButtonStyle}">
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                    <Image Source="../Images/stop.png"
+                           Width="20"
+                           Height="20"
+                           Margin="5,0,5,0" />
+                    <Label VerticalAlignment="Center"
+                           Content="Stop"
+                           FontWeight="Bold"
+                           Foreground="White"
+                           FontSize="20" />
+                </StackPanel>
+            </Button>
+            <Button
+                Margin="10,5,10,5"
+                Width="180"
+                Command="{Binding PauseCommand}"
+                Style="{StaticResource ImageButtonStyle}">
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                    <Image Source="../Images/pause.png"
+                           Width="30"
+                           Height="30" />
+                    <Label VerticalAlignment="Center"
+                           Content="{Binding PauseButtonText}"
+                           FontWeight="Bold"
+                           Foreground="White"
+                           FontSize="20" />
+                </StackPanel>
+            </Button>
+
+            <CheckBox
+                Style="{StaticResource CustomCheckBoxStyle}"
+                IsChecked="{Binding BehZavisloti, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                Content="Beh závislostí"
+                Margin="17,0,0,10" />
+            
+            <CheckBox
+                Style="{StaticResource CustomCheckBoxStyle}"
+                IsChecked="{Binding SlowDown, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                Content="Spomalenie"
+                Margin="17,0,0,0"
+                Visibility="{Binding BehZavislotiVisibilityOstatne}"/>
+
+            <Label
+                Style="{StaticResource CustomLabelStyle}"
+                Content="Zmena rýchlosti simulácie"
+                Margin="0,10,0,0"
+                FontSize="20"
+                Visibility="{Binding ReplicationDetial}"
+                />
+            <Slider
+                Margin="17"
+                Minimum="1"
+                Maximum="3600"
+                AutoToolTipPlacement="TopLeft"
+                Visibility="{Binding ReplicationDetial}"
+                Value="{Binding SliderValue, Mode=TwoWay}"
+                PreviewMouseLeftButtonDown="UIElement_OnPreviewMouseLeftButtonDown"/>
+
+
+            <GroupBox
+                Header="Nastavenia"
+                Foreground="White"
+                FontSize="20"
+                Margin="10">
+                <StackPanel>
+                    <Label Style="{StaticResource CustomLabelStyle}"
+                           Content="Počet replikáci:"
+                           FontSize="16" />
+                    <TextBox
+                        CaretBrush="White"
+                        Style="{StaticResource CutsomTextBox}"
+                        Text="{Binding PocetReplikacii, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                    <Label Style="{StaticResource CustomLabelStyle}"
+                           Content="Počet obslúžnych miest:"
+                           FontSize="16" />
+                    <TextBox
+                        CaretBrush="White"
+                        Style="{StaticResource CutsomTextBox}"
+                        Text="{Binding PocetObsluznychMiest, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                    <Label Style="{StaticResource CustomLabelStyle}"
+                           Content="Počet predajní"
+                           FontSize="16"
+                           Visibility="{Binding BehZavislotiVisibilityOstatne}"/>
+                    <TextBox
+                        CaretBrush="White"
+                        Style="{StaticResource CutsomTextBox}"
+                        Text="{Binding PocetPokladni, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                        Visibility="{Binding BehZavislotiVisibilityOstatne}"/>
+                    <Label Style="{StaticResource CustomLabelStyle}"
+                           Content="Cut first"
+                           FontSize="16"
+                           Visibility="{Binding BehZavislotiVisibility}"/>
+                    <TextBox
+                        CaretBrush="White"
+                        Style="{StaticResource CutsomTextBox}"
+                        Text="{Binding CutFirst, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                        Visibility="{Binding BehZavislotiVisibility}"/>
+                </StackPanel>
+            </GroupBox>
+        </StackPanel>
+
+
+        <ScrollViewer Grid.Column="1">
+
+            <Grid Grid.Column="1"
+                  Background="#171720">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+
+                <Border Grid.Row="0"
+                        Margin="20, 0, 20,15"
+                        Background="#1F2125"
+                        CornerRadius="10"
+                        Visibility="{Binding BehZavislotiVisibilityOstatne}">
+                    <GroupBox
+                        Header="Celkové štatistiky"
+                        Foreground="White"
+                        FontSize="20"
+                        Margin="10,10,10,10">
+                        <Grid MinWidth="800">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="0.5*" />
+                                <ColumnDefinition Width="0.5*" />
+                            </Grid.ColumnDefinitions>
+                            <StackPanel
+                                Grid.Column="0"
+                                Margin="10">
+                                <Label
+                                    Style="{StaticResource CustomLabelStyle}"
+                                    Content="Aktuálna Replikácia:"
+                                    FontSize="15" />
+                                <TextBlock
+                                    Text="{Binding AktualnaReplikacia}"
+                                    Margin="0,0,0,8"
+                                    Foreground="White"
+                                    FontSize="20"
+                                    FontWeight="Bold" />
+
+                                <Label
+                                    Style="{StaticResource CustomLabelStyle}"
+                                    Content="Priemerný čas v systéme:"
+                                    FontSize="15" />
+                                <TextBlock
+                                    Text="{Binding PriemernyCasVObchode}"
+                                    Margin="0,0,0,8"
+                                    Foreground="White"
+                                    FontSize="20"
+                                    FontWeight="Bold" />
+
+                                <Label
+                                    Style="{StaticResource CustomLabelStyle}"
+                                    Content="Priemerný odchod posledného zákazníka:"
+                                    FontSize="15" />
+                                <TextBlock
+                                    Text="{Binding PriemernyOdchodPoslednehoZakaznika}"
+                                    Margin="0,0,0,8"
+                                    Foreground="White"
+                                    FontSize="20"
+                                    FontWeight="Bold" />
+
+                                <Label
+                                    Style="{StaticResource CustomLabelStyle}"
+                                    Content="95% IS pre prierný čas v systéme:"
+                                    FontSize="15" />
+                                <TextBlock
+                                    Text="{Binding IntervalSpolahlivsti}"
+                                    Margin="0,0,0,8"
+                                    Foreground="White"
+                                    FontSize="20"
+                                    FontWeight="Bold" />
+
+                                <Label
+                                    Style="{StaticResource CustomLabelStyle}"
+                                    Content="Priemerný počet zákazníkov:"
+                                    FontSize="15" />
+                                <TextBlock
+                                    Text="{Binding PriemernyPocetZakaznikov}"
+                                    Margin="0,0,0,8"
+                                    Foreground="White"
+                                    FontSize="20"
+                                    FontWeight="Bold" />
+
+                                <Label
+                                    Style="{StaticResource CustomLabelStyle}"
+                                    Content="Priemerný počet obslúžených zákazníkov:"
+                                    FontSize="15" />
+                                <TextBlock
+                                    Text="{Binding PriemernyPocetObsluzenychZakaznikov}"
+                                    Margin="0,0,0,8"
+                                    Foreground="White"
+                                    FontSize="20"
+                                    FontWeight="Bold" />
+
+                                <Label
+                                    Style="{StaticResource CustomLabelStyle}"
+                                    Content="Priemerný čas pred automatom:"
+                                    FontSize="15" />
+                                <TextBlock
+                                    Text="{Binding PriemernyCasPredAutomatom}"
+                                    Margin="0,0,0,8"
+                                    Foreground="White"
+                                    FontSize="20"
+                                    FontWeight="Bold" />
+                            </StackPanel>
+                            <StackPanel
+                                Grid.Column="1"
+                                Margin="10">
+                                <Label
+                                    Style="{StaticResource CustomLabelStyle}"
+                                    Content="Priemerná dĺžka pred Automatom:"
+                                    FontSize="15" />
+                                <TextBlock
+                                    Text="{Binding PriemernaDlzkaRaduPredAutomatom}"
+                                    Margin="0,0,0,8"
+                                    Foreground="White"
+                                    FontSize="20"
+                                    FontWeight="Bold" />
+
+                                <Label
+                                    Style="{StaticResource CustomLabelStyle}"
+                                    Content="Priemerné vyťaženie Automatu:"
+                                    FontSize="15" />
+                                <TextBlock
+                                    Text="{Binding PriemerneVytazenieAutomatu}"
+                                    Margin="0,0,0,8"
+                                    Foreground="White"
+                                    FontSize="20"
+                                    FontWeight="Bold" />
+
+                                <Label
+                                    Style="{StaticResource CustomLabelStyle}"
+                                    Content="Priemerná dĺžka frontu v predajni [basic], [zmluvný], [online]:"
+                                    FontSize="15" />
+                                <TextBlock
+                                    Text="{Binding PriemerneDlzkyRadovPredObsluhov}"
+                                    Margin="0,0,0,8"
+                                    Foreground="White"
+                                    TextWrapping="Wrap"
+                                    FontSize="20"
+                                    FontWeight="Bold" />
+
+                                <Label
+                                    Style="{StaticResource CustomLabelStyle}"
+                                    Content="Priemerné vyťaženie obslužných miest pre neonline zákazníkov:"
+                                    FontSize="15" />
+                                <TextBlock
+                                    Text="{Binding PriemerneVytazenieObsluhyOstatne}"
+                                    Margin="0,0,0,8"
+                                    Foreground="White"
+                                    TextWrapping="Wrap"
+                                    FontSize="20"
+                                    FontWeight="Bold" />
+
+                                <Label
+                                    Style="{StaticResource CustomLabelStyle}"
+                                    Content="Priemerné vyťaženie obslužných miest pre online zákazníkov:"
+                                    FontSize="15" />
+                                <TextBlock
+                                    Text="{Binding PriemerneVytazenieObsluhyOnline}"
+                                    Margin="0,0,0,8"
+                                    Foreground="White"
+                                    TextWrapping="Wrap"
+                                    FontSize="20"
+                                    FontWeight="Bold" />
+
+                                <Label
+                                    Style="{StaticResource CustomLabelStyle}"
+                                    Content="Priemerné vyťaženie pokladní:"
+                                    FontSize="15" />
+                                <TextBlock
+                                    Text="{Binding PriemerneVytazeniePokladni}"
+                                    Margin="0,0,0,8"
+                                    Foreground="White"
+                                    TextWrapping="Wrap"
+                                    FontSize="20"
+                                    FontWeight="Bold" />
+
+                                <Label
+                                    Style="{StaticResource CustomLabelStyle}"
+                                    Content="Priemerná dĺžka frontu na pokladniach:"
+                                    FontSize="15" />
+                                <TextBlock
+                                    Text="{Binding PriemerneDlzkyRadovPredPokladnami}"
+                                    Margin="0,0,0,8"
+                                    Foreground="White"
+                                    TextWrapping="Wrap"
+                                    FontSize="20"
+                                    FontWeight="Bold" />
+                            </StackPanel>
+                        </Grid>
+                    </GroupBox>
+                </Border>
+                
+                <Border Grid.Row="0"
+                        Margin="20, 0, 20,15"
+                        Background="#1F2125"
+                        CornerRadius="10"
+                        Visibility="{Binding BehZavislotiVisibility}">
+                    <GroupBox
+                        Header="Beh Závislostí"
+                        Foreground="White"
+                        FontSize="20"
+                        Margin="10,10,10,10">
+                        <StackPanel>
+                            <Label
+                                Margin="5"
+                                Style="{StaticResource CustomLabelStyle}"
+                                Content="Závislosť priemerného počtu čakajúcich v rade pred automatom na počte pokladní 2-6"
+                                FontSize="20"
+                                FontWeight="Bold" />
+                            <Label
+                                Style="{StaticResource CustomLabelStyle}"
+                                Content="Aktuálna Replikácia:"
+                                FontSize="15"
+                                Margin="10,0"/>
+                            <TextBlock
+                                Text="{Binding AktualnaReplikacia}"
+                                Margin="10,0"
+                                Foreground="White"
+                                FontSize="20"
+                                FontWeight="Bold" />
+                            <wpf:CartesianChart
+                                Grid.Row="4"
+                                Name="CharfZavislosti"
+                                MinHeight="650"
+                                LegendLocation="Bottom"
+                                Series="{Binding SeriesCollection}">
+                            </wpf:CartesianChart>
+                        </StackPanel>
+                    </GroupBox>
+                </Border>
+
+                <Border Grid.Row="1"
+                        Margin="20, 0, 20,0"
+                        Background="#1F2125"
+                        CornerRadius="10"
+                        Visibility="{Binding ReplicationDetial}">
+                    <GroupBox
+                        Header="Priebeh simulácie"
+                        Foreground="White"
+                        FontSize="20"
+                        Margin="10,10,10,10">
+                        <StackPanel
+                            Orientation="Vertical"
+                            >
+                            <Label
+                                Margin="5"
+                                Style="{StaticResource CustomLabelStyle}"
+                                Content="{Binding SimulationTime}"
+                                FontSize="25"
+                                FontWeight="Bold" />
+                            
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="0.5*" />
+                                    <ColumnDefinition Width="0.5*" />
+                                </Grid.ColumnDefinitions>
+
+                                <StackPanel Grid.Column="0"
+                                            Margin="10,0,10,5">
+                                    <Label
+                                        Style="{StaticResource CustomLabelStyle}"
+                                        Content="Dĺžka frontu pred automatom:"
+                                        FontSize="15" />
+                                    <TextBlock
+                                        Text="{Binding RadaPredAutomatom}"
+                                        Margin="0,0,0,8"
+                                        Foreground="White"
+                                        FontSize="20"
+                                        FontWeight="Bold" />
+
+                                    <Label
+                                        Style="{StaticResource CustomLabelStyle}"
+                                        Content="Dĺžka frontu online zákazníkov:"
+                                        FontSize="15" />
+                                    <TextBlock
+                                        Text="{Binding RadaPredObsluznimiMiestamiOnline}"
+                                        Margin="0,0,0,8"
+                                        Foreground="White"
+                                        FontSize="20"
+                                        FontWeight="Bold" />
+                                </StackPanel>
+                                <StackPanel Grid.Column="1">
+                                    <Label
+                                        Style="{StaticResource CustomLabelStyle}"
+                                        Content="Dĺžka frontu basic zákazníkov:"
+                                        FontSize="15" />
+                                    <TextBlock
+                                        Text="{Binding RadaPredObsluznimiMiestamiBasic}"
+                                        Margin="0,0,0,8"
+                                        Foreground="White"
+                                        FontSize="20"
+                                        FontWeight="Bold" />
+
+                                    <Label
+                                        Style="{StaticResource CustomLabelStyle}"
+                                        Content="Dĺžka frontu zmluvných zákazníkov:"
+                                        FontSize="15" />
+                                    <TextBlock
+                                        Text="{Binding RadaPredObsluznimiMiestamiZmluvny}"
+                                        Margin="0,0,0,8"
+                                        Foreground="White"
+                                        FontSize="20"
+                                        FontWeight="Bold" />
+                                </StackPanel>
+                            </Grid>
+
+                            <Border
+                                Width="242" 
+                                HorizontalAlignment="Left"
+                                CornerRadius="15"
+                                Margin="10,5"
+                                >
+                                <GroupBox
+                                    Header="Automat"
+                                    Foreground="White"
+                                    FontSize="25"
+                                    Margin="10,0,10,10">
+                                    <StackPanel>
+                                        <Label 
+                                            Style="{StaticResource CustomLabelStyle}"
+                                            Content="{Binding Automat.Obsah}"
+                                            FontSize="15"
+                                            />
+                                    </StackPanel>
+                                </GroupBox>
+                                <Border.Style>
+                                    <Style TargetType="Border">
+                                        <Style.Triggers>
+                                            <DataTrigger Binding="{Binding Automat.Obsadeny}" Value="True">
+                                                <Setter Property="Background" Value="DarkRed"/>
+                                            </DataTrigger>
+                                            <DataTrigger Binding="{Binding Automat.Obsadeny}" Value="False">
+                                                <Setter Property="Background" Value="DarkGreen"/>
+                                            </DataTrigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </Border.Style>
+                            </Border>
+
+                            <Label
+                                Margin="10"
+                                Style="{StaticResource CustomLabelStyle}"
+                                FontSize="25"
+                                Content="Obslužné miesta"
+                                />
+
+                            <ListView
+                                Background="Transparent"
+                                KeyboardNavigation.ControlTabNavigation="none"
+                                FocusVisualStyle="{x:Null}"
+                                Focusable="true"
+                                ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                                ItemsSource="{Binding ObsluzneMiestos}"
+                                ItemContainerStyle="{StaticResource EntityTheme}"
+                                FlowDirection="LeftToRight"
+                                HorizontalAlignment="Stretch"
+                                VerticalAlignment="Stretch"
+                                BorderThickness="0">
+                                <ListView.ItemsPanel>
+                                    <ItemsPanelTemplate>
+                                        <WrapPanel />
+                                    </ItemsPanelTemplate>
+                                </ListView.ItemsPanel>
+
+                            </ListView>
+
+                            <Label
+                                Margin="10"
+                                Style="{StaticResource CustomLabelStyle}"
+                                FontSize="25"
+                                Content="Pokladne"
+                            />
+
+                            <ListView
+                                Background="Transparent"
+                                KeyboardNavigation.ControlTabNavigation="none"
+                                FocusVisualStyle="{x:Null}"
+                                Focusable="true"
+                                ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                                ItemsSource="{Binding Pokladne}"
+                                ItemContainerStyle="{StaticResource EntityTheme}"
+                                FlowDirection="LeftToRight"
+                                HorizontalAlignment="Stretch"
+                                VerticalAlignment="Stretch"
+                                BorderThickness="0">
+                                <ListView.ItemsPanel>
+                                    <ItemsPanelTemplate>
+                                        <WrapPanel />
+                                    </ItemsPanelTemplate>
+                                </ListView.ItemsPanel>
+
+                            </ListView>
+
+                            <Grid>
+                                <DataGrid
+                                    ItemsSource="{Binding Peoples}"
+                                    AutoGenerateColumns="False"
+                                    Margin="10">
+                                    <DataGrid.Columns>
+                                        <DataGridTextColumn
+                                            Foreground="Black" Header="ID" Binding="{Binding ID}" />
+                                        <DataGridTextColumn
+                                            Foreground="Black" Header="Čas príchodu" Binding="{Binding TimeOfArrival}" />
+                                        <DataGridTextColumn
+                                            Foreground="Black" Header="Typ Zákazníka" Binding="{Binding TypZakaznika}" />
+                                        <DataGridTextColumn
+                                            Foreground="Black" Header="Náročnosť tovaru"
+                                            Binding="{Binding TypNarocnostiTovaru}" />
+                                        <DataGridTextColumn
+                                            Foreground="Black" Header="Veľkosť nákladu"
+                                            Binding="{Binding TypVelkostiNakladu}" />
+                                        <DataGridTextColumn
+                                            Foreground="Black" Header="Stav zákazníka"
+                                            Binding="{Binding StavZakaznika}" 
+                                            Width="*"/>
+                                    </DataGrid.Columns>
+
+                                </DataGrid>
+                            </Grid>
+                        </StackPanel>
+
+                    </GroupBox>
+                </Border>
+
+            </Grid>
+        </ScrollViewer>
     </Grid>
 </Window>

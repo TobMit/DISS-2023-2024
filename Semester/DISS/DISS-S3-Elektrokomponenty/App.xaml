@@ -4,6 +4,14 @@
              xmlns:local="clr-namespace:DISS_S3_Elektrokomponenty"
              StartupUri="MainWindow.xaml">
     <Application.Resources>
-         
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="Themes/ButtonTheme.xaml"/>
+                <ResourceDictionary Source="Themes/LabelTheme.xaml"/>
+                <ResourceDictionary Source="Themes/TextInputTheme.xaml"/>
+                <ResourceDictionary Source="Themes/CheckBoxTheme.xaml"/>
+                <ResourceDictionary Source="Themes/EntityTheme.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
     </Application.Resources>
 </Application>
