@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Media;
 using System.Windows.Threading;
@@ -25,7 +26,7 @@ public class MainViewModel : ObservableObjects
     private MySimulation? _behZavislotiCore3;
     private MySimulation? _behZavislotiCore4;
     private MySimulation? _behZavislotiCore5;
-    
+
     private MySimulation? _core;
     private string _simulationTime;
     private string _radaPredAutomatom;
@@ -73,6 +74,7 @@ public class MainViewModel : ObservableObjects
             OnPropertyChanged();
         }
     }
+
     public string PocetObsluznychMiest
     {
         get => _pocetObsluznychMiest;
@@ -82,6 +84,7 @@ public class MainViewModel : ObservableObjects
             OnPropertyChanged();
         }
     }
+
     public string PocetPokladni
     {
         get => _pocetPokladni;
@@ -91,7 +94,7 @@ public class MainViewModel : ObservableObjects
             OnPropertyChanged();
         }
     }
-    
+
     public string CutFirst
     {
         get => _cutFirst;
@@ -128,10 +131,7 @@ public class MainViewModel : ObservableObjects
     public AutomatModel Automat
     {
         get => _automat;
-        set
-        {
-            _automat = value;
-        }
+        set { _automat = value; }
     }
 
     public string RadaPredObsluznimiMiestamiOnline
@@ -147,6 +147,7 @@ public class MainViewModel : ObservableObjects
             }
         }
     }
+
     public string RadaPredObsluznimiMiestamiBasic
     {
         get => _radaPredObsluznimiMiestamiBasic;
@@ -159,6 +160,7 @@ public class MainViewModel : ObservableObjects
             }
         }
     }
+
     public string RadaPredObsluznimiMiestamiZmluvny
     {
         get => _radaPredObsluznimiMiestamiZmluvny;
@@ -256,7 +258,7 @@ public class MainViewModel : ObservableObjects
             }
         }
     }
-    
+
     public string PriemernyPocetObsluzenychZakaznikov
     {
         get => _priemernyPocetObsluzenychZakaznikov;
@@ -269,7 +271,7 @@ public class MainViewModel : ObservableObjects
             }
         }
     }
-    
+
     public string PriemerneVytazenieAutomatu
     {
         get => _priemerneVytazenieAutomatu;
@@ -282,7 +284,7 @@ public class MainViewModel : ObservableObjects
             }
         }
     }
-    
+
     public string PriemerneDlzkyRadovPredObsluhov
     {
         get => _priemerneDlzkyRadovPredObsluhov;
@@ -295,7 +297,7 @@ public class MainViewModel : ObservableObjects
             }
         }
     }
-    
+
     public string PriemerneDlzkyRadovPredPokladnami
     {
         get => _priemerneDlzkyRadovPredPokladnami;
@@ -308,7 +310,7 @@ public class MainViewModel : ObservableObjects
             }
         }
     }
-    
+
     public string PriemerneVytazeniePokladni
     {
         get => _priemerneVytazeniePokladni;
@@ -321,7 +323,7 @@ public class MainViewModel : ObservableObjects
             }
         }
     }
-    
+
     public string PriemerneVytazenieObsluhyOnline
     {
         get => _priemerneVytazenieObsluhyOnline;
@@ -334,7 +336,7 @@ public class MainViewModel : ObservableObjects
             }
         }
     }
-    
+
     public string PriemerneVytazenieObsluhyOstatne
     {
         get => _priemerneVytazenieObsluhyOstatne;
@@ -347,7 +349,7 @@ public class MainViewModel : ObservableObjects
             }
         }
     }
-    
+
     public string IntervalSpolahlivsti
     {
         get => _intervalSpolahlivosti;
@@ -360,7 +362,7 @@ public class MainViewModel : ObservableObjects
             }
         }
     }
-    
+
     public ObservableCollection<PersonModel> Peoples
     {
         get => _peoples;
@@ -370,6 +372,7 @@ public class MainViewModel : ObservableObjects
             OnPropertyChanged();
         }
     }
+
     public string AktualnaReplikacia
     {
         get => _aktulnaReplikacia;
@@ -416,7 +419,6 @@ public class MainViewModel : ObservableObjects
             _pauseButtonText = value;
             OnPropertyChanged();
         }
-
     }
 
     public double SliderValue
@@ -429,7 +431,7 @@ public class MainViewModel : ObservableObjects
             OnPropertyChanged();
         }
     }
-    
+
     public bool BehZavisloti
     {
         get => _behZavisloti;
@@ -451,7 +453,7 @@ public class MainViewModel : ObservableObjects
             OnPropertyChanged();
         }
     }
-    
+
     public Visibility BehZavislotiVisibilityOstatne
     {
         get => _behZavislotiVisibilityOstatne;
@@ -461,7 +463,7 @@ public class MainViewModel : ObservableObjects
             OnPropertyChanged();
         }
     }
-    
+
     public SeriesCollection? SeriesCollection
     {
         get { return _seriesCollection; }
@@ -471,7 +473,7 @@ public class MainViewModel : ObservableObjects
             OnPropertyChanged();
         }
     }
-    
+
     public ObservableCollection<string> Labels
     {
         get => _lables;
@@ -481,7 +483,7 @@ public class MainViewModel : ObservableObjects
             OnPropertyChanged();
         }
     }
-    
+
     public MainViewModel()
     {
         InicialiseButtons();
@@ -518,7 +520,6 @@ public class MainViewModel : ObservableObjects
         BehZavisloti = false;
         BehZavislotiVisibility = Visibility.Collapsed;
         BehZavislotiVisibilityOstatne = Visibility.Visible;
-        
     }
 
     private void InicialiseButtons()
@@ -561,6 +562,7 @@ public class MainViewModel : ObservableObjects
         {
             MessageBox.Show("Zle zadaný vstup" + e.Message, "Chyba vstupu", MessageBoxButton.OK, MessageBoxImage.Error);
         }
+
         /*
         if (BehZavisloti)
         {
@@ -604,7 +606,7 @@ public class MainViewModel : ObservableObjects
                     //PointGeometry = null
                 }
             };
-            
+
             _behZavislotiCore1 = new DISS_Model_Elektrokomponenty.Core(pocetReplikacii, cutFirst, pocetObsluznychMiest, 2)
             {
                 SlowDown = false,
@@ -635,7 +637,7 @@ public class MainViewModel : ObservableObjects
                 BehZavislosti = true
             };
             _behZavislotiCore5.DataAvailable += BehZavislotiUpdateUI5;
-            
+
             _behZavislotiCore1.Run();
             _behZavislotiCore2.Run();
             _behZavislotiCore3.Run();
@@ -649,6 +651,7 @@ public class MainViewModel : ObservableObjects
         {
             tmpList.Add(new());
         }
+
         ObsluzneMiestos = new(tmpList);
 
         List<PokladnaModel> tmpPokladne = new(pocetPokladni);
@@ -656,6 +659,7 @@ public class MainViewModel : ObservableObjects
         {
             tmpPokladne.Add(new());
         }
+
         Pokladne = new(tmpPokladne);
         PauseButtonText = "Pause";
 
@@ -666,6 +670,34 @@ public class MainViewModel : ObservableObjects
         // };
         // _core.DataAvailable += UpdateUI;
         // _core.Run();
+
+        _core = new(pocetObsluznychMiest, pocetPokladni);
+        _core.OnReplicationDidFinish(simulation =>
+        {
+            if (simulation.CurrentReplication % 100 == 0)
+            {
+                UpdateUI(((MySimulation)simulation).GetUIData((MySimulation)simulation));
+            }
+        });
+        
+        _core.OnRefreshUI(simulation =>
+        {
+            UpdateUI(((MySimulation)simulation).GetUIData((MySimulation)simulation));
+        });
+        _core.OnSimulationDidFinish(simulation =>
+        {
+            UpdateUI(((MySimulation)simulation).GetUIData((MySimulation)simulation));
+            StopModel();
+        });
+
+        //aby sa pri spustení spustil pomalý beh
+        if (_slowDown)
+        {
+            _core.SlowDown = true;
+            _core.SetSimSpeed(_sliderValue, 1);
+        }
+        
+        Task.Run(() => _core.Simulate(pocetReplikacii));
     }
 
     private void StopModel()
@@ -680,18 +712,22 @@ public class MainViewModel : ObservableObjects
         {
             _behZavislotiCore1.StopSimulation();
         }
+
         if (_behZavislotiCore2 is not null)
         {
             _behZavislotiCore2.StopSimulation();
         }
+
         if (_behZavislotiCore3 is not null)
         {
             _behZavislotiCore3.StopSimulation();
         }
+
         if (_behZavislotiCore4 is not null)
         {
             _behZavislotiCore4.StopSimulation();
         }
+
         if (_behZavislotiCore5 is not null)
         {
             _behZavislotiCore5.StopSimulation();
@@ -798,10 +834,12 @@ public class MainViewModel : ObservableObjects
         {
             if (_slowDown)
             {
+                _core.SlowDown = true;
                 _core.SetSimSpeed(_sliderValue, 1);
             }
             else
             {
+                _core.SlowDown = false;
                 _core.SetMaxSimSpeed();
             }
         }
@@ -826,7 +864,7 @@ public class MainViewModel : ObservableObjects
             ReplicationDetial = Visibility.Collapsed;
         }
     }
-    
+
     private void SetVidetelnostBehuZavislosti()
     {
         if (_behZavisloti)
@@ -846,7 +884,79 @@ public class MainViewModel : ObservableObjects
             SetReplicationDetailVisibilit(SlowDown);
         }
     }
-    
+
+    private void UpdateUI(DataStructure e)
+    {
+        // pri pomalom behu update čas aj keď nie je žiadna aktivita -> plynulejší beh
+        if (e.ShallowUpdate)
+        {
+            SimulationTime = e.SimulationTime;
+        }
+
+        if (e.NewData)
+        {
+            e.NewData = false;
+            if (e.ShallowUpdate)
+            {
+                //todo repair
+                // if (Peoples is null)
+                // {
+                //     Peoples = new();
+                // }
+                //
+                // // nahradím novým listom keď je nový zoznam kratší ako predchádzajúci
+                // if (Peoples.Count > e.People.Count)
+                // {
+                //     Peoples = new();
+                // }
+                //
+                // for (int i = 0; i < e.People.Count; i++)
+                // {
+                //     if (i < Peoples.Count)
+                //     {
+                //         Peoples[i].Update(e.People[i]);
+                //     }
+                //     else
+                //     {
+                //         Peoples.Add(new PersonModel(e.People[i]));
+                //     }
+                // }
+
+                RadaPredAutomatom = e.RadaPredAutomatom;
+                //Automat.Update(e.Automat);
+                RadaPredObsluznimiMiestamiOnline = e.RadaPredObsluznimiMiestamiOnline;
+                RadaPredObsluznimiMiestamiBasic = e.RadaPredObsluznimiMiestamiBasic;
+                RadaPredObsluznimiMiestamiZmluvny = e.RadaPredObsluznimiMiestamiZmluvny;
+                for (int i = 0; i < e.ObsluzneMiestos.Count; i++)
+                {
+                    ObsluzneMiestos[i].Update(e.ObsluzneMiestos[i]);
+                }
+
+                for (int i = 0; i < e.Pokladne.Count; i++)
+                {
+                    Pokladne[i].Update(e.Pokladne[i]);
+                }
+
+                ;
+            }
+
+            AktualnaReplikacia = e.AktuaReplikacia;
+            PriemernyCasVObchode = e.PriemernyCasVObhchode;
+            PriemernyCasPredAutomatom = e.PriemernyCasPredAutomatom;
+            PriemernaDlzkaRaduPredAutomatom = e.PriemernaDlzkaraduPredAutomatom;
+            PriemernyOdchodPoslednehoZakaznika = e.PriemernyOdchodPoslednehoZakaznika;
+            PriemernyPocetZakaznikov = e.PriemernyPocetZakaznikov;
+            PriemernyPocetObsluzenychZakaznikov = e.PriemernyPocetObsluzenychZakaznikov;
+            PriemerneVytazenieAutomatu = e.PriemerneVytazenieAutomatu;
+            PriemerneDlzkyRadovPredObsluhov = e.PriemerneDlzkyRadovPredObsluhov;
+            PriemerneDlzkyRadovPredPokladnami = e.PriemerneDlzkyRadovPredPokladnami;
+            PriemerneVytazeniePokladni = e.PriemerneVytazeniePokladni;
+            PriemerneVytazenieObsluhyOnline = e.PriemerneVytazenieObsluhyOnline;
+            PriemerneVytazenieObsluhyOstatne = e.PriemerneVytazenieObsluhyOstatne;
+            IntervalSpolahlivsti = e.IntervalSpolahlivstiCasuVsysteme;
+        }
+    }
+
     /*
     private void UpdateUI(object? sender, DataStructure e)
     {
@@ -896,7 +1006,7 @@ public class MainViewModel : ObservableObjects
                     for (int i = 0; i < e.Pokladne.Count; i++)
                     {
                         Pokladne[i].Update(e.Pokladne[i]);
-                    };   
+                    };
                 }
 
                 AktualnaReplikacia = e.AktuaReplikacia;
@@ -917,7 +1027,7 @@ public class MainViewModel : ObservableObjects
         });
     }
     */
-    
+
     /*
     private void BehZavislotiUpdateUi1(object? sender, DataStructure e)
     {
