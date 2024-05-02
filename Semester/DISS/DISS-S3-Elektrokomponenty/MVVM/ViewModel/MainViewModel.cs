@@ -898,7 +898,7 @@ public class MainViewModel : ObservableObjects
             e.NewData = false;
             if (e.ShallowUpdate)
             {
-                //todo repair
+                //todo prerobyť na string list
                 // if (Peoples is null)
                 // {
                 //     Peoples = new();
