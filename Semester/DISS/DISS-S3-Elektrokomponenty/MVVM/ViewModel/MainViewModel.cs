@@ -6,7 +6,6 @@ using System.Windows;
 using System.Windows.Media;
 using System.Windows.Threading;
 using DISS_S3_Elektrokomponenty.Core;
-using DISS_S3_Elektrokomponenty.MVVM.Model;
 using LiveCharts;
 using LiveCharts.Wpf;
 using simulation;
@@ -902,7 +901,7 @@ public class MainViewModel : ObservableObjects
                 Peoples = new(e.People);
 
                 RadaPredAutomatom = e.RadaPredAutomatom;
-                //Automat.Update(e.Automat);
+                Automat.Update(e.AutomatObsah, e.AutomatObsadeny);
                 RadaPredObsluznimiMiestamiOnline = e.RadaPredObsluznimiMiestamiOnline;
                 RadaPredObsluznimiMiestamiBasic = e.RadaPredObsluznimiMiestamiBasic;
                 RadaPredObsluznimiMiestamiZmluvny = e.RadaPredObsluznimiMiestamiZmluvny;
@@ -915,8 +914,6 @@ public class MainViewModel : ObservableObjects
                 {
                     Pokladne[i].Update(e.Pokladne[i]);
                 }
-
-                ;
             }
 
             AktualnaReplikacia = e.AktuaReplikacia;

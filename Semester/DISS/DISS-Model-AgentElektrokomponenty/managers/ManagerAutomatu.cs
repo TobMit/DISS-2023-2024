@@ -16,6 +16,8 @@ namespace managers
 		public int Id { get; set; }
 		public bool Obsluhuje { get; set; }
 
+		private Person? _person;
+		
 		public SimQueue<MyMessage> Front { get; set; }
 		public ManagerAutomatu(int id, Simulation mySim, Agent myAgent) :
 			base(id, mySim, myAgent)
@@ -52,6 +54,7 @@ namespace managers
 			else
 			{
 				Obsluhuje = false;
+				_person = null;
 				((MySimulation)MySim).StatVyuzitieAutomatu.AddSample(0);
 			}
 
@@ -105,6 +108,7 @@ namespace managers
 				sprava.Addressee = MyAgent.FindAssistant(SimId.ProcessObsluhaAutomatu);
 				StartContinualAssistant(sprava);
 				Obsluhuje = true;
+				_person = sprava.Zakaznik;
 				((MySimulation)MySim).StatCasStravenyPredAutomatom.AddSample(MySim.CurrentTime - sprava.Zakaznik.TimeOfArrival);
 				((MySimulation)MySim).StatVyuzitieAutomatu.AddSample(1);
 			}
@@ -152,6 +156,7 @@ namespace managers
 				var newSprava = new MyMessage(Front.Dequeue());
 				((MySimulation)MySim).StatCasStravenyPredAutomatom.AddSample(MySim.CurrentTime - newSprava.Zakaznik.TimeOfArrival);
 				newSprava.Addressee = MyAgent.FindAssistant(SimId.ProcessObsluhaAutomatu);
+				_person = newSprava.Zakaznik;
 				StartContinualAssistant(newSprava);	
 			}
 		}
@@ -172,6 +177,7 @@ namespace managers
 					var newSprava = new MyMessage(Front.Dequeue());
 					((MySimulation)MySim).StatCasStravenyPredAutomatom.AddSample(MySim.CurrentTime - newSprava.Zakaznik.TimeOfArrival);
 					newSprava.Addressee = MyAgent.FindAssistant(SimId.ProcessObsluhaAutomatu);
+					_person = newSprava.Zakaznik;
 					StartContinualAssistant(newSprava);
 				}
 			}
@@ -235,6 +241,25 @@ namespace managers
 			{
 				return (AgentAutomatu)base.MyAgent;
 			}
+		}
+		
+		public string GuiToString()
+		{
+			double vytaznie = 0;
+			if (((MySimulation)MySim).StatVyuzitieAutomatu.SampleSize > 2)
+			{
+				vytaznie = ((MySimulation)MySim).StatVyuzitieAutomatu.Mean() * 100;
+			}
+			double ldzkaRadu = 0;
+			if (((MySimulation)MySim).StatPriemernaDlzkaRaduPredAutomatom.SampleSize > 0)
+			{
+				ldzkaRadu = ((MySimulation)MySim).StatPriemernaDlzkaRaduPredAutomatom.Mean();
+			}
+			if (_person is null)
+			{
+				return $"Automat: \n\t- Voľný \n\t- Vyťaženie: {vytaznie:0.00}%\n\t- Dĺžka radu: {ldzkaRadu:0.00}";
+			}
+			return $"Automat: \n\t- Stojí Person: {_person?.ID}\n\t- Vyťaženie: {vytaznie:0.00}%\n\t- Dĺžka radu: {ldzkaRadu:0.00}";
 		}
 	}
 }

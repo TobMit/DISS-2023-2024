@@ -353,7 +353,8 @@ namespace simulation
                     _eventData.People.Insert(0,"ID\t  | Typ Zákazníka \t | Typ naroč. tovar\t | Typ veľko. nákl. \t | Stav zákazníka");
                     
                     _eventData.RadaPredAutomatom = $"Rada pred automatom: {((ManagerAutomatu)AgentAutomatu.MyManager).Front.Count}";
-                    //_eventData.Automat = Automat;
+                    _eventData.AutomatObsah = ((ManagerAutomatu)AgentAutomatu.MyManager).GuiToString();
+                    _eventData.AutomatObsadeny = ((ManagerAutomatu)AgentAutomatu.MyManager).Obsluhuje;
                     _eventData.RadaPredObsluznimiMiestamiOnline =
                         $"{((ManagerObsluzneMiesto)AgentObsluzneMiesto.MyManager).RadaPredObsluznymMiestom.CountOnline}/{((ManagerObsluzneMiesto)AgentObsluzneMiesto.MyManager).RadaPredObsluznymMiestom.Count}/{Constants.RADA_PRED_OBSLUZNYM_MIESTOM}";
                     _eventData.RadaPredObsluznimiMiestamiBasic =

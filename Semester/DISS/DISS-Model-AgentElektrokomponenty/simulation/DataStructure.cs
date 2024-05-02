@@ -15,7 +15,8 @@ public class DataStructure : EventArgs
     public string SimulationTime { get; set; }
     public List<String> People { get; set; }
     public string RadaPredAutomatom { get; set; }
-    //public Automat Automat { get; set; } //todo resolve
+    public string AutomatObsah { get; set; }
+    public bool AutomatObsadeny { get; set; }
     public string RadaPredObsluznimiMiestamiOnline { get; set; }
     public string RadaPredObsluznimiMiestamiBasic { get; set; }
     public string RadaPredObsluznimiMiestamiZmluvny { get; set; }

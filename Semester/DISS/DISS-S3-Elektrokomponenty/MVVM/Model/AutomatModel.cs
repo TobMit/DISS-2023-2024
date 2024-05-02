@@ -39,9 +39,9 @@ public class AutomatModel : ObservableObjects
         _obsah = "-/-";
     }
 
-    // public void Update(Automat pAutomat)
-    // {
-    //     Obsah = pAutomat.ToString();
-    //     Obsadeny = pAutomat.Obsadeny;
-    // }
+    public void Update(string pObsah, bool pObsadeny)
+    {
+        Obsah = pObsah;
+        Obsadeny = pObsadeny;
+    }
 }
