@@ -19,9 +19,9 @@ public class Constants
     
     public enum TypNarocnostiTovaru
     {
-        Simple = 0,
-        Normal = 1,
-        Hard = 2
+        Jednoduchá = 0,
+        Normálna = 1,
+        Zložitá = 2
     }
     
     public enum StavZakaznika
@@ -36,6 +36,8 @@ public class Constants
         ObslužnéMiestoVraciaSaPreVeľkýTovar = 7,
         OdišielZPredajne = 8
     }
+    
+    public static int POCET_UPDATOV_ZA_SEKUNDU = 2;
 
     public static int POCET_DAT_V_GRAFE = 100;
     public static int RADA_PRED_OBSLUZNYM_MIESTOM = 9;

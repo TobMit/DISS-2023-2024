@@ -46,15 +46,15 @@ public class Person
     {
         if (prTypNarocnostTovaru < 0.3)
         {
-            TypNarocnostiTovaru = Constants.TypNarocnostiTovaru.Simple;
+            TypNarocnostiTovaru = Constants.TypNarocnostiTovaru.Jednoduchá;
         }
         else if (prTypNarocnostTovaru < 0.7)
         {
-            TypNarocnostiTovaru = Constants.TypNarocnostiTovaru.Normal;
+            TypNarocnostiTovaru = Constants.TypNarocnostiTovaru.Normálna;
         }
         else
         {
-            TypNarocnostiTovaru = Constants.TypNarocnostiTovaru.Hard;
+            TypNarocnostiTovaru = Constants.TypNarocnostiTovaru.Zložitá;
         }
     }
 
@@ -82,5 +82,10 @@ public class Person
         TypNarocnostiTovaru = person.TypNarocnostiTovaru;
         TypVelkostiNakladu = person.TypVelkostiNakladu;
         StavZakaznika = person.StavZakaznika;
+    }
+    
+    public override string ToString()
+    {
+        return $"{ID}\t  | {TypZakaznika, -10}\t | {TypNarocnostiTovaru, -10}\t | {TypVelkostiNakladu, -8}\t | {StavZakaznika, -34}";
     }
 }

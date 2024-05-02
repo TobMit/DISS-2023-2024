@@ -555,32 +555,43 @@
 
                             </ListView>
 
-                            <Grid>
-                                <DataGrid
-                                    ItemsSource="{Binding Peoples}"
-                                    AutoGenerateColumns="False"
-                                    Margin="10">
-                                    <DataGrid.Columns>
-                                        <DataGridTextColumn
-                                            Foreground="Black" Header="ID" Binding="{Binding ID}" />
-                                        <DataGridTextColumn
-                                            Foreground="Black" Header="Čas príchodu" Binding="{Binding TimeOfArrival}" />
-                                        <DataGridTextColumn
-                                            Foreground="Black" Header="Typ Zákazníka" Binding="{Binding TypZakaznika}" />
-                                        <DataGridTextColumn
-                                            Foreground="Black" Header="Náročnosť tovaru"
-                                            Binding="{Binding TypNarocnostiTovaru}" />
-                                        <DataGridTextColumn
-                                            Foreground="Black" Header="Veľkosť nákladu"
-                                            Binding="{Binding TypVelkostiNakladu}" />
-                                        <DataGridTextColumn
-                                            Foreground="Black" Header="Stav zákazníka"
-                                            Binding="{Binding StavZakaznika}" 
-                                            Width="*"/>
-                                    </DataGrid.Columns>
-
-                                </DataGrid>
-                            </Grid>
+                            <!-- <Grid> -->
+                            <!--     <DataGrid -->
+                            <!--         ItemsSource="{Binding Peoples}" -->
+                            <!--         AutoGenerateColumns="False" -->
+                            <!--         Margin="10"> -->
+                            <!--         <DataGrid.Columns> -->
+                            <!--             <DataGridTextColumn -->
+                            <!--                 Foreground="Black" Header="ID" Binding="{Binding ID}" /> -->
+                            <!--             <DataGridTextColumn -->
+                            <!--                 Foreground="Black" Header="Čas príchodu" Binding="{Binding TimeOfArrival}" /> -->
+                            <!--             <DataGridTextColumn -->
+                            <!--                 Foreground="Black" Header="Typ Zákazníka" Binding="{Binding TypZakaznika}" /> -->
+                            <!--             <DataGridTextColumn -->
+                            <!--                 Foreground="Black" Header="Náročnosť tovaru" -->
+                            <!--                 Binding="{Binding TypNarocnostiTovaru}" /> -->
+                            <!--             <DataGridTextColumn -->
+                            <!--                 Foreground="Black" Header="Veľkosť nákladu" -->
+                            <!--                 Binding="{Binding TypVelkostiNakladu}" /> -->
+                            <!--             <DataGridTextColumn -->
+                            <!--                 Foreground="Black" Header="Stav zákazníka" -->
+                            <!--                 Binding="{Binding StavZakaznika}"  -->
+                            <!--                 Width="*"/> -->
+                            <!--         </DataGrid.Columns> -->
+                            <!-- -->
+                            <!--     </DataGrid> -->
+                            <!-- </Grid> -->
+                            
+                            <Border BorderThickness="2"
+                                    Padding="3"
+                                    BorderBrush="White"
+                                    Background="Transparent"
+                                    CornerRadius="3">
+                                <ListBox ItemsSource="{Binding Peoples}"
+                                         Foreground="White"
+                                         Background="Transparent"
+                                         BorderThickness="0"/>
+                            </Border>
                         </StackPanel>
 
                     </GroupBox>

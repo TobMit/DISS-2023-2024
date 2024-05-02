@@ -13,7 +13,7 @@ public class DataStructure : EventArgs
     public bool ShallowUpdate { get; set; }
     public bool NewData { get; set; }
     public string SimulationTime { get; set; }
-    public List<Person> People { get; set; }
+    public List<String> People { get; set; }
     public string RadaPredAutomatom { get; set; }
     //public Automat Automat { get; set; } //todo resolve
     public string RadaPredObsluznimiMiestamiOnline { get; set; }

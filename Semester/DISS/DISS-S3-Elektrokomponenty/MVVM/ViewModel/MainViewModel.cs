@@ -50,7 +50,7 @@ public class MainViewModel : ObservableObjects
     private string _priemerneVytazenieObsluhyOnline;
     private string _priemerneVytazenieObsluhyOstatne;
     private string _intervalSpolahlivosti;
-    private ObservableCollection<PersonModel> _peoples;
+    private ObservableCollection<String> _peoples;
     private bool _slowDown;
     private Visibility _replicationDetailVisibility;
     private double _sliderValue;
@@ -363,7 +363,7 @@ public class MainViewModel : ObservableObjects
         }
     }
 
-    public ObservableCollection<PersonModel> Peoples
+    public ObservableCollection<string> Peoples
     {
         get => _peoples;
         set
@@ -694,7 +694,7 @@ public class MainViewModel : ObservableObjects
         if (_slowDown)
         {
             _core.SlowDown = true;
-            _core.SetSimSpeed(_sliderValue, 1);
+            _core.SetSimSpeed(_sliderValue / Constants.POCET_UPDATOV_ZA_SEKUNDU, 1.0 / Constants.POCET_UPDATOV_ZA_SEKUNDU);
         }
         
         Task.Run(() => _core.Simulate(pocetReplikacii));
@@ -835,7 +835,7 @@ public class MainViewModel : ObservableObjects
             if (_slowDown)
             {
                 _core.SlowDown = true;
-                _core.SetSimSpeed(_sliderValue, 1);
+                _core.SetSimSpeed(_sliderValue / Constants.POCET_UPDATOV_ZA_SEKUNDU, 1.0 / Constants.POCET_UPDATOV_ZA_SEKUNDU);
             }
             else
             {
@@ -849,7 +849,7 @@ public class MainViewModel : ObservableObjects
     {
         if (_core is not null)
         {
-            _core.SetSimSpeed(_sliderValue, 1);
+            _core.SetSimSpeed(_sliderValue / Constants.POCET_UPDATOV_ZA_SEKUNDU, 1.0 / Constants.POCET_UPDATOV_ZA_SEKUNDU);
         }
     }
 
@@ -899,28 +899,7 @@ public class MainViewModel : ObservableObjects
             if (e.ShallowUpdate)
             {
                 //todo prerobyť na string list
-                // if (Peoples is null)
-                // {
-                //     Peoples = new();
-                // }
-                //
-                // // nahradím novým listom keď je nový zoznam kratší ako predchádzajúci
-                // if (Peoples.Count > e.People.Count)
-                // {
-                //     Peoples = new();
-                // }
-                //
-                // for (int i = 0; i < e.People.Count; i++)
-                // {
-                //     if (i < Peoples.Count)
-                //     {
-                //         Peoples[i].Update(e.People[i]);
-                //     }
-                //     else
-                //     {
-                //         Peoples.Add(new PersonModel(e.People[i]));
-                //     }
-                // }
+                Peoples = new(e.People);
 
                 RadaPredAutomatom = e.RadaPredAutomatom;
                 //Automat.Update(e.Automat);

@@ -26,13 +26,13 @@ namespace continualAssistants
 			double trvanie = 0;
 			switch (sprava.Zakaznik.TypNarocnostiTovaru)
 			{
-				case Constants.TypNarocnostiTovaru.Simple:
+				case Constants.TypNarocnostiTovaru.Jednoduchá:
 					trvanie = ((MySimulation)MySim).RndTrvaniePripravaSimple.Next();
 					break;
-				case Constants.TypNarocnostiTovaru.Normal:
+				case Constants.TypNarocnostiTovaru.Normálna:
 					trvanie = ((MySimulation)MySim).RndTrvaniePripravaNormal.Next();
 					break;
-				case Constants.TypNarocnostiTovaru.Hard:
+				case Constants.TypNarocnostiTovaru.Zložitá:
 					trvanie = ((MySimulation)MySim).RndTrvaniePripravaHard.Next();
 					break;
 			}

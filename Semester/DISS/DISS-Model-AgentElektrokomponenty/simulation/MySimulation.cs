@@ -348,8 +348,10 @@ namespace simulation
                 if (_eventData.ShallowUpdate)
                 {
                     _eventData.People = Persons.Where(o => o.StavZakaznika != Constants.StavZakaznika.OdišielZPredajne)
+                        .Select(person => person.ToString())
                         .ToList();
-                    ;
+                    _eventData.People.Insert(0,"ID\t  | Typ Zákazníka \t | Typ naroč. tovar\t | Typ veľko. nákl. \t | Stav zákazníka");
+                    
                     _eventData.RadaPredAutomatom = $"Rada pred automatom: {((ManagerAutomatu)AgentAutomatu.MyManager).Front.Count}";
                     //_eventData.Automat = Automat;
                     _eventData.RadaPredObsluznimiMiestamiOnline =
