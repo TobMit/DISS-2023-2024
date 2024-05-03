@@ -562,7 +562,7 @@ public class MainViewModel : ObservableObjects
             MessageBox.Show("Zle zadaný vstup" + e.Message, "Chyba vstupu", MessageBoxButton.OK, MessageBoxImage.Error);
         }
 
-        /*
+        
         if (BehZavisloti)
         {
             AktualnaReplikacia = "-/-";
@@ -606,45 +606,146 @@ public class MainViewModel : ObservableObjects
                 }
             };
 
-            _behZavislotiCore1 = new DISS_Model_Elektrokomponenty.Core(pocetReplikacii, cutFirst, pocetObsluznychMiest, 2)
+            _behZavislotiCore1 = new (pocetObsluznychMiest, 2)
             {
                 SlowDown = false,
                 BehZavislosti = true
             };
-            _behZavislotiCore1.DataAvailable += BehZavislotiUpdateUi1;
-            _behZavislotiCore2 = new DISS_Model_Elektrokomponenty.Core(pocetReplikacii, cutFirst, pocetObsluznychMiest, 3)
+            _behZavislotiCore1.OnReplicationDidFinish(simulation =>
+            {
+                if (simulation.CurrentReplication < cutFirst)
+                {
+                    return;
+                }
+            
+                int stepSize = pocetReplikacii / Constants.POCET_DAT_V_GRAFE;
+                if (stepSize >= 2)
+                {
+                    if (simulation.CurrentReplication % stepSize == 0)
+                    {
+                        BehZavislotiUpdateUi1(((MySimulation)simulation).GetUIData((MySimulation)simulation));
+                    }    
+                }
+            });
+            _behZavislotiCore1.OnSimulationDidFinish(simulation =>
+            {
+                BehZavislotiUpdateUi1(((MySimulation)simulation).GetUIData((MySimulation)simulation));
+                StopModel();
+            });
+            _behZavislotiCore2 = new (pocetObsluznychMiest, 3)
             {
                 SlowDown = false,
                 BehZavislosti = true
             };
-            _behZavislotiCore2.DataAvailable += BehZavislotiUpdateUi2;
-            _behZavislotiCore3 = new DISS_Model_Elektrokomponenty.Core(pocetReplikacii, cutFirst, pocetObsluznychMiest, 4)
+            _behZavislotiCore2.OnReplicationDidFinish(simulation =>
+            {
+                if (simulation.CurrentReplication < cutFirst)
+                {
+                    return;
+                }
+            
+                int stepSize = pocetReplikacii / Constants.POCET_DAT_V_GRAFE;
+                if (stepSize >= 2)
+                {
+                    if (simulation.CurrentReplication % stepSize == 0)
+                    {
+                        BehZavislotiUpdateUi2(((MySimulation)simulation).GetUIData((MySimulation)simulation));
+                    }    
+                }
+            });
+            _behZavislotiCore2.OnSimulationDidFinish(simulation =>
+            {
+                BehZavislotiUpdateUi2(((MySimulation)simulation).GetUIData((MySimulation)simulation));
+                StopModel();
+            });
+            _behZavislotiCore3 = new (pocetObsluznychMiest, 4)
             {
                 SlowDown = false,
                 BehZavislosti = true
             };
-            _behZavislotiCore3.DataAvailable += BehZavislotiUpdateUi3;
-            _behZavislotiCore4 = new DISS_Model_Elektrokomponenty.Core(pocetReplikacii, cutFirst, pocetObsluznychMiest, 5)
+            _behZavislotiCore3.OnReplicationDidFinish(simulation =>
+            {
+                if (simulation.CurrentReplication < cutFirst)
+                {
+                    return;
+                }
+            
+                int stepSize = pocetReplikacii / Constants.POCET_DAT_V_GRAFE;
+                if (stepSize >= 2)
+                {
+                    if (simulation.CurrentReplication % stepSize == 0)
+                    {
+                        BehZavislotiUpdateUi3(((MySimulation)simulation).GetUIData((MySimulation)simulation));
+                    }    
+                }
+            });
+            _behZavislotiCore3.OnSimulationDidFinish(simulation =>
+            {
+                BehZavislotiUpdateUi3(((MySimulation)simulation).GetUIData((MySimulation)simulation));
+                StopModel();
+            });
+            _behZavislotiCore4 = new (pocetObsluznychMiest, 5)
             {
                 SlowDown = false,
                 BehZavislosti = true
             };
-            _behZavislotiCore4.DataAvailable += BehZavislotiUpdateUi4;
-            _behZavislotiCore5 = new DISS_Model_Elektrokomponenty.Core(pocetReplikacii, cutFirst, pocetObsluznychMiest, 6)
+            _behZavislotiCore4.OnReplicationDidFinish(simulation =>
+            {
+                if (simulation.CurrentReplication < cutFirst)
+                {
+                    return;
+                }
+            
+                int stepSize = pocetReplikacii / Constants.POCET_DAT_V_GRAFE;
+                if (stepSize >= 2)
+                {
+                    if (simulation.CurrentReplication % stepSize == 0)
+                    {
+                        BehZavislotiUpdateUi4(((MySimulation)simulation).GetUIData((MySimulation)simulation));
+                    }    
+                }
+            });
+            _behZavislotiCore4.OnSimulationDidFinish(simulation =>
+            {
+                BehZavislotiUpdateUi4(((MySimulation)simulation).GetUIData((MySimulation)simulation));
+                StopModel();
+            });
+            _behZavislotiCore5 = new ( pocetObsluznychMiest, 6)
             {
                 SlowDown = false,
                 BehZavislosti = true
             };
-            _behZavislotiCore5.DataAvailable += BehZavislotiUpdateUI5;
+            _behZavislotiCore5.OnReplicationDidFinish(simulation =>
+            {
+                if (simulation.CurrentReplication < cutFirst)
+                {
+                    return;
+                }
+            
+                int stepSize = pocetReplikacii / Constants.POCET_DAT_V_GRAFE;
+                if (stepSize >= 2)
+                {
+                    if (simulation.CurrentReplication % stepSize == 0)
+                    {
+                        BehZavislotiUpdateUi5(((MySimulation)simulation).GetUIData((MySimulation)simulation));
+                    }    
+                }
+            });
+            _behZavislotiCore5.OnSimulationDidFinish(simulation =>
+            {
+                BehZavislotiUpdateUi5(((MySimulation)simulation).GetUIData((MySimulation)simulation));
+                StopModel();
+            });
 
-            _behZavislotiCore1.Run();
-            _behZavislotiCore2.Run();
-            _behZavislotiCore3.Run();
-            _behZavislotiCore4.Run();
-            _behZavislotiCore5.Run();
+            Task.Run(() => _behZavislotiCore1.Simulate(pocetReplikacii));
+            Task.Run(() => _behZavislotiCore2.Simulate(pocetReplikacii));
+            Task.Run(() => _behZavislotiCore3.Simulate(pocetReplikacii));
+            Task.Run(() => _behZavislotiCore4.Simulate(pocetReplikacii));
+            Task.Run(() => _behZavislotiCore5.Simulate(pocetReplikacii));
             return;
         }
-        */
+        
+        // --------------------------------------- Klasicka simulácia ------------------------------------------
         List<ObsluzneMiestoModel> tmpList = new(pocetObsluznychMiest);
         for (int i = 0; i < pocetObsluznychMiest; i++)
         {
@@ -661,15 +762,7 @@ public class MainViewModel : ObservableObjects
 
         Pokladne = new(tmpPokladne);
         PauseButtonText = "Pause";
-
-        // _core = new DISS_Model_Elektrokomponenty.Core(pocetReplikacii, 0, pocetObsluznychMiest, pocetPokladni)
-        // {
-        //     SlowDown = _slowDown,
-        //     SlowDownSpeed = SliderValue
-        // };
-        // _core.DataAvailable += UpdateUI;
-        // _core.Run();
-
+        
         _core = new(pocetObsluznychMiest, pocetPokladni);
         _core.OnReplicationDidFinish(simulation =>
         {
@@ -678,15 +771,15 @@ public class MainViewModel : ObservableObjects
                 UpdateUI(((MySimulation)simulation).GetUIData((MySimulation)simulation));
             }
         });
-        
-        _core.OnRefreshUI(simulation =>
-        {
-            UpdateUI(((MySimulation)simulation).GetUIData((MySimulation)simulation));
-        });
         _core.OnSimulationDidFinish(simulation =>
         {
             UpdateUI(((MySimulation)simulation).GetUIData((MySimulation)simulation));
             StopModel();
+        });
+        
+        _core.OnRefreshUI(simulation =>
+        {
+            UpdateUI(((MySimulation)simulation).GetUIData((MySimulation)simulation));
         });
 
         //aby sa pri spustení spustil pomalý beh
@@ -751,80 +844,80 @@ public class MainViewModel : ObservableObjects
                 }
             }
         }
-/*
+
         if (_behZavislotiCore1 is not null)
         {
-            if (_behZavislotiCore1.IsRunning)
+            if (_behZavislotiCore1.IsRunning())
             {
-                if (_behZavislotiCore1.Pause)
+                if (_behZavislotiCore1.IsPaused())
                 {
-                    _behZavislotiCore1.Pause = false;
+                    _behZavislotiCore1.ResumeSimulation();
                     PauseButtonText = "Pause";
                 }
                 else
                 {
-                    _behZavislotiCore1.Pause = true;
+                    _behZavislotiCore1.PauseSimulation();
                     PauseButtonText = "Continue";
                 }
             }
         }
         if (_behZavislotiCore2 is not null)
         {
-            if (_behZavislotiCore2.IsRunning)
+            if (_behZavislotiCore2.IsRunning())
             {
-                if (_behZavislotiCore2.Pause)
+                if (_behZavislotiCore2.IsPaused())
                 {
-                    _behZavislotiCore2.Pause = false;
+                    _behZavislotiCore2.ResumeSimulation();
                 }
                 else
                 {
-                    _behZavislotiCore2.Pause = true;
+                    _behZavislotiCore2.PauseSimulation();
                 }
             }
         }
         if (_behZavislotiCore3 is not null)
         {
-            if (_behZavislotiCore3.IsRunning)
+            if (_behZavislotiCore3.IsRunning())
             {
-                if (_behZavislotiCore3.Pause)
+                if (_behZavislotiCore3.IsPaused())
                 {
-                    _behZavislotiCore3.Pause = false;
+                    _behZavislotiCore3.ResumeSimulation();
                 }
                 else
                 {
-                    _behZavislotiCore3.Pause = true;
+                    _behZavislotiCore3.PauseSimulation();
                 }
             }
         }
         if (_behZavislotiCore4 is not null)
         {
-            if (_behZavislotiCore4.IsRunning)
+            if (_behZavislotiCore4.IsRunning())
             {
-                if (_behZavislotiCore4.Pause)
+                if (_behZavislotiCore4.IsPaused())
                 {
-                    _behZavislotiCore4.Pause = false;
+                    _behZavislotiCore4.ResumeSimulation();
                 }
                 else
                 {
-                    _behZavislotiCore4.Pause = true;
+                    _behZavislotiCore4.PauseSimulation();
                 }
             }
         }
         if (_behZavislotiCore5 is not null)
         {
-            if (_behZavislotiCore5.IsRunning)
+            if (_behZavislotiCore5.IsRunning())
             {
-                if (_behZavislotiCore5.Pause)
+                if (_behZavislotiCore5.IsPaused())
                 {
-                    _behZavislotiCore5.Pause = false;
+                    _behZavislotiCore5.ResumeSimulation();
                 }
                 else
                 {
-                    _behZavislotiCore5.Pause = true;
+                    _behZavislotiCore5.PauseSimulation();
                 }
             }
         }
-        */
+        
     }
 
     private void SledovanieSimulacie()
@@ -1004,44 +1097,29 @@ public class MainViewModel : ObservableObjects
     }
     */
 
-    /*
-    private void BehZavislotiUpdateUi1(object? sender, DataStructure e)
+    
+    private void BehZavislotiUpdateUi1(DataStructure e)
     {
-        Application.Current.Dispatcher.Invoke(() =>
-        {
-            AktualnaReplikacia = e.AktuaReplikacia;
-            SeriesCollection?[0].Values.Add(e.BehZavislostiPriemernyPocetZakaznikovPredAutomatom);
-        });
+        AktualnaReplikacia = e.AktuaReplikacia;
+        SeriesCollection?[0].Values.Add(e.BehZavislostiPriemernyPocetZakaznikovPredAutomatom);
     }
-    private void BehZavislotiUpdateUi2(object? sender, DataStructure e)
+    private void BehZavislotiUpdateUi2(DataStructure e)
     {
-        Application.Current.Dispatcher.Invoke(() =>
-        {
-            SeriesCollection?[1].Values.Add(e.BehZavislostiPriemernyPocetZakaznikovPredAutomatom);
-        });
+        SeriesCollection?[1].Values.Add(e.BehZavislostiPriemernyPocetZakaznikovPredAutomatom);
     }
-    private void BehZavislotiUpdateUi3(object? sender, DataStructure e)
+    private void BehZavislotiUpdateUi3(DataStructure e)
     {
-        Application.Current.Dispatcher.Invoke(() =>
-        {
-            SeriesCollection?[2].Values.Add(e.BehZavislostiPriemernyPocetZakaznikovPredAutomatom);
-        });
+        SeriesCollection?[2].Values.Add(e.BehZavislostiPriemernyPocetZakaznikovPredAutomatom);
     }
-    private void BehZavislotiUpdateUi4(object? sender, DataStructure e)
+    private void BehZavislotiUpdateUi4(DataStructure e)
     {
-        Application.Current.Dispatcher.Invoke(() =>
-        {
-            SeriesCollection?[3].Values.Add(e.BehZavislostiPriemernyPocetZakaznikovPredAutomatom);
-        });
+        SeriesCollection?[3].Values.Add(e.BehZavislostiPriemernyPocetZakaznikovPredAutomatom);
     }
-    private void BehZavislotiUpdateUI5(object? sender, DataStructure e)
+    private void BehZavislotiUpdateUi5(DataStructure e)
     {
-        Application.Current.Dispatcher.Invoke(() =>
-        {
-            SeriesCollection?[4].Values.Add(e.BehZavislostiPriemernyPocetZakaznikovPredAutomatom);
-        });
+        SeriesCollection?[4].Values.Add(e.BehZavislostiPriemernyPocetZakaznikovPredAutomatom);;
     }
-    */
+    
     public void OnWindowClosing()
     {
         StopModel();
