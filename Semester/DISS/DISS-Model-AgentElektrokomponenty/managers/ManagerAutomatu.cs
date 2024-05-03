@@ -60,6 +60,8 @@ namespace managers
 
 			sprava.Addressee = MySim.FindAgent(SimId.AgentPredajne);
 			sprava.Code = Mc.NoticeKoniecObsluhy;
+			Obsluhuje = false;
+			_person = null;
 			Notice(sprava);
 		}
 
@@ -151,12 +153,13 @@ namespace managers
 		public void ProcessPocetMiestVRade(MessageForm message)
 		{
 			var sprava = (MyMessage)message.CreateCopy();
-			if (sprava.PocetLudiVOM <= Constants.RADA_PRED_OBSLUZNYM_MIESTOM)
+			if (sprava.PocetLudiVOM <= Constants.RADA_PRED_OBSLUZNYM_MIESTOM && Obsluhuje == false)
 			{
 				var newSprava = new MyMessage(Front.Dequeue());
 				((MySimulation)MySim).StatCasStravenyPredAutomatom.AddSample(MySim.CurrentTime - newSprava.Zakaznik.TimeOfArrival);
 				newSprava.Addressee = MyAgent.FindAssistant(SimId.ProcessObsluhaAutomatu);
 				_person = newSprava.Zakaznik;
+				Obsluhuje = true;
 				StartContinualAssistant(newSprava);	
 			}
 		}
@@ -170,16 +173,15 @@ namespace managers
 			{
 				return;
 			}
-			else
+			//todo chcek či nie je viac ľudí v rade ako je maximálny počet
+			if (Front.Count > 0)
 			{
-				if (Front.Count > 0)
-				{
-					var newSprava = new MyMessage(Front.Dequeue());
-					((MySimulation)MySim).StatCasStravenyPredAutomatom.AddSample(MySim.CurrentTime - newSprava.Zakaznik.TimeOfArrival);
-					newSprava.Addressee = MyAgent.FindAssistant(SimId.ProcessObsluhaAutomatu);
-					_person = newSprava.Zakaznik;
-					StartContinualAssistant(newSprava);
-				}
+				var newSprava = new MyMessage(Front.Dequeue());
+				Obsluhuje = true;
+				((MySimulation)MySim).StatCasStravenyPredAutomatom.AddSample(MySim.CurrentTime - newSprava.Zakaznik.TimeOfArrival);
+				newSprava.Addressee = MyAgent.FindAssistant(SimId.ProcessObsluhaAutomatu);
+				_person = newSprava.Zakaznik;
+				StartContinualAssistant(newSprava);
 			}
 		}
 
