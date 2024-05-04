@@ -285,6 +285,10 @@ namespace managers
 				ProcessNoticePrestavkaZaciatok(message);
 			break;
 
+			case Mc.NoticeUvolnenieOm:
+				ProcessNoticeUvolnenieOm(message);
+			break;
+
 			case Mc.Finish:
 				switch (message.Sender.Id)
 				{
@@ -308,10 +312,6 @@ namespace managers
 					ProcessFinishProcessVyzdvihnutieTovaru(message);
 				break;
 				}
-			break;
-
-			case Mc.NoticeUvolnenieOm:
-				ProcessNoticeUvolnenieOm(message);
 			break;
 
 			case Mc.Init:

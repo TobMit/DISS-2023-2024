@@ -145,7 +145,7 @@ namespace managers
 		}
 
 		//meta! sender="AgentPredajne", id="58", type="Notice"
-		public void ProcessNoticePrestavkaZaciatok(MessageForm message)
+		public void ProcessNoticePrestavkaZaciatokAgentPredajne(MessageForm message)
 		{
 		}
 
@@ -181,6 +181,11 @@ namespace managers
 		{
 		}
 
+		//meta! sender="SchedulerPrestavkaPokladne", id="143", type="Notice"
+		public void ProcessNoticePrestavkaZaciatokSchedulerPrestavkaPokladne(MessageForm message)
+		{
+		}
+
 		//meta! userInfo="Generated code: do not modify", tag="begin"
 		public void Init()
 		{
@@ -211,12 +216,21 @@ namespace managers
 				}
 			break;
 
-			case Mc.NoticeZaciatokPokladne:
-				ProcessNoticeZaciatokPokladne(message);
+			case Mc.NoticePrestavkaZaciatok:
+				switch (message.Sender.Id)
+				{
+				case SimId.SchedulerPrestavkaPokladne:
+					ProcessNoticePrestavkaZaciatokSchedulerPrestavkaPokladne(message);
+				break;
+
+				case SimId.AgentPredajne:
+					ProcessNoticePrestavkaZaciatokAgentPredajne(message);
+				break;
+				}
 			break;
 
-			case Mc.NoticePrestavkaZaciatok:
-				ProcessNoticePrestavkaZaciatok(message);
+			case Mc.NoticeZaciatokPokladne:
+				ProcessNoticeZaciatokPokladne(message);
 			break;
 
 			default:
