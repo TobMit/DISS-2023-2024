@@ -44,6 +44,7 @@ public class Constants
     
     public static double START_DAY = 9*60*60; // 9:00
     public static double START_ARRIVAL_SIMULATION_TIME = 0; //9:00
+    public static double STAR_BREAK = 3*60*60; //3h od 9:00 do 12:00
     public static double END_ARRIVAL_SIMULATION_TIME = 8*60*60; // 17:00 -> 8H -> 6*60*60s
     public static double END_SIMULATION_TIME = 8*60*60 + 30*60; // 17:30 -> 8:30H -> 6*60*60s + 30*60s
 
@@ -52,10 +53,6 @@ public class Constants
     
     public static void Log(string pModul, double time, Person? pPerson, string message, LogType logType = LogType.DefaultLog)
     {
-        if (pPerson is null)
-        {
-            return;
-        }
         if (pPerson is not null)
         {
             if (pPerson.ID != FILTER_ZAKAZNIK && FILTER_ZAKAZNIK != -1)

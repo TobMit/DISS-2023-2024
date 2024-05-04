@@ -8,6 +8,7 @@ namespace managers
 	//meta! id="44"
 	public class ManagerPokladni : Manager
 	{
+		public bool Break { get; set; }
 		public List<Pokladna> ListPokladni { get; private set; }
 		public ManagerPokladni(int id, Simulation mySim, Agent myAgent) :
 			base(id, mySim, myAgent)
@@ -91,6 +92,10 @@ namespace managers
 		//meta! sender="AgentPredajne", id="46", type="Notice"
 		public void ProcessInit(MessageForm message)
 		{
+			var sprava = (MyMessage)message.CreateCopy();
+			Constants.Log("ManagerPokladni", MySim.CurrentTime, null, "PokladneInit");
+			sprava.Addressee = MyAgent.FindAssistant(SimId.SchedulerPrestavkaPokladne);
+			StartContinualAssistant(sprava);
 		}
 		
 

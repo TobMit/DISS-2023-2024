@@ -15,6 +15,7 @@ namespace simulation
     {
         public bool BehZavislosti { get; set; }
         public bool SlowDown { get; set; }
+        public bool Break { get; set; }
 
         public int PocetObsluznychMiest { private get; set; }
 

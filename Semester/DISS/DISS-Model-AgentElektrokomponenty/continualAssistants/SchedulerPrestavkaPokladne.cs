@@ -1,6 +1,8 @@
 using OSPABA;
 using simulation;
 using agents;
+using managers;
+
 namespace continualAssistants
 {
 	//meta! id="56"
@@ -11,7 +13,7 @@ namespace continualAssistants
 		{
 		}
 
-		override public void PrepareReplication()
+		public override void PrepareReplication()
 		{
 			base.PrepareReplication();
 			// Setup component for the next replication
@@ -20,6 +22,10 @@ namespace continualAssistants
 		//meta! sender="AgentPokladni", id="57", type="Start"
 		public void ProcessStart(MessageForm message)
 		{
+			var sprava = (MyMessage)message.CreateCopy();
+			Constants.Log("SchedulerPrestavkaPokladne", MySim.CurrentTime, null, "ProcessStart", Constants.LogType.ContinualAssistantLog);
+			sprava.Code = Mc.Finish;
+			Hold(Constants.STAR_BREAK, sprava);
 		}
 
 		//meta! userInfo="Process messages defined in code", id="0"
@@ -27,6 +33,11 @@ namespace continualAssistants
 		{
 			switch (message.Code)
 			{
+				case Mc.Finish:
+					var sprava = (MyMessage)message.CreateCopy();
+					Constants.Log("SchedulerPrestavkaPokladne", MySim.CurrentTime, null, "ProcessFinishSchedulerPrestavkaPokladne", Constants.LogType.ContinualAssistantLog);
+					((ManagerPokladni)MyAgent.MyManager).Break = true;
+					break;
 			}
 		}
 

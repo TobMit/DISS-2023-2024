@@ -32,6 +32,12 @@ namespace managers
 			Constants.Log("ManagerPredajne", MySim.CurrentTime, sprava.Zakaznik,"ProcessInit", Constants.LogType.ManagerLog);
 			sprava.Addressee = MySim.FindAgent(SimId.AgentAutomatu);
 			Notice(new MyMessage(sprava));
+			if (!((MySimulation)MySim).Break)
+			{
+				return;
+			}
+			sprava.Addressee = MySim.FindAgent(SimId.AgentPokladni);
+			Notice(new MyMessage(sprava));
 			//todo add more init to other agents
 		}
 
