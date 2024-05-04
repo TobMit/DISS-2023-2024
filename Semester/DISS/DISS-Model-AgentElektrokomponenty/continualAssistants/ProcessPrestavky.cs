@@ -11,7 +11,7 @@ namespace continualAssistants
 		{
 		}
 
-		override public void PrepareReplication()
+		public override void PrepareReplication()
 		{
 			base.PrepareReplication();
 			// Setup component for the next replication
@@ -20,6 +20,10 @@ namespace continualAssistants
 		//meta! sender="AgentPokladni", id="139", type="Start"
 		public void ProcessStart(MessageForm message)
 		{
+			var sprava = (MyMessage)message.CreateCopy();
+			Constants.Log("ProcessPrestavky", MySim.CurrentTime, null, $"Pokladna {sprava.Pokladna?.ID} ProcessStart", Constants.LogType.ContinualAssistantLog);
+			sprava.Code = Mc.Finish;
+			Hold(Constants.BREAK_DURATION, sprava);
 		}
 
 		//meta! userInfo="Process messages defined in code", id="0"
@@ -27,6 +31,11 @@ namespace continualAssistants
 		{
 			switch (message.Code)
 			{
+				case Mc.Finish:
+					var sprava = (MyMessage)message.CreateCopy();
+					Constants.Log("ProcessPrestavky", MySim.CurrentTime, null, $"Pokladna {sprava.Pokladna?.ID} ProcessFinish", Constants.LogType.ContinualAssistantLog);
+					AssistantFinished(sprava);
+					break;
 			}
 		}
 

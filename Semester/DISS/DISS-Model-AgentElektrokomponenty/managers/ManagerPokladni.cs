@@ -179,6 +179,21 @@ namespace managers
 		//meta! sender="ProcessPrestavky", id="139", type="Finish"
 		public void ProcessFinishProcessPrestavky(MessageForm message)
 		{
+			var sprava = (MyMessage)message.CreateCopy();
+			Constants.Log("ManagerPokladni", MySim.CurrentTime, null, $"Pokladna {sprava.Pokladna?.ID} ProcessFinishProcessPrestavky", Constants.LogType.ManagerLog);
+			Break = false; // po 30 min môže byť false aj keď pre niektoré ešte nie je
+			// ale obsluha trvá max 8 min tak taký prípad nenastane že by nestihol odísť na prestávku
+			if (sprava.Pokladna is null)
+			{
+				throw new InvalidOperationException("[ManagerPokladni] - Pokladna je null po prestávke");
+			}
+
+			if (!sprava.Pokladna.Queue.IsEmpty())
+			{
+				throw new InvalidOperationException("[ManagerPokladni] - Pokladna nie je prázdna po prestávke");
+			}
+			sprava.Pokladna.Break = false;
+			
 		}
 
 		//meta! sender="SchedulerPrestavkaPokladne", id="143", type="Notice"
