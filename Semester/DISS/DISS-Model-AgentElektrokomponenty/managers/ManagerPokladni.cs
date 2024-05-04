@@ -45,6 +45,7 @@ namespace managers
 		/// <returns>Pokladňu ak splna požiadavky inak null</returns>
 		public Pokladna? GetVolnaPokladnaPrazdnyRad()
 		{
+			//todo add ak je prestávka tak ide do 1 pokladne čiže ak sú pokladne na prestávke
 			// vytvorí list kde je rad 0 a pokladňa nie je obsadená
 			var listPokladni = ListPokladni
 				.Where(p => !p.Obsadena && p.Queue.Count == 0)
@@ -66,6 +67,7 @@ namespace managers
 		/// <param name="core">Jadro simulácie</param>
 		public void PriradZakaznikaDoRady(MyMessage person)
 		{
+			//todo add ak je prestávka tak ide do 1 pokladne čiže ak sú pokladne na prestávke
 			// spraví list pokladní s najkratšími radami
 			var listPokladni = ListPokladni.GroupBy(c => c.Queue.Count)
 				.OrderBy(g => g.Key)
@@ -105,7 +107,22 @@ namespace managers
 			var sprava = (MyMessage)message.CreateCopy();
 			Constants.Log("ManagerPokladni", MySim.CurrentTime, sprava.Zakaznik,"ProcessFinishProcessObsluhyPokladni", Constants.LogType.ManagerLog);
 			sprava.Pokladna.UvolniPokladnu();
-			if (sprava.Pokladna.Queue.Count > 0)
+			if (Break && sprava.Pokladna.ID != 0) // je prestávka a zároveň nie je to prvá pokadňa
+			{
+				Constants.Log("ManagerPokladni", MySim.CurrentTime, null,$"Pokladna {sprava.Pokladna.ID} ide na prestavku", Constants.LogType.ManagerLog);
+				while (!sprava.Pokladna.Queue.IsEmpty())
+				{
+					ListPokladni[0].Queue.Enqueue(sprava.Pokladna.Queue.Dequeue());
+				}
+				sprava.Pokladna.Break = true;
+				var newSprava = new MyMessage(MySim, null)
+				{
+					Addressee = MyAgent.FindAssistant(SimId.ProcessPrestavky)
+				};
+				newSprava.Pokladna = sprava.Pokladna;
+				StartContinualAssistant(newSprava);
+			}
+			else if (sprava.Pokladna.Queue.Count > 0)
 			{
 				var newSprava = sprava.Pokladna.Queue.Dequeue();
 				if (newSprava.Pokladna is not null)
@@ -145,7 +162,7 @@ namespace managers
 		{
 			var sprava = (MyMessage)message.CreateCopy();
 			Constants.Log("ManagerPokladni", MySim.CurrentTime, sprava.Zakaznik,"ProcessNoticeZaciatokPokladne", Constants.LogType.ManagerLog);
-			var pokladna = GetVolnaPokladnaPrazdnyRad();
+			var pokladna = GetVolnaPokladnaPrazdnyRad(); //todo ak je prestávka tak rovno ide k 1 pokladne
 			if (pokladna is not null)
 			{
 				pokladna.ObsadPokladnu(sprava.Zakaznik);

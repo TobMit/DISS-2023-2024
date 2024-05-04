@@ -37,6 +37,7 @@ namespace continualAssistants
 					var sprava = (MyMessage)message.CreateCopy();
 					Constants.Log("SchedulerPrestavkaPokladne", MySim.CurrentTime, null, "ProcessFinishSchedulerPrestavkaPokladne", Constants.LogType.ContinualAssistantLog);
 					((ManagerPokladni)MyAgent.MyManager).Break = true;
+					//todo všetky neobsadené pokladne idú rovno na prestávku
 					break;
 			}
 		}
