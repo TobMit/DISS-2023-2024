@@ -45,6 +45,10 @@ public class RadaPredObsluznymMiestom
     /// <exception cref="InvalidOperationException">Ak sa pridá človek s neprávnym typom, čo by nemalo nastať</exception>
     public void Enqueue(MyMessage pSprava)
     {
+        if (Count > Constants.RADA_PRED_OBSLUZNYM_MIESTOM)
+        {
+            throw new Exception($"Zákazník {pSprava.Zakaznik} sa nemôže pridať do rady pred obslužným miestom, pretože je plná.");
+        }
         var person = pSprava.Zakaznik;
         person.StavZakaznika = Constants.StavZakaznika.ČakáVObchode;
         Constants.Log("RadaPredObsluznymMiestom", pSprava.DeliveryTime, person, "Enqueue", Constants.LogType.InstantAssistantLog);

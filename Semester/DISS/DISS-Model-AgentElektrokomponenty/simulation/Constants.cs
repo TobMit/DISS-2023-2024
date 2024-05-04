@@ -40,7 +40,7 @@ public class Constants
     public static int POCET_UPDATOV_ZA_SEKUNDU = 2;
 
     public static int POCET_DAT_V_GRAFE = 100;
-    public static int RADA_PRED_OBSLUZNYM_MIESTOM = 9;
+    public static int RADA_PRED_OBSLUZNYM_MIESTOM = 8; // v rátane keď počítam od 0
     
     public static double START_DAY = 9*60*60; // 9:00
     public static double START_ARRIVAL_SIMULATION_TIME = 0; //9:00

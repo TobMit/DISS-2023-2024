@@ -206,6 +206,7 @@ namespace simulation
 
         protected override void ReplicationFinished()
         {
+            //todo pridať to čo hovorila pf že na konci treba ešte jeden záznam aby sa to správne zobrazovalo
             // Collect local statistics into global, update UI, etc...
             _globPriemernyPocetZakaznikov.AddSample(CelkovyPocetZakaznikov);
             _globCasStravenyPredAutomatom.AddSample(StatCasStravenyPredAutomatom.Mean());
@@ -362,11 +363,11 @@ namespace simulation
                     _eventData.AutomatObsah = ((ManagerAutomatu)AgentAutomatu.MyManager).GuiToString();
                     _eventData.AutomatObsadeny = ((ManagerAutomatu)AgentAutomatu.MyManager).Obsluhuje;
                     _eventData.RadaPredObsluznimiMiestamiOnline =
-                        $"{((ManagerObsluzneMiesto)AgentObsluzneMiesto.MyManager).RadaPredObsluznymMiestom.CountOnline}/{((ManagerObsluzneMiesto)AgentObsluzneMiesto.MyManager).RadaPredObsluznymMiestom.Count}/{Constants.RADA_PRED_OBSLUZNYM_MIESTOM}";
+                        $"{((ManagerObsluzneMiesto)AgentObsluzneMiesto.MyManager).RadaPredObsluznymMiestom.CountOnline}/{((ManagerObsluzneMiesto)AgentObsluzneMiesto.MyManager).RadaPredObsluznymMiestom.Count}/{Constants.RADA_PRED_OBSLUZNYM_MIESTOM + 1}";
                     _eventData.RadaPredObsluznimiMiestamiBasic =
-                        $"{((ManagerObsluzneMiesto)AgentObsluzneMiesto.MyManager).RadaPredObsluznymMiestom.CountBasic}/{((ManagerObsluzneMiesto)AgentObsluzneMiesto.MyManager).RadaPredObsluznymMiestom.Count}/{Constants.RADA_PRED_OBSLUZNYM_MIESTOM}";
+                        $"{((ManagerObsluzneMiesto)AgentObsluzneMiesto.MyManager).RadaPredObsluznymMiestom.CountBasic}/{((ManagerObsluzneMiesto)AgentObsluzneMiesto.MyManager).RadaPredObsluznymMiestom.Count}/{Constants.RADA_PRED_OBSLUZNYM_MIESTOM + 1}";
                     _eventData.RadaPredObsluznimiMiestamiZmluvny =
-                        $"{((ManagerObsluzneMiesto)AgentObsluzneMiesto.MyManager).RadaPredObsluznymMiestom.CountOstatne - ((ManagerObsluzneMiesto)AgentObsluzneMiesto.MyManager).RadaPredObsluznymMiestom.CountBasic}/{((ManagerObsluzneMiesto)AgentObsluzneMiesto.MyManager).RadaPredObsluznymMiestom.Count}/{Constants.RADA_PRED_OBSLUZNYM_MIESTOM}";
+                        $"{((ManagerObsluzneMiesto)AgentObsluzneMiesto.MyManager).RadaPredObsluznymMiestom.CountOstatne - ((ManagerObsluzneMiesto)AgentObsluzneMiesto.MyManager).RadaPredObsluznymMiestom.CountBasic}/{((ManagerObsluzneMiesto)AgentObsluzneMiesto.MyManager).RadaPredObsluznymMiestom.Count}/{Constants.RADA_PRED_OBSLUZNYM_MIESTOM + 1}";
                     _eventData.ObsluzneMiestos = ((ManagerObsluzneMiesto)AgentObsluzneMiesto.MyManager).GetInfoNaUI();
                     _eventData.Pokladne = ((ManagerPokladni)AgentPokladni.MyManager).GetInfoNaUI();
                 }
