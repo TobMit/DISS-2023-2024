@@ -14,6 +14,8 @@ public class ObsluzneMiesto
     public int ID { get; private set; }
     public string Name { get; private set; }
 
+    public bool Prestavka { get; set; }
+
     private WStat _priemerneVytazenieOM;
 
     // public ObsluzneMiesto(Person pPerson, int id, Core pCore, bool online = false)
@@ -83,6 +85,11 @@ public class ObsluzneMiesto
         if (_priemerneVytazenieOM.SampleSize > 0)
         {
             vytaznie = _priemerneVytazenieOM.Mean() * 100;
+        }
+
+        if (Prestavka)
+        {
+            return $"OM {ID}: \n\t- Voľné\n\t- Pracovník: na pokladni\n\t- Vyťaženie: {vytaznie:0.00}%";
         }
 
         if (Person is null)

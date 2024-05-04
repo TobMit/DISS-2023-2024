@@ -17,6 +17,8 @@ public class Pokladna
     public bool Obsadena { get; private set; }
     public Person? Person { get; private set; }
 
+    public bool Prestavka { get; set; }
+
     public string Name { get; private set; }
 
     public WStat PriemerneVytazeniePredajne { get; set; }
@@ -28,6 +30,7 @@ public class Pokladna
         Person = null;
         Name = $"Pokladňa {ID}.";
         PriemerneVytazeniePredajne = pPriemerneVytazenie;
+        Prestavka = false;
     }
 
     /// <summary>
@@ -39,6 +42,7 @@ public class Pokladna
         Obsadena = false;
         Person = null;
         PriemerneVytazeniePredajne.Clear();
+        Prestavka = false;
     }
     
     /// <summary>
@@ -73,6 +77,11 @@ public class Pokladna
         if (PriemerneVytazeniePredajne.SampleSize > 0)
         {
             vytaznie = PriemerneVytazeniePredajne.Mean() * 100;
+        }
+
+        if (Prestavka)
+        {
+            return $"Pokladňa {ID}: \n\t- Voľná\n\t- Predavač: na prestávke\n\t- Rada: {Queue.Count}\n\t- Vyťaženie: {vytaznie:0.00}%";
         }
         if (Person is null)
         {
