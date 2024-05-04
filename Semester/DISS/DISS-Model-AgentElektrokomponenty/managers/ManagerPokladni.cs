@@ -184,6 +184,23 @@ namespace managers
 		//meta! sender="SchedulerPrestavkaPokladne", id="143", type="Notice"
 		public void ProcessNoticePrestavkaZaciatokSchedulerPrestavkaPokladne(MessageForm message)
 		{
+			Constants.Log("ManagerPokladni", MySim.CurrentTime, null, "ProcessNoticePrestavkaZaciatokSchedulerPrestavkaPokladne", Constants.LogType.ManagerLog);
+			var listPokladni = ListPokladni.Where(p => !p.Break && !p.Obsadena && p.ID != 0).ToList();
+			foreach (var pokladna in listPokladni)
+			{
+				pokladna.Break = true;
+				if (!pokladna.Queue.IsEmpty())
+				{
+					throw new InvalidOperationException("[ManagerPokladni]- prestavka init Pokladna nie je prázdna pri prestávke");
+				}
+				var newSprava = new MyMessage(MySim, null)
+				{
+					Addressee = MyAgent.FindAssistant(SimId.ProcessPrestavky)
+				};
+				newSprava.Pokladna = pokladna;
+				Constants.Log("ManagerPokladni", MySim.CurrentTime, null, $"Pokladna {pokladna.ID} ide na prestavku", Constants.LogType.ManagerLog);
+				StartContinualAssistant(newSprava);
+			}
 		}
 
 		//meta! userInfo="Generated code: do not modify", tag="begin"
