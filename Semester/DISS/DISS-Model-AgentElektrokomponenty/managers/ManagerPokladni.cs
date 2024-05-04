@@ -45,10 +45,9 @@ namespace managers
 		/// <returns>Pokladňu ak splna požiadavky inak null</returns>
 		public Pokladna? GetVolnaPokladnaPrazdnyRad()
 		{
-			//todo add ak je prestávka tak ide do 1 pokladne čiže ak sú pokladne na prestávke
-			// vytvorí list kde je rad 0 a pokladňa nie je obsadená
+			// vytvorí list kde je rad 0 a pokladňa nie je obsadená a nie je na prestávke
 			var listPokladni = ListPokladni
-				.Where(p => !p.Obsadena && p.Queue.Count == 0)
+				.Where(p => !p.Obsadena && p.Queue.Count == 0 && !p.Break)
 				.OrderBy(g => g.ID)
 				.ToList();
 
@@ -67,9 +66,9 @@ namespace managers
 		/// <param name="core">Jadro simulácie</param>
 		public void PriradZakaznikaDoRady(MyMessage person)
 		{
-			//todo add ak je prestávka tak ide do 1 pokladne čiže ak sú pokladne na prestávke
 			// spraví list pokladní s najkratšími radami
-			var listPokladni = ListPokladni.GroupBy(c => c.Queue.Count)
+			var listPokladni = ListPokladni.Where(p => !p.Break) //todo vyriešiť toto nerobilo dobrotu
+				.GroupBy(c => c.Queue.Count)
 				.OrderBy(g => g.Key)
 				.FirstOrDefault();
 
@@ -162,6 +161,21 @@ namespace managers
 		{
 			var sprava = (MyMessage)message.CreateCopy();
 			Constants.Log("ManagerPokladni", MySim.CurrentTime, sprava.Zakaznik,"ProcessNoticeZaciatokPokladne", Constants.LogType.ManagerLog);
+			if (Break)
+			{
+				if (ListPokladni[0].Queue.IsEmpty())
+				{
+					sprava.Pokladna = ListPokladni[0];
+					sprava.Pokladna.ObsadPokladnu(sprava.Zakaznik);
+					sprava.Addressee = MyAgent.FindAssistant(SimId.ProcessObsluhyPokladni);
+					StartContinualAssistant(sprava);
+				}
+				else
+				{
+					ListPokladni[0].Queue.Enqueue(sprava);
+				}
+				return;
+			}
 			var pokladna = GetVolnaPokladnaPrazdnyRad(); //todo ak je prestávka tak rovno ide k 1 pokladne
 			if (pokladna is not null)
 			{

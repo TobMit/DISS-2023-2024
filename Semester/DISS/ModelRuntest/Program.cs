@@ -15,7 +15,7 @@ class Program
         
         //S3 - Agentová simulácia
         MySimulation core = new(13,4);
-        Constants.DEBUG = true;
+        //Constants.DEBUG = true;
         core.Break = true;
         //Constants.FILTER_ZAKAZNIK = 27;
         //core.Simulate(10_000);
