@@ -52,12 +52,12 @@ namespace continualAssistants
 		{
 			switch (message.Code)
 			{
-			case Mc.NoticeNovyZmluvny:
-				ProcessNoticeNovyZmluvny(message);
-			break;
-
 			case Mc.Start:
 				ProcessStart(message);
+			break;
+
+			case Mc.NoticeNovyZmluvny:
+				ProcessNoticeNovyZmluvny(message);
 			break;
 
 			default:

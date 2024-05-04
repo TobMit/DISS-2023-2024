@@ -281,33 +281,33 @@ namespace managers
 		{
 			switch (message.Code)
 			{
+			case Mc.NoticePrestavkaZaciatok:
+				ProcessNoticePrestavkaZaciatok(message);
+			break;
+
 			case Mc.Finish:
 				switch (message.Sender.Id)
 				{
+				case SimId.SchedulerPrestavkaOM:
+					ProcessFinishSchedulerPrestavkaOM(message);
+				break;
+
 				case SimId.ProcessOMPripravaTovaru:
 					ProcessFinishProcessOMPripravaTovaru(message);
+				break;
+
+				case SimId.ProcessOMDiktovanie:
+					ProcessFinishProcessOMDiktovanie(message);
 				break;
 
 				case SimId.ProcessOMOnlinePripravaTovaru:
 					ProcessFinishProcessOMOnlinePripravaTovaru(message);
 				break;
 
-				case SimId.SchedulerPrestavkaOM:
-					ProcessFinishSchedulerPrestavkaOM(message);
-				break;
-
 				case SimId.ProcessVyzdvihnutieTovaru:
 					ProcessFinishProcessVyzdvihnutieTovaru(message);
 				break;
-
-				case SimId.ProcessOMDiktovanie:
-					ProcessFinishProcessOMDiktovanie(message);
-				break;
 				}
-			break;
-
-			case Mc.PocetMiestVRade:
-				ProcessPocetMiestVRade(message);
 			break;
 
 			case Mc.NoticeUvolnenieOm:
@@ -322,8 +322,8 @@ namespace managers
 				ProcessNoticeZaciatokObsluhyOm(message);
 			break;
 
-			case Mc.NoticePrestavkaZaciatok:
-				ProcessNoticePrestavkaZaciatok(message);
+			case Mc.PocetMiestVRade:
+				ProcessPocetMiestVRade(message);
 			break;
 
 			default:

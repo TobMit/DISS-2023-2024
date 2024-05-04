@@ -194,8 +194,8 @@ namespace managers
 		{
 			switch (message.Code)
 			{
-			case Mc.NoticeKoniecObsluhy:
-				ProcessNoticeKoniecObsluhy(message);
+			case Mc.Init:
+				ProcessInit(message);
 			break;
 
 			case Mc.NoticeZatvorenieAutomatu:
@@ -223,8 +223,8 @@ namespace managers
 				ProcessNoticeUvolnenieRadu(message);
 			break;
 
-			case Mc.Init:
-				ProcessInit(message);
+			case Mc.NoticeKoniecObsluhy:
+				ProcessNoticeKoniecObsluhy(message);
 			break;
 
 			case Mc.PocetMiestVRade:

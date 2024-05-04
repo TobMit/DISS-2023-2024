@@ -154,6 +154,11 @@ namespace managers
 			}
 		}
 
+		//meta! sender="ProcessPrestavky", id="139", type="Finish"
+		public void ProcessFinishProcessPrestavky(MessageForm message)
+		{
+		}
+
 		//meta! userInfo="Generated code: do not modify", tag="begin"
 		public void Init()
 		{
@@ -163,10 +168,6 @@ namespace managers
 		{
 			switch (message.Code)
 			{
-			case Mc.NoticeZaciatokPokladne:
-				ProcessNoticeZaciatokPokladne(message);
-			break;
-
 			case Mc.Init:
 				ProcessInit(message);
 			break;
@@ -181,7 +182,15 @@ namespace managers
 				case SimId.ProcessObsluhyPokladni:
 					ProcessFinishProcessObsluhyPokladni(message);
 				break;
+
+				case SimId.ProcessPrestavky:
+					ProcessFinishProcessPrestavky(message);
+				break;
 				}
+			break;
+
+			case Mc.NoticeZaciatokPokladne:
+				ProcessNoticeZaciatokPokladne(message);
 			break;
 
 			case Mc.NoticePrestavkaZaciatok:
