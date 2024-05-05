@@ -351,16 +351,16 @@
       <InternalId>65</InternalId>
       <Name>NoticePrestavkaZaciatok</Name>
       <Type>Notice</Type>
-      <Source>9</Source>
-      <Destination>36</Destination>
+      <Source>36</Source>
+      <Destination>9</Destination>
     </Message>
     <Message>
       <SimId>1027</SimId>
       <InternalId>67</InternalId>
       <Name>NoticePrestavkaKoniec</Name>
       <Type>Notice</Type>
-      <Source>36</Source>
-      <Destination>9</Destination>
+      <Source>9</Source>
+      <Destination>36</Destination>
     </Message>
     <Message>
       <InternalId>76</InternalId>
@@ -495,5 +495,5 @@
       <Destination>1</Destination>
     </Message>
   </Messages>
-  <IID>146</IID>
+  <IID>147</IID>
 </ABAsim>

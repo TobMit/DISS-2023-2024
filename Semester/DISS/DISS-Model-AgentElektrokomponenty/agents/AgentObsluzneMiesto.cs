@@ -33,8 +33,8 @@ namespace agents
 			AddOwnMessage(Mc.PocetMiestVRade);
 			AddOwnMessage(Mc.Init);
 			AddOwnMessage(Mc.NoticeZaciatokObsluhyOm);
+			AddOwnMessage(Mc.NoticePrestavkaKoniec);
 			AddOwnMessage(Mc.NoticeUvolnenieOm);
-			AddOwnMessage(Mc.NoticePrestavkaZaciatok);
 		}
 		//meta! tag="end"
 	}

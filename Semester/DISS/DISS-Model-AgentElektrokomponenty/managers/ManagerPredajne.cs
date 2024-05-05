@@ -53,11 +53,11 @@ namespace managers
 		}
 
 		//meta! sender="AgentPokladni", id="59", type="Notice"
-		public void ProcessNoticePrestavkaKoniecAgentPokladni(MessageForm message)
+		public void ProcessNoticePrestavkaKoniec(MessageForm message)
 		{
 		}
 
-		//meta! sender="AgentObsluzneMiesto", id="67", type="Notice"
+		//meta! userInfo="Removed from model"
 		public void ProcessNoticePrestavkaKoniecAgentObsluzneMiesto(MessageForm message)
 		{
 		}
@@ -152,6 +152,11 @@ namespace managers
 			Notice(sprava);
 		}
 
+		//meta! sender="AgentObsluzneMiesto", id="65", type="Notice"
+		public void ProcessNoticePrestavkaZaciatok(MessageForm message)
+		{
+		}
+
 		//meta! userInfo="Generated code: do not modify", tag="begin"
 		public void Init()
 		{
@@ -162,16 +167,7 @@ namespace managers
 			switch (message.Code)
 			{
 			case Mc.NoticePrestavkaKoniec:
-				switch (message.Sender.Id)
-				{
-				case SimId.AgentPokladni:
-					ProcessNoticePrestavkaKoniecAgentPokladni(message);
-				break;
-
-				case SimId.AgentObsluzneMiesto:
-					ProcessNoticePrestavkaKoniecAgentObsluzneMiesto(message);
-				break;
-				}
+				ProcessNoticePrestavkaKoniec(message);
 			break;
 
 			case Mc.PocetMiestVRade:
@@ -185,6 +181,10 @@ namespace managers
 					ProcessPocetMiestVRadeAgentAutomatu(message);
 				break;
 				}
+			break;
+
+			case Mc.NoticePrestavkaZaciatok:
+				ProcessNoticePrestavkaZaciatok(message);
 			break;
 
 			case Mc.NoticeKoniecPokladne:

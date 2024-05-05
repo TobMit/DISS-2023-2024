@@ -125,7 +125,7 @@ namespace managers
 	        StartContinualAssistant(sprava);
         }
 
-		//meta! sender="AgentPredajne", id="65", type="Notice"
+		//meta! userInfo="Removed from model"
 		public void ProcessNoticePrestavkaZaciatok(MessageForm message)
         {
         }
@@ -299,6 +299,11 @@ namespace managers
 			});
 		}
 
+		//meta! sender="AgentPredajne", id="67", type="Notice"
+		public void ProcessNoticePrestavkaKoniec(MessageForm message)
+		{
+		}
+
 		//meta! userInfo="Generated code: do not modify", tag="begin"
 		public void Init()
 		{
@@ -337,12 +342,12 @@ namespace managers
 				ProcessNoticeUvolnenieOm(message);
 			break;
 
-			case Mc.PocetMiestVRade:
-				ProcessPocetMiestVRade(message);
+			case Mc.NoticePrestavkaKoniec:
+				ProcessNoticePrestavkaKoniec(message);
 			break;
 
-			case Mc.NoticePrestavkaZaciatok:
-				ProcessNoticePrestavkaZaciatok(message);
+			case Mc.PocetMiestVRade:
+				ProcessPocetMiestVRade(message);
 			break;
 
 			case Mc.Init:

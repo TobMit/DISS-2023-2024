@@ -32,6 +32,7 @@ namespace agents
 			AddOwnMessage(Mc.NoticeKoniecObsluhyOm);
 			AddOwnMessage(Mc.NoticeKoniecObsluhy);
 			AddOwnMessage(Mc.NoticeKoniecPokladne);
+			AddOwnMessage(Mc.NoticePrestavkaZaciatok);
 		}
 		//meta! tag="end"
 	}
