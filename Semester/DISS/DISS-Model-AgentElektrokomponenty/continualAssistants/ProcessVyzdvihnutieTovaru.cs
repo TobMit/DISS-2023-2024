@@ -35,7 +35,6 @@ namespace continualAssistants
 				case Mc.Finish:
 					var sprava = (MyMessage)message.CreateCopy();
 					Constants.Log("ProcessVyzdvihnutieTovaru", MySim.CurrentTime, sprava.Zakaznik,"ProcessFinish", Constants.LogType.ContinualAssistantLog);
-					sprava.ObsluzneMiesto.Uvolni(false); // keď počítam vyťaženie človeka tak je tuto false lebo človek už je voľný
 					sprava.Addressee = MyAgent;
 					sprava.TovarVydvihnty = true;
 					AssistantFinished(sprava);

@@ -100,7 +100,11 @@ namespace managers
 	        var sprava = (MyMessage)message.CreateCopy();
 	        Constants.Log("ManagerObsluzneMiesto", MySim.CurrentTime, null,"ProcessFinishSchedulerPrestavkaOM", Constants.LogType.ManagerLog);
 	        // ak je prvé OM (ostatné) voľne tak hneď prechádza na prestávku
-	        //todo finish
+	        if (!ListObsluhaOstatne[0].Obsadena)
+	        {
+		        ListObsluhaOstatne[0].Break = true;
+		        //todo dokončiť odosielanie správy
+	        }
         }
 
 		//meta! sender="ProcessOMDiktovanie", id="62", type="Finish"
@@ -196,6 +200,12 @@ namespace managers
 			if (sprava.Zakaznik.TypVelkostiNakladu == Constants.TypVelkostiNakladu.Normálna)
 			{
 				sprava.ObsluzneMiesto.Uvolni();
+				// ak je prestávka nie je to online OM a je to prvá pokladňa
+				if (Break && !sprava.ObsluzneMiesto.Online && sprava.ObsluzneMiesto.ID == 0)
+				{
+					sprava.ObsluzneMiesto.Break = true;
+					//todo dokončiť odosielanie správy
+				}
 				ObsluzneMiesto? tmpObsluzneMiesto = GetVolneOnline();
 				while (RadaPredObsluznymMiestom.CountOnline >= 1 && tmpObsluzneMiesto is not null)
 				{
@@ -248,9 +258,16 @@ namespace managers
 		{
 			var sprava = (MyMessage)message.CreateCopy();
 			Constants.Log("ManagerObsluzneMiesto", MySim.CurrentTime, sprava.Zakaznik,"ProcessFinishProcessVyzdvihnutieTovaru", Constants.LogType.ManagerLog);
+			sprava.ObsluzneMiesto.Uvolni(false); // keď počítam vyťaženie človeka tak je tuto false lebo človek už je voľný
 			sprava.Addressee = MySim.FindAgent(SimId.AgentPredajne);
 			sprava.Code = Mc.NoticeKoniecObsluhyOm;
 			Notice(sprava);
+
+			if (Break && !sprava.ObsluzneMiesto.Online && sprava.ObsluzneMiesto.ID == 0)
+			{
+				sprava.ObsluzneMiesto.Break = true;
+				//todo dokončiť odosielanie správy
+			}
 			
 			ObsluzneMiesto? tmpObsluzneMiesto = GetVolneOnline();
 			while (RadaPredObsluznymMiestom.CountOnline >= 1 && tmpObsluzneMiesto is not null)

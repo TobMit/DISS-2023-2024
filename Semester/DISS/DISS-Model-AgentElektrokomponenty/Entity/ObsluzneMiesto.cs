@@ -13,7 +13,7 @@ public class ObsluzneMiesto
     public bool Obsadena { get; private set; }
     public int ID { get; private set; }
     public string Name { get; private set; }
-
+    public bool Online { get; private set; }
     public bool Break { get; set; }
 
     private WStat _priemerneVytazenieOM;
@@ -25,6 +25,7 @@ public class ObsluzneMiesto
         Obsadena = false;
         ID = id;
         Name = online ? $"Online {id}." : $"Ostatné {id}.";
+        Online = online;
         _priemerneVytazenieOM = pStat;
     }
 
