@@ -18,8 +18,8 @@ namespace simulation
 		public const int ManagerAutomatu = 106;
 		public const int ProcessObsluhaAutomatu = 1003;
 		public const int PlanovacPrichodovBasic = 1001;
-		public const int ProcessOMPripravaTovaru = 1013;
 		public const int ProcessPrestavky = 1017;
+		public const int ProcessOMPripravaTovaru = 1013;
 		public const int PlanovacPrichodovZmluvny = 1011;
 		public const int ProcessOMOnlinePripravaTovaru = 1014;
 		public const int PlanovacPrichodovOnline = 1012;

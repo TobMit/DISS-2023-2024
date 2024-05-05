@@ -6,7 +6,6 @@ namespace simulation
 		//meta! userInfo="Generated code: do not modify", tag="begin"
 		public const int PocetMiestVRade = 1045;
 		public const int NoticeUvolnenieRadu = 1046;
-		public const int NoticePrestavkaZaciatok = 1048;
 		public const int NoticeOdchodZakaznika = 1002;
 		public const int NoticePrichodZakaznika = 1003;
 		public const int Init = 1004;
@@ -14,6 +13,7 @@ namespace simulation
 		public const int NoticeZaciatokObsluhy = 1011;
 		public const int NoticeKoniecObsluhy = 1012;
 		public const int NoticeUvolnenieOm = 1022;
+		public const int NoticePrestavkaZaciatok = 1023;
 		public const int NoticePrestavkaKoniec = 1024;
 		public const int NoticeNovyBasic = 1029;
 		public const int NoticeNovyZmluvny = 1032;

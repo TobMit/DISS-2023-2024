@@ -25,10 +25,10 @@ namespace agents
 		{
 			new ManagerObsluzneMiesto(SimId.ManagerObsluzneMiesto, MySim, this);
 			new ProcessOMOnlinePripravaTovaru(SimId.ProcessOMOnlinePripravaTovaru, MySim, this);
-			new ProcessVyzdvihnutieTovaru(SimId.ProcessVyzdvihnutieTovaru, MySim, this);
-			new SchedulerPrestavkaOM(SimId.SchedulerPrestavkaOM, MySim, this);
-			new ActionPridelenieOm(SimId.ActionPridelenieOm, MySim, this);
 			new ProcessOMPripravaTovaru(SimId.ProcessOMPripravaTovaru, MySim, this);
+			new ProcessVyzdvihnutieTovaru(SimId.ProcessVyzdvihnutieTovaru, MySim, this);
+			new ActionPridelenieOm(SimId.ActionPridelenieOm, MySim, this);
+			new SchedulerPrestavkaOM(SimId.SchedulerPrestavkaOM, MySim, this);
 			new ProcessOMDiktovanie(SimId.ProcessOMDiktovanie, MySim, this);
 			AddOwnMessage(Mc.PocetMiestVRade);
 			AddOwnMessage(Mc.Init);

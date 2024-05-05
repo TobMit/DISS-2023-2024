@@ -163,7 +163,7 @@ namespace managers
 		}
 
 		//meta! sender="AgentPredajne", id="58", type="Notice"
-		public void ProcessNoticePrestavkaZaciatokAgentPredajne(MessageForm message)
+		public void ProcessNoticePrestavkaZaciatok(MessageForm message)
 		{
 		}
 
@@ -229,7 +229,7 @@ namespace managers
 			
 		}
 
-		//meta! sender="SchedulerPrestavkaPokladne", id="143", type="Notice"
+		//meta! userInfo="Removed from model"
 		public void ProcessNoticePrestavkaZaciatokSchedulerPrestavkaPokladne(MessageForm message)
 		{
 		}
@@ -243,17 +243,13 @@ namespace managers
 		{
 			switch (message.Code)
 			{
-			case Mc.Init:
-				ProcessInit(message);
+			case Mc.NoticePrestavkaZaciatok:
+				ProcessNoticePrestavkaZaciatok(message);
 			break;
 
 			case Mc.Finish:
 				switch (message.Sender.Id)
 				{
-				case SimId.SchedulerPrestavkaPokladne:
-					ProcessFinishSchedulerPrestavkaPokladne(message);
-				break;
-
 				case SimId.ProcessObsluhyPokladni:
 					ProcessFinishProcessObsluhyPokladni(message);
 				break;
@@ -261,24 +257,19 @@ namespace managers
 				case SimId.ProcessPrestavky:
 					ProcessFinishProcessPrestavky(message);
 				break;
-				}
-			break;
 
-			case Mc.NoticePrestavkaZaciatok:
-				switch (message.Sender.Id)
-				{
 				case SimId.SchedulerPrestavkaPokladne:
-					ProcessNoticePrestavkaZaciatokSchedulerPrestavkaPokladne(message);
-				break;
-
-				case SimId.AgentPredajne:
-					ProcessNoticePrestavkaZaciatokAgentPredajne(message);
+					ProcessFinishSchedulerPrestavkaPokladne(message);
 				break;
 				}
 			break;
 
 			case Mc.NoticeZaciatokPokladne:
 				ProcessNoticeZaciatokPokladne(message);
+			break;
+
+			case Mc.Init:
+				ProcessInit(message);
 			break;
 
 			default:

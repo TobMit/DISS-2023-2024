@@ -161,10 +161,6 @@ namespace managers
 		{
 			switch (message.Code)
 			{
-			case Mc.Init:
-				ProcessInit(message);
-			break;
-
 			case Mc.NoticePrestavkaKoniec:
 				switch (message.Sender.Id)
 				{
@@ -181,12 +177,12 @@ namespace managers
 			case Mc.PocetMiestVRade:
 				switch (message.Sender.Id)
 				{
-				case SimId.AgentAutomatu:
-					ProcessPocetMiestVRadeAgentAutomatu(message);
-				break;
-
 				case SimId.AgentObsluzneMiesto:
 					ProcessPocetMiestVRadeAgentObsluzneMiesto(message);
+				break;
+
+				case SimId.AgentAutomatu:
+					ProcessPocetMiestVRadeAgentAutomatu(message);
 				break;
 				}
 			break;
@@ -195,20 +191,24 @@ namespace managers
 				ProcessNoticeKoniecPokladne(message);
 			break;
 
-			case Mc.NoticeUvolnenieRadu:
-				ProcessNoticeUvolnenieRadu(message);
+			case Mc.Init:
+				ProcessInit(message);
 			break;
 
 			case Mc.VstupDoPredajne:
 				ProcessVstupDoPredajne(message);
 			break;
 
-			case Mc.NoticeKoniecObsluhy:
-				ProcessNoticeKoniecObsluhy(message);
-			break;
-
 			case Mc.NoticeKoniecObsluhyOm:
 				ProcessNoticeKoniecObsluhyOm(message);
+			break;
+
+			case Mc.NoticeUvolnenieRadu:
+				ProcessNoticeUvolnenieRadu(message);
+			break;
+
+			case Mc.NoticeKoniecObsluhy:
+				ProcessNoticeKoniecObsluhy(message);
 			break;
 
 			default:

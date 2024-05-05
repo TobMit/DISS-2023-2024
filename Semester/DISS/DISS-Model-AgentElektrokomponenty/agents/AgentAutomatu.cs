@@ -24,8 +24,8 @@ namespace agents
 		private void Init()
 		{
 			new ManagerAutomatu(SimId.ManagerAutomatu, MySim, this);
-			new ProcessObsluhaAutomatu(SimId.ProcessObsluhaAutomatu, MySim, this);
 			new SchedulerZatvorenieAutomatu(SimId.SchedulerZatvorenieAutomatu, MySim, this);
+			new ProcessObsluhaAutomatu(SimId.ProcessObsluhaAutomatu, MySim, this);
 			AddOwnMessage(Mc.PocetMiestVRade);
 			AddOwnMessage(Mc.Init);
 			AddOwnMessage(Mc.NoticeUvolnenieRadu);

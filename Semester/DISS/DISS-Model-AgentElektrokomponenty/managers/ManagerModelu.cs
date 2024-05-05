@@ -62,12 +62,12 @@ namespace managers
 		{
 			switch (message.Code)
 			{
-			case Mc.NoticePrichodZakaznika:
-				ProcessNoticePrichodZakaznika(message);
-			break;
-
 			case Mc.NoticeOdchodZakaznika:
 				ProcessNoticeOdchodZakaznika(message);
+			break;
+
+			case Mc.NoticePrichodZakaznika:
+				ProcessNoticePrichodZakaznika(message);
 			break;
 
 			default:
