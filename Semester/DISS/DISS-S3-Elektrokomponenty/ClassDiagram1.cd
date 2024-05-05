@@ -1,0 +1,104 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="DISS_S3_Elektrokomponenty.Core.ObservableObjects">
+    <Position X="11.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAIAAAAAAAgAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Core\ObservableObjects.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="DISS_S3_Elektrokomponenty.Core.RelayCommand" BaseTypeListCollapsed="true">
+    <Position X="16.5" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAEACAAQAAECAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Core\RelayCommand.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="AutomatModel">
+    <Position X="12.75" Y="3.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAAAACAAAAAAAAAAAEAAAAAAAAAAAAACAAAAAA=</HashCode>
+      <FileName>MVVM\Model\AutomatModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ObsluzneMiestoModel">
+    <Position X="9.25" Y="3.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAIAAAAgAAAAAAAAAAAAUAAAAAAAAAAAAACAAAAAA=</HashCode>
+      <FileName>MVVM\Model\ObsluzneMiestoModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="PokladnaModel">
+    <Position X="11" Y="3.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAIAAAAgAAAAAAAAAAAAUAAAAAAAAAAAAACAAAAAA=</HashCode>
+      <FileName>MVVM\Model\PokladnaModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DISS_S3_Elektrokomponenty.MVVM.ViewModel.MainViewModel">
+    <Position X="14.5" Y="3.25" Width="1.5" />
+    <Compartments>
+      <Compartment Name="Fields" Collapsed="true" />
+      <Compartment Name="Properties" Collapsed="true" />
+    </Compartments>
+    <TypeIdentifier>
+      <HashCode>BgAyaCVAUUCIAikQ5bFECBgwSoGxMAIFRDnRMQJBaBM=</HashCode>
+      <FileName>MVVM\ViewModel\MainViewModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DISS_S3_Elektrokomponenty.MainWindow" BaseTypeListCollapsed="true">
+    <Position X="16.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAACAAAAAAAAAAAAAAAAAAAAAAAAAAAAAgAAAAAAA=</HashCode>
+      <FileName>MainWindow.xaml.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="DISS.Random.Continous.Empiric">
+    <Position X="5.25" Y="5.5" Width="1.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="DISS.Random.Continous.Uniform">
+    <Position X="1" Y="4.75" Width="1.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="DISS.Random.Discrete.Empiric">
+    <Position X="7.25" Y="5.5" Width="1.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="DISS.Random.Discrete.Uniform">
+    <Position X="1" Y="3" Width="1.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="DISS.Random.Other.Deterministic&lt;T&gt;">
+    <Position X="4.5" Y="3" Width="1.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="DISS.Random.Other.Exponential">
+    <Position X="2.75" Y="4.75" Width="1.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="DISS.Random.Other.Triangular">
+    <Position X="2.75" Y="3" Width="1.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="DISS.Random.EmpiricBase&lt;T&gt;">
+    <Position X="6.25" Y="3" Width="1.5" />
+    <NestedTypes>
+      <Class Name="DISS.Random.EmpiricBase&lt;T&gt;.EmpiricData&lt;T&gt;" Collapsed="true">
+        <TypeIdentifier />
+      </Class>
+      <Class Name="DISS.Random.EmpiricBase&lt;T&gt;.EmpiricDataWithSeed&lt;T&gt;" Collapsed="true">
+        <TypeIdentifier />
+      </Class>
+    </NestedTypes>
+    <TypeIdentifier />
+  </Class>
+  <Class Name="DISS.Random.ExtendedRandom&lt;T&gt;">
+    <Position X="3.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier />
+  </Class>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>
