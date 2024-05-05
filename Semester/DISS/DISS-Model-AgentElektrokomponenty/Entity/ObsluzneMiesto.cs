@@ -14,7 +14,7 @@ public class ObsluzneMiesto
     public int ID { get; private set; }
     public string Name { get; private set; }
 
-    public bool Prestavka { get; set; }
+    public bool Break { get; set; }
 
     private WStat _priemerneVytazenieOM;
 
@@ -87,7 +87,7 @@ public class ObsluzneMiesto
             vytaznie = _priemerneVytazenieOM.Mean() * 100;
         }
 
-        if (Prestavka)
+        if (Break)
         {
             return $"OM {ID}: \n\t- Voľné\n\t- Pracovník: na pokladni\n\t- Vyťaženie: {vytaznie:0.00}%";
         }
@@ -114,5 +114,6 @@ public class ObsluzneMiesto
         Obsadena = false;
         Person = null;
         _priemerneVytazenieOM.Clear();
+        Break = false;
     }
 }

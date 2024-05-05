@@ -30,7 +30,7 @@ namespace instantAssistants
 		/// <returns>Ak je volne vráti obslužné miesto inak null</returns>
 		public ObsluzneMiesto? GetVolneOstatne()
 		{
-			return ((ManagerObsluzneMiesto)MyAgent.MyManager).ListObsluhaOstatne.FirstOrDefault(miesto => !miesto.Obsadena);
+			return ((ManagerObsluzneMiesto)MyAgent.MyManager).ListObsluhaOstatne.FirstOrDefault(miesto => !miesto.Obsadena && !miesto.Break);
 		}
 
 		public override void Execute(MessageForm message)

@@ -72,7 +72,7 @@ namespace managers
         /// <returns>Ak je volne vráti obslužné miesto inak null</returns>
         public ObsluzneMiesto? GetVolneOstatne()
         {
-	        return ListObsluhaOstatne.FirstOrDefault(miesto => !miesto.Obsadena);
+	        return ListObsluhaOstatne.FirstOrDefault(miesto => !miesto.Obsadena && !miesto.Break);
         }
 
         /// <summary>
@@ -99,6 +99,8 @@ namespace managers
         {
 	        var sprava = (MyMessage)message.CreateCopy();
 	        Constants.Log("ManagerObsluzneMiesto", MySim.CurrentTime, null,"ProcessFinishSchedulerPrestavkaOM", Constants.LogType.ManagerLog);
+	        // ak je prvé OM (ostatné) voľne tak hneď prechádza na prestávku
+	        //todo finish
         }
 
 		//meta! sender="ProcessOMDiktovanie", id="62", type="Finish"
