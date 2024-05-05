@@ -51,6 +51,7 @@ public class MainViewModel : ObservableObjects
     private string _intervalSpolahlivosti;
     private ObservableCollection<String> _peoples;
     private bool _slowDown;
+    private bool _break;
     private Visibility _replicationDetailVisibility;
     private double _sliderValue;
     private bool _behZavisloti;
@@ -399,6 +400,19 @@ public class MainViewModel : ObservableObjects
             }
         }
     }
+    
+    public bool Break
+    {
+        get => _break;
+        set
+        {
+            if (value != _break)
+            {
+                _break = value;
+                OnPropertyChanged();
+            }
+        }
+    }
 
     public Visibility ReplicationDetial
     {
@@ -515,6 +529,7 @@ public class MainViewModel : ObservableObjects
         Automat = new();
         SimulationTime = "-/-";
         SlowDown = false;
+        Break = false;
         ReplicationDetial = Visibility.Collapsed;
         BehZavisloti = false;
         BehZavislotiVisibility = Visibility.Collapsed;
@@ -788,6 +803,8 @@ public class MainViewModel : ObservableObjects
             _core.SlowDown = true;
             _core.SetSimSpeed(_sliderValue / Constants.POCET_UPDATOV_ZA_SEKUNDU, 1.0 / Constants.POCET_UPDATOV_ZA_SEKUNDU);
         }
+
+        _core.Break = _break;
         
         Task.Run(() => _core.Simulate(pocetReplikacii));
     }

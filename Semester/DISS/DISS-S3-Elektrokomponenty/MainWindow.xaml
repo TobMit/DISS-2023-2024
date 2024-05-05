@@ -98,6 +98,13 @@
                 Style="{StaticResource CustomCheckBoxStyle}"
                 IsChecked="{Binding SlowDown, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                 Content="Spomalenie"
+                Margin="17,0,0,10"
+                Visibility="{Binding BehZavislotiVisibilityOstatne}"/>
+            
+            <CheckBox
+                Style="{StaticResource CustomCheckBoxStyle}"
+                IsChecked="{Binding Break, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                Content="Prestávka"
                 Margin="17,0,0,0"
                 Visibility="{Binding BehZavislotiVisibilityOstatne}"/>
 

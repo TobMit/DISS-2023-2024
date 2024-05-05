@@ -210,6 +210,7 @@ namespace simulation
             // Collect local statistics into global, update UI, etc...
             _globPriemernyPocetZakaznikov.AddSample(CelkovyPocetZakaznikov);
             _globCasStravenyPredAutomatom.AddSample(StatCasStravenyPredAutomatom.Mean());
+            StatPriemernaDlzkaRaduPredAutomatom.updateAfterReplication();
             _globPriemernaDlzkaRadu.AddSample(StatPriemernaDlzkaRaduPredAutomatom.Mean());
             _globPriemerneVytazenieAutomatu.AddSample(StatVyuzitieAutomatu.Mean());
             for (int i = 0; i < PocetObsluhyOnline; i++)
@@ -222,11 +223,15 @@ namespace simulation
                 _globPriemerneVytaznieObsluhyOstatne[i].AddSample(ListStatVytazenieObsluhOstane[i].Mean());
             }
 
+            StatPriemernaDlzkaRaduPredObsluhouBasic.updateAfterReplication();
             _globPriemernaDlzkaRaduPredObsluhouBasic.AddSample(StatPriemernaDlzkaRaduPredObsluhouBasic.Mean());
+            StatPriemernaDlzkaRaduPredObsluhouZmluvny.updateAfterReplication();
             _globPriemernaDlzkaRaduPredObsluhouZmluvny.AddSample(StatPriemernaDlzkaRaduPredObsluhouZmluvny.Mean());
+            StatPriemernaDlzkaRaduPredObsluhouOnline.updateAfterReplication();
             _globPriemernaDlzkaRaduPredObsluhouOnline.AddSample(StatPriemernaDlzkaRaduPredObsluhouOnline.Mean());
             for (int i = 0; i < PocetPokladni; i++)
             {
+                ListStatPriemerneDlzkyRadovPredPokladnami[i].updateAfterReplication();
                 _globPriemerneDlzkyRadovPredPokladnami[i]
                     .AddSample(ListStatPriemerneDlzkyRadovPredPokladnami[i].Mean());
                 _globPriemerneVytazeniePokladni[i].AddSample(ListStatPriemerneVytazeniePokladni[i].Mean());
