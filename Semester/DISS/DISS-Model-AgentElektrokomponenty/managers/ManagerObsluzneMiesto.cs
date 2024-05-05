@@ -10,6 +10,7 @@ namespace managers
     //meta! id="36"
     public class ManagerObsluzneMiesto : Manager
     {
+	    public bool Break { get; set; }
         public RadaPredObsluznymMiestom RadaPredObsluznymMiestom;
         public List<ObsluzneMiesto> ListObsluhaOnline { get; private set; }
         public List<ObsluzneMiesto> ListObsluhaOstatne { get; private set; }
@@ -53,6 +54,7 @@ namespace managers
             ListObsluhaOnline.ForEach(miesto => miesto.Clear());
             ListObsluhaOstatne.ForEach(miesto => miesto.Clear());
             RadaPredObsluznymMiestom.Clear();
+            Break = false;
         }
         
         /// <summary>
@@ -85,13 +87,18 @@ namespace managers
 		//meta! sender="AgentPredajne", id="39", type="Notice"
 		public void ProcessInit(MessageForm message)
         {
-	        //todo ak sa bude tu štartovať pristávka tak sa musí sem pridať
+	        var sprava = (MyMessage)message.CreateCopy();
+	        Constants.Log("ManagerObsluzneMiesto", MySim.CurrentTime, null,"ProcessInit", Constants.LogType.ManagerLog);
+	        sprava.Addressee = MyAgent.FindAssistant(SimId.SchedulerPrestavkaOM);
+	        //StartContinualAssistant(sprava);
         }
 		
 
 		//meta! sender="SchedulerPrestavkaOM", id="64", type="Finish"
 		public void ProcessFinishSchedulerPrestavkaOM(MessageForm message)
         {
+	        var sprava = (MyMessage)message.CreateCopy();
+	        Constants.Log("ManagerObsluzneMiesto", MySim.CurrentTime, null,"ProcessFinishSchedulerPrestavkaOM", Constants.LogType.ManagerLog);
         }
 
 		//meta! sender="ProcessOMDiktovanie", id="62", type="Finish"

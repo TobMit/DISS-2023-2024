@@ -37,9 +37,11 @@ namespace continualAssistants
 					var sprava = (MyMessage)message.CreateCopy();
 					Constants.Log("SchedulerPrestavkaPokladne", MySim.CurrentTime, null, "ProcessFinishSchedulerPrestavkaPokladne", Constants.LogType.ContinualAssistantLog);
 					((ManagerPokladni)MyAgent.MyManager).Break = true;
-					sprava.Code = Mc.NoticePrestavkaZaciatok;
-					sprava.Addressee = MyAgent.FindAssistant(SimId.AgentPredajne);
-					Notice(sprava);
+					//sprava.Addressee = MyAgent;
+					//sprava.Code = Mc.NoticePrestavkaZaciatok;
+					//sprava.Addressee = MyAgent.FindAssistant(SimId.AgentPredajne);
+					//Notice(sprava);
+					AssistantFinished(sprava);
 					break;
 			}
 		}

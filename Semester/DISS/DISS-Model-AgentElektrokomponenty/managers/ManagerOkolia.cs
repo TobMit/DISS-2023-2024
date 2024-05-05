@@ -109,7 +109,7 @@ namespace managers
 			var NewSprava = new MyMessage(MySim, null){Addressee = address};
 			
 			// Ak nie sme v debugu tak sa budu generovať viacerý zákazníci
-			//if (!Constants.DEBUG)
+			if (!Constants.DEBUG)
 			{
 				StartContinualAssistant(NewSprava);
 			}

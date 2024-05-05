@@ -38,7 +38,8 @@ namespace managers
 			}
 			sprava.Addressee = MySim.FindAgent(SimId.AgentPokladni);
 			Notice(new MyMessage(sprava));
-			//todo add more init to other agents
+			sprava.Addressee = MySim.FindAgent(SimId.AgentObsluzneMiesto);
+			Notice(new MyMessage(sprava));
 		}
 
 		//meta! sender="AgentModelu", id="28", type="Notice"
