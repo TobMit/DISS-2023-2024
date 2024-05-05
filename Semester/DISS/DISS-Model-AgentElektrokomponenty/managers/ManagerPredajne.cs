@@ -55,12 +55,12 @@ namespace managers
 		//meta! sender="AgentPokladni", id="59", type="Notice"
 		public void ProcessNoticePrestavkaKoniec(MessageForm message)
 		{
+			var sprava = (MyMessage)message.CreateCopy();
+			Constants.Log("ManagerPredajne", MySim.CurrentTime, null,"ProcessNoticePrestavkaKoniec", Constants.LogType.ManagerLog);
+			sprava.Addressee = MySim.FindAgent(SimId.AgentObsluzneMiesto);
+			Notice(sprava);
 		}
 
-		//meta! userInfo="Removed from model"
-		public void ProcessNoticePrestavkaKoniecAgentObsluzneMiesto(MessageForm message)
-		{
-		}
 
 		//meta! sender="AgentAutomatu", id="35", type="Notice"
 		public void ProcessNoticeKoniecObsluhy(MessageForm message)
@@ -155,6 +155,10 @@ namespace managers
 		//meta! sender="AgentObsluzneMiesto", id="65", type="Notice"
 		public void ProcessNoticePrestavkaZaciatok(MessageForm message)
 		{
+			var sprava = (MyMessage)message.CreateCopy();
+			Constants.Log("ManagerPredajne", MySim.CurrentTime, null,"ProcessNoticePrestavkaZaciatok", Constants.LogType.ManagerLog);
+			sprava.Addressee = MySim.FindAgent(SimId.AgentPokladni);
+			Notice(sprava);
 		}
 
 		//meta! userInfo="Generated code: do not modify", tag="begin"

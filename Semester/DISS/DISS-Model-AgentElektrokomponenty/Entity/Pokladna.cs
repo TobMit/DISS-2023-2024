@@ -18,6 +18,7 @@ public class Pokladna
     public Person? Person { get; private set; }
 
     public bool Break { get; set; }
+    public bool ObsluhujeOm { get; set; }
 
     public string Name { get; private set; }
 
@@ -31,6 +32,7 @@ public class Pokladna
         Name = $"Pokladňa {ID}.";
         PriemerneVytazeniePredajne = pPriemerneVytazenie;
         Break = false;
+        ObsluhujeOm = false;
     }
 
     /// <summary>
@@ -43,6 +45,7 @@ public class Pokladna
         Person = null;
         PriemerneVytazeniePredajne.Clear();
         Break = false;
+        ObsluhujeOm = false;
     }
     
     /// <summary>
@@ -51,6 +54,10 @@ public class Pokladna
     /// <param name="person">Človek ktorý obsadí pokladňu</param>
     public void ObsadPokladnu(Person person)
     {
+        if (Person is not null)
+        {
+            throw new InvalidOperationException($"Pokladna už je obsadená zákazníkom {person.ID}");
+        }
         Person = person;
         Person.StavZakaznika = Constants.StavZakaznika.PokladňaPlatí;
         Obsadena = true;
@@ -83,6 +90,16 @@ public class Pokladna
         {
             return $"Pokladňa {ID}: \n\t- Voľná\n\t- Predavač: na prestávke\n\t- Rada: {Queue.Count}\n\t- Vyťaženie: {vytaznie:0.00}%";
         }
+
+        if (ObsluhujeOm)
+        {
+            if (Person is null)
+            {
+                return $"Pokladňa {ID}: \n\t- Voľná\n\t- Predavač OM: nečinný\n\t- Rada: {Queue.Count}\n\t- Vyťaženie: {vytaznie:0.00}%";
+            }
+            return $"Pokladňa {ID}: \n\t- Stojí Person: {Person?.ID} \n\t- Predavač OM: vybavuje platbu\n\t- Rada: {Queue.Count}\n\t- Vyťaženie: {vytaznie:0.00}%";
+        }
+        
         if (Person is null)
         {
             return $"Pokladňa {ID}: \n\t- Voľná\n\t- Predavač: nečinný\n\t- Rada: {Queue.Count}\n\t- Vyťaženie: {vytaznie:0.00}%";

@@ -103,7 +103,12 @@ namespace managers
 	        if (!ListObsluhaOstatne[0].Obsadena)
 	        {
 		        ListObsluhaOstatne[0].Break = true;
-		        //todo dokončiť odosielanie správy
+		        MyMessage newSprava = new(MySim, null)
+		        {
+			        Addressee = MySim.FindAgent(SimId.AgentPredajne),
+			        Code = Mc.NoticePrestavkaZaciatok,
+		        };
+		        Notice(newSprava);
 	        }
         }
 
@@ -124,11 +129,7 @@ namespace managers
 	        sprava.Addressee = MyAgent.FindAssistant(SimId.ProcessVyzdvihnutieTovaru);
 	        StartContinualAssistant(sprava);
         }
-
-		//meta! userInfo="Removed from model"
-		public void ProcessNoticePrestavkaZaciatok(MessageForm message)
-        {
-        }
+		
 
 		//meta! userInfo="Process messages defined in code", id="0"
 		public void ProcessDefault(MessageForm message)
@@ -204,7 +205,12 @@ namespace managers
 				if (Break && !sprava.ObsluzneMiesto.Online && sprava.ObsluzneMiesto.ID == 0)
 				{
 					sprava.ObsluzneMiesto.Break = true;
-					//todo dokončiť odosielanie správy
+					MyMessage newSprava = new(MySim, null)
+					{
+						Addressee = MySim.FindAgent(SimId.AgentPredajne),
+						Code = Mc.NoticePrestavkaZaciatok,
+					};
+					Notice(newSprava);
 				}
 				ObsluzneMiesto? tmpObsluzneMiesto = GetVolneOnline();
 				while (RadaPredObsluznymMiestom.CountOnline >= 1 && tmpObsluzneMiesto is not null)
@@ -266,7 +272,12 @@ namespace managers
 			if (Break && !sprava.ObsluzneMiesto.Online && sprava.ObsluzneMiesto.ID == 0)
 			{
 				sprava.ObsluzneMiesto.Break = true;
-				//todo dokončiť odosielanie správy
+				MyMessage newSprava = new(MySim, null)
+				{
+					Addressee = MySim.FindAgent(SimId.AgentPredajne),
+					Code = Mc.NoticePrestavkaZaciatok,
+				};
+				Notice(newSprava);
 			}
 			
 			ObsluzneMiesto? tmpObsluzneMiesto = GetVolneOnline();
@@ -302,6 +313,30 @@ namespace managers
 		//meta! sender="AgentPredajne", id="67", type="Notice"
 		public void ProcessNoticePrestavkaKoniec(MessageForm message)
 		{
+			var sprava = (MyMessage)message.CreateCopy();
+			Constants.Log("ManagerObsluzneMiesto", MySim.CurrentTime, null,"ProcessNoticePrestavkaKoniec", Constants.LogType.ManagerLog);
+			Break = false;
+			ListObsluhaOstatne[0].Break = false;
+			
+			// naštartovanie obsluhy
+			var tmpObsluzneMiesto = GetVolneOstatne();
+			while (RadaPredObsluznymMiestom.CountOstatne >= 1 && tmpObsluzneMiesto is not null)
+			{
+				var spraveNew = (MyMessage)RadaPredObsluznymMiestom.Dequeue().CreateCopy();
+				spraveNew.ObsluzneMiesto = tmpObsluzneMiesto;
+				spraveNew.Addressee = MyAgent.FindAssistant(SimId.ProcessOMDiktovanie);
+				tmpObsluzneMiesto.Obsluz(spraveNew.Zakaznik);
+				StartContinualAssistant(spraveNew);
+				tmpObsluzneMiesto = GetVolneOstatne();
+			}
+			
+			Notice(new MyMessage(MySim, null)
+			{
+				Addressee = MyAgent.FindAssistant(SimId.AgentPredajne),
+				Code = Mc.NoticeUvolnenieRadu,
+				SimpleMessage = true
+			});
+			
 		}
 
 		//meta! userInfo="Generated code: do not modify", tag="begin"

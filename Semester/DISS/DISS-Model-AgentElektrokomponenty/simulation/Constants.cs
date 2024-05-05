@@ -37,7 +37,7 @@ public class Constants
         OdišielZPredajne = 8
     }
     
-    public static int POCET_UPDATOV_ZA_SEKUNDU = 2;
+    public static int POCET_UPDATOV_ZA_SEKUNDU = 4;
 
     public static int POCET_DAT_V_GRAFE = 100;
     public static int RADA_PRED_OBSLUZNYM_MIESTOM = 8; // v rátane keď počítam od 0

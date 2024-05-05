@@ -174,6 +174,12 @@ namespace managers
 		//meta! sender="AgentPredajne", id="58", type="Notice"
 		public void ProcessNoticePrestavkaZaciatok(MessageForm message)
 		{
+			var sprava = (MyMessage)message.CreateCopy();
+			Constants.Log("ManagerPokladni", MySim.CurrentTime, null, "ProcessNoticePrestavkaZaciatok - Predavač 0 ide na prestávku", Constants.LogType.ManagerLog);
+			sprava.Pokladna = ListPokladni[0];
+			sprava.Pokladna.ObsluhujeOm = true;
+			sprava.Addressee = MyAgent.FindAssistant(SimId.ProcessPrestavky);
+			StartContinualAssistant(sprava);
 		}
 
 		//meta! userInfo="Process messages defined in code", id="0"
@@ -191,7 +197,7 @@ namespace managers
 			Constants.Log("ManagerPokladni", MySim.CurrentTime, sprava.Zakaznik,"ProcessNoticeZaciatokPokladne", Constants.LogType.ManagerLog);
 			if (Break)
 			{
-				if (ListPokladni[0].Queue.IsEmpty())
+				if (ListPokladni[0].Queue.IsEmpty() && !ListPokladni[0].Obsadena)
 				{
 					sprava.Pokladna = ListPokladni[0];
 					sprava.Pokladna.ObsadPokladnu(sprava.Zakaznik);
@@ -200,6 +206,7 @@ namespace managers
 				}
 				else
 				{
+					sprava.Zakaznik.StavZakaznika = Constants.StavZakaznika.PokladňaČakáVRade;
 					ListPokladni[0].Queue.Enqueue(sprava);
 				}
 				return;
@@ -230,6 +237,19 @@ namespace managers
 				throw new InvalidOperationException("[ManagerPokladni] - Pokladna je null po prestávke");
 			}
 
+			if (sprava.Pokladna.ID == 0)
+			{
+				if (!sprava.Pokladna.ObsluhujeOm)
+				{
+					throw new InvalidOperationException("[ManagerPokladni] - Pokladňa 0 neobsluhuje Om po prestávke");
+				}
+				sprava.Pokladna.ObsluhujeOm = false;
+				sprava.Code = Mc.NoticePrestavkaKoniec;
+				sprava.Addressee = MySim.FindAgent(SimId.AgentPredajne);
+				Notice(sprava);
+				return;
+			}
+			
 			if (!sprava.Pokladna.Queue.IsEmpty())
 			{
 				throw new InvalidOperationException("[ManagerPokladni] - Pokladna nie je prázdna po prestávke");
