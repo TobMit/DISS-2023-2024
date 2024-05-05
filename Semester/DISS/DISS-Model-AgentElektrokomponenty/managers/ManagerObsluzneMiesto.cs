@@ -90,7 +90,7 @@ namespace managers
 	        var sprava = (MyMessage)message.CreateCopy();
 	        Constants.Log("ManagerObsluzneMiesto", MySim.CurrentTime, null,"ProcessInit", Constants.LogType.ManagerLog);
 	        sprava.Addressee = MyAgent.FindAssistant(SimId.SchedulerPrestavkaOM);
-	        //StartContinualAssistant(sprava);
+	        StartContinualAssistant(sprava);
         }
 		
 

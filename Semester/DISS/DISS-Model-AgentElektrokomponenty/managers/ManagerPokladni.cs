@@ -120,8 +120,16 @@ namespace managers
 				};
 				newSprava.Pokladna = sprava.Pokladna;
 				StartContinualAssistant(newSprava);
-				
-				//todo možno bude treba naštartovať obsluhu pokladne ak je prázdna a mi tam teraz pridáme ľudí
+
+				// ak je prvá pokladňa voľná tak hneď začne obsluhoať
+				if (!ListPokladni[0].Obsadena && !ListPokladni[0].Queue.IsEmpty())
+				{
+					MyMessage newSpravaDeque = (MyMessage)ListPokladni[0].Queue.Dequeue().CreateCopy();
+					newSpravaDeque.Pokladna = ListPokladni[0];
+					newSpravaDeque.Pokladna.ObsadPokladnu(newSpravaDeque.Zakaznik);
+					newSpravaDeque.Addressee = MyAgent.FindAssistant(SimId.ProcessObsluhyPokladni);
+					StartContinualAssistant(newSpravaDeque);
+				}
 			}
 			else if (sprava.Pokladna.Queue.Count > 0)
 			{
@@ -144,6 +152,7 @@ namespace managers
 		public void ProcessFinishSchedulerPrestavkaPokladne(MessageForm message)
 		{
 			Constants.Log("ManagerPokladni", MySim.CurrentTime, null, "ProcessNoticePrestavkaZaciatokSchedulerPrestavkaPokladne", Constants.LogType.ManagerLog);
+			// začiatok nečinných pokladní na prestávku
 			var listPokladni = ListPokladni.Where(p => !p.Break && !p.Obsadena && p.ID != 0).ToList();
 			foreach (var pokladna in listPokladni)
 			{
@@ -227,11 +236,6 @@ namespace managers
 			}
 			sprava.Pokladna.Break = false;
 			
-		}
-
-		//meta! userInfo="Removed from model"
-		public void ProcessNoticePrestavkaZaciatokSchedulerPrestavkaPokladne(MessageForm message)
-		{
 		}
 
 		//meta! userInfo="Generated code: do not modify", tag="begin"
