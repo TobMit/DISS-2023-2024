@@ -41,6 +41,12 @@ namespace managers
 		{
 			var sprava = (MyMessage)message.CreateCopy();
 			Constants.Log("ManagerAutomatu", MySim.CurrentTime, sprava.Zakaznik,"ProcessFinishProcessObsluhaAutomatu", Constants.LogType.ManagerLog);
+			sprava.Addressee = MySim.FindAgent(SimId.AgentPredajne);
+			sprava.Code = Mc.NoticeKoniecObsluhy;
+			Obsluhuje = false;
+			_person = null;
+			Notice(sprava);
+			((MySimulation)MySim).StatVyuzitieAutomatu.AddSample(0);
 			if (!Front.IsEmpty())
 			{
 				var newSprava = new MyMessage(MySim, null)
@@ -51,18 +57,6 @@ namespace managers
 				};
 				Request(newSprava);
 			}
-			else
-			{
-				Obsluhuje = false;
-				_person = null;
-				((MySimulation)MySim).StatVyuzitieAutomatu.AddSample(0);
-			}
-
-			sprava.Addressee = MySim.FindAgent(SimId.AgentPredajne);
-			sprava.Code = Mc.NoticeKoniecObsluhy;
-			Obsluhuje = false;
-			_person = null;
-			Notice(sprava);
 		}
 
 		//meta! sender="SchedulerZatvorenieAutomatu", id="55", type="Finish"
@@ -99,7 +93,7 @@ namespace managers
 				sprava.Zakaznik.StavZakaznika = Constants.StavZakaznika.RadPredAutomatom;
 				Front.Enqueue(sprava);
 			}
-			else if (sprava.PocetLudiVOM >= Constants.RADA_PRED_OBSLUZNYM_MIESTOM)
+			else if (sprava.PocetLudiVOM > Constants.RADA_PRED_OBSLUZNYM_MIESTOM)
 			{
 				Constants.Log("ManagerAutomatu", MySim.CurrentTime, sprava.Zakaznik,"Pridané do frontu", Constants.LogType.ManagerLog);
 				sprava.Zakaznik.StavZakaznika = Constants.StavZakaznika.RadPredAutomatom;
@@ -157,13 +151,16 @@ namespace managers
 		public void ProcessPocetMiestVRade(MessageForm message)
 		{
 			var sprava = (MyMessage)message.CreateCopy();
-			if (sprava.PocetLudiVOM < Constants.RADA_PRED_OBSLUZNYM_MIESTOM && Obsluhuje == false)
+			Constants.Log("ManagerAutomatu", MySim.CurrentTime, null,"ProcessPocetMiestVRadeResponse", Constants.LogType.ManagerLog);
+			if (sprava.PocetLudiVOM <= Constants.RADA_PRED_OBSLUZNYM_MIESTOM && Obsluhuje == false)
 			{
 				var newSprava = new MyMessage(Front.Dequeue());
+				Constants.Log("ManagerAutomatu", MySim.CurrentTime, newSprava.Zakaznik,"ProcessPocetMiestVRadeResponse - Zaciatok obsluhy", Constants.LogType.ManagerLog);
 				((MySimulation)MySim).StatCasStravenyPredAutomatom.AddSample(MySim.CurrentTime - newSprava.Zakaznik.TimeOfArrival);
 				newSprava.Addressee = MyAgent.FindAssistant(SimId.ProcessObsluhaAutomatu);
 				_person = newSprava.Zakaznik;
 				Obsluhuje = true;
+				((MySimulation)MySim).StatVyuzitieAutomatu.AddSample(1);
 				StartContinualAssistant(newSprava);	
 			}
 		}
@@ -186,13 +183,6 @@ namespace managers
 					SimpleMessage = true
 				};
 				Request(newSprava);
-				/*
-				var newSprava = new MyMessage(Front.Dequeue());
-				Obsluhuje = true;
-				((MySimulation)MySim).StatCasStravenyPredAutomatom.AddSample(MySim.CurrentTime - newSprava.Zakaznik.TimeOfArrival);
-				newSprava.Addressee = MyAgent.FindAssistant(SimId.ProcessObsluhaAutomatu);
-				_person = newSprava.Zakaznik;
-				StartContinualAssistant(newSprava);*/
 			}
 		}
 

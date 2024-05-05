@@ -52,6 +52,7 @@ namespace managers
 
             ListObsluhaOnline.ForEach(miesto => miesto.Clear());
             ListObsluhaOstatne.ForEach(miesto => miesto.Clear());
+            RadaPredObsluznymMiestom.Clear();
         }
         
         /// <summary>
