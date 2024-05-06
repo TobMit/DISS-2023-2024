@@ -17,6 +17,10 @@ namespace simulation
         public bool SlowDown { get; set; }
         public bool Break { get; set; }
 
+        public bool ZvysenyTok { get; set; }
+
+        private double Tok { get => ZvysenyTok ? 1.30 : 1.0; }
+
         public int PocetObsluznychMiest { private get; set; }
 
         public int PocetObsluhyOnline
@@ -120,9 +124,9 @@ namespace simulation
 
             RndPickPokladna = new(ExtendedRandom<double>.NextSeed(), PocetPokladni);
             // (60*60) / 30 lebo je to 30 zákazníkov za hodinu ale systém beží v sekundách tak preto ten prepočet
-            RndPrichodZakaznikaBasic = new(((60.0 * 60.0) / 15.0), ExtendedRandom<double>.NextSeed());
-            RndPrichodZakaznikaZmluvny = new(((60.0 * 60.0) / 5.0), ExtendedRandom<double>.NextSeed());
-            RndPrichodZakaznikaOnline = new(((60.0 * 60.0) / 10.0), ExtendedRandom<double>.NextSeed());
+            RndPrichodZakaznikaBasic = new(((60.0 * 60.0) / (15.0 * Tok)), ExtendedRandom<double>.NextSeed());
+            RndPrichodZakaznikaZmluvny = new(((60.0 * 60.0) / (5.0 * Tok)), ExtendedRandom<double>.NextSeed());
+            RndPrichodZakaznikaOnline = new(((60.0 * 60.0) / (10.0 * Tok)), ExtendedRandom<double>.NextSeed());
             RndTypNarocnostTovaru = new(0, 1.0, ExtendedRandom<double>.NextSeed());
             RndTypVelkostiNakladu = new(0, 1.0, ExtendedRandom<double>.NextSeed());
             RndTrvanieAutomatu = new(30.0, 120.0, ExtendedRandom<double>.NextSeed());

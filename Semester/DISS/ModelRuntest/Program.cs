@@ -14,11 +14,12 @@ class Program
         // core.RunDebug();
         
         //S3 - Agentová simulácia
-        MySimulation core = new(15,5);
+        MySimulation core = new(14,6);
         //Constants.DEBUG = true;
         core.Break = true;
+        core.ZvysenyTok = true;
         //Constants.FILTER_ZAKAZNIK = 27;
-        core.Simulate(10_000);
-        //core.Simulate(1);
+        core.Simulate(5_000);
+        //core.Simulate(2);
     }
 }
