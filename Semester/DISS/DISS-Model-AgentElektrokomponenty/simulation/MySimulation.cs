@@ -247,50 +247,65 @@ namespace simulation
         {
             // Display simulation results
             base.SimulationFinished();
-            Console.WriteLine($"Priemerný počet zákazníkov: {_globPriemernyPocetZakaznikov.Mean()}");
+            var confidencePriemernyPocetZakaznikov = _globPriemernyPocetZakaznikov.ConfidenceInterval95;
+            Console.WriteLine($"Priemerný počet zákazníkov: {_globPriemernyPocetZakaznikov.Mean()} / [{confidencePriemernyPocetZakaznikov[0]:0.000} - {confidencePriemernyPocetZakaznikov[1]:0.000}]");
+            var confidenceCasStravenyPredAutomatom = _globCasStravenyPredAutomatom.ConfidenceInterval95;
             Console.WriteLine(
-                $"Čas strávený pred automatom: {Double.Round(_globCasStravenyPredAutomatom.Mean(), 4)}s / {TimeSpan.FromSeconds(_globCasStravenyPredAutomatom.Mean()).ToString(@"hh\:mm\:ss")}");
+                $"Čas strávený pred automatom: {Double.Round(_globCasStravenyPredAutomatom.Mean(), 4)}s / {TimeSpan.FromSeconds(_globCasStravenyPredAutomatom.Mean()).ToString(@"hh\:mm\:ss")} - [{TimeSpan.FromSeconds(confidenceCasStravenyPredAutomatom[0]).ToString(@"hh\:mm\:ss")} - {TimeSpan.FromSeconds(confidenceCasStravenyPredAutomatom[1]).ToString(@"hh\:mm\:ss")}]");
+            var confidencePriemernaDlzkaRadu = _globPriemernaDlzkaRadu.ConfidenceInterval95;
             Console.WriteLine(
-                $"Priemerná dĺžka radu pred automatom: {Double.Round(_globPriemernaDlzkaRadu.Mean(), 4)}");
+                $"Priemerná dĺžka radu pred automatom: {Double.Round(_globPriemernaDlzkaRadu.Mean(), 4)} - [{confidencePriemernaDlzkaRadu[0]:0.000} - {confidencePriemernaDlzkaRadu[1]:0.000}]");
+            var confidencePriemerneVytazenieAutomatu = _globPriemerneVytazenieAutomatu.ConfidenceInterval95;
             Console.WriteLine(
-                $"Priemerne vyťaženie automatu: {Double.Round(_globPriemerneVytazenieAutomatu.Mean(), 4) * 100:0.00}%");
+                $"Priemerne vyťaženie automatu: {Double.Round(_globPriemerneVytazenieAutomatu.Mean(), 4) * 100:0.00}% - [{confidencePriemerneVytazenieAutomatu[0] * 100:0.00}% - {confidencePriemerneVytazenieAutomatu[1] * 100:0.00}%]");
             StringBuilder sbPriemerneVytazenieObsluhyOnline = new();
             foreach (var stat in _globPriemerneVytaznieObsluhyOnline)
             {
-                sbPriemerneVytazenieObsluhyOnline.Append($"[{Double.Round(stat.Mean(), 4) * 100:0.00}%],");
+                var confidencePriemerneVytazenieObsluhyOnline = stat.ConfidenceInterval95;
+                sbPriemerneVytazenieObsluhyOnline.Append($"([{Double.Round(stat.Mean(), 4) * 100:0.00}%] - [{confidencePriemerneVytazenieObsluhyOnline[0] * 100:0.00}% - {confidencePriemerneVytazenieObsluhyOnline[1] * 100:0.00}%]), ");
             }
 
             Console.WriteLine(
-                $"Priemerne vyťaženie obsluhy online: {sbPriemerneVytazenieObsluhyOnline.Remove(sbPriemerneVytazenieObsluhyOnline.Length - 1, 1)}");
+                $"Priemerne vyťaženie obsluhy online: {sbPriemerneVytazenieObsluhyOnline.Remove(sbPriemerneVytazenieObsluhyOnline.Length - 2, 2)}");
             StringBuilder sbPriemerneVytazenieObsluhyOstatne = new();
             foreach (var stat in _globPriemerneVytaznieObsluhyOstatne)
             {
-                sbPriemerneVytazenieObsluhyOstatne.Append($"[{Double.Round(stat.Mean(), 4) * 100:0.00}%],");
+                var confidencePriemerneVytazenieObsluhyOstatne = stat.ConfidenceInterval95;
+                sbPriemerneVytazenieObsluhyOstatne.Append($"([{Double.Round(stat.Mean(), 4) * 100:0.00}%] - [{confidencePriemerneVytazenieObsluhyOstatne[0] * 100:0.00}% - {confidencePriemerneVytazenieObsluhyOstatne[1] * 100:0.00}%]), ");
             }
 
             Console.WriteLine(
-                $"Priemerne vyťaženie obsluhy ostatne: {sbPriemerneVytazenieObsluhyOstatne.Remove(sbPriemerneVytazenieObsluhyOstatne.Length - 1, 1)}");
+                $"Priemerne vyťaženie obsluhy ostatne: {sbPriemerneVytazenieObsluhyOstatne.Remove(sbPriemerneVytazenieObsluhyOstatne.Length - 2, 2)}");
+            
+            var confidencePriemernaDlzkaRaduPredObsluhouBasic = _globPriemernaDlzkaRaduPredObsluhouBasic.ConfidenceInterval95;
+            var confidencePriemernaDlzkaRaduPredObsluhouZmluvny = _globPriemernaDlzkaRaduPredObsluhouZmluvny.ConfidenceInterval95;
+            var confidencePriemernaDlzkaRaduPredObsluhouOnline = _globPriemernaDlzkaRaduPredObsluhouOnline.ConfidenceInterval95;
             Console.WriteLine(
-                $"Priemerná dĺžka radu pred obsluhou basic/zmluvný/online: {Double.Round(_globPriemernaDlzkaRaduPredObsluhouBasic.Mean(), 4)}/{Double.Round(_globPriemernaDlzkaRaduPredObsluhouZmluvny.Mean(), 4)}/{Double.Round(_globPriemernaDlzkaRaduPredObsluhouOnline.Mean(), 4)}");
+                $"Priemerná dĺžka radu pred obsluhou basic/zmluvný/online: ({Double.Round(_globPriemernaDlzkaRaduPredObsluhouBasic.Mean(), 4)} - [{confidencePriemernaDlzkaRaduPredObsluhouBasic[0]:0.000} - {confidencePriemernaDlzkaRaduPredObsluhouBasic[1]:0.000}]) / ({Double.Round(_globPriemernaDlzkaRaduPredObsluhouZmluvny.Mean(), 4)} - [{confidencePriemernaDlzkaRaduPredObsluhouZmluvny[0]:0.000} - {confidencePriemernaDlzkaRaduPredObsluhouZmluvny[1]:0.000}]) / ({Double.Round(_globPriemernaDlzkaRaduPredObsluhouOnline.Mean(), 4)} - [{confidencePriemernaDlzkaRaduPredObsluhouOnline[0]:0.000} - {confidencePriemernaDlzkaRaduPredObsluhouOnline[1]:0.000}])");
             StringBuilder sbPriemernaDlzkaRadu = new();
             StringBuilder sbPriemerneVytazeniePokladne = new();
             for (int i = 0; i < PocetPokladni; i++)
             {
-                sbPriemernaDlzkaRadu.Append($"[{Double.Round(_globPriemerneDlzkyRadovPredPokladnami[i].Mean(), 4)}],");
+                var confidencePriemernaDlzkaRaduPokladne = _globPriemerneDlzkyRadovPredPokladnami[i].ConfidenceInterval95;
+                sbPriemernaDlzkaRadu.Append($"([{Double.Round(_globPriemerneDlzkyRadovPredPokladnami[i].Mean(), 4)}] - [{confidencePriemernaDlzkaRaduPokladne[0]:0.000} - {confidencePriemernaDlzkaRaduPokladne[1]:0.000}]), ");
+                var confidencePriemerneVytazeniePokladne = _globPriemerneVytazeniePokladni[i].ConfidenceInterval95;
                 sbPriemerneVytazeniePokladne.Append(
-                    $"[{Double.Round(_globPriemerneVytazeniePokladni[i].Mean(), 4) * 100:0.00}%],");
+                    $"([{Double.Round(_globPriemerneVytazeniePokladni[i].Mean(), 4) * 100:0.00}%] - [{confidencePriemerneVytazeniePokladne[0] * 100:0.00}% - {confidencePriemerneVytazeniePokladne[1] * 100:0.00}%]), ");
             }
 
             Console.WriteLine(
-                $"Priemerne dĺžky radov pred pokladňami: {sbPriemernaDlzkaRadu.Remove(sbPriemernaDlzkaRadu.Length - 1, 1)}");
+                $"Priemerne dĺžky radov pred pokladňami: {sbPriemernaDlzkaRadu.Remove(sbPriemernaDlzkaRadu.Length - 2, 2)}");
             Console.WriteLine(
-                $"Priemerne vyťaženie pokladni: {sbPriemerneVytazeniePokladne.Remove(sbPriemerneVytazeniePokladne.Length - 1, 1)}");
+                $"Priemerne vyťaženie pokladni: {sbPriemerneVytazeniePokladne.Remove(sbPriemerneVytazeniePokladne.Length - 2, 2)}");
+            var confidencePriemernyPocetObsluzenychZakaznikov = _globPriemernyPocetObsluzenychZakaznikov.ConfidenceInterval95;
             Console.WriteLine(
-                $"Priemerný počet obslužných zákazníkov: {Double.Round(_globPriemernyPocetObsluzenychZakaznikov.Mean(), 4)}");
+                $"Priemerný počet obslužných zákazníkov: {Double.Round(_globPriemernyPocetObsluzenychZakaznikov.Mean(), 4)} - [{confidencePriemernyPocetObsluzenychZakaznikov[0]:0.000} - {confidencePriemernyPocetObsluzenychZakaznikov[1]:0.000}]");
+            var confidencePriemernyCasVObchode = _globPriemernyCasVObchode.ConfidenceInterval95;
             Console.WriteLine(
-                $"Priemerný čas v obchode: {Double.Round(_globPriemernyCasVObchode.Mean(), 4)}s / {TimeSpan.FromSeconds(_globPriemernyCasVObchode.Mean()).ToString(@"hh\:mm\:ss")}");
+                $"Priemerný čas v obchode: {Double.Round(_globPriemernyCasVObchode.Mean(), 4)}s / {TimeSpan.FromSeconds(_globPriemernyCasVObchode.Mean()).ToString(@"hh\:mm\:ss")} - [{TimeSpan.FromSeconds(confidencePriemernyCasVObchode[0]).ToString(@"hh\:mm\:ss")} - {TimeSpan.FromSeconds(confidencePriemernyCasVObchode[1]).ToString(@"hh\:mm\:ss")}]");
+            var confidencePriemernyOdchodPoslednehoZakaznika = _globPriemernyOdchodPoslednehoZakaznika.ConfidenceInterval95;
             Console.WriteLine(
-                $"Priemerný odchod posledného zákazníka: {Double.Round(_globPriemernyOdchodPoslednehoZakaznika.Mean(), 4)} / {TimeSpan.FromSeconds(Constants.START_DAY + _globPriemernyOdchodPoslednehoZakaznika.Mean()).ToString(@"hh\:mm\:ss")}");
+                $"Priemerný odchod posledného zákazníka: {Double.Round(_globPriemernyOdchodPoslednehoZakaznika.Mean(), 4)} / {TimeSpan.FromSeconds(Constants.START_DAY + _globPriemernyOdchodPoslednehoZakaznika.Mean()).ToString(@"hh\:mm\:ss")} - [{TimeSpan.FromSeconds(Constants.START_DAY + confidencePriemernyOdchodPoslednehoZakaznika[0]).ToString(@"hh\:mm\:ss")} - {TimeSpan.FromSeconds(Constants.START_DAY + confidencePriemernyOdchodPoslednehoZakaznika[1]).ToString(@"hh\:mm\:ss")}]");
         }
 
 		//meta! userInfo="Generated code: do not modify", tag="begin"
