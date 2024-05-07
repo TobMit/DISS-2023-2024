@@ -364,7 +364,7 @@ namespace simulation
             {
                 _eventData = new();
             }
-            _eventData.NewData = true;//todo resolve
+            _eventData.NewData = true;
 
             // update sim času aj keď nie sú nové dáta
             if (_eventData.ShallowUpdate)
@@ -381,99 +381,131 @@ namespace simulation
                     _eventData.People = Persons.Where(o => o.StavZakaznika != Constants.StavZakaznika.OdišielZPredajne)
                         .Select(person => person.ToString())
                         .ToList();
-                    _eventData.People.Insert(0,"ID\t  | Typ Zákazníka \t | Typ naroč. tovar\t | Typ veľko. nákl. \t | Stav zákazníka");
-                    
+                    _eventData.People.Insert(0,
+                        "ID\t  | Typ Zákazníka \t | Typ naroč. tovar\t | Typ veľko. nákl. \t | Stav zákazníka");
+
                     _eventData.RadaPredAutomatom = $"{CelkovyPocetZakaznikov} / {PocetObsluzenychZakaznikov}";
                     _eventData.AutomatObsah = ((ManagerAutomatu)AgentAutomatu.MyManager).GuiToString();
                     _eventData.AutomatObsadeny = ((ManagerAutomatu)AgentAutomatu.MyManager).Obsluhuje;
+                    var confidenceRadaPredObsluznymMiestomOnline = new Double[] {0, 0};
+                    if (StatPriemernaDlzkaRaduPredObsluhouOnline.SampleSize > 1)
+                    {
+                        confidenceRadaPredObsluznymMiestomOnline =
+                            StatPriemernaDlzkaRaduPredObsluhouOnline.ConfidenceInterval95;
+                    }
                     _eventData.RadaPredObsluznimiMiestamiOnline =
-                        $"{((ManagerObsluzneMiesto)AgentObsluzneMiesto.MyManager).RadaPredObsluznymMiestom.CountOnline}/{((ManagerObsluzneMiesto)AgentObsluzneMiesto.MyManager).RadaPredObsluznymMiestom.Count}/{Constants.RADA_PRED_OBSLUZNYM_MIESTOM + 1} - {StatPriemernaDlzkaRaduPredObsluhouOnline.Mean():0.00}";
+                        $"{((ManagerObsluzneMiesto)AgentObsluzneMiesto.MyManager).RadaPredObsluznymMiestom.CountOnline}/{((ManagerObsluzneMiesto)AgentObsluzneMiesto.MyManager).RadaPredObsluznymMiestom.Count}/{Constants.RADA_PRED_OBSLUZNYM_MIESTOM + 1} - ({StatPriemernaDlzkaRaduPredObsluhouOnline.Mean():0.00} - [{confidenceRadaPredObsluznymMiestomOnline[0]:0.00} - {confidenceRadaPredObsluznymMiestomOnline[1]:0.00}])";
+                    var confidenceRadaPredObsluznymMiestomBasic = new double[] { 0, 0 };
+                    if (StatPriemernaDlzkaRaduPredObsluhouBasic.SampleSize > 1)
+                    {
+                        confidenceRadaPredObsluznymMiestomBasic =
+                            StatPriemernaDlzkaRaduPredObsluhouBasic.ConfidenceInterval95;
+                    }
                     _eventData.RadaPredObsluznimiMiestamiBasic =
-                        $"{((ManagerObsluzneMiesto)AgentObsluzneMiesto.MyManager).RadaPredObsluznymMiestom.CountBasic}/{((ManagerObsluzneMiesto)AgentObsluzneMiesto.MyManager).RadaPredObsluznymMiestom.Count}/{Constants.RADA_PRED_OBSLUZNYM_MIESTOM + 1} - {StatPriemernaDlzkaRaduPredObsluhouBasic.Mean():0.00}";
+                        $"{((ManagerObsluzneMiesto)AgentObsluzneMiesto.MyManager).RadaPredObsluznymMiestom.CountBasic}/{((ManagerObsluzneMiesto)AgentObsluzneMiesto.MyManager).RadaPredObsluznymMiestom.Count}/{Constants.RADA_PRED_OBSLUZNYM_MIESTOM + 1} - ({StatPriemernaDlzkaRaduPredObsluhouBasic.Mean():0.00} - [{confidenceRadaPredObsluznymMiestomBasic[0]:0.00} - {confidenceRadaPredObsluznymMiestomBasic[1]:0.00}])";
+                    var confidenceRadaPredObsluznymMiestomZmluvny = new double[] { 0, 0 };
+                    if (StatPriemernaDlzkaRaduPredObsluhouZmluvny.SampleSize > 1)
+                    {
+                        confidenceRadaPredObsluznymMiestomZmluvny =
+                            StatPriemernaDlzkaRaduPredObsluhouZmluvny.ConfidenceInterval95;
+                    }
                     _eventData.RadaPredObsluznimiMiestamiZmluvny =
-                        $"{((ManagerObsluzneMiesto)AgentObsluzneMiesto.MyManager).RadaPredObsluznymMiestom.CountOstatne - ((ManagerObsluzneMiesto)AgentObsluzneMiesto.MyManager).RadaPredObsluznymMiestom.CountBasic}/{((ManagerObsluzneMiesto)AgentObsluzneMiesto.MyManager).RadaPredObsluznymMiestom.Count}/{Constants.RADA_PRED_OBSLUZNYM_MIESTOM + 1} - {StatPriemernaDlzkaRaduPredObsluhouZmluvny.Mean():0.00}";
+                        $"{((ManagerObsluzneMiesto)AgentObsluzneMiesto.MyManager).RadaPredObsluznymMiestom.CountOstatne - ((ManagerObsluzneMiesto)AgentObsluzneMiesto.MyManager).RadaPredObsluznymMiestom.CountBasic}/{((ManagerObsluzneMiesto)AgentObsluzneMiesto.MyManager).RadaPredObsluznymMiestom.Count}/{Constants.RADA_PRED_OBSLUZNYM_MIESTOM + 1} - ({StatPriemernaDlzkaRaduPredObsluhouZmluvny.Mean():0.00} - [{confidenceRadaPredObsluznymMiestomZmluvny[0]:0.00} - {confidenceRadaPredObsluznymMiestomZmluvny[1]:0.00}])";
                     _eventData.ObsluzneMiestos = ((ManagerObsluzneMiesto)AgentObsluzneMiesto.MyManager).GetInfoNaUI();
                     _eventData.Pokladne = ((ManagerPokladni)AgentPokladni.MyManager).GetInfoNaUI();
                 }
 
                 _eventData.AktuaReplikacia = sim.CurrentReplication.ToString();
 
-                if (_globPriemernyCasVObchode.SampleSize > 0)
+                if (_globPriemernyCasVObchode.SampleSize > 1)
                 {
+                    var confidencePriemernyCasVObchode = _globPriemernyCasVObchode.ConfidenceInterval95;
                     _eventData.PriemernyCasVObhchode =
-                        $"{Double.Round(_globPriemernyCasVObchode.Mean(), 3)}s / {TimeSpan.FromSeconds(_globPriemernyCasVObchode.Mean()).ToString(@"hh\:mm\:ss")}";
+                        $"{Double.Round(_globPriemernyCasVObchode.Mean(), 3)}s / {TimeSpan.FromSeconds(_globPriemernyCasVObchode.Mean()).ToString(@"hh\:mm\:ss")} - [{TimeSpan.FromSeconds(confidencePriemernyCasVObchode[0]).ToString(@"hh\:mm\:ss")} - {TimeSpan.FromSeconds(confidencePriemernyCasVObchode[1]).ToString(@"hh\:mm\:ss")}]";
                 }
                 else
                 {
-                    _eventData.PriemernyCasVObhchode = "-/- / -:-:-";
+                    _eventData.PriemernyCasVObhchode = "-/- / -:-:- - [-:-:- - -:-:-]";
                 }
 
-                if (_globCasStravenyPredAutomatom.SampleSize > 0)
+                if (_globCasStravenyPredAutomatom.SampleSize > 1)
                 {
+                    var confidenceCasStravenyPredAutomatom = _globCasStravenyPredAutomatom.ConfidenceInterval95;
                     _eventData.PriemernyCasPredAutomatom =
-                        $"{Double.Round(_globCasStravenyPredAutomatom.Mean(), 3)}s / {TimeSpan.FromSeconds(_globCasStravenyPredAutomatom.Mean()).ToString(@"hh\:mm\:ss")}";
+                        $"{Double.Round(_globCasStravenyPredAutomatom.Mean(), 3)}s / {TimeSpan.FromSeconds(_globCasStravenyPredAutomatom.Mean()).ToString(@"hh\:mm\:ss")} - [{TimeSpan.FromSeconds(confidenceCasStravenyPredAutomatom[0]).ToString(@"hh\:mm\:ss")} - {TimeSpan.FromSeconds(confidenceCasStravenyPredAutomatom[1]).ToString(@"hh\:mm\:ss")}]";
                 }
                 else
                 {
-                    _eventData.PriemernyCasPredAutomatom = "-/- / -:-:-";
+                    _eventData.PriemernyCasPredAutomatom = "-/- / -:-:- - [-:-:- - -:-:-]";
                 }
 
-                if (_globPriemernaDlzkaRadu.SampleSize > 0)
+                if (_globPriemernaDlzkaRadu.SampleSize > 1)
                 {
+                    var confidencePriemernaDlzkaRadu = _globPriemernaDlzkaRadu.ConfidenceInterval95;
                     _eventData.PriemernaDlzkaraduPredAutomatom =
-                        $"{Double.Round(_globPriemernaDlzkaRadu.Mean(), 3)}";
+                        $"{Double.Round(_globPriemernaDlzkaRadu.Mean(), 3)} - [{confidencePriemernaDlzkaRadu[0]:0.000} - {confidencePriemernaDlzkaRadu[1]:0.000}]";
                 }
                 else
                 {
-                    _eventData.PriemernaDlzkaraduPredAutomatom = "-/-";
+                    _eventData.PriemernaDlzkaraduPredAutomatom = "-/- - [-:-:- - -:-:-]";
                 }
 
-                if (_globPriemernyOdchodPoslednehoZakaznika.SampleSize > 0)
+                if (_globPriemernyOdchodPoslednehoZakaznika.SampleSize > 1)
                 {
+                    var confidencePriemernyOdchodPoslednehoZakaznika = _globPriemernyOdchodPoslednehoZakaznika.ConfidenceInterval95;
                     _eventData.PriemernyOdchodPoslednehoZakaznika =
-                        $"{Double.Round(_globPriemernyOdchodPoslednehoZakaznika.Mean(), 3)} / {TimeSpan.FromSeconds(Constants.START_DAY + _globPriemernyOdchodPoslednehoZakaznika.Mean()).ToString(@"hh\:mm\:ss")}";
+                        $"{Double.Round(_globPriemernyOdchodPoslednehoZakaznika.Mean(), 3)} / {TimeSpan.FromSeconds(Constants.START_DAY + _globPriemernyOdchodPoslednehoZakaznika.Mean()).ToString(@"hh\:mm\:ss")} - [{TimeSpan.FromSeconds(Constants.START_DAY + confidencePriemernyOdchodPoslednehoZakaznika[0]).ToString(@"hh\:mm\:ss")} - {TimeSpan.FromSeconds(Constants.START_DAY + confidencePriemernyOdchodPoslednehoZakaznika[1]).ToString(@"hh\:mm\:ss")}]";
                 }
                 else
                 {
-                    _eventData.PriemernyOdchodPoslednehoZakaznika = "-/- / -:-:-";
+                    _eventData.PriemernyOdchodPoslednehoZakaznika = "-/- / -:-:- - [-:-:- - -:-:-]";
                 }
 
-                if (_globPriemernyPocetZakaznikov.SampleSize > 0)
+                if (_globPriemernyPocetZakaznikov.SampleSize > 1)
                 {
+                    var confidencePriemernyPocetZakaznikov = _globPriemernyPocetZakaznikov.ConfidenceInterval95;
                     _eventData.PriemernyPocetZakaznikov =
-                        $"{Double.Round(_globPriemernyPocetZakaznikov.Mean(), 3)}";
+                        $"{Double.Round(_globPriemernyPocetZakaznikov.Mean(), 3)} - [{confidencePriemernyPocetZakaznikov[0]:0.000} - {confidencePriemernyPocetZakaznikov[1]:0.000}]";
                 }
                 else
                 {
-                    _eventData.PriemernyPocetZakaznikov = "-/-";
+                    _eventData.PriemernyPocetZakaznikov = "-/- - [-:-:- - -:-:-]";
                 }
 
-                if (_globPriemernyPocetObsluzenychZakaznikov.SampleSize > 0)
+                if (_globPriemernyPocetObsluzenychZakaznikov.SampleSize > 1)
                 {
+                    var confidencePriemernyPocetObsluzenychZakaznikov = _globPriemernyPocetObsluzenychZakaznikov.ConfidenceInterval95;
                     _eventData.PriemernyPocetObsluzenychZakaznikov =
-                        $"{Double.Round(_globPriemernyPocetObsluzenychZakaznikov.Mean(), 3)}";
+                        $"{Double.Round(_globPriemernyPocetObsluzenychZakaznikov.Mean(), 3)} - [{confidencePriemernyPocetObsluzenychZakaznikov[0]:0.000} - {confidencePriemernyPocetObsluzenychZakaznikov[1]:0.000}]";
                 }
                 else
                 {
-                    _eventData.PriemernyPocetObsluzenychZakaznikov = "-/-";
+                    _eventData.PriemernyPocetObsluzenychZakaznikov = "-/- - [-:-:- - -:-:-]";
                 }
 
-                if (_globPriemerneVytazenieAutomatu.SampleSize > 0)
+                if (_globPriemerneVytazenieAutomatu.SampleSize > 1)
                 {
+                    var confidencePriemerneVytazenieAutomatu = _globPriemerneVytazenieAutomatu.ConfidenceInterval95;
                     _eventData.PriemerneVytazenieAutomatu =
-                        $"{Double.Round(_globPriemerneVytazenieAutomatu.Mean(), 4) * 100:0.00}%";
+                        $"{Double.Round(_globPriemerneVytazenieAutomatu.Mean(), 4) * 100:0.00}% - [{confidencePriemerneVytazenieAutomatu[0] * 100:0.00}% - {confidencePriemerneVytazenieAutomatu[1] * 100:0.00}%]";
                 }
                 else
                 {
-                    _eventData.PriemerneVytazenieAutomatu = "-/-";
+                    _eventData.PriemerneVytazenieAutomatu = "-/- - [-:-:- - -:-:-]";
                 }
 
-                if (_globPriemernaDlzkaRaduPredObsluhouBasic.SampleSize > 0 &&
-                    _globPriemernaDlzkaRaduPredObsluhouZmluvny.SampleSize > 0 &&
-                    _globPriemernaDlzkaRaduPredObsluhouOnline.SampleSize > 0)
+                if (_globPriemernaDlzkaRaduPredObsluhouBasic.SampleSize > 1 &&
+                    _globPriemernaDlzkaRaduPredObsluhouZmluvny.SampleSize > 1 &&
+                    _globPriemernaDlzkaRaduPredObsluhouOnline.SampleSize > 1)
                 {
+                    var confidencePriemernaDlzkaRaduPredObsluhouBasic =
+                        _globPriemernaDlzkaRaduPredObsluhouBasic.ConfidenceInterval95;
+                    var confidencePriemernaDlzkaRaduPredObsluhouZmluvny =
+                        _globPriemernaDlzkaRaduPredObsluhouZmluvny.ConfidenceInterval95;
+                    var confidencePriemernaDlzkaRaduPredObsluhouOnline =
+                        _globPriemernaDlzkaRaduPredObsluhouOnline.ConfidenceInterval95;
                     _eventData.PriemerneDlzkyRadovPredObsluhov =
-                        $"[{Double.Round(_globPriemernaDlzkaRaduPredObsluhouBasic.Mean(), 3)}],[{Double.Round(_globPriemernaDlzkaRaduPredObsluhouZmluvny.Mean(), 3)}],[{Double.Round(_globPriemernaDlzkaRaduPredObsluhouOnline.Mean(), 3)}]";
+                        $"({Double.Round(_globPriemernaDlzkaRaduPredObsluhouBasic.Mean(), 3)} - [{confidencePriemernaDlzkaRaduPredObsluhouBasic[0]:0.000} - {confidencePriemernaDlzkaRaduPredObsluhouBasic[1]:0.000}]), ({Double.Round(_globPriemernaDlzkaRaduPredObsluhouZmluvny.Mean(), 3)} - [{confidencePriemernaDlzkaRaduPredObsluhouZmluvny[0]:0.000} - {confidencePriemernaDlzkaRaduPredObsluhouZmluvny[1]:0.000}]), ({Double.Round(_globPriemernaDlzkaRaduPredObsluhouOnline.Mean(), 3)} - [{confidencePriemernaDlzkaRaduPredObsluhouOnline[0]:0.000} - {confidencePriemernaDlzkaRaduPredObsluhouOnline[1]:0.000}])";
                 }
                 else
                 {
@@ -484,56 +516,61 @@ namespace simulation
                 StringBuilder sbPriemerneVytazeniePokladni = new();
                 for (int i = 0; i < PocetPokladni; i++)
                 {
-                    if (_globPriemerneDlzkyRadovPredPokladnami[i].SampleSize <= 0)
+                    if (_globPriemerneDlzkyRadovPredPokladnami[i].SampleSize <= 1)
                     {
-                        sbPriemernaDlkaRadu.Append("[-/-],");
-                        sbPriemerneVytazeniePokladni.Append("[-/-],");
+                        sbPriemernaDlkaRadu.Append("[-/-], ");
+                        sbPriemerneVytazeniePokladni.Append("[-/-], ");
                     }
                     else
                     {
+                        var confidencePriemernaDlzkaRaduPokladne = _globPriemerneDlzkyRadovPredPokladnami[i].ConfidenceInterval95;
                         sbPriemernaDlkaRadu.Append(
-                            $"[{Double.Round(_globPriemerneDlzkyRadovPredPokladnami[i].Mean(), 3):0.000}],");
+                            $"({Double.Round(_globPriemerneDlzkyRadovPredPokladnami[i].Mean(), 3):0.000} - [{confidencePriemernaDlzkaRaduPokladne[0]:0.000} - {confidencePriemernaDlzkaRaduPokladne[1]:0.000}]), ");
+                        var confidencePriemerneVytazeniePokladne = _globPriemerneVytazeniePokladni[i].ConfidenceInterval95;
                         sbPriemerneVytazeniePokladni.Append(
-                            $"[{Double.Round(_globPriemerneVytazeniePokladni[i].Mean(), 4) * 100:0.00}%],");
+                            $"({Double.Round(_globPriemerneVytazeniePokladni[i].Mean(), 4) * 100:0.00}% - [{confidencePriemerneVytazeniePokladne[0] * 100:0.00}% - {confidencePriemerneVytazeniePokladne[1] * 100:0.000}%]), ");
                     }
                 }
 
                 _eventData.PriemerneDlzkyRadovPredPokladnami =
-                    sbPriemernaDlkaRadu.Remove(sbPriemernaDlkaRadu.Length - 1, 1).ToString();
+                    sbPriemernaDlkaRadu.Remove(sbPriemernaDlkaRadu.Length - 2, 2).ToString();
                 _eventData.PriemerneVytazeniePokladni = sbPriemerneVytazeniePokladni
-                    .Remove(sbPriemerneVytazeniePokladni.Length - 1, 1).ToString();
+                    .Remove(sbPriemerneVytazeniePokladni.Length - 2, 2).ToString();
                 StringBuilder sbPriemerneVytazenieObsluhyOnline = new();
                 for (int i = 0; i < ((ManagerObsluzneMiesto)AgentObsluzneMiesto.MyManager).ListObsluhaOnline.Count; i++)
                 {
-                    if (_globPriemerneVytaznieObsluhyOnline[i].Mean() <= 0)
+                    if (_globPriemerneVytaznieObsluhyOnline[i].SampleSize <= 1)
                     {
-                        sbPriemerneVytazenieObsluhyOnline.Append("[-/-],");
+                        sbPriemerneVytazenieObsluhyOnline.Append("[-/-], ");
                     }
                     else
                     {
+                        var confidencePriemerneObsluhyOnline = _globPriemerneVytaznieObsluhyOnline[i].ConfidenceInterval95;
                         sbPriemerneVytazenieObsluhyOnline.Append(
-                            $"[{Double.Round(_globPriemerneVytaznieObsluhyOnline[i].Mean(), 4) * 100:0.00}%],");
+                            $"({Double.Round(_globPriemerneVytaznieObsluhyOnline[i].Mean(), 4) * 100:0.00}% - [{confidencePriemerneObsluhyOnline[0] * 100:0.00}% - {confidencePriemerneObsluhyOnline[1] * 100:0.000}%]), ");
                     }
                 }
 
                 _eventData.PriemerneVytazenieObsluhyOnline = sbPriemerneVytazenieObsluhyOnline
-                    .Remove(sbPriemerneVytazenieObsluhyOnline.Length - 1, 1).ToString();
+                    .Remove(sbPriemerneVytazenieObsluhyOnline.Length - 2, 2).ToString();
                 StringBuilder sbPriemerneVytazenieObsluhyOstatne = new();
                 for (int i = 0; i < ((ManagerObsluzneMiesto)AgentObsluzneMiesto.MyManager).ListObsluhaOstatne.Count; i++)
                 {
-                    if (_globPriemerneVytaznieObsluhyOstatne[i].SampleSize <= 0)
+                    if (_globPriemerneVytaznieObsluhyOstatne[i].SampleSize <= 1)
                     {
-                        sbPriemerneVytazenieObsluhyOstatne.Append("[-/-],");
+                        sbPriemerneVytazenieObsluhyOstatne.Append("[-/-], ");
                     }
                     else
                     {
+                        var confidencePriemerneObsluhyOstatne = _globPriemerneVytaznieObsluhyOstatne[i].ConfidenceInterval95;
                         sbPriemerneVytazenieObsluhyOstatne.Append(
-                            $"[{Double.Round(_globPriemerneVytaznieObsluhyOstatne[i].Mean(), 4) * 100:0.00}%],");
+                            $"[" +
+                            $"({Double.Round(_globPriemerneVytaznieObsluhyOstatne[i].Mean(), 4) * 100:0.00}% - [{confidencePriemerneObsluhyOstatne[0] * 100:0.00}% - {confidencePriemerneObsluhyOstatne[1] * 100:0.000}%]), ");
                     }
                 }
 
                 _eventData.PriemerneVytazenieObsluhyOstatne = sbPriemerneVytazenieObsluhyOstatne
-                    .Remove(sbPriemerneVytazenieObsluhyOstatne.Length - 1, 1).ToString();
+                    .Remove(sbPriemerneVytazenieObsluhyOstatne.Length - 2, 2).ToString();
             }
 
             return _eventData;

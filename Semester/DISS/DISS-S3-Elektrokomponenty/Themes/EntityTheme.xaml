@@ -4,7 +4,7 @@
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="ListViewItem">
-                    <Border Width="242" 
+                    <Border Width="250" 
                             HorizontalAlignment="Left"
                             CornerRadius="15"
                             Margin="10,5">

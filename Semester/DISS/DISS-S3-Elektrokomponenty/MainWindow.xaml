@@ -7,7 +7,7 @@
         xmlns:viewModel="clr-namespace:DISS_S3_Elektrokomponenty.MVVM.ViewModel"
         xmlns:wpf="clr-namespace:LiveCharts.Wpf;assembly=LiveCharts.Wpf"
         mc:Ignorable="d"
-        Title="DISS-S2-TobiasMitala" Height="830" Width="1360"
+        Title="DISS-S3-TobiasMitala" Height="830" Width="1360"
         WindowStartupLocation="CenterScreen"
         Closing="MainWindow_OnClosing">
     <Window.DataContext>
@@ -470,7 +470,7 @@
                             </Grid>
 
                             <Border
-                                Width="242" 
+                                Width="360" 
                                 HorizontalAlignment="Left"
                                 CornerRadius="15"
                                 Margin="10,5"

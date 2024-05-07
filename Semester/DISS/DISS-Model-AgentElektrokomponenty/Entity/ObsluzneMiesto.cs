@@ -83,28 +83,30 @@ public class ObsluzneMiesto
     public override string ToString()
     {
         double vytaznie = 0;
-        if (_priemerneVytazenieOM.SampleSize > 0)
+        var confidenceVytazenie = new double[] { 0, 0 };
+        if (_priemerneVytazenieOM.SampleSize > 1)
         {
             vytaznie = _priemerneVytazenieOM.Mean() * 100;
+            confidenceVytazenie = _priemerneVytazenieOM.ConfidenceInterval95;
         }
 
         if (Break)
         {
-            return $"OM {ID}: \n\t- Voľné\n\t- Pracovník: na pokladni\n\t- Vyťaženie: {vytaznie:0.00}%";
+            return $"OM {ID}: \n\t- Voľné\n\t- Pracovník: na pokladni\n\t- Vyťaženie: {vytaznie:0.00}% - [{confidenceVytazenie[0]*100:0.00}% - {confidenceVytazenie[1]*100:0.00}%]";
         }
 
         if (Person is null)
         {
-            return $"OM {ID}: \n\t- Voľné\n\t- Pracovník: nečinný\n\t- Vyťaženie: {vytaznie:0.00}%";
+            return $"OM {ID}: \n\t- Voľné\n\t- Pracovník: nečinný\n\t- Vyťaženie: {vytaznie:0.00}% - [{confidenceVytazenie[0]*100:0.00}% - {confidenceVytazenie[1]*100:0.00}%]";
         }
         else if (Person?.StavZakaznika > Constants.StavZakaznika.ObslužnomMieste_ČakáNaTovar)
         {
             return
-                $"OM {ID}: \n\t- Obsadená Person: {Person?.ID} (veľký tovar) \n\t- Predavač: voľný\n\t- Vyťaženie: {vytaznie:0.00}%";
+                $"OM {ID}: \n\t- Obsadená Person: {Person?.ID} (veľký tovar) \n\t- Predavač: voľný\n\t- Vyťaženie: {vytaznie:0.00}% - [{confidenceVytazenie[0]*100:0.00}% - {confidenceVytazenie[1]*100:0.00}%]";
         }
 
         return
-            $"OM {ID}: \n\t- Stojí Person: {Person?.ID} \n\t- Predavač: {(Person?.StavZakaznika == Constants.StavZakaznika.ObslužnomMieste_ZadávaObjednávku ? "zadáva objednávku" : "vybavuje objednávku")}\n\t- Vyťaženie: {vytaznie:0.00}%";
+            $"OM {ID}: \n\t- Stojí Person: {Person?.ID} \n\t- Predavač: {(Person?.StavZakaznika == Constants.StavZakaznika.ObslužnomMieste_ZadávaObjednávku ? "zadáva objednávku" : "vybavuje objednávku")}\n\t- Vyťaženie: {vytaznie:0.00}% - [{confidenceVytazenie[0]*100:0.00}% - {confidenceVytazenie[1]*100:0.00}%]";
     }
     
     /// <summary>

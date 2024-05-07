@@ -249,20 +249,25 @@ namespace managers
 		public string GuiToString()
 		{
 			double vytaznie = 0;
-			if (((MySimulation)MySim).StatVyuzitieAutomatu.SampleSize > 2)
+			var confidenceVytazenie = new double[] {0,0};
+			if (((MySimulation)MySim).StatVyuzitieAutomatu.SampleSize > 1)
 			{
 				vytaznie = ((MySimulation)MySim).StatVyuzitieAutomatu.Mean() * 100;
+				confidenceVytazenie = ((MySimulation)MySim).StatVyuzitieAutomatu.ConfidenceInterval95;
 			}
 			double dlzkaRadu = 0;
-			if (((MySimulation)MySim).StatPriemernaDlzkaRaduPredAutomatom.SampleSize > 0)
+			var confidenceDlzkaRadu = new double[] {0,0};
+			if (((MySimulation)MySim).StatPriemernaDlzkaRaduPredAutomatom.SampleSize > 1)
 			{
 				dlzkaRadu = ((MySimulation)MySim).StatPriemernaDlzkaRaduPredAutomatom.Mean();
+				confidenceDlzkaRadu = ((MySimulation)MySim).StatPriemernaDlzkaRaduPredAutomatom.ConfidenceInterval95;
 			}
+			
 			if (_person is null)
 			{
-				return $"Automat: \n\t- Voľný \n\t- Vyťaženie: {vytaznie:0.00}%\n\t- Front: {Front.Count}\n\t- Dĺžka radu: {dlzkaRadu:0.00}";
+				return $"Automat: \n\t- Voľný \n\t- Vyťaženie: {vytaznie:0.00}% - [{confidenceVytazenie[0]*100:0.00}% - {confidenceVytazenie[1] * 100:0.00}%]\n\t- Front: {Front.Count}\n\t- Dĺžka radu: {dlzkaRadu:0.00} - [{confidenceDlzkaRadu[0]:0.000} - {confidenceDlzkaRadu[1]:0.000}]";
 			}
-			return $"Automat: \n\t- Stojí Person: {_person?.ID}\n\t- Vyťaženie: {vytaznie:0.00}%\n\t- Front: {Front.Count}\n\t- Dĺžka radu: {dlzkaRadu:0.00}";
+			return $"Automat: \n\t- Stojí Person: {_person?.ID}\n\t- Vyťaženie: {vytaznie:0.00}% - [{confidenceVytazenie[0]*100:0.00}% - {confidenceVytazenie[1] * 100:0.00}%]\n\t- Front: {Front.Count}\n\t- Dĺžka radu: {dlzkaRadu:0.00} - [{confidenceDlzkaRadu[0]:0.000} - {confidenceDlzkaRadu[1]:0.000}]";
 		}
 	}
 }
