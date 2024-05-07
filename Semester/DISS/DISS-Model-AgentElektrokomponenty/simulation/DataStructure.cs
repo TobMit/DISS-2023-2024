@@ -22,7 +22,8 @@ public class DataStructure : EventArgs
     public string RadaPredObsluznimiMiestamiZmluvny { get; set; }
     public List<ObsluzneMiesto> ObsluzneMiestos { get; set; }
     public List<Pokladna> Pokladne { get; set; }
-
+    public List<Reklamacia> Reklamacia { get; set; }
+    
     public string AktuaReplikacia { get; set; }
     public string PriemernyCasVObhchode { get; set; }
     public string PriemernyCasPredAutomatom { get; set; }

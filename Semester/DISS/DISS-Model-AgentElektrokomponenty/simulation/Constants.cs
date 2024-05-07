@@ -8,7 +8,8 @@ public class Constants
     {
         Basic = 0,
         Zmluvný = 1,
-        Online = 2
+        Online = 2,
+        Reklamacia = 3
     }
     
     public enum TypVelkostiNakladu
@@ -41,6 +42,7 @@ public class Constants
 
     public static int POCET_DAT_V_GRAFE = 100;
     public static int RADA_PRED_OBSLUZNYM_MIESTOM = 8; // v rátane keď počítam od 0
+    public static int POCET_PRACOVNIKOV_REKLAMACIE = 5;
     
     public static double START_DAY = 9*60*60; // 9:00
     public static double START_ARRIVAL_SIMULATION_TIME = 0; //9:00

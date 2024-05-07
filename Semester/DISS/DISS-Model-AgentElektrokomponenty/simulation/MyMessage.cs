@@ -9,6 +9,7 @@ namespace simulation
         public Person Zakaznik { get; set; }
         public ObsluzneMiesto? ObsluzneMiesto { get; set; }
         public Pokladna? Pokladna { get; set; }
+        public Reklamacia? Reklamacia { get; set; }
 
         /// <summary>
         /// Použité iba pri keď zákazník opúšťa OM po tom čo si bol vydzvihnuť tovar
@@ -63,6 +64,7 @@ namespace simulation
             Pokladna = original.Pokladna;
             TovarVydvihnty = original.TovarVydvihnty;
             SimpleMessage = original.SimpleMessage;
+            Reklamacia = original.Reklamacia;
         }
     }
 }

@@ -39,6 +39,9 @@ namespace managers
 			
 			sprava.Addressee = MyAgent.FindAssistant(SimId.PlanovacPrichodovOnline);
 			StartContinualAssistant(new MyMessage(sprava));
+			
+			sprava.Addressee = MyAgent.FindAssistant(SimId.SchedulerReklamacia);
+			StartContinualAssistant(new MyMessage(sprava));
 		}
 
 		//meta! sender="AgentModelu", id="17", type="Notice"
@@ -121,6 +124,21 @@ namespace managers
 		//meta! sender="SchedulerReklamacia", id="156", type="Finish"
 		public void ProcessFinishSchedulerReklamacia(MessageForm message)
 		{
+			Person tmpPerson = new();
+			((MySimulation)MySim).Persons.Add(tmpPerson);
+			var sprava = (MyMessage)message.CreateCopy();
+			sprava.Zakaznik = tmpPerson;
+			sprava.Addressee = MySim.FindAgent(SimId.AgentModelu);
+			sprava.Code = Mc.NoticePrichodZakaznika;
+			Constants.Log("ManagerOkolia", MySim.CurrentTime, sprava.Zakaznik,"ProcessFinishSchedulerReklamacia - NoticeNovyReklamacia", Constants.LogType.ManagerLog);
+			tmpPerson.TypZakaznika = Constants.TypZakaznika.Reklamacia;
+			
+			Notice(sprava);
+			var NewSprava = new MyMessage(MySim, null){Addressee = MyAgent.FindAssistant(SimId.SchedulerReklamacia)};
+			if (!Constants.DEBUG)
+			{
+				StartContinualAssistant(NewSprava);
+			}
 		}
 
 		//meta! userInfo="Generated code: do not modify", tag="begin"

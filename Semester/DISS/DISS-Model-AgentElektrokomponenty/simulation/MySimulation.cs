@@ -41,9 +41,11 @@ namespace simulation
 
         // RNG
         public RNGPickPokladna RndPickPokladna;
+        public RNGPickPokladna RndPickReklamacia;
         public Exponential RndPrichodZakaznikaBasic;
         public Exponential RndPrichodZakaznikaZmluvny;
         public Exponential RndPrichodZakaznikaOnline;
+        public Exponential RndPrichodZakaznikaReklamacia;
         public Uniform RndTypNarocnostTovaru;
         public Uniform RndTypVelkostiNakladu;
         public Uniform RndTrvanieAutomatu;
@@ -54,6 +56,7 @@ namespace simulation
         public Empiric RndTrvaniePripravaHard;
         public DISS.Random.Discrete.Empiric RndTrvaniePladba;
         public Uniform RndTrvanieVyzdvyhnutieVelkehoTovaru;
+        public Triangular RndTrvanieReklamacie;
 
         // štatistiky
         public int CelkovyPocetZakaznikov { get; set; }
@@ -124,10 +127,12 @@ namespace simulation
             Persons = new();
 
             RndPickPokladna = new(ExtendedRandom<double>.NextSeed(), PocetPokladni);
+            RndPickReklamacia = new(ExtendedRandom<double>.NextSeed(), Constants.POCET_PRACOVNIKOV_REKLAMACIE);
             // (60*60) / 30 lebo je to 30 zákazníkov za hodinu ale systém beží v sekundách tak preto ten prepočet
             RndPrichodZakaznikaBasic = new(((60.0 * 60.0) / (15.0 * Tok)), ExtendedRandom<double>.NextSeed());
             RndPrichodZakaznikaZmluvny = new(((60.0 * 60.0) / (5.0 * Tok)), ExtendedRandom<double>.NextSeed());
             RndPrichodZakaznikaOnline = new(((60.0 * 60.0) / (10.0 * Tok)), ExtendedRandom<double>.NextSeed());
+            RndPrichodZakaznikaReklamacia = new(((60.0 * 60.0) / (10.0 * Tok)), ExtendedRandom<double>.NextSeed());
             RndTypNarocnostTovaru = new(0, 1.0, ExtendedRandom<double>.NextSeed());
             RndTypVelkostiNakladu = new(0, 1.0, ExtendedRandom<double>.NextSeed());
             RndTrvanieAutomatu = new(30.0, 120.0, ExtendedRandom<double>.NextSeed());
@@ -148,6 +153,7 @@ namespace simulation
             listPladba.Add(new(180, 360, 0.6, ExtendedRandom<double>.NextSeed()));
             RndTrvaniePladba = new(listPladba, ExtendedRandom<double>.NextSeed());
             RndTrvanieVyzdvyhnutieVelkehoTovaru = new(30.0, 70.0, ExtendedRandom<double>.NextSeed());
+            RndTrvanieReklamacie = new(5, 8, 10);
 
             // štatistiky
             StatCasStravenyPredAutomatom = new();
@@ -417,6 +423,7 @@ namespace simulation
                         $"{((ManagerObsluzneMiesto)AgentObsluzneMiesto.MyManager).RadaPredObsluznymMiestom.CountOstatne - ((ManagerObsluzneMiesto)AgentObsluzneMiesto.MyManager).RadaPredObsluznymMiestom.CountBasic}/{((ManagerObsluzneMiesto)AgentObsluzneMiesto.MyManager).RadaPredObsluznymMiestom.Count}/{Constants.RADA_PRED_OBSLUZNYM_MIESTOM + 1} - ({StatPriemernaDlzkaRaduPredObsluhouZmluvny.Mean():0.00} - [{confidenceRadaPredObsluznymMiestomZmluvny[0]:0.00} - {confidenceRadaPredObsluznymMiestomZmluvny[1]:0.00}])";
                     _eventData.ObsluzneMiestos = ((ManagerObsluzneMiesto)AgentObsluzneMiesto.MyManager).GetInfoNaUI();
                     _eventData.Pokladne = ((ManagerPokladni)AgentPokladni.MyManager).GetInfoNaUI();
+                    _eventData.Reklamacia = ((ManagerReklamacia)AgentReklamacia.MyManager).ListReklamacia;
                 }
 
                 _eventData.AktuaReplikacia = sim.CurrentReplication.ToString();

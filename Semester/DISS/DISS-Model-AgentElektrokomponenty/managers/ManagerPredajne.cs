@@ -47,9 +47,18 @@ namespace managers
 		{
 			var sprava = (MyMessage)message.CreateCopy();
 			Constants.Log("ManagerPredajne", MySim.CurrentTime, sprava.Zakaznik,"ProcessVstupDoPredajne", Constants.LogType.ManagerLog);
-			sprava.Addressee = MySim.FindAgent(SimId.AgentObsluzneMiesto);
-			sprava.Code = Mc.PocetMiestVRade;
-			Request(sprava);
+			if (sprava.Zakaznik.TypZakaznika == Constants.TypZakaznika.Reklamacia)
+			{
+				sprava.Addressee = MySim.FindAgent(SimId.AgentReklamacia);
+				sprava.Code = Mc.NoticeZaciatokReklamacie;
+				Notice(sprava);
+			}
+			else
+			{
+				sprava.Addressee = MySim.FindAgent(SimId.AgentObsluzneMiesto);
+				sprava.Code = Mc.PocetMiestVRade;
+				Request(sprava);	
+			}
 		}
 
 		//meta! sender="AgentPokladni", id="59", type="Notice"
@@ -121,7 +130,13 @@ namespace managers
 		{
 			var sprava = (MyMessage)message.CreateCopy();
 			Constants.Log("ManagerPredajne", MySim.CurrentTime, sprava.Zakaznik,"ProcessNoticeKoniecPokladne", Constants.LogType.ManagerLog);
-			if (sprava.Zakaznik.TypVelkostiNakladu == Constants.TypVelkostiNakladu.Normálna)
+			if (sprava.Zakaznik.TypZakaznika == Constants.TypZakaznika.Reklamacia)
+			{
+				sprava.Addressee = MySim.FindAgent(SimId.AgentModelu);
+				sprava.Code = Mc.NoticeOdchodZakaznika;
+				Notice(sprava);
+			}
+			else if (sprava.Zakaznik.TypVelkostiNakladu == Constants.TypVelkostiNakladu.Normálna)
 			{
 				sprava.Addressee = MySim.FindAgent(SimId.AgentModelu);
 				sprava.Code = Mc.NoticeOdchodZakaznika;

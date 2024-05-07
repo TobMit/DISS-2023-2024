@@ -35,6 +35,7 @@ public class MainViewModel : ObservableObjects
     private string _radaPredObsluznimiMiestamiZmluvny;
     private ObservableCollection<ObsluzneMiestoModel> _obsluzneMiestos;
     private ObservableCollection<PokladnaModel> _pokladne;
+    private ObservableCollection<ReklamaciaModel> _reklamacie;
     private string _aktulnaReplikacia;
     private string _priemernyCasVObchode;
     private string _priemernyCasPredAutomatom;
@@ -190,6 +191,16 @@ public class MainViewModel : ObservableObjects
         set
         {
             _pokladne = value;
+            OnPropertyChanged();
+        }
+    }
+
+    public ObservableCollection<ReklamaciaModel> Reklamacie
+    {
+        get => _reklamacie;
+        set
+        {
+            _reklamacie = value;
             OnPropertyChanged();
         }
     }
@@ -786,6 +797,14 @@ public class MainViewModel : ObservableObjects
         }
 
         Pokladne = new(tmpPokladne);
+
+        List<ReklamaciaModel> tmpReklamacie = new(Constants.POCET_PRACOVNIKOV_REKLAMACIE);
+        for (int i = 0; i < Constants.POCET_PRACOVNIKOV_REKLAMACIE; i++)
+        {
+            tmpReklamacie.Add(new());
+        }
+
+        Reklamacie = new(tmpReklamacie);
         PauseButtonText = "Pause";
         
         _core = new(pocetObsluznychMiest, pocetPokladni);
@@ -1040,6 +1059,11 @@ public class MainViewModel : ObservableObjects
                 for (int i = 0; i < e.Pokladne.Count; i++)
                 {
                     Pokladne[i].Update(e.Pokladne[i]);
+                }
+
+                for (int i = 0; i < e.Reklamacia.Count; i++)
+                {
+                    Reklamacie[i].Update(e.Reklamacia[i]);
                 }
             }
 

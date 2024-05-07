@@ -556,6 +556,33 @@
 
                             </ListView>
 
+                            <Label
+                                Margin="10"
+                                Style="{StaticResource CustomLabelStyle}"
+                                FontSize="25"
+                                Content="Reklamacia"
+                            />
+
+                            <ListView
+                                Background="Transparent"
+                                KeyboardNavigation.ControlTabNavigation="none"
+                                FocusVisualStyle="{x:Null}"
+                                Focusable="true"
+                                ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                                ItemsSource="{Binding Reklamacie}"
+                                ItemContainerStyle="{StaticResource EntityTheme}"
+                                FlowDirection="LeftToRight"
+                                HorizontalAlignment="Stretch"
+                                VerticalAlignment="Stretch"
+                                BorderThickness="0">
+                                <ListView.ItemsPanel>
+                                    <ItemsPanelTemplate>
+                                        <WrapPanel />
+                                    </ItemsPanelTemplate>
+                                </ListView.ItemsPanel>
+
+                            </ListView>
+
                             <!-- <Grid> -->
                             <!--     <DataGrid -->
                             <!--         ItemsSource="{Binding Peoples}" -->
