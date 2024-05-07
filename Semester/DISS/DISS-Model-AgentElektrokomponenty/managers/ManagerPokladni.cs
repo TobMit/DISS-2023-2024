@@ -67,7 +67,7 @@ namespace managers
 		public void PriradZakaznikaDoRady(MyMessage person)
 		{
 			// spraví list pokladní s najkratšími radami
-			var listPokladni = ListPokladni.Where(p => !p.Break) //todo vyriešiť toto nerobilo dobrotu
+			var listPokladni = ListPokladni.Where(p => !p.Break)
 				.GroupBy(c => c.Queue.Count)
 				.OrderBy(g => g.Key)
 				.FirstOrDefault();
@@ -211,7 +211,7 @@ namespace managers
 				}
 				return;
 			}
-			var pokladna = GetVolnaPokladnaPrazdnyRad(); //todo ak je prestávka tak rovno ide k 1 pokladne
+			var pokladna = GetVolnaPokladnaPrazdnyRad();
 			if (pokladna is not null)
 			{
 				pokladna.ObsadPokladnu(sprava.Zakaznik);

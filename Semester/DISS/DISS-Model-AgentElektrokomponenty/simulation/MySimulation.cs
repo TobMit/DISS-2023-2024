@@ -212,7 +212,6 @@ namespace simulation
 
         protected override void ReplicationFinished()
         {
-            //todo pridať to čo hovorila pf že na konci treba ešte jeden záznam aby sa to správne zobrazovalo
             // Collect local statistics into global, update UI, etc...
             _globPriemernyPocetZakaznikov.AddSample(CelkovyPocetZakaznikov);
             _globCasStravenyPredAutomatom.AddSample(StatCasStravenyPredAutomatom.Mean());
