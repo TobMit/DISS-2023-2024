@@ -267,8 +267,8 @@ namespace managers
 		{
 			switch (message.Code)
 			{
-			case Mc.NoticePrestavkaZaciatok:
-				ProcessNoticePrestavkaZaciatok(message);
+			case Mc.Init:
+				ProcessInit(message);
 			break;
 
 			case Mc.Finish:
@@ -278,22 +278,22 @@ namespace managers
 					ProcessFinishProcessObsluhyPokladni(message);
 				break;
 
-				case SimId.ProcessPrestavky:
-					ProcessFinishProcessPrestavky(message);
-				break;
-
 				case SimId.SchedulerPrestavkaPokladne:
 					ProcessFinishSchedulerPrestavkaPokladne(message);
+				break;
+
+				case SimId.ProcessPrestavky:
+					ProcessFinishProcessPrestavky(message);
 				break;
 				}
 			break;
 
-			case Mc.NoticeZaciatokPokladne:
-				ProcessNoticeZaciatokPokladne(message);
+			case Mc.NoticePrestavkaZaciatok:
+				ProcessNoticePrestavkaZaciatok(message);
 			break;
 
-			case Mc.Init:
-				ProcessInit(message);
+			case Mc.NoticeZaciatokPokladne:
+				ProcessNoticeZaciatokPokladne(message);
 			break;
 
 			default:

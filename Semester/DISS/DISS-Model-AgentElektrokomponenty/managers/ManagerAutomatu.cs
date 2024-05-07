@@ -195,30 +195,6 @@ namespace managers
 		{
 			switch (message.Code)
 			{
-			case Mc.NoticeKoniecObsluhy:
-				ProcessNoticeKoniecObsluhy(message);
-			break;
-
-			case Mc.PocetMiestVRade:
-				ProcessPocetMiestVRade(message);
-			break;
-
-			case Mc.NoticeZatvorenieAutomatu:
-				ProcessNoticeZatvorenieAutomatu(message);
-			break;
-
-			case Mc.NoticeUvolnenieRadu:
-				ProcessNoticeUvolnenieRadu(message);
-			break;
-
-			case Mc.Init:
-				ProcessInit(message);
-			break;
-
-			case Mc.NoticeZaciatokObsluhy:
-				ProcessNoticeZaciatokObsluhy(message);
-			break;
-
 			case Mc.Finish:
 				switch (message.Sender.Id)
 				{
@@ -230,6 +206,30 @@ namespace managers
 					ProcessFinishProcessObsluhaAutomatu(message);
 				break;
 				}
+			break;
+
+			case Mc.NoticeZatvorenieAutomatu:
+				ProcessNoticeZatvorenieAutomatu(message);
+			break;
+
+			case Mc.PocetMiestVRade:
+				ProcessPocetMiestVRade(message);
+			break;
+
+			case Mc.NoticeUvolnenieRadu:
+				ProcessNoticeUvolnenieRadu(message);
+			break;
+
+			case Mc.NoticeZaciatokObsluhy:
+				ProcessNoticeZaciatokObsluhy(message);
+			break;
+
+			case Mc.NoticeKoniecObsluhy:
+				ProcessNoticeKoniecObsluhy(message);
+			break;
+
+			case Mc.Init:
+				ProcessInit(message);
 			break;
 
 			default:

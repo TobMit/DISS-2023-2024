@@ -351,12 +351,12 @@ namespace managers
 			case Mc.Finish:
 				switch (message.Sender.Id)
 				{
-				case SimId.ProcessOMDiktovanie:
-					ProcessFinishProcessOMDiktovanie(message);
-				break;
-
 				case SimId.ProcessOMOnlinePripravaTovaru:
 					ProcessFinishProcessOMOnlinePripravaTovaru(message);
+				break;
+
+				case SimId.ProcessVyzdvihnutieTovaru:
+					ProcessFinishProcessVyzdvihnutieTovaru(message);
 				break;
 
 				case SimId.ProcessOMPripravaTovaru:
@@ -367,26 +367,26 @@ namespace managers
 					ProcessFinishSchedulerPrestavkaOM(message);
 				break;
 
-				case SimId.ProcessVyzdvihnutieTovaru:
-					ProcessFinishProcessVyzdvihnutieTovaru(message);
+				case SimId.ProcessOMDiktovanie:
+					ProcessFinishProcessOMDiktovanie(message);
 				break;
 				}
-			break;
-
-			case Mc.NoticeUvolnenieOm:
-				ProcessNoticeUvolnenieOm(message);
-			break;
-
-			case Mc.NoticePrestavkaKoniec:
-				ProcessNoticePrestavkaKoniec(message);
 			break;
 
 			case Mc.PocetMiestVRade:
 				ProcessPocetMiestVRade(message);
 			break;
 
+			case Mc.NoticeUvolnenieOm:
+				ProcessNoticeUvolnenieOm(message);
+			break;
+
 			case Mc.Init:
 				ProcessInit(message);
+			break;
+
+			case Mc.NoticePrestavkaKoniec:
+				ProcessNoticePrestavkaKoniec(message);
 			break;
 
 			case Mc.NoticeZaciatokObsluhyOm:

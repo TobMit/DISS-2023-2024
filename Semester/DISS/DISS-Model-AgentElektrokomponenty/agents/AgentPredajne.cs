@@ -25,8 +25,9 @@ namespace agents
 		{
 			new ManagerPredajne(SimId.ManagerPredajne, MySim, this);
 			AddOwnMessage(Mc.PocetMiestVRade);
-			AddOwnMessage(Mc.Init);
 			AddOwnMessage(Mc.VstupDoPredajne);
+			AddOwnMessage(Mc.Init);
+			AddOwnMessage(Mc.NoticeKoniecReklamacie);
 			AddOwnMessage(Mc.NoticePrestavkaKoniec);
 			AddOwnMessage(Mc.NoticeUvolnenieRadu);
 			AddOwnMessage(Mc.NoticeKoniecObsluhyOm);

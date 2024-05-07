@@ -24,12 +24,12 @@ namespace agents
 		private void Init()
 		{
 			new ManagerObsluzneMiesto(SimId.ManagerObsluzneMiesto, MySim, this);
-			new ProcessOMOnlinePripravaTovaru(SimId.ProcessOMOnlinePripravaTovaru, MySim, this);
 			new ProcessOMPripravaTovaru(SimId.ProcessOMPripravaTovaru, MySim, this);
-			new ProcessVyzdvihnutieTovaru(SimId.ProcessVyzdvihnutieTovaru, MySim, this);
-			new ActionPridelenieOm(SimId.ActionPridelenieOm, MySim, this);
 			new SchedulerPrestavkaOM(SimId.SchedulerPrestavkaOM, MySim, this);
 			new ProcessOMDiktovanie(SimId.ProcessOMDiktovanie, MySim, this);
+			new ActionPridelenieOm(SimId.ActionPridelenieOm, MySim, this);
+			new ProcessVyzdvihnutieTovaru(SimId.ProcessVyzdvihnutieTovaru, MySim, this);
+			new ProcessOMOnlinePripravaTovaru(SimId.ProcessOMOnlinePripravaTovaru, MySim, this);
 			AddOwnMessage(Mc.PocetMiestVRade);
 			AddOwnMessage(Mc.Init);
 			AddOwnMessage(Mc.NoticeZaciatokObsluhyOm);

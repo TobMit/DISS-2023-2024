@@ -9,6 +9,8 @@ namespace simulation
 		public const int NoticeOdchodZakaznika = 1002;
 		public const int NoticePrichodZakaznika = 1003;
 		public const int Init = 1004;
+		public const int NoticeZaciatokReklamacie = 1048;
+		public const int NoticeKoniecReklamacie = 1049;
 		public const int VstupDoPredajne = 1010;
 		public const int NoticeZaciatokObsluhy = 1011;
 		public const int NoticeKoniecObsluhy = 1012;

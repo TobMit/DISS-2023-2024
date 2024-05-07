@@ -118,6 +118,11 @@ namespace managers
 			}
 		}
 
+		//meta! sender="SchedulerReklamacia", id="156", type="Finish"
+		public void ProcessFinishSchedulerReklamacia(MessageForm message)
+		{
+		}
+
 		//meta! userInfo="Generated code: do not modify", tag="begin"
 		public void Init()
 		{
@@ -127,6 +132,10 @@ namespace managers
 		{
 			switch (message.Code)
 			{
+			case Mc.Init:
+				ProcessInit(message);
+			break;
+
 			case Mc.Finish:
 				switch (message.Sender.Id)
 				{
@@ -134,18 +143,18 @@ namespace managers
 					ProcessFinishPlanovacPrichodovBasic(message);
 				break;
 
+				case SimId.PlanovacPrichodovZmluvny:
+					ProcessFinishPlanovacPrichodovZmluvny(message);
+				break;
+
 				case SimId.PlanovacPrichodovOnline:
 					ProcessFinishPlanovacPrichodovOnline(message);
 				break;
 
-				case SimId.PlanovacPrichodovZmluvny:
-					ProcessFinishPlanovacPrichodovZmluvny(message);
+				case SimId.SchedulerReklamacia:
+					ProcessFinishSchedulerReklamacia(message);
 				break;
 				}
-			break;
-
-			case Mc.Init:
-				ProcessInit(message);
 			break;
 
 			case Mc.NoticeOdchodZakaznika:

@@ -320,6 +320,7 @@ namespace simulation
 			AgentOkolia = new AgentOkolia(SimId.AgentOkolia, this, AgentModelu);
 			AgentPredajne = new AgentPredajne(SimId.AgentPredajne, this, AgentModelu);
 			AgentPokladni = new AgentPokladni(SimId.AgentPokladni, this, AgentPredajne);
+			AgentReklamacia = new AgentReklamacia(SimId.AgentReklamacia, this, AgentPredajne);
 			AgentAutomatu = new AgentAutomatu(SimId.AgentAutomatu, this, AgentPredajne);
 			AgentObsluzneMiesto = new AgentObsluzneMiesto(SimId.AgentObsluzneMiesto, this, AgentPredajne);
 		}
@@ -330,6 +331,8 @@ namespace simulation
 		public AgentPredajne AgentPredajne
 		{ get; set; }
 		public AgentPokladni AgentPokladni
+		{ get; set; }
+		public AgentReklamacia AgentReklamacia
 		{ get; set; }
 		public AgentAutomatu AgentAutomatu
 		{ get; set; }

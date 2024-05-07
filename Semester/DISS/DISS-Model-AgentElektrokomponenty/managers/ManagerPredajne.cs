@@ -161,6 +161,11 @@ namespace managers
 			Notice(sprava);
 		}
 
+		//meta! sender="AgentReklamacia", id="153", type="Notice"
+		public void ProcessNoticeKoniecReklamacie(MessageForm message)
+		{
+		}
+
 		//meta! userInfo="Generated code: do not modify", tag="begin"
 		public void Init()
 		{
@@ -170,10 +175,6 @@ namespace managers
 		{
 			switch (message.Code)
 			{
-			case Mc.NoticePrestavkaKoniec:
-				ProcessNoticePrestavkaKoniec(message);
-			break;
-
 			case Mc.PocetMiestVRade:
 				switch (message.Sender.Id)
 				{
@@ -187,32 +188,40 @@ namespace managers
 				}
 			break;
 
-			case Mc.NoticePrestavkaZaciatok:
-				ProcessNoticePrestavkaZaciatok(message);
+			case Mc.NoticeKoniecReklamacie:
+				ProcessNoticeKoniecReklamacie(message);
+			break;
+
+			case Mc.NoticeKoniecObsluhy:
+				ProcessNoticeKoniecObsluhy(message);
 			break;
 
 			case Mc.NoticeKoniecPokladne:
 				ProcessNoticeKoniecPokladne(message);
 			break;
 
-			case Mc.Init:
-				ProcessInit(message);
-			break;
-
 			case Mc.VstupDoPredajne:
 				ProcessVstupDoPredajne(message);
 			break;
 
-			case Mc.NoticeKoniecObsluhyOm:
-				ProcessNoticeKoniecObsluhyOm(message);
+			case Mc.Init:
+				ProcessInit(message);
+			break;
+
+			case Mc.NoticePrestavkaZaciatok:
+				ProcessNoticePrestavkaZaciatok(message);
 			break;
 
 			case Mc.NoticeUvolnenieRadu:
 				ProcessNoticeUvolnenieRadu(message);
 			break;
 
-			case Mc.NoticeKoniecObsluhy:
-				ProcessNoticeKoniecObsluhy(message);
+			case Mc.NoticeKoniecObsluhyOm:
+				ProcessNoticeKoniecObsluhyOm(message);
+			break;
+
+			case Mc.NoticePrestavkaKoniec:
+				ProcessNoticePrestavkaKoniec(message);
 			break;
 
 			default:
