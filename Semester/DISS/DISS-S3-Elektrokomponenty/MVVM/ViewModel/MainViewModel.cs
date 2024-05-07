@@ -801,6 +801,14 @@ public class MainViewModel : ObservableObjects
             UpdateUI(((MySimulation)simulation).GetUIData((MySimulation)simulation));
             StopModel();
         });
+
+        _core.OnReplicationWillStart(simulation =>
+        {
+            if (SlowDown)
+            {
+                _core.SetSimSpeed(_sliderValue / Constants.POCET_UPDATOV_ZA_SEKUNDU, 1.0 / Constants.POCET_UPDATOV_ZA_SEKUNDU);
+            }
+        });
         
         _core.OnRefreshUI(simulation =>
         {
@@ -1018,9 +1026,7 @@ public class MainViewModel : ObservableObjects
             e.NewData = false;
             if (e.ShallowUpdate)
             {
-                //todo prerobyť na string list
                 Peoples = new(e.People);
-
                 RadaPredAutomatom = e.RadaPredAutomatom;
                 Automat.Update(e.AutomatObsah, e.AutomatObsadeny);
                 RadaPredObsluznimiMiestamiOnline = e.RadaPredObsluznimiMiestamiOnline;

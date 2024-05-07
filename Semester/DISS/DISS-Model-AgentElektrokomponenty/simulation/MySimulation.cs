@@ -69,6 +69,7 @@ namespace simulation
         public List<WStat> ListStatPriemerneDlzkyRadovPredPokladnami;
         public List<WStat> ListStatPriemerneVytazeniePokladni;
         public int PocetObsluzenychZakaznikov { get; set; }
+        public int PocetVyhodenychZakaznikov { get; set; }
 
         // Globálne štatistiky
         private Stat _globPriemernyCasVObchode;
@@ -206,6 +207,7 @@ namespace simulation
             ListStatPriemerneDlzkyRadovPredPokladnami.ForEach(stat => stat.Clear());
             ListStatPriemerneVytazeniePokladni.ForEach(stat => stat.Clear());
             PocetObsluzenychZakaznikov = 0;
+            PocetVyhodenychZakaznikov = 0;
         }
 
         protected override void ReplicationFinished()

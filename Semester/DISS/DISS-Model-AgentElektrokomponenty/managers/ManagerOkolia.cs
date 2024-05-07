@@ -53,8 +53,11 @@ namespace managers
 			sprava.Zakaznik.StavZakaznika = Constants.StavZakaznika.OdišielZPredajne;
 			((MySimulation)MySim).PocetObsluzenychZakaznikov++;
 			
-			//todo add priemerny odchod zo systému
 			((MySimulation)MySim).StatPriemernyCasVObchode.AddSample(MySim.CurrentTime - sprava.Zakaznik.TimeOfArrival);
+			if (MySim.CurrentTime >= Constants.END_ARRIVAL_SIMULATION_TIME && ((MySimulation)MySim).CelkovyPocetZakaznikov == ((MySimulation)MySim).PocetObsluzenychZakaznikov + ((MySimulation)MySim).PocetVyhodenychZakaznikov)
+			{
+				MySim.StopReplication();
+			}
 		}
 
 		//meta! sender="PlanovacPrichodovOnline", id="78", type="Finish"

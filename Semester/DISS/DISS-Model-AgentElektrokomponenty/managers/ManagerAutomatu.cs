@@ -63,8 +63,7 @@ namespace managers
 		public void ProcessFinishSchedulerZatvorenieAutomatu(MessageForm message)
 		{
 			Constants.Log("ManagerAutomatu", MySim.CurrentTime, new (),"ProcessFinishSchedulerZatvorenieAutomatu", Constants.LogType.ManagerLog);
-			
-			//todo add logics + statistics
+			((MySimulation)MySim).PocetVyhodenychZakaznikov = Front.Count;
 			while (!Front.IsEmpty())
 			{
 				var spravaNew = Front.Dequeue();
@@ -134,6 +133,7 @@ namespace managers
 		public void ProcessNoticeZatvorenieAutomatu(MessageForm message)
 		{
 			Constants.Log("ManagerAutomatu", MySim.CurrentTime, null,"ProcessNoticeZatvorenieAutomatu", Constants.LogType.ManagerLog);
+			((MySimulation)MySim).PocetVyhodenychZakaznikov = Front.Count;
 			while (!Front.IsEmpty())
 			{
 			  var spravaNew = Front.Dequeue();
