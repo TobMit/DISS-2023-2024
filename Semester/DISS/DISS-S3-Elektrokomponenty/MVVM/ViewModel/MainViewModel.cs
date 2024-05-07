@@ -48,10 +48,10 @@ public class MainViewModel : ObservableObjects
     private string _priemerneVytazeniePokladni;
     private string _priemerneVytazenieObsluhyOnline;
     private string _priemerneVytazenieObsluhyOstatne;
-    private string _intervalSpolahlivosti;
     private ObservableCollection<String> _peoples;
     private bool _slowDown;
     private bool _break;
+    private bool _zvysenyTok;
     private Visibility _replicationDetailVisibility;
     private double _sliderValue;
     private bool _behZavisloti;
@@ -350,19 +350,6 @@ public class MainViewModel : ObservableObjects
         }
     }
 
-    public string IntervalSpolahlivsti
-    {
-        get => _intervalSpolahlivosti;
-        set
-        {
-            if (String.Compare(value, _intervalSpolahlivosti, StringComparison.Ordinal) != 0)
-            {
-                _intervalSpolahlivosti = value;
-                OnPropertyChanged();
-            }
-        }
-    }
-
     public ObservableCollection<string> Peoples
     {
         get => _peoples;
@@ -409,6 +396,19 @@ public class MainViewModel : ObservableObjects
             if (value != _break)
             {
                 _break = value;
+                OnPropertyChanged();
+            }
+        }
+    }
+
+    public bool ZvysenyTok
+    {
+        get => _zvysenyTok;
+        set
+        {
+            if (value != _zvysenyTok)
+            {
+                _zvysenyTok = value;
                 OnPropertyChanged();
             }
         }
@@ -500,12 +500,12 @@ public class MainViewModel : ObservableObjects
     public MainViewModel()
     {
         InicialiseButtons();
-        PocetReplikacii = "25_000";
-        PocetObsluznychMiest = "13";
-        PocetPokladni = "4";
+        PocetReplikacii = "10_000";
+        PocetObsluznychMiest = "14";
+        PocetPokladni = "6";
         PauseButtonText = "Pause";
-        CutFirst = "4000";
-        SliderValue = 130;
+        CutFirst = "200";
+        SliderValue = 120;
 
         AktualnaReplikacia = "-/-";
         PriemernaDlzkaRaduPredAutomatom = "-/-";
@@ -520,7 +520,6 @@ public class MainViewModel : ObservableObjects
         PriemerneVytazeniePokladni = "[-/-]...";
         PriemerneVytazenieObsluhyOnline = "[-/-]...";
         PriemerneVytazenieObsluhyOstatne = "[-/-]";
-        IntervalSpolahlivsti = "[-/-] - [-/-] / [-/-] - [-/-]";
 
         RadaPredAutomatom = "-/-";
         RadaPredObsluznimiMiestamiOnline = "-/-";
@@ -530,6 +529,7 @@ public class MainViewModel : ObservableObjects
         SimulationTime = "-/-";
         SlowDown = false;
         Break = false;
+        ZvysenyTok = false;
         ReplicationDetial = Visibility.Collapsed;
         BehZavisloti = false;
         BehZavislotiVisibility = Visibility.Collapsed;
@@ -625,7 +625,8 @@ public class MainViewModel : ObservableObjects
             {
                 SlowDown = false,
                 BehZavislosti = true,
-                Break = _break
+                Break = _break,
+                ZvysenyTok = _zvysenyTok
             };
             _behZavislotiCore1.OnReplicationDidFinish(simulation =>
             {
@@ -652,7 +653,8 @@ public class MainViewModel : ObservableObjects
             {
                 SlowDown = false,
                 BehZavislosti = true,
-                Break = _break
+                Break = _break,
+                ZvysenyTok = _zvysenyTok
             };
             _behZavislotiCore2.OnReplicationDidFinish(simulation =>
             {
@@ -679,7 +681,8 @@ public class MainViewModel : ObservableObjects
             {
                 SlowDown = false,
                 BehZavislosti = true,
-                Break = _break
+                Break = _break,
+                ZvysenyTok = _zvysenyTok
             };
             _behZavislotiCore3.OnReplicationDidFinish(simulation =>
             {
@@ -706,7 +709,8 @@ public class MainViewModel : ObservableObjects
             {
                 SlowDown = false,
                 BehZavislosti = true,
-                Break = _break
+                Break = _break,
+                ZvysenyTok = _zvysenyTok
             };
             _behZavislotiCore4.OnReplicationDidFinish(simulation =>
             {
@@ -733,7 +737,8 @@ public class MainViewModel : ObservableObjects
             {
                 SlowDown = false,
                 BehZavislosti = true,
-                Break = _break
+                Break = _break,
+                ZvysenyTok = _zvysenyTok
             };
             _behZavislotiCore5.OnReplicationDidFinish(simulation =>
             {
@@ -810,6 +815,7 @@ public class MainViewModel : ObservableObjects
         }
 
         _core.Break = _break;
+        _core.ZvysenyTok = _zvysenyTok;
         
         Task.Run(() => _core.Simulate(pocetReplikacii));
     }
@@ -1044,7 +1050,6 @@ public class MainViewModel : ObservableObjects
             PriemerneVytazeniePokladni = e.PriemerneVytazeniePokladni;
             PriemerneVytazenieObsluhyOnline = e.PriemerneVytazenieObsluhyOnline;
             PriemerneVytazenieObsluhyOstatne = e.PriemerneVytazenieObsluhyOstatne;
-            IntervalSpolahlivsti = e.IntervalSpolahlivstiCasuVsysteme;
         }
     }
 
