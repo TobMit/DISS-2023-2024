@@ -38,7 +38,7 @@ public class MainViewModel : ObservableObjects
     private string _aktulnaReplikacia;
     private string _priemernyCasVObchode;
     private string _priemernyCasPredAutomatom;
-    private string _priemernaDlzkaRaduPredAutomatom;
+    private string _pocetZakaznikov;
     private string _priemernyOdchodPoslednehoZakaznika;
     private string _priemernyPocetZakaznikov;
     private string _priemernyPocetObsluzenychZakaznikov;
@@ -220,14 +220,14 @@ public class MainViewModel : ObservableObjects
         }
     }
 
-    public string PriemernaDlzkaRaduPredAutomatom
+    public string PocetZakaznikov
     {
-        get => _priemernaDlzkaRaduPredAutomatom;
+        get => _pocetZakaznikov;
         set
         {
-            if (String.Compare(value, _priemernaDlzkaRaduPredAutomatom, StringComparison.Ordinal) != 0)
+            if (String.Compare(value, _pocetZakaznikov, StringComparison.Ordinal) != 0)
             {
-                _priemernaDlzkaRaduPredAutomatom = value;
+                _pocetZakaznikov = value;
                 OnPropertyChanged();
             }
         }
@@ -508,7 +508,7 @@ public class MainViewModel : ObservableObjects
         SliderValue = 120;
 
         AktualnaReplikacia = "-/-";
-        PriemernaDlzkaRaduPredAutomatom = "-/-";
+        PocetZakaznikov = "-/-";
         PriemernyCasPredAutomatom = "-/-";
         PriemernyCasVObchode = "-/-";
         PriemernyPocetZakaznikov = "-/-";
@@ -1040,7 +1040,7 @@ public class MainViewModel : ObservableObjects
             AktualnaReplikacia = e.AktuaReplikacia;
             PriemernyCasVObchode = e.PriemernyCasVObhchode;
             PriemernyCasPredAutomatom = e.PriemernyCasPredAutomatom;
-            PriemernaDlzkaRaduPredAutomatom = e.PriemernaDlzkaraduPredAutomatom;
+            PocetZakaznikov = e.PriemernaDlzkaraduPredAutomatom;
             PriemernyOdchodPoslednehoZakaznika = e.PriemernyOdchodPoslednehoZakaznika;
             PriemernyPocetZakaznikov = e.PriemernyPocetZakaznikov;
             PriemernyPocetObsluzenychZakaznikov = e.PriemernyPocetObsluzenychZakaznikov;
@@ -1108,7 +1108,7 @@ public class MainViewModel : ObservableObjects
                 AktualnaReplikacia = e.AktuaReplikacia;
                 PriemernyCasVObchode = e.PriemernyCasVObhchode;
                 PriemernyCasPredAutomatom = e.PriemernyCasPredAutomatom;
-                PriemernaDlzkaRaduPredAutomatom = e.PriemernaDlzkaraduPredAutomatom;
+                PocetZakaznikov = e.PriemernaDlzkaraduPredAutomatom;
                 PriemernyOdchodPoslednehoZakaznika = e.PriemernyOdchodPoslednehoZakaznika;
                 PriemernyPocetZakaznikov = e.PriemernyPocetZakaznikov;
                 PriemernyPocetObsluzenychZakaznikov = e.PriemernyPocetObsluzenychZakaznikov;

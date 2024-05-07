@@ -271,7 +271,7 @@
                                     Content="Priemerná dĺžka pred Automatom:"
                                     FontSize="15" />
                                 <TextBlock
-                                    Text="{Binding PriemernaDlzkaRaduPredAutomatom}"
+                                    Text="{Binding PocetZakaznikov}"
                                     Margin="0,0,0,8"
                                     Foreground="White"
                                     FontSize="20"
@@ -424,7 +424,7 @@
                                             Margin="10,0,10,5">
                                     <Label
                                         Style="{StaticResource CustomLabelStyle}"
-                                        Content="Dĺžka frontu pred automatom:"
+                                        Content="Počet zákazníkov / Počet obslúžených zákazníkov:"
                                         FontSize="15" />
                                     <TextBlock
                                         Text="{Binding RadaPredAutomatom}"

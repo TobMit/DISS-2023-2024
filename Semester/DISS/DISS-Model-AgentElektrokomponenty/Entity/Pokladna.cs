@@ -24,6 +24,8 @@ public class Pokladna
 
     public WStat PriemerneVytazeniePredajne { get; set; }
 
+    public WStat PriemernaDlzkaRadu { get; set; }
+
     public Pokladna(int id, WStat pPriemernaDlzkaRadu, WStat pPriemerneVytazenie)
     {
         Queue = new(pPriemernaDlzkaRadu);
@@ -31,6 +33,7 @@ public class Pokladna
         Person = null;
         Name = $"Pokladňa {ID}.";
         PriemerneVytazeniePredajne = pPriemerneVytazenie;
+        PriemernaDlzkaRadu = pPriemernaDlzkaRadu;
         Break = false;
         ObsluhujeOm = false;
     }
@@ -44,6 +47,7 @@ public class Pokladna
         Obsadena = false;
         Person = null;
         PriemerneVytazeniePredajne.Clear();
+        PriemernaDlzkaRadu.Clear();
         Break = false;
         ObsluhujeOm = false;
     }
@@ -85,25 +89,31 @@ public class Pokladna
         {
             vytaznie = PriemerneVytazeniePredajne.Mean() * 100;
         }
+        
+        double dlzkaRadu = 0;
+        if (PriemernaDlzkaRadu.SampleSize > 0)
+        {
+            dlzkaRadu = PriemernaDlzkaRadu.Mean();
+        }
 
         if (Break)
         {
-            return $"Pokladňa {ID}: \n\t- Voľná\n\t- Predavač: na prestávke\n\t- Rada: {Queue.Count}\n\t- Vyťaženie: {vytaznie:0.00}%";
+            return $"Pokladňa {ID}: \n\t- Voľná\n\t- Predavač: na prestávke\n\t- Rada: {Queue.Count}\n\t- Dlzka radu: {dlzkaRadu:0.00}\n\t- Vyťaženie: {vytaznie:0.00}%";
         }
 
         if (ObsluhujeOm)
         {
             if (Person is null)
             {
-                return $"Pokladňa {ID}: \n\t- Voľná\n\t- Predavač OM: nečinný\n\t- Rada: {Queue.Count}\n\t- Vyťaženie: {vytaznie:0.00}%";
+                return $"Pokladňa {ID}: \n\t- Voľná\n\t- Predavač OM: nečinný\n\t- Rada: {Queue.Count}\n\t- Dlzka radu: {dlzkaRadu:0.00}\n\t- Vyťaženie: {vytaznie:0.00}%";
             }
-            return $"Pokladňa {ID}: \n\t- Stojí Person: {Person?.ID} \n\t- Predavač OM: vybavuje platbu\n\t- Rada: {Queue.Count}\n\t- Vyťaženie: {vytaznie:0.00}%";
+            return $"Pokladňa {ID}: \n\t- Stojí Person: {Person?.ID} \n\t- Predavač OM: vybavuje platbu\n\t- Rada: {Queue.Count}\n\t- Dlzka radu: {dlzkaRadu:0.00}\n\t- Vyťaženie: {vytaznie:0.00}%";
         }
         
         if (Person is null)
         {
-            return $"Pokladňa {ID}: \n\t- Voľná\n\t- Predavač: nečinný\n\t- Rada: {Queue.Count}\n\t- Vyťaženie: {vytaznie:0.00}%";
+            return $"Pokladňa {ID}: \n\t- Voľná\n\t- Predavač: nečinný\n\t- Rada: {Queue.Count}\n\t- Dlzka radu: {dlzkaRadu:0.00}\n\t- Vyťaženie: {vytaznie:0.00}%";
         }
-        return $"Pokladňa {ID}: \n\t- Stojí Person: {Person?.ID} \n\t- Predavač: vybavuje platbu\n\t- Rada: {Queue.Count}\n\t- Vyťaženie: {vytaznie:0.00}%";
+        return $"Pokladňa {ID}: \n\t- Stojí Person: {Person?.ID} \n\t- Predavač: vybavuje platbu\n\t- Rada: {Queue.Count}\n\t- Dlzka radu: {dlzkaRadu:0.00}\n\t- Vyťaženie: {vytaznie:0.00}%";
     }
 }

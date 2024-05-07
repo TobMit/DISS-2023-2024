@@ -253,16 +253,16 @@ namespace managers
 			{
 				vytaznie = ((MySimulation)MySim).StatVyuzitieAutomatu.Mean() * 100;
 			}
-			double ldzkaRadu = 0;
+			double dlzkaRadu = 0;
 			if (((MySimulation)MySim).StatPriemernaDlzkaRaduPredAutomatom.SampleSize > 0)
 			{
-				ldzkaRadu = ((MySimulation)MySim).StatPriemernaDlzkaRaduPredAutomatom.Mean();
+				dlzkaRadu = ((MySimulation)MySim).StatPriemernaDlzkaRaduPredAutomatom.Mean();
 			}
 			if (_person is null)
 			{
-				return $"Automat: \n\t- Voľný \n\t- Vyťaženie: {vytaznie:0.00}%\n\t- Dĺžka radu: {ldzkaRadu:0.00}";
+				return $"Automat: \n\t- Voľný \n\t- Vyťaženie: {vytaznie:0.00}%\n\t- Front: {Front.Count}\n\t- Dĺžka radu: {dlzkaRadu:0.00}";
 			}
-			return $"Automat: \n\t- Stojí Person: {_person?.ID}\n\t- Vyťaženie: {vytaznie:0.00}%\n\t- Dĺžka radu: {ldzkaRadu:0.00}";
+			return $"Automat: \n\t- Stojí Person: {_person?.ID}\n\t- Vyťaženie: {vytaznie:0.00}%\n\t- Front: {Front.Count}\n\t- Dĺžka radu: {dlzkaRadu:0.00}";
 		}
 	}
 }

@@ -383,15 +383,15 @@ namespace simulation
                         .ToList();
                     _eventData.People.Insert(0,"ID\t  | Typ Zákazníka \t | Typ naroč. tovar\t | Typ veľko. nákl. \t | Stav zákazníka");
                     
-                    _eventData.RadaPredAutomatom = $"Rada pred automatom: {((ManagerAutomatu)AgentAutomatu.MyManager).Front.Count}";
+                    _eventData.RadaPredAutomatom = $"{CelkovyPocetZakaznikov} / {PocetObsluzenychZakaznikov}";
                     _eventData.AutomatObsah = ((ManagerAutomatu)AgentAutomatu.MyManager).GuiToString();
                     _eventData.AutomatObsadeny = ((ManagerAutomatu)AgentAutomatu.MyManager).Obsluhuje;
                     _eventData.RadaPredObsluznimiMiestamiOnline =
-                        $"{((ManagerObsluzneMiesto)AgentObsluzneMiesto.MyManager).RadaPredObsluznymMiestom.CountOnline}/{((ManagerObsluzneMiesto)AgentObsluzneMiesto.MyManager).RadaPredObsluznymMiestom.Count}/{Constants.RADA_PRED_OBSLUZNYM_MIESTOM + 1}";
+                        $"{((ManagerObsluzneMiesto)AgentObsluzneMiesto.MyManager).RadaPredObsluznymMiestom.CountOnline}/{((ManagerObsluzneMiesto)AgentObsluzneMiesto.MyManager).RadaPredObsluznymMiestom.Count}/{Constants.RADA_PRED_OBSLUZNYM_MIESTOM + 1} - {StatPriemernaDlzkaRaduPredObsluhouOnline.Mean():0.00}";
                     _eventData.RadaPredObsluznimiMiestamiBasic =
-                        $"{((ManagerObsluzneMiesto)AgentObsluzneMiesto.MyManager).RadaPredObsluznymMiestom.CountBasic}/{((ManagerObsluzneMiesto)AgentObsluzneMiesto.MyManager).RadaPredObsluznymMiestom.Count}/{Constants.RADA_PRED_OBSLUZNYM_MIESTOM + 1}";
+                        $"{((ManagerObsluzneMiesto)AgentObsluzneMiesto.MyManager).RadaPredObsluznymMiestom.CountBasic}/{((ManagerObsluzneMiesto)AgentObsluzneMiesto.MyManager).RadaPredObsluznymMiestom.Count}/{Constants.RADA_PRED_OBSLUZNYM_MIESTOM + 1} - {StatPriemernaDlzkaRaduPredObsluhouBasic.Mean():0.00}";
                     _eventData.RadaPredObsluznimiMiestamiZmluvny =
-                        $"{((ManagerObsluzneMiesto)AgentObsluzneMiesto.MyManager).RadaPredObsluznymMiestom.CountOstatne - ((ManagerObsluzneMiesto)AgentObsluzneMiesto.MyManager).RadaPredObsluznymMiestom.CountBasic}/{((ManagerObsluzneMiesto)AgentObsluzneMiesto.MyManager).RadaPredObsluznymMiestom.Count}/{Constants.RADA_PRED_OBSLUZNYM_MIESTOM + 1}";
+                        $"{((ManagerObsluzneMiesto)AgentObsluzneMiesto.MyManager).RadaPredObsluznymMiestom.CountOstatne - ((ManagerObsluzneMiesto)AgentObsluzneMiesto.MyManager).RadaPredObsluznymMiestom.CountBasic}/{((ManagerObsluzneMiesto)AgentObsluzneMiesto.MyManager).RadaPredObsluznymMiestom.Count}/{Constants.RADA_PRED_OBSLUZNYM_MIESTOM + 1} - {StatPriemernaDlzkaRaduPredObsluhouZmluvny.Mean():0.00}";
                     _eventData.ObsluzneMiestos = ((ManagerObsluzneMiesto)AgentObsluzneMiesto.MyManager).GetInfoNaUI();
                     _eventData.Pokladne = ((ManagerPokladni)AgentPokladni.MyManager).GetInfoNaUI();
                 }
