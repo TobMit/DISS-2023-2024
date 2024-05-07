@@ -105,8 +105,7 @@
                 Style="{StaticResource CustomCheckBoxStyle}"
                 IsChecked="{Binding Break, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                 Content="Prestávka"
-                Margin="17,0,0,0"
-                Visibility="{Binding BehZavislotiVisibilityOstatne}"/>
+                Margin="17,0,0,0"/>
 
             <Label
                 Style="{StaticResource CustomLabelStyle}"

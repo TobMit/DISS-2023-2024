@@ -624,7 +624,8 @@ public class MainViewModel : ObservableObjects
             _behZavislotiCore1 = new (pocetObsluznychMiest, 2)
             {
                 SlowDown = false,
-                BehZavislosti = true
+                BehZavislosti = true,
+                Break = _break
             };
             _behZavislotiCore1.OnReplicationDidFinish(simulation =>
             {
@@ -650,7 +651,8 @@ public class MainViewModel : ObservableObjects
             _behZavislotiCore2 = new (pocetObsluznychMiest, 3)
             {
                 SlowDown = false,
-                BehZavislosti = true
+                BehZavislosti = true,
+                Break = _break
             };
             _behZavislotiCore2.OnReplicationDidFinish(simulation =>
             {
@@ -676,7 +678,8 @@ public class MainViewModel : ObservableObjects
             _behZavislotiCore3 = new (pocetObsluznychMiest, 4)
             {
                 SlowDown = false,
-                BehZavislosti = true
+                BehZavislosti = true,
+                Break = _break
             };
             _behZavislotiCore3.OnReplicationDidFinish(simulation =>
             {
@@ -702,7 +705,8 @@ public class MainViewModel : ObservableObjects
             _behZavislotiCore4 = new (pocetObsluznychMiest, 5)
             {
                 SlowDown = false,
-                BehZavislosti = true
+                BehZavislosti = true,
+                Break = _break
             };
             _behZavislotiCore4.OnReplicationDidFinish(simulation =>
             {
@@ -728,7 +732,8 @@ public class MainViewModel : ObservableObjects
             _behZavislotiCore5 = new ( pocetObsluznychMiest, 6)
             {
                 SlowDown = false,
-                BehZavislosti = true
+                BehZavislosti = true,
+                Break = _break
             };
             _behZavislotiCore5.OnReplicationDidFinish(simulation =>
             {
